@@ -18,7 +18,7 @@ class PaymentStatus(HtmlReport):
         output = ""
 
         total_amount, curr = p.total_amount
-        total_open_amount, curr = p.total_open_amount
+        total_open_amount, curr = p.open_amount
 
         if with_title:
             output += "<h1>Payment Status</h1>"

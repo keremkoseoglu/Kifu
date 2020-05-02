@@ -24,8 +24,16 @@ PERIOD_YEARLY = "Y"
 _PAYMENT_FILE = "payment.json"
 
 
-def delete_payments(payment_guids: []):
+def delete_completed_payments():
+    completed_guids = []
+    for completed_payment in get_completed_payments():
+        completed_guids.append(completed_payment.guid)
+    delete_payments(completed_guids)
 
+
+def delete_payments(payment_guids: []):
+    if payment_guids is None or len(payment_guids) <= 0:
+        return
     all_payments = get_payments()
     new_payments = {"payments": []}
     for i in range(len(all_payments["payments"])):
@@ -56,7 +64,6 @@ def get_approaching_or_late_recurrences() -> []:
         o2[2].sort(key=lambda x: x.realistic_payment_date)
 
     output.sort(key=lambda x: x[2][0].realistic_payment_date)
-
     return output
 
 
@@ -65,10 +72,9 @@ def get_completed_payments() -> []:
 
     for pay in get_payments()["payments"]:
         pay_obj = Payment(pay)
-        if len(pay_obj.scheme.recurrences) == 0:
-            open_amount, open_curr = pay_obj.open_amount
-            if pay_obj.cleared or open_amount == 0:
-                output.append(pay_obj)
+        open_amount, open_curr = pay_obj.open_amount
+        if pay_obj.cleared or open_amount == 0:
+            output.append(pay_obj)
 
     return output
 
@@ -138,7 +144,7 @@ def get_payment_balance() -> float:
         if direction == DIRECTION_TRANSFER:
             continue
 
-        open_payment_amount = payment.total_open_amount_in_local_currency
+        open_payment_amount = payment.open_amount_in_local_currency
 
         if direction == DIRECTION_IN:
             output += open_payment_amount
@@ -409,7 +415,6 @@ def _write_payments_to_disk(payments: {}):
 
 
 class Collection:
-
     def __init__(self, collection: dict):
         self._collection = collection
 
@@ -431,7 +436,6 @@ class Collection:
 
 
 class Recurrence:
-
     def __init__(self, recurrence: dict):
         self._recurrence = recurrence
 
@@ -728,8 +732,11 @@ class Payment:
         scheme = self.scheme
 
         open_amount, open_currency = self.amount
-        if not scheme.repeats_forever:
-            open_amount *= self.scheme.repeat
+
+        if scheme.repeats_forever:
+            return open_amount, open_currency
+
+        open_amount *= self.scheme.repeat
 
         for rec in self.scheme.recurrences:
             paid_amount, paid_currency = rec.paid_amount
@@ -737,6 +744,14 @@ class Payment:
             open_amount -= converted_paid_amount
 
         return open_amount, open_currency
+
+    @property
+    def open_amount_in_local_currency(self) -> float:
+        open_amount, curr = self.open_amount
+        local_amount = CurrencyConverter().convert_to_local_currency(
+            open_amount,
+            curr)
+        return local_amount
 
     @property
     def scheme(self) -> Scheme:
@@ -752,32 +767,6 @@ class Payment:
         amt, curr = self.amount
         amt *= self.scheme.repeat
         return amt, curr
-
-    @property
-    def total_open_amount(self) -> tuple:
-        open_amount, curr = self.total_amount
-
-        if self.cleared:
-            return 0, curr
-
-        scheme = self.scheme
-        if scheme.repeats_forever:
-            return open_amount, curr
-
-        for recurrence in scheme.recurrences:
-            paid_amount, paid_curr = recurrence.paid_amount
-            assert curr == paid_curr
-            open_amount -= paid_amount
-
-        return open_amount, curr
-
-    @property
-    def total_open_amount_in_local_currency(self) -> float:
-        open_amount, curr = self.total_open_amount
-        local_amount = CurrencyConverter().convert_to_local_currency(
-            open_amount,
-            curr)
-        return local_amount
 
     @property
     def cleared(self) -> bool:
@@ -1179,4 +1168,3 @@ def get_payment_with_guid(guid: str) -> Payment:
         if pay["guid"] == guid:
             return Payment(pay)
     return None
-
