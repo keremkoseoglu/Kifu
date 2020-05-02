@@ -8,7 +8,7 @@ from gui import payment, payment_list, pay_vat, activity_split, buy_foreign_curr
 from config.constants import DATA_DIR_PATH, GUI_CELL_HEIGHT
 from model import notification, payment as payment_model
 from model.activity import Activity
-from model.payment import get_companies_without_payment
+from model.payment import delete_completed_payments, get_companies_without_payment
 from report import \
     activity_list as activity_list_report, \
     bank_account_balance, \
@@ -81,6 +81,8 @@ class Prime:
         payment_menu.add_command(label="Pay income tax", command=self._pay_tax)
         payment_menu.add_separator()
         payment_menu.add_command(label="List payments", command=self._list_payment)
+        payment_menu.add_separator()
+        payment_menu.add_command(label="Delete completed payments", command=self._del_completed_payments)
         self._menu.add_cascade(menu=payment_menu, label="Payment")
 
         report_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -141,6 +143,11 @@ class Prime:
         self._set_status("Updating currencies")
         currency_update.execute()
         self._set_status("Currencies updated")
+
+    def _del_completed_payments(self):
+        self._set_status("Deleting completed payments")
+        delete_completed_payments()
+        self._set_status("Deletion complete")
 
     def _del_idle_companies(self):
         idle_companies = get_companies_without_payment()

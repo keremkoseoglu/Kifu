@@ -16,13 +16,13 @@ def get_notifications() -> []:
     if not Activity.has_activity_for_today():
         output.append(ICON_YELLOW + "No activity entered for today")
 
-    # Approaching or late payments
-    for pay in get_raw_recurrence_list():
-        output.append(pay[1])
-
     # Completed payments
     for pay in payment.get_completed_payments():
         output.append(ICON_GREEN + "Completed payment: " + pay.company.name + " - " + pay.description)
+
+    # Approaching or late payments
+    for pay in get_raw_recurrence_list():
+        output.append(pay[1])
 
     # Flush
     return output
