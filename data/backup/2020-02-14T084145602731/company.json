@@ -1,0 +1,471 @@
+{
+  "companies":[
+
+    {
+      "name": "1e1",
+      "contact_person": "Ümit Erol",
+      "address": "1E1 Danışmanlık A.Ş. Dumlupınar Mahallesi  Yumurtaci Abdi Bey Sokak. Concord Bloklari 1.Etap C Blok No:120 Kadıköy",
+      "country": "Turkey",
+      "phone": "‭+90 541 247 22 81‬",
+      "tax_number": "001 084 9715",
+      "tax_office": "Göztepe"
+    },
+
+    {
+      "name": "Abdi İbrahim",
+      "country": "Turkey",
+      "locations": ["Hadımköy", "Maslak"]
+    },
+
+    {
+      "name": "Adnan Çabuk",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Akbank",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Allianz",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Anıl Deniz",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Aras Kargo Sakarya Çarşı Şubesi",
+      "contact_person": "Selçuk Geyve (+90 535 589 47 94)",
+      "address": "Yahyalar Mahallesi, Turan Cd. No:30, 54100 Adapazarı/Sakarya",
+      "country": "Turkey",
+      "phone": "0549 724 71 41",
+      "shipping_note": "Şubeden teslim, karşı ödemeli"
+    },
+
+    {
+      "name": "Ayda Mehtap",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Ayşe Deniz Yüzbaşıoğlu",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Bedri Arslan",
+      "ibans": [
+        {
+          "name": "Bedri Arslan",
+          "number": "TR250006400000112260020698"
+        }
+      ]
+    },
+
+   {
+      "name": "Berkay Çalık",
+      "address": "kardelen mahallesi 1940.cadde 2112.sokak mühür konut sitesi B blok 5.NO KAPI NO 258258 Ankara/Batıkent",
+      "phone": "+90 537 493 88 01",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Birol Aydın",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Çağatay Bırakın",
+      "address": "Murat reis mahallesi yan Sokak bey apartmanı no 6-8 d:2 üsküdar istanbul",
+      "phone": "+90 542 335 60 41",
+      "country": "Turkey",
+      "shipping_note": "Karşı ödemeli"
+    },
+
+    {
+      "name": "Erdem Erkan Yaman",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Zuhal Müzik",
+      "contact_person": "Cem Konuk",
+      "address": "Huzur Mh., Maslak Ayazağa Cd. 4C-9, 34396 Sarıyer/İstanbul",
+      "country": "Turkey",
+      "phone": "+90 (530) 403 8540"
+    },
+
+    {
+      "name": "Digitürk",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Doğuş Ünver",
+      "address": "Onur mah. Köknar sokak no 5-7 Lütfü idikut apt. daire 8  Balçova/İzmir",
+      "phone": "+90 505 551 13 67",
+      "country": "Turkey",
+      "shipping_note": "Karşı ödemeli"
+    },
+
+    {
+      "name": "Dropbox",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "EBI",
+      "country": "Turkey",
+      "locations": ["Levent"]
+    },
+
+    {
+      "name": "Eczacıbaşı TÜG",
+      "country": "Turkey",
+      "locations": ["Gebze", "Kavacık"]
+    },
+
+    {
+      "name": "Ender Cengiz",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Erman Esen",
+      "address": "Atatürk Mahallesi 202/45 Sokak No:4 Daire:5 Buca / İZMİR",
+      "phone": "+90 (538) 779 6568",
+      "country": "Turkey",
+      "shipping_note": "Karşı ödemeli"
+    },
+
+    {
+      "name": "Evam Streaming Analytics",
+      "contact_person": "Gizem Ergüder",
+      "address": "Atatürk Mah. Ataşehir Bulv. Gardenya 5 Plaza, Kat:6, 34758 Ataşehir/İstanbul",
+      "country": "Turkey",
+      "phone": "‭(0216) 455 01 53‬"
+    },
+
+    {
+      "name": "Garanti",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Hasan Hüseyin Savrın",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Hikmet Türen",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "İjlal Berktaş",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "İşbank",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Jozi Levi",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Kopaz A.Ş.",
+      "contact_person": "Can Özerge",
+      "address": "Sanayi Mah. D-130 Karayolu Cad. No:127/A İzmit/Kocaeli",
+      "shipping_note": "Aras Kargo Başiskele Şubesi üzerinden gidecek",
+      "country": "Turkey",
+      "phone": "‭+90 534 558 87 99‬"
+    },
+
+    {
+      "name": "Korhan Yüzbaşıoğlu",
+      "country": "Turkey",
+      "ibans": [
+        {
+          "name": "Korhan Yüzbaşıoğlu",
+          "number": "TR050006400000113480013338"
+        }
+      ]
+    },
+
+    {
+      "name": "Koray Yıldırım",
+      "address": "Toyo Matbaa Mürekkepleri Keçiliköy OSB Mah. Hasan Türek Blv. 6, Merkez Köyü Merkez Bucağı, 45030 Keçiliköy Osb / Yunusemre/Manisa",
+      "phone": "+90 5077771931",
+      "country": "Turkey",
+      "shipping_note": "Karşı ödemeli"
+    },
+
+    {
+      "name": "Manolya 3",
+      "country": "Turkey",
+      "ibans": [
+        {
+          "name": "57 ADA MANOLYA3 YÖNETİMİ",
+          "number": "TR69 0006 4000 0011 2260 0004 09"
+        },
+       {
+          "name": "57 ADA MANOLYA3 YÖNETİMİ",
+          "number": "TR92 0011 1000 0000 0076 9860 06"
+        },
+       {
+          "name": "57 ADA MANOLYA3 YÖNETİMİ",
+          "number": "TR08 0011 1000 0000 0004 9144 65"
+        }
+      ]
+    },
+
+    {
+      "name": "Martur",
+      "contact_person": "İsa Karahan",
+      "address": "MARTUR SÜNGER VE KOLTUK TESİSLERİ SAN.TİC.A.Ş. OSB KAHVERENGİ CD NO:9 NİLÜFER – BURSA",
+      "country": "Turkey",
+      "phone": "‭+90 532 287 57 52‬",
+      "tax_number": "612 007 6066",
+      "tax_office": "Büyük Mükellefler",
+      "locations": ["Bursa"]
+    },
+
+    {
+      "name": "Metric Danışmanlık",
+      "contact_person": "Nükhet Doğru",
+      "address": "İçerenköy Mahallesi, İçerenköy Mah. Çayır Cad. No:11 Sayar İş Merk. K:3, 34752 Ataşehir/İstanbul",
+      "country": "Turkey",
+      "phone": "‭(0216) 469 24 29‬"
+    },
+
+    {
+      "name": "Mehmet Çoban",
+      "ibans": [
+        {
+          "name": "Mehmet Çoban",
+          "number": "TR49 0006 2000 6070 0006 6977 58"
+        }
+      ]
+    },
+
+
+    {
+      "name": "Mehmet Toptal",
+      "address": "Akbelen mahallesi 84020 sokak 1206 ada 4. blok 2/4 Toroslar/Mersin",
+      "phone": "+90 535 207 11 14",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Memnun Bahadır Taşğın",
+      "ibans": [
+        {
+          "name": "Memnun Bahadır Taşğın",
+          "number": "TR47 0011 1000 0000 0078 5585 07"
+        }
+      ],
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Murat Arda Tural",
+      "address": "Yurtiçi Kargo Samatya Şubesi",
+      "shipping_note": "Karşı ödemeli",
+      "phone": "+90 530 242 99 30",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Mustafa Yüksel",
+      "address": "Mustafa Kemal Atatürk Caddesi Filizkent Sitesi No:5H/A2 Daire no: 18 Küçükyalı mahallesi maltepe İstanbul",
+      "phone": "+90 536 680 13 56",
+      "country": "Turkey",
+      "shipping_note": "Karşı ödemeli"
+    },
+
+    {
+      "name": "Onur Atar",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Ozan Öner",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Özcan Türkol",
+      "address": "4.cad. 46.sok. No:55/7 Barış Apt. Bahçelievler Ankara",
+      "phone": "05325917808",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Parametre",
+      "address": "Dumlupınar Mah. Barış Sokak 58-2, İstanbul 216 2. Etap C Blok D:8 Kat:1 Fikirtepe İstanbul",
+      "country": "Turkey",
+      "locations": ["Fikirtepe"]
+    },
+
+   {
+      "name": "Poyraz Kılıç",
+      "address": "Feneryolu Mah. Kuyubaşı Sok. 28/12-13 Kat:5 Kadıköy - İstanbul",
+      "phone": "+90 535 359 23 09",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Procase",
+      "contact_person": "Okan Albay",
+      "country": "Turkey",
+      "ibans": [
+        {
+          "name": "Okan Albay",
+          "number": "TR76 0006 2000 4760 0006 6716 40"
+        }
+      ]
+    },
+
+    {
+      "name": "Pusula 20 Teknoloji ve Yayıncılık A.Ş",
+      "address": "Namık Kemal Mh. Köşk Sk. No:25B Ümraniye / İstanbul",
+      "phone": "0216 505 49 44",
+      "contact_person": "Derya Karakoyun",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Sahibinden",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "SAP Press",
+      "country": "USA"
+    },
+
+    {
+      "name": "Seda Akçelep",
+      "address": "İçerenköy Mah.Alanaldı Cad.No:15 Kat:3 D:7 Ataşehir / İstanbul",
+      "phone": "0216 577 30 96",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Selçuk Geyve",
+      "address": "Sakarya",
+      "country": "Turkey",
+      "phone": "+90 535 589 47 94"
+    },
+
+    {
+      "name": "Selçuk Karaman",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Shamoon",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Suna",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Tanzer Yaramanoğlu",
+      "address": "Koru Sigorta A.Ş. 19 Mayıs Mah. İnönü Cad. Tüzün Plaza No.96 K.Zemin Kadıköy İstanbul",
+      "phone": "+90 532 214 3971",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Tarık Dündar",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "TC",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "TeamPro",
+      "contact_person": "Serkan Özcan",
+      "address": "TeamPro Danışmanlık ve Bilişim Hizmetleri San.Tic.Ltd.Şti.; Acıbadem Mah. Çeçen Sk. Akasya Evleri B1 Kule Blok. No:25/B D:90 Üsküdar/İstanbul",
+      "country": "Turkey",
+      "phone": "‭+90 532 234 22 87‬",
+      "tax_number": "8330515305",
+      "tax_office": "Üsküdar"
+    },
+
+    {
+      "name": "Teoman Keklik",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Tesuji",
+      "contact_person": "Kerem Köseoğlu",
+      "country": "Turkey",
+      "phone": "‭+90 532 568 05 99‬",
+      "tax_number": "25592033212",
+      "tax_office": "Kozyatağı",
+      "locations": ["Home"],
+      "sender_address": "Eczacıbaşı Tüketim Ürünleri; Rüzgarlıbahçe Mah. Kavak Sok. No:20 Kavacık / Beykoz (0216 333 70 48)"
+    },
+
+    {
+      "name": "Turkcell",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Tushe",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Unknown",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Utku Tosun",
+      "address": "Trakya Üniversitesi balkan yerleşkesi diş hekimliği fakültesi protez bölümü Merkez Edirne",
+      "phone": "+90 506 898 27 88",
+      "country": "Turkey",
+      "shipping_note": "Karşı ödemeli"
+    },
+
+    {
+      "name": "Utku Ünal",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Vakıfbank",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Yapı Kredi",
+      "country": "Turkey"
+    },
+
+    {
+      "name": "Zone",
+      "country": "Turkey"
+    }
+
+  ]
+}

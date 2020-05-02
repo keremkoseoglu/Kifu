@@ -1,0 +1,1086 @@
+{
+   "payments": [
+      {
+         "guid": "0050568901181ED89DA821F1FC4984AE",
+         "creation_date": "2018-07-20T00:00:00.000Z",
+         "company": "Jozi Levi",
+         "description": "Korg 1300 + Dalaman 700",
+         "invoice_guid": "",
+         "direction": "I",
+         "amount": 2000.0,
+         "currency": "TRY",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "9999-12-31 00:00:00",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "9999-12-31T00:00:00",
+                  "expected_payment_date": "9999-12-31T00:00:00",
+                  "amount": 700.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2018-07-20T00:00:00.000Z",
+                        "description": "Sub payment",
+                        "amount": 700,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "guid": "0050568901181ED89DA821F1FC4984AG",
+         "creation_date": "2018-07-20T00:00:00.000Z",
+         "company": "Ay\u015fe Deniz Y\u00fczba\u015f\u0131o\u011flu",
+         "description": "Depozito",
+         "invoice_guid": "",
+         "direction": "I",
+         "amount": 1500,
+         "currency": "USD",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "9999-12-31T00:00:00.000Z",
+            "repeat": 1,
+            "recurrence": []
+         }
+      },
+      {
+         "guid": "0050568901181ED89DA821F1FC4984AH",
+         "creation_date": "2018-07-20T00:00:00.000Z",
+         "company": "TC",
+         "description": "MTV",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 326.0,
+         "currency": "TRY",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false,
+         "scheme": {
+            "frequency": 6,
+            "period": "M",
+            "start": "2019-01-15 00:00:00",
+            "repeat": 9999,
+            "repeat_forever": true,
+            "recurrence": [
+               {
+                  "recurrence_date": "2019-01-15T00:00:00",
+                  "expected_payment_date": "2019-01-15T00:00:00",
+                  "amount": 500.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": []
+               },
+               {
+                  "recurrence_date": "2019-07-15T00:00:00",
+                  "expected_payment_date": "2019-07-15T00:00:00",
+                  "amount": 326.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": []
+               },
+               {
+                  "recurrence_date": "2020-01-15T00:00:00",
+                  "expected_payment_date": "2020-01-15T00:00:00",
+                  "amount": 326.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": []
+               }
+            ]
+         },
+         "notes": "\n\n\n\n\n"
+      },
+      {
+         "creation_date": "2018-11-17T17:50:28.549548",
+         "is_vat": false,
+         "is_income_tax": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "M",
+            "repeat": 3,
+            "recurrence": [
+               {
+                  "recurrence_date": "2018-12-28T17:50:28.671864",
+                  "expected_payment_date": "2019-01-13T17:50:28.671864",
+                  "amount": 200.0,
+                  "currency": "USD",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2019-01-04T08:43:16.864524",
+                        "description": "\u00d6deme",
+                        "amount": 550.0,
+                        "currency": "TRY"
+                     },
+                     {
+                        "date": "2019-01-18T20:49:01.363868",
+                        "description": "\u00d6deme",
+                        "amount": 100.12,
+                        "currency": "USD"
+                     }
+                  ]
+               },
+               {
+                  "recurrence_date": "2019-01-28T00:00:00",
+                  "expected_payment_date": "2019-04-30T00:00:00",
+                  "amount": 200.0,
+                  "currency": "USD",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2019-01-18T20:49:18.891828",
+                        "description": "\u00d6deme",
+                        "amount": 50.0,
+                        "currency": "USD"
+                     },
+                     {
+                        "date": "2019-04-01T09:05:31.021844",
+                        "description": "Fender \u00f6deme",
+                        "amount": 150.0,
+                        "currency": "USD"
+                     }
+                  ]
+               },
+               {
+                  "recurrence_date": "2019-02-28T00:00:00",
+                  "expected_payment_date": "2020-12-30T00:00:00",
+                  "amount": 200.0,
+                  "currency": "USD",
+                  "cleared": false,
+                  "collections": [
+                     {
+                        "date": "2019-04-01T09:05:31.021844",
+                        "description": "Fender \u00f6deme",
+                        "amount": 9.564482823352733,
+                        "currency": "USD"
+                     },
+                     {
+                        "date": "2019-08-26T10:23:19.445429",
+                        "description": "Jazz Bass \u00f6deme",
+                        "amount": 101.74367610426974,
+                        "currency": "USD"
+                     }
+                  ]
+               }
+            ],
+            "start": "2018-12-28 17:50:28.671864"
+         },
+         "amount": 200.0,
+         "currency": "USD",
+         "guid": "e302757eeec24542a0c962c2cd3221d0",
+         "company": "Sel\u00e7uk Karaman",
+         "description": "Fender",
+         "invoice_guid": "",
+         "direction": "I",
+         "cleared": false,
+         "notes": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+      },
+      {
+         "guid": "482a4f24285f43debe5501131cd4de97",
+         "creation_date": "2019-04-02T08:42:21.141800",
+         "company": "TC",
+         "description": "1e1 - 2019-04-02(A019561) - income tax payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 9589.833,
+         "currency": "TRY",
+         "cleared": true,
+         "is_income_tax": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-03-15",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-03-15",
+                  "expected_payment_date": "2020-03-15",
+                  "amount": 9589.833,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2019-11-12T17:57:03.791938",
+                        "description": "Ge\u00e7ici vergi \u00f6demesi",
+                        "amount": 7941.7480000000005,
+                        "currency": "TRY"
+                     },
+                     {
+                        "date": "2019-12-20T17:44:40.534536",
+                        "description": "Ge\u00e7ici vergi \u00f6demesi",
+                        "amount": 1648.085,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "guid": "9531163d0d8842aa914c34b545a3acf1",
+         "creation_date": "2019-08-29T20:18:18.974313",
+         "company": "TeamPro",
+         "description": "TeamPro - 2019-09-02() - Incoming payment",
+         "invoice_guid": "7e9251609a024fa999ce3d818fa5a4a2",
+         "direction": "I",
+         "amount": 8260.0,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2019-10-02 20:12:21.895293",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2019-10-02T20:12:21.895293",
+                  "expected_payment_date": "2019-10-02T20:12:21.895293",
+                  "amount": 8260.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2019-10-01T15:15:38.602897",
+                        "description": "\u00d6deme",
+                        "amount": 8260.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         },
+         "notes": "\n",
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2019-09-20T07:43:21.340432",
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2019-12-06T07:43:21.450770",
+                  "expected_payment_date": "2020-12-06T07:43:21.450770",
+                  "amount": 6000.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": [
+                     {
+                        "date": "2019-12-06T16:15:42.760954",
+                        "description": "1. taksit",
+                        "amount": 500.0,
+                        "currency": "TRY"
+                     },
+                     {
+                        "date": "2020-01-02T10:15:38.156574",
+                        "description": "2. taksit",
+                        "amount": 500.0,
+                        "currency": "TRY"
+                     },
+                     {
+                        "date": "2020-02-03T10:36:48.745122",
+                        "description": "3. taksit",
+                        "amount": 500.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ],
+            "start": "2019-12-06 07:43:21.450770"
+         },
+         "amount": 6000.0,
+         "currency": "TRY",
+         "guid": "c00c76da3aba4f64a280f6d20a021a5d",
+         "company": "Onur Atar",
+         "description": "StingRay",
+         "notes": "\n\n\n\n\n",
+         "invoice_guid": "",
+         "direction": "I",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "guid": "73d909f66d44486e962e4a97bcfa26e6",
+         "creation_date": "2019-11-02T16:03:46.972361",
+         "company": "TC",
+         "description": "1e1 - 2019-10-31(A019568) - VAT payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 4606.875,
+         "currency": "TRY",
+         "cleared": true,
+         "is_vat": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2019-11-27",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2019-11-27",
+                  "expected_payment_date": "2019-11-27",
+                  "amount": 4606.875,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2019-11-22T10:14:39.533098",
+                        "description": "KDV \u00f6demesi",
+                        "amount": 3477.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "guid": "a4bff4f587bd44a68347b2dcb498db14",
+         "creation_date": "2019-11-29T18:52:53.836151",
+         "company": "TC",
+         "description": "1e1 - 2019-11-29(A019570) - VAT payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 6343.7508,
+         "currency": "TRY",
+         "cleared": true,
+         "is_vat": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2019-12-28",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2019-12-28",
+                  "expected_payment_date": "2019-12-28",
+                  "amount": 6343.7508,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2019-12-24T14:14:56.232275",
+                        "description": "KDV \u00f6demesi",
+                        "amount": 5744.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "creation_date": "2019-12-19T09:03:04.659341",
+         "scheme": {
+            "frequency": 1,
+            "period": "M",
+            "repeat": 3,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-01-27T09:03:04.802547",
+                  "expected_payment_date": "2020-01-27T09:03:04.802547",
+                  "amount": 333.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": []
+               },
+               {
+                  "recurrence_date": "2020-02-27T00:00:00",
+                  "expected_payment_date": "2020-02-27T00:00:00",
+                  "amount": 333.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": []
+               }
+            ],
+            "start": "2020-01-27 09:03:04.802547"
+         },
+         "amount": 333.0,
+         "currency": "TRY",
+         "guid": "d6211ef223ac42b8a47596f9fe7d60b8",
+         "company": "Erdem Erkan Yaman",
+         "description": "Aguilar Agro",
+         "notes": "\n\n\n",
+         "invoice_guid": "",
+         "direction": "I",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "guid": "a2d3a9073e254dd5917221a347773e84",
+         "creation_date": "2019-12-20T18:50:03.933080",
+         "company": "Martur",
+         "description": "Martur - 2019-12-20(A019571) - Incoming payment",
+         "invoice_guid": "458ce032dbff45a8a789ec6776d792d4",
+         "direction": "I",
+         "amount": 36875.0,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-03-20T18:46:21.660066",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-03-20T18:46:21.660066",
+                  "expected_payment_date": "2020-03-20T18:46:21.660066",
+                  "amount": 36875.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "94afc0f5828746a2aab540741ddca61a",
+         "creation_date": "2019-12-20T18:50:03.934115",
+         "company": "TC",
+         "description": "Martur - 2019-12-20(A019571) - VAT payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 5625.0,
+         "currency": "TRY",
+         "cleared": true,
+         "is_vat": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2019-12-28 00:00:00",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2019-12-28",
+                  "expected_payment_date": "2020-01-28T00:00:00",
+                  "amount": 5625.0,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2020-01-24T13:11:03.173848",
+                        "description": "KDV \u00f6demesi",
+                        "amount": 10921.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         },
+         "notes": "\n",
+         "is_income_tax": false
+      },
+      {
+         "guid": "dd3ef1b99cc64b2bb4d9c7795b6021ee",
+         "creation_date": "2019-12-20T18:50:03.934228",
+         "company": "Akbank",
+         "description": "Martur - 2019-12-20(A019571) - income tax transfer",
+         "invoice_guid": "",
+         "direction": "T",
+         "amount": 9375.0,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-03-21T18:46:21.660066",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-03-21T18:46:21.660066",
+                  "expected_payment_date": "2020-03-21T18:46:21.660066",
+                  "amount": 9375.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "217a0c41be5d4f16a6c500a73ed3a686",
+         "creation_date": "2019-12-20T18:50:03.934431",
+         "company": "Unknown",
+         "description": "Martur - 2019-12-20(A019571) - alms",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 546.875,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-03-21T18:46:21.660066",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-03-21T18:46:21.660066",
+                  "expected_payment_date": "2020-03-21T18:46:21.660066",
+                  "amount": 546.875,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "c9cabe2983dd4db5a5034ebab610fb32",
+         "creation_date": "2020-01-05T15:51:57.979040",
+         "company": "1e1",
+         "description": "1e1 - 2019-12-31(A019572) - Incoming payment",
+         "invoice_guid": "37bc7bdbc6084785a25971fe82ccb3c7",
+         "direction": "I",
+         "amount": 42590.625,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-05T15:44:37.173214",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-05T15:44:37.173214",
+                  "expected_payment_date": "2020-02-05T15:44:37.173214",
+                  "amount": 42590.625,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "a6e46b02bed1406cbcd537244cac6c53",
+         "creation_date": "2020-01-05T15:51:57.980060",
+         "company": "TC",
+         "description": "1e1 - 2019-12-31(A019572) - VAT payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 6496.875,
+         "currency": "TRY",
+         "cleared": true,
+         "is_vat": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-01-27",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-01-27",
+                  "expected_payment_date": "2020-01-27",
+                  "amount": 6496.875,
+                  "currency": "TRY",
+                  "cleared": true,
+                  "collections": [
+                     {
+                        "date": "2020-01-24T13:11:03.175849",
+                        "description": "KDV \u00f6demesi",
+                        "amount": 10921.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "guid": "9835fe00050e480bb548aa9beee21876",
+         "creation_date": "2020-01-05T15:51:57.980177",
+         "company": "Akbank",
+         "description": "1e1 - 2019-12-31(A019572) - income tax transfer",
+         "invoice_guid": "",
+         "direction": "T",
+         "amount": 10828.125,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-06T15:44:37.173214",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-06T15:44:37.173214",
+                  "expected_payment_date": "2020-02-06T15:44:37.173214",
+                  "amount": 10828.125,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "81641ee3e251425a879e5064cd9a3302",
+         "creation_date": "2020-01-05T15:51:57.980391",
+         "company": "Unknown",
+         "description": "1e1 - 2019-12-31(A019572) - alms",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 631.640625,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-06T15:44:37.173214",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-06T15:44:37.173214",
+                  "expected_payment_date": "2020-02-06T15:44:37.173214",
+                  "amount": 631.640625,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "creation_date": "2020-01-17T10:25:20.699048",
+         "scheme": {
+            "frequency": 4,
+            "period": "M",
+            "repeat": 2,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-03-15T10:25:20.803437",
+                  "expected_payment_date": "2020-03-15T10:25:20.803437",
+                  "amount": 23072.47,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": [
+                     {
+                        "date": "2020-01-24T13:11:17.684048",
+                        "description": "Ge\u00e7ici vergi \u00f6demesi",
+                        "amount": 2314.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               },
+               {
+                  "recurrence_date": "2020-07-15T00:00:00",
+                  "expected_payment_date": "2020-07-15T00:00:00",
+                  "amount": 23072.47,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-03-15 10:25:20.803437"
+         },
+         "amount": 23072.47,
+         "currency": "TRY",
+         "guid": "9ce520062ad640c7987b2854884c6418",
+         "company": "TC",
+         "description": "Gelir vergisi \u00f6deme",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "O",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": true
+      },
+      {
+         "creation_date": "2020-01-17T10:29:03.609149",
+         "scheme": {
+            "frequency": 1,
+            "period": "M",
+            "repeat": 6,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-14T10:29:03.715864",
+                  "expected_payment_date": "2020-02-14T10:29:03.715864",
+                  "amount": 4250.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-02-14 10:29:03.715864"
+         },
+         "amount": 4250.0,
+         "currency": "TRY",
+         "guid": "7603f9bcb2344285a750cdbd80a2217d",
+         "company": "Tesuji",
+         "description": "GV 2019 t\u0131rt\u0131k",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "T",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2020-01-24T06:55:31.528207",
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "repeat": 1,
+            "recurrence": [],
+            "start": "2020-08-24 06:55:31.631456"
+         },
+         "amount": 2000.0,
+         "currency": "TRY",
+         "guid": "46f2834107c24103a7361cd1463cfe87",
+         "company": "Tesuji",
+         "description": "GV t\u0131rt\u0131k",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "T",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2020-01-27T10:09:05.843990",
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-05T10:09:06.000475",
+                  "expected_payment_date": "2020-02-05T10:09:06.000475",
+                  "amount": 2000.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-02-05 10:09:06.000475"
+         },
+         "amount": 2000.0,
+         "currency": "TRY",
+         "guid": "0d726bd5114945b8b97a38275a0a2641",
+         "company": "Garanti",
+         "description": "Bonus",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "O",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2020-01-29T15:48:44.793611",
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-07T15:48:44.958400",
+                  "expected_payment_date": "2020-02-07T15:48:44.958400",
+                  "amount": 13200.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-02-07 15:48:44.958400"
+         },
+         "amount": 13200.0,
+         "currency": "TRY",
+         "guid": "7cc9950a3ba34e2da92f6736534af422",
+         "company": "Akbank",
+         "description": "Axess",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "O",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2020-01-31T06:47:17.161079",
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-06T06:47:17.265753",
+                  "expected_payment_date": "2020-02-06T06:47:17.265753",
+                  "amount": 2550.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-02-06 06:47:17.265753"
+         },
+         "amount": 2550.0,
+         "currency": "TRY",
+         "guid": "12e2fa905201464f90c7ca4fa9487513",
+         "company": "Tesuji",
+         "description": "GV Kira t\u0131rt\u0131k",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "T",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2020-01-31T15:53:46.142392",
+         "scheme": {
+            "frequency": 1,
+            "period": "M",
+            "repeat": 12,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-01-15T15:54:47.307865",
+                  "expected_payment_date": "2020-02-15T15:54:47.307865",
+                  "amount": 630.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": [
+                     {
+                        "date": "2020-01-31T15:54:56.343106",
+                        "description": "Ocak \u00f6demesi",
+                        "amount": 560.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               },
+               {
+                  "recurrence_date": "2020-02-15T00:00:00",
+                  "expected_payment_date": "2020-02-15T00:00:00",
+                  "amount": 630.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-01-15 15:53:46.358164"
+         },
+         "amount": 630.0,
+         "currency": "TRY",
+         "guid": "f4646c17b67d45c8bbf6dc53dc706a84",
+         "company": "Seda Ak\u00e7elep",
+         "description": "Muhasebe",
+         "notes": "\n\n\n",
+         "invoice_guid": "",
+         "direction": "O",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "creation_date": "2020-02-01T18:59:27.625751",
+         "scheme": {
+            "frequency": 1,
+            "period": "M",
+            "repeat": 12,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-03-01T18:59:27.740164",
+                  "expected_payment_date": "2020-03-01T18:59:27.740164",
+                  "amount": 2900.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ],
+            "start": "2020-03-01 18:59:27.740164"
+         },
+         "amount": 2900.0,
+         "currency": "TRY",
+         "guid": "cd196b9791bf436aa6ecb55b7e7f6cad",
+         "company": "Ay\u015fe Deniz Y\u00fczba\u015f\u0131o\u011flu",
+         "description": "Kira",
+         "notes": "\n",
+         "invoice_guid": "",
+         "direction": "O",
+         "cleared": false,
+         "is_vat": false,
+         "is_income_tax": false
+      },
+      {
+         "guid": "1cbe52302cfb41548cae8a19527a36e5",
+         "creation_date": "2020-02-03T19:24:39.717735",
+         "company": "1e1",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - Incoming payment",
+         "invoice_guid": "9bcbf0704ff24e718d26e93a1579301f",
+         "direction": "I",
+         "amount": 42317.75,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-03T19:09:35.565305",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-03T19:09:35.565305",
+                  "expected_payment_date": "2020-02-03T19:09:35.565305",
+                  "amount": 42317.75,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "df0fb5786e9d4f81a8dca7465bc59e37",
+         "creation_date": "2020-02-03T19:24:39.718419",
+         "company": "Akbank",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - VAT transfer",
+         "invoice_guid": "",
+         "direction": "T",
+         "amount": 6455.25,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-13",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-13",
+                  "expected_payment_date": "2020-02-13",
+                  "amount": 6455.25,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "05c854e4fc3d44c6b8fc0d1787b70a39",
+         "creation_date": "2020-02-03T19:24:39.718886",
+         "company": "TC",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - VAT payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 6455.25,
+         "currency": "TRY",
+         "cleared": false,
+         "is_vat": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-28",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-28",
+                  "expected_payment_date": "2020-02-28",
+                  "amount": 6455.25,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "94d4400fe40645909e916d8ab45f57b0",
+         "creation_date": "2020-02-03T19:24:39.719017",
+         "company": "Akbank",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - income tax transfer",
+         "invoice_guid": "",
+         "direction": "T",
+         "amount": 10758.75,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-04T19:09:35.565305",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-04T19:09:35.565305",
+                  "expected_payment_date": "2020-02-04T19:09:35.565305",
+                  "amount": 10758.75,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "773e20c166ab4d3495e68f8d2c87e8c8",
+         "creation_date": "2020-02-03T19:24:39.719125",
+         "company": "TC",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - income tax payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 10758.75,
+         "currency": "TRY",
+         "cleared": false,
+         "is_income_tax": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2021-03-15",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2021-03-15",
+                  "expected_payment_date": "2021-03-15",
+                  "amount": 10758.75,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
+         "guid": "b00672998cf447999f24cd507f7dd3d9",
+         "creation_date": "2020-02-03T19:24:39.719230",
+         "company": "Unknown",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - alms",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 627.59375,
+         "currency": "TRY",
+         "cleared": false,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2020-02-04T19:09:35.565305",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2020-02-04T19:09:35.565305",
+                  "expected_payment_date": "2020-02-04T19:09:35.565305",
+                  "amount": 627.59375,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      }
+   ]
+}

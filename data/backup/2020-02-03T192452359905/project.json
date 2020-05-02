@@ -1,0 +1,110 @@
+{
+  "projects": [
+
+    {
+      "client_name": "Abdi İbrahim",
+      "project_name": "Support",
+      "payer_name": "1e1",
+      "rate": {
+        "amount": 1900,
+        "currency": "TRY",
+        "per_hour": 9
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    },
+
+    {
+      "client_name": "Eczacıbaşı TÜG",
+      "project_name": "Support",
+      "payer_name": "1e1",
+      "rate": {
+        "amount": 1900,
+        "currency": "TRY",
+        "per_hour": 8
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    },
+
+    {
+      "client_name": "EBI",
+      "project_name": "Gelen fatura",
+      "payer_name": "1e1",
+      "rate": {
+        "amount": 1900,
+        "currency": "TRY",
+        "per_hour": 8
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    },
+
+    {
+      "client_name": "EBI",
+      "project_name": "UFRS",
+      "payer_name": "1e1",
+      "rate": {
+        "amount": 1750,
+        "currency": "TRY",
+        "per_hour": 8
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    },
+
+    {
+      "client_name": "EBI",
+      "project_name": "UFRS",
+      "payer_name": "1e1",
+      "rate": {
+        "amount": 1900,
+        "currency": "TRY",
+        "per_hour": 8
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    },
+
+    {
+      "client_name": "Martur",
+      "project_name": "Moden ABAP",
+      "payer_name": "Martur",
+      "rate": {
+        "amount": 6250,
+        "currency": "TRY",
+        "per_hour": 8
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    },
+
+    {
+      "client_name": "TeamPro",
+      "project_name": "Mata kalan",
+      "payer_name": "TeamPro",
+      "rate": {
+        "amount": 3500,
+        "currency": "TRY",
+        "per_hour": 1
+      },
+      "tax": {
+        "vat_rate": 18,
+        "income_tax_rate": 30
+      }
+    }
+
+  ]
+}

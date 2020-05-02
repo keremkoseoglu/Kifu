@@ -1,0 +1,211 @@
+{
+   "activities": [
+      {
+         "date": "2020-01-02T06:55:19.481703",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "13300417ae56475b826daf456d8ad17e"
+      },
+      {
+         "date": "2020-01-03T06:50:21.063088",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "4",
+         "work": "ABAP",
+         "guid": "26a413bc657b4cad9eb35c70402898ec"
+      },
+      {
+         "date": "2020-01-05T15:42:13.003308",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "3",
+         "work": "TQE kopya \u00e7al\u0131\u015fmas\u0131",
+         "guid": "efed42fbaec740fcb827024ff62c03fb"
+      },
+      {
+         "date": "2020-01-06T06:50:36.438734",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "296cca00b4eb46f38ba68cde34beb439"
+      },
+      {
+         "date": "2020-01-07T06:51:46.553231",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "c34c937b5f4d4323a0cc7c8c6fb2eef4"
+      },
+      {
+         "date": "2020-01-08T07:03:22.043708",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "b5293e14f07c44ce982b0636946b172e"
+      },
+      {
+         "date": "2020-01-09T06:47:57.804041",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "43a87f6ab9ea498cab77dcdc2b67eeb9"
+      },
+      {
+         "date": "2020-01-09T13:05:32.280535",
+         "client_name": "TeamPro",
+         "project_name": "Mata kalan",
+         "location": "Tesuji - Home",
+         "duration": "1",
+         "work": "Komisyon",
+         "guid": "d1eed8461b41466e930b44573b21f7ef"
+      },
+      {
+         "date": "2020-01-10T06:57:32.242282",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "ace14add39dc470eb16fad48aad363f4"
+      },
+      {
+         "date": "2020-01-13T06:49:14.354123",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "db846558a5154912a67c62d695e16fa4"
+      },
+      {
+         "date": "2020-01-14T06:42:47.438874",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "7",
+         "work": "ABAP",
+         "guid": "e4825acbd5c848be9d538ae4a66b81a9"
+      },
+      {
+         "date": "2020-01-15T06:46:19.024142",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "30987e4a13a34ed5b7258a90ba0352df"
+      },
+      {
+         "date": "2020-01-20T08:15:48.156577",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "5",
+         "work": "Remote ABAP",
+         "guid": "32b4e05bc8094bbaa63cddae25c7c652"
+      },
+      {
+         "date": "2020-01-21T08:12:42.815953",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "Remote ABAP",
+         "guid": "15b281449b2a4aefa30e797a2ea91486"
+      },
+      {
+         "date": "2020-01-22T07:09:52.809986",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "5f59d0def325432f8269a6aa7d90f8c5"
+      },
+      {
+         "date": "2020-01-23T07:07:05.022898",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "5",
+         "work": "ABAP",
+         "guid": "a73f033432ac4796836f3d7d1b289fa4"
+      },
+      {
+         "date": "2020-01-24T06:55:05.644022",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "7",
+         "work": "ABAP",
+         "guid": "fda0c7a7777a42c4abed39b6fa600dde"
+      },
+      {
+         "date": "2020-01-27T06:54:01.177366",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "0296286000e04a5b931cdad1b87f426c"
+      },
+      {
+         "date": "2020-01-28T06:57:03.267652",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "30f346d73bdc4caa951e246e2f770738"
+      },
+      {
+         "date": "2020-01-29T07:12:36.407116",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "3acbe84be45342eea939bdf8fd356fe1"
+      },
+      {
+         "date": "2020-01-30T06:57:25.993377",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "c9bde6742a3540f1a3b476bfa63a1535"
+      },
+      {
+         "date": "2020-01-31T06:44:58.329485",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "f4192548ddc64677b8fe2acc891943a7"
+      },
+      {
+         "date": "2020-02-03T06:45:27.186262",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "7",
+         "work": "ABAP",
+         "guid": "da239ca931654b809d316980436e0ffc"
+      }
+   ]
+}

@@ -1,0 +1,52 @@
+{
+  "assets": [
+    {
+      "name": "Fender Marcus Miller Jazz Bass",
+      "purchase_value": 6500,
+      "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
+      "name": "Fender Mexico Jazz Bass",
+      "purchase_value": 5000,
+      "sales_value": 2500,
+      "currency": "TRY"
+    },
+    {
+      "name": "Fender Ultra Precision",
+      "purchase_value": 16000,
+      "sales_value": 8000,
+      "currency": "TRY"
+    },
+    {
+      "name": "iPad",
+      "purchase_value": 1600,
+      "sales_value": 750,
+      "currency": "TRY"
+    },
+    {
+      "name": "iPhone X",
+      "purchase_value": 6100,
+      "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
+      "name": "Macbook Pro",
+      "purchase_value": 8000,
+      "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
+      "name": "Qashqai",
+      "purchase_value": 62500,
+      "sales_value": 62500,
+      "currency": "TRY"
+    },
+    {
+      "name": "xBox",
+      "purchase_value": 2000,
+      "sales_value": 600,
+      "currency": "TRY"
+    }
+  ]
+}
