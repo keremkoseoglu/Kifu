@@ -56,7 +56,7 @@ class ReconciliationCursor:
     def _get_amount_sum_of_payments(payments: List[payment.Payment]) -> float:
         output = 0
         for p in payments:
-            output += p.total_open_amount_in_local_currency
+            output += p.open_amount_in_local_currency
         return output
 
     def _get_open_payments_with_direction(self, direction: str) -> List[payment.Payment]:

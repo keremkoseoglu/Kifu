@@ -184,12 +184,6 @@
                         "description": "5. taksit",
                         "amount": 300.0,
                         "currency": "TRY"
-                     },
-                     {
-                        "date": "2020-05-04T13:30:57.990229",
-                        "description": "StingRay \u00f6deme",
-                        "amount": 300.0,
-                        "currency": "TRY"
                      }
                   ]
                }
