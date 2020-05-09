@@ -480,14 +480,7 @@
                   "amount": 3000.0,
                   "currency": "TRY",
                   "cleared": false,
-                  "collections": [
-                     {
-                        "date": "2020-05-08T14:49:17.020973",
-                        "description": "Moollon ara \u00f6deme",
-                        "amount": 2500.0,
-                        "currency": "TRY"
-                     }
-                  ]
+                  "collections": []
                },
                {
                   "recurrence_date": "2020-05-05T00:00:00",

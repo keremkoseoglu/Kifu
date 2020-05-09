@@ -41,27 +41,9 @@
          "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
          "project_name": "Support",
          "location": "Tesuji - Home",
-         "duration": "7",
+         "duration": "8",
          "work": "ABAP (Remote)",
          "guid": "1915d75df1ab487b8a911eb2f18ced81"
-      },
-      {
-         "date": "2020-05-08T07:53:27.498910",
-         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
-         "project_name": "Support",
-         "location": "Tesuji - Home",
-         "duration": "7",
-         "work": "ABAP",
-         "guid": "e5d3bff6917b437dafaaaa15671be94c"
-      },
-      {
-         "date": "2020-05-08T07:53:27.498910",
-         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
-         "project_name": "Support",
-         "location": "Tesuji - Home",
-         "duration": "7",
-         "work": "ABAP",
-         "guid": "10709bd1b471448999f7f1665ec1e9a3"
       }
    ]
 }

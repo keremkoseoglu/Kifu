@@ -1,8 +1,8 @@
 {
    "Tarih_Date": {
-      "@Tarih": "21.01.2020",
-      "@Date": "01/21/2020",
-      "@Bulten_No": "2020/14",
+      "@Tarih": "05.05.2020",
+      "@Date": "05/05/2020",
+      "@Bulten_No": "2020/87",
       "Currency": [
          {
             "@CrossOrder": "0",
@@ -11,10 +11,10 @@
             "Unit": "1",
             "Isim": "ABD DOLARI",
             "CurrencyName": "US DOLLAR",
-            "ForexBuying": "5.9191",
-            "ForexSelling": "5.9297",
-            "BanknoteBuying": "5.9149",
-            "BanknoteSelling": "5.9386",
+            "ForexBuying": "7.0550",
+            "ForexSelling": "7.0677",
+            "BanknoteBuying": "7.0500",
+            "BanknoteSelling": "7.0783",
             "CrossRateUSD": null,
             "CrossRateOther": null
          },
@@ -25,11 +25,11 @@
             "Unit": "1",
             "Isim": "AVUSTRALYA DOLARI",
             "CurrencyName": "AUSTRALIAN DOLLAR",
-            "ForexBuying": "4.0492",
-            "ForexSelling": "4.0756",
-            "BanknoteBuying": "4.0306",
-            "BanknoteSelling": "4.1001",
-            "CrossRateUSD": "1.4583",
+            "ForexBuying": "4.5340",
+            "ForexSelling": "4.5635",
+            "BanknoteBuying": "4.5131",
+            "BanknoteSelling": "4.5909",
+            "CrossRateUSD": "1.5524",
             "CrossRateOther": null
          },
          {
@@ -39,11 +39,11 @@
             "Unit": "1",
             "Isim": "DAN\u0130MARKA KRONU",
             "CurrencyName": "DANISH KRONE",
-            "ForexBuying": "0.87762",
-            "ForexSelling": "0.88193",
-            "BanknoteBuying": "0.87700",
-            "BanknoteSelling": "0.88396",
-            "CrossRateUSD": "6.7340",
+            "ForexBuying": "1.0254",
+            "ForexSelling": "1.0304",
+            "BanknoteBuying": "1.0247",
+            "BanknoteSelling": "1.0328",
+            "CrossRateUSD": "6.8695",
             "CrossRateOther": null
          },
          {
@@ -53,12 +53,12 @@
             "Unit": "1",
             "Isim": "EURO",
             "CurrencyName": "EURO",
-            "ForexBuying": "6.5680",
-            "ForexSelling": "6.5798",
-            "BanknoteBuying": "6.5634",
-            "BanknoteSelling": "6.5897",
+            "ForexBuying": "7.6624",
+            "ForexSelling": "7.6762",
+            "BanknoteBuying": "7.6571",
+            "BanknoteSelling": "7.6877",
             "CrossRateUSD": null,
-            "CrossRateOther": "1.1096"
+            "CrossRateOther": "1.0861"
          },
          {
             "@CrossOrder": "10",
@@ -67,12 +67,12 @@
             "Unit": "1",
             "Isim": "\u0130NG\u0130L\u0130Z STERL\u0130N\u0130",
             "CurrencyName": "POUND STERLING",
-            "ForexBuying": "7.6976",
-            "ForexSelling": "7.7378",
-            "BanknoteBuying": "7.6923",
-            "BanknoteSelling": "7.7494",
+            "ForexBuying": "8.7683",
+            "ForexSelling": "8.8140",
+            "BanknoteBuying": "8.7622",
+            "BanknoteSelling": "8.8273",
             "CrossRateUSD": null,
-            "CrossRateOther": "1.3027"
+            "CrossRateOther": "1.2450"
          },
          {
             "@CrossOrder": "3",
@@ -81,11 +81,11 @@
             "Unit": "1",
             "Isim": "\u0130SV\u0130\u00c7RE FRANGI",
             "CurrencyName": "SWISS FRANK",
-            "ForexBuying": "6.1021",
-            "ForexSelling": "6.1413",
-            "BanknoteBuying": "6.0929",
-            "BanknoteSelling": "6.1505",
-            "CrossRateUSD": "0.9678",
+            "ForexBuying": "7.2631",
+            "ForexSelling": "7.3097",
+            "BanknoteBuying": "7.2522",
+            "BanknoteSelling": "7.3206",
+            "CrossRateUSD": "0.9691",
             "CrossRateOther": null
          },
          {
@@ -95,11 +95,11 @@
             "Unit": "1",
             "Isim": "\u0130SVE\u00c7 KRONU",
             "CurrencyName": "SWEDISH KRONA",
-            "ForexBuying": "0.61906",
-            "ForexSelling": "0.62547",
-            "BanknoteBuying": "0.61863",
-            "BanknoteSelling": "0.62691",
-            "CrossRateUSD": "9.5207",
+            "ForexBuying": "0.71277",
+            "ForexSelling": "0.72015",
+            "BanknoteBuying": "0.71227",
+            "BanknoteSelling": "0.72180",
+            "CrossRateUSD": "9.8559",
             "CrossRateOther": null
          },
          {
@@ -109,11 +109,11 @@
             "Unit": "1",
             "Isim": "KANADA DOLARI",
             "CurrencyName": "CANADIAN DOLLAR",
-            "ForexBuying": "4.5228",
-            "ForexSelling": "4.5432",
-            "BanknoteBuying": "4.5061",
-            "BanknoteSelling": "4.5605",
-            "CrossRateUSD": "1.3070",
+            "ForexBuying": "5.0127",
+            "ForexSelling": "5.0353",
+            "BanknoteBuying": "4.9941",
+            "BanknoteSelling": "5.0544",
+            "CrossRateUSD": "1.4055",
             "CrossRateOther": null
          },
          {
@@ -123,12 +123,12 @@
             "Unit": "1",
             "Isim": "KUVEYT D\u0130NARI",
             "CurrencyName": "KUWAITI DINAR",
-            "ForexBuying": "19.3807",
-            "ForexSelling": "19.6343",
-            "BanknoteBuying": "19.0900",
-            "BanknoteSelling": "19.9288",
+            "ForexBuying": "22.6915",
+            "ForexSelling": "22.9884",
+            "BanknoteBuying": "22.3511",
+            "BanknoteSelling": "23.3332",
             "CrossRateUSD": null,
-            "CrossRateOther": "3.2927"
+            "CrossRateOther": "3.2345"
          },
          {
             "@CrossOrder": "7",
@@ -137,11 +137,11 @@
             "Unit": "1",
             "Isim": "NORVE\u00c7 KRONU",
             "CurrencyName": "NORWEGIAN KRONE",
-            "ForexBuying": "0.65954",
-            "ForexSelling": "0.66397",
-            "BanknoteBuying": "0.65908",
-            "BanknoteSelling": "0.66550",
-            "CrossRateUSD": "8.9526",
+            "ForexBuying": "0.68320",
+            "ForexSelling": "0.68779",
+            "BanknoteBuying": "0.68272",
+            "BanknoteSelling": "0.68937",
+            "CrossRateUSD": "10.30",
             "CrossRateOther": null
          },
          {
@@ -151,11 +151,11 @@
             "Unit": "1",
             "Isim": "SUUD\u0130 ARAB\u0130STAN R\u0130YAL\u0130",
             "CurrencyName": "SAUDI RIYAL",
-            "ForexBuying": "1.5777",
-            "ForexSelling": "1.5805",
-            "BanknoteBuying": "1.5659",
-            "BanknoteSelling": "1.5924",
-            "CrossRateUSD": "3.7517",
+            "ForexBuying": "1.8784",
+            "ForexSelling": "1.8817",
+            "BanknoteBuying": "1.8643",
+            "BanknoteSelling": "1.8959",
+            "CrossRateUSD": "3.7559",
             "CrossRateOther": null
          },
          {
@@ -165,11 +165,11 @@
             "Unit": "100",
             "Isim": "JAPON YEN\u0130",
             "CurrencyName": "JAPENESE YEN",
-            "ForexBuying": "5.3691",
-            "ForexSelling": "5.4047",
-            "BanknoteBuying": "5.3492",
-            "BanknoteSelling": "5.4252",
-            "CrossRateUSD": "109.98",
+            "ForexBuying": "6.5920",
+            "ForexSelling": "6.6356",
+            "BanknoteBuying": "6.5676",
+            "BanknoteSelling": "6.6608",
+            "CrossRateUSD": "106.77",
             "CrossRateOther": null
          },
          {
@@ -179,11 +179,11 @@
             "Unit": "1",
             "Isim": "BULGAR LEVASI",
             "CurrencyName": "BULGARIAN LEV",
-            "ForexBuying": "3.3394",
-            "ForexSelling": "3.3831",
+            "ForexBuying": "3.8958",
+            "ForexSelling": "3.9467",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
-            "CrossRateUSD": "1.7625",
+            "CrossRateUSD": "1.8008",
             "CrossRateOther": null
          },
          {
@@ -193,11 +193,11 @@
             "Unit": "1",
             "Isim": "RUMEN LEY\u0130",
             "CurrencyName": "NEW LEU",
-            "ForexBuying": "1.3666",
-            "ForexSelling": "1.3844",
+            "ForexBuying": "1.5779",
+            "ForexSelling": "1.5986",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
-            "CrossRateUSD": "4.3071",
+            "CrossRateUSD": "4.4460",
             "CrossRateOther": null
          },
          {
@@ -207,11 +207,11 @@
             "Unit": "1",
             "Isim": "RUS RUBLES\u0130",
             "CurrencyName": "RUSSIAN ROUBLE",
-            "ForexBuying": "0.09522",
-            "ForexSelling": "0.09646",
+            "ForexBuying": "0.09456",
+            "ForexSelling": "0.09580",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
-            "CrossRateUSD": "61.82",
+            "CrossRateUSD": "74.19",
             "CrossRateOther": null
          },
          {
@@ -221,8 +221,8 @@
             "Unit": "100",
             "Isim": "\u0130RAN R\u0130YAL\u0130",
             "CurrencyName": "IRANIAN RIAL",
-            "ForexBuying": "0.01401",
-            "ForexSelling": "0.01420",
+            "ForexBuying": "0.01670",
+            "ForexSelling": "0.01692",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
             "CrossRateUSD": "42000",
@@ -235,11 +235,11 @@
             "Unit": "1",
             "Isim": "\u00c7\u0130N YUANI",
             "CurrencyName": "CHINESE RENMINBI",
-            "ForexBuying": "0.85268",
-            "ForexSelling": "0.86384",
+            "ForexBuying": "0.99338",
+            "ForexSelling": "1.0064",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
-            "CrossRateUSD": "6.9028",
+            "CrossRateUSD": "7.0622",
             "CrossRateOther": null
          },
          {
@@ -249,11 +249,11 @@
             "Unit": "1",
             "Isim": "PAK\u0130STAN RUP\u0130S\u0130",
             "CurrencyName": "PAKISTANI RUPEE",
-            "ForexBuying": "0.03807",
-            "ForexSelling": "0.03857",
+            "ForexBuying": "0.04397",
+            "ForexSelling": "0.04455",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
-            "CrossRateUSD": "154.60",
+            "CrossRateUSD": "159.55",
             "CrossRateOther": null
          },
          {
@@ -263,11 +263,11 @@
             "Unit": "1",
             "Isim": "KATAR R\u0130YAL\u0130",
             "CurrencyName": "QATARI RIAL",
-            "ForexBuying": "1.6166",
-            "ForexSelling": "1.6377",
+            "ForexBuying": "1.9266",
+            "ForexSelling": "1.9518",
             "BanknoteBuying": null,
             "BanknoteSelling": null,
-            "CrossRateUSD": "3.6410",
+            "CrossRateUSD": "3.6414",
             "CrossRateOther": null
          },
          {
@@ -277,12 +277,12 @@
             "Unit": "1",
             "Isim": "\u00d6ZEL \u00c7EKME HAKKI (SDR)",
             "CurrencyName": "SPECIAL DRAWING RIGHT (SDR)",
-            "ForexBuying": "8.1708",
+            "ForexBuying": "9.6391",
             "ForexSelling": null,
             "BanknoteBuying": null,
             "BanknoteSelling": null,
             "CrossRateUSD": null,
-            "CrossRateOther": "1.37918"
+            "CrossRateOther": "1.36505"
          },
          {
             "@CrossOrder": "0",
@@ -291,10 +291,10 @@
             "Unit": "1",
             "Isim": "Gold",
             "CurrencyName": "Gold",
-            "ForexBuying": 296.149,
-            "ForexSelling": 296.149,
-            "BanknoteBuying": 296.149,
-            "BanknoteSelling": 296.149
+            "ForexBuying": 388.275,
+            "ForexSelling": 388.275,
+            "BanknoteBuying": 388.275,
+            "BanknoteSelling": 388.275
          }
       ]
    }

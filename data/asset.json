@@ -19,6 +19,12 @@
       "currency": "TRY"
     },
     {
+      "name": "Fender Player Telecaster",
+      "purchase_value": 6300,
+      "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
       "name": "iPad",
       "purchase_value": 1600,
       "sales_value": 750,

@@ -5,7 +5,7 @@
       "account_name": "GV",
       "account_number": "0143-0148557",
       "is_vat": false,
-      "balance": 18506,
+      "balance": 31207,
       "currency": "TRY",
       "iban": "TR820004600143888000148557"
     },
@@ -14,7 +14,7 @@
       "account_name": "KDV",
       "account_number": "0143-0148556",
       "is_vat": true,
-      "balance": 0,
+      "balance": 7182,
       "currency": "TRY",
       "iban": "TR120004600143888000148556"
     },
@@ -23,7 +23,7 @@
       "account_name": "TRY",
       "account_number": "0143-0124482",
       "is_vat": false,
-      "balance": 10887,
+      "balance": 8569,
       "currency": "TRY",
       "iban": "TR130004600143888000124482"
     },
@@ -32,7 +32,7 @@
       "account_name": "Altın",
       "account_number": "277-9074267",
       "is_vat": false,
-      "balance": 61.82,
+      "balance": 31.83,
       "currency": "DGC",
       "iban": "TR270006200027700009074267"
     },
