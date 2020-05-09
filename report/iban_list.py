@@ -1,7 +1,7 @@
 from report.html_report import HtmlReport
 from model import bank_account
 from model.company import Company
-from config.constants import *
+from config.constants import HOME_COMPANY
 
 
 class IbanList(HtmlReport):

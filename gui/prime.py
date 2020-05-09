@@ -16,7 +16,8 @@ from report import \
     iban_list, \
     net_worth, \
     ecz_activity_comparison, \
-    reconciliation
+    reconciliation, \
+    address_book
 
 
 class Prime:
@@ -93,7 +94,9 @@ class Prime:
         report_menu.add_command(label="Net worth", command=self._net_worth)
         report_menu.add_command(label="Account balances", command=self._bank_account_balance)
         report_menu.add_command(label="Currency balances", command=self._currency_account)
+        report_menu.add_separator()
         report_menu.add_command(label="IBAN list", command=self._iban_list)
+        report_menu.add_command(label="Address book", command=self._address_book)
         self._menu.add_cascade(menu=report_menu, label="Report")
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -124,6 +127,9 @@ class Prime:
         payment_window = payment.PaymentWindow()
         payment_window.fill_with_new_payment()
         payment_window.mainloop()
+
+    def _address_book(self):
+        address_book.AddressBook().execute()
 
     def _backup_data(self):
         self._set_status("Backing up")
