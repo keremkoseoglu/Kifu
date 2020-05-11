@@ -1,3 +1,4 @@
+""" Module to buy foreign currency """
 import tkinter
 from config.constants import GUI_CELL_HEIGHT, GUI_CELL_WIDTH, HOME_CURRENCY
 from gui.amount_textbox import AmountTextbox
@@ -5,7 +6,8 @@ import model.payment as payment
 from model.bank_account import get_accounts_with_currency
 
 
-class BuyForeignCurrency:
+class BuyForeignCurrency: # pylint: disable=R0903
+    """ Class to buy foreign currency """
     _NOTIF_HEIGHT = 250
     _WINDOW_WIDTH = 800
     _WINDOW_HEIGHT = 400
@@ -32,9 +34,11 @@ class BuyForeignCurrency:
         if sel_values is None or len(sel_values) == 0:
             return
 
-        payment.record_investment_payment(self._amount.get_amount(),
-                                          self._amount.get_currency(),
-                                          "Buy foreign currency from " + sel_values[0])
+        payment.record_investment_payment(
+            self._amount.get_amount(),
+            self._amount.get_currency(),
+            "Buy foreign currency from " + sel_values[0])
+
         self._window.destroy()
 
     def _refresh(self):

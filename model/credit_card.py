@@ -1,26 +1,64 @@
-from config.constants import *
-import json, os
+""" Credit card module """
+import json
+import os
+from typing import List
+from config.constants import HOME_CURRENCY, DATA_DIR_PATH
 from model.currency import CurrencyConverter
+
 
 _CREDIT_CARD_FILE = "credit_card.json"
 
 
+class CreditCardDebt: # pylint: disable=R0903
+    """ Credit card debt """
+    def __init__(self, bank_name: str, card_name: str, amount: int):
+        self.bank_name = bank_name
+        self.card_name = card_name
+        self.amount = amount
+
+
+class CreditCardDebtList: # pylint: disable=R0903
+    """ Credit card debt list """
+    def __init__(self, currency: str, debts: List[CreditCardDebt] = None):
+        self.currency = currency
+
+        if debts is None:
+            self.debts = []
+        else:
+            self.debts = debts
+
+
 def get_credit_cards():
-    with open(_get_file_path()) as f:
-        json_data = json.load(f)
+    """ Returns a dict of credit cards """
+    with open(_get_file_path()) as cc_file:
+        json_data = json.load(cc_file)
     return json_data
 
 
-def get_current_credit_card_debt_sum() -> float:
-    amount = 0
+def get_credit_card_debts() -> CreditCardDebtList:
+    """ Returns all credit card debts """
+    output = CreditCardDebtList(HOME_CURRENCY)
     credit_cards = get_credit_cards()
     currency_converter = CurrencyConverter()
 
-    for cc in credit_cards["credit_cards"]:
-        debt = cc["credit_limit"] - cc["usable_limit"]
-        amount += currency_converter.convert_to_local_currency(debt, cc["currency"])
+    for credit_card in credit_cards["credit_cards"]:
+        debt = credit_card["credit_limit"] - credit_card["usable_limit"]
+        if debt <= 0:
+            continue
+        local_debt = currency_converter.convert_to_local_currency(debt, credit_card["currency"])
+        cc_debt = CreditCardDebt(credit_card["bank_name"], credit_card["card_name"], local_debt)
+        output.debts.append(cc_debt)
 
-    return amount
+    return output
+
+
+def get_current_credit_card_debt_sum() -> float:
+    """ Returns the total sum of credit card debts """
+    output = 0
+    debts = get_credit_card_debts()
+    for debt in debts.debts:
+        output += debt.amount
+    return output
 
 
 def _get_file_path():
