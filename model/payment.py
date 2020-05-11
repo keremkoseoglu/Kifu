@@ -6,6 +6,7 @@ from typing import List
 from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY, PAYMENT_NOTIFICATION_BUFFER, PAYMENT_RECURRENCE_BUFFER
 from config.constants import PAYMENT_LONG_RECURRENCE_BUFFER, DEFAULT_BANK, HOME_GOVERNMENT, COMPANY_NAME_UNKNOWN
 from model.company import Company
+from model.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
 from model.invoice import Invoice
 from model.bank_account import get_home_account_of_bank, get_next_investment_account
@@ -274,24 +275,52 @@ def record_cash_movement(
     for payment in changed_payments:
         payment.save()
 
-
-def record_investment_payment(
-        investable_amount: float,
-        paid_curr: str,
-        description_prefix: str
-):
-    inv_bank, inv_acc = get_next_investment_account()
-    trn_acc = get_home_account_of_bank(inv_bank)
-
+def _create_credit_card_transaction(bank: str, description: str, card: str, amount: float):
     trn_pay_json = {
         "guid": identifier.get_guid(),
         "creation_date": datetime.datetime.now().isoformat(),
-        "company": inv_bank,
-        "description": description_prefix + " - transfer to " + trn_acc,
+        "company": bank,
+        "description": description + " - transfer to " + card,
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
-        "amount": investable_amount,
-        "currency": paid_curr,
+        "amount": amount,
+        "currency": HOME_CURRENCY,
+        "cleared": False
+    }
+
+    trn_scheme_json = {
+        "frequency": 1,
+        "period": PERIOD_DAILY,
+        "start": trn_pay_json["creation_date"],
+        "repeat": 1,
+        "recurrence": [
+            {
+                "recurrence_date": trn_pay_json["creation_date"],
+                "expected_payment_date": trn_pay_json["creation_date"],
+                "amount": trn_pay_json["amount"],
+                "currency": trn_pay_json["currency"],
+                "cleared": False,
+                "collections": []
+            }
+        ]
+    }
+
+    trn_scheme = Scheme(trn_scheme_json)
+    trn_pay = Payment(trn_pay_json)
+    trn_pay.scheme = trn_scheme
+    trn_pay.save()
+
+
+def _create_investment_transaction(bank: str, description: str, trn_account: str, inv_account: str, amount: float):
+    trn_pay_json = {
+        "guid": identifier.get_guid(),
+        "creation_date": datetime.datetime.now().isoformat(),
+        "company": bank,
+        "description": description + " - transfer to " + trn_account,
+        "invoice_guid": "",
+        "direction": DIRECTION_TRANSFER,
+        "amount": amount,
+        "currency": HOME_CURRENCY,
         "cleared": False
     }
 
@@ -319,12 +348,12 @@ def record_investment_payment(
     inv_pay_json = {
         "guid": identifier.get_guid(),
         "creation_date": datetime.datetime.now().isoformat(),
-        "company": inv_bank,
-        "description": description_prefix + " - buy to " + inv_acc,
+        "company": bank,
+        "description": description + " - buy to " + inv_account,
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
-        "amount": investable_amount,
-        "currency": paid_curr,
+        "amount": amount,
+        "currency": HOME_CURRENCY,
         "cleared": False
     }
 
@@ -351,6 +380,42 @@ def record_investment_payment(
 
     trn_pay.save()
     inv_pay.save()
+
+
+def record_investment_payment(
+        investable_amount: float,
+        paid_curr: str,
+        description_prefix: str
+):
+    # Get investable amount
+    investable_amount = CurrencyConverter().convert_to_local_currency(investable_amount, paid_curr)
+    
+    # Pay credit card debts
+    credit_card_debts = get_credit_card_debts()
+    for cc_debt in credit_card_debts.debts:
+        if investable_amount < cc_debt.amount:
+            payable_amount = investable_amount
+            investable_amount = 0
+        else:
+            payable_amount = cc_debt.amount
+            investable_amount -= payable_amount
+
+        _create_credit_card_transaction(
+            cc_debt.bank_name,
+            description_prefix,
+            cc_debt.card_name,
+            payable_amount)
+
+        if investable_amount <= 0:
+            return
+
+    if investable_amount <= 0:
+        return 
+
+    # Invest
+    inv_bank, inv_acc = get_next_investment_account()
+    trn_acc = get_home_account_of_bank(inv_bank)
+    _create_investment_transaction(inv_bank, description_prefix, trn_acc, inv_acc, investable_amount)
 
 
 def record_vat_payment(
