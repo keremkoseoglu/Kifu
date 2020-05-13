@@ -253,6 +253,14 @@
                   "currency": "TRY",
                   "cleared": false,
                   "collections": []
+               },
+               {
+                  "recurrence_date": "2020-06-14T00:00:00",
+                  "expected_payment_date": "2020-06-14T00:00:00",
+                  "amount": 4250.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
                }
             ],
             "start": "2020-02-14 10:29:03.715864"
