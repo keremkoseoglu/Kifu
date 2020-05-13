@@ -142,7 +142,7 @@ class ActivityListWindow(tkinter.Toplevel):
         new_invoice = invoice.get_invoice_obj_from_activities(selected_activities)
 
         invoice_window = InvoiceWindow()
-        invoice_window.fill_with_invoice(new_invoice)
+        invoice_window.fill_with_invoice(new_invoice, browser=True)
         invoice_window.mainloop()
 
     def _split_click(self):

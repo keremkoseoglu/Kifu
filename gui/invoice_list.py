@@ -83,7 +83,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         first_selected_invoice = selected_invoices[0]
 
         invoice_window = InvoiceWindow()
-        invoice_window.fill_with_invoice(first_selected_invoice)
+        invoice_window.fill_with_invoice(first_selected_invoice, browser=False)
         self.after(1, self.destroy())
         invoice_window.mainloop()
 
