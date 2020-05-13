@@ -1,4 +1,5 @@
 """ Address book report module """
+from typing import List
 from model.company import Company
 from report.html_report import HtmlReport
 
@@ -6,11 +7,18 @@ class AddressBook(HtmlReport): # pylint: disable=R0903
     """ Address book report generator """
     _REPORT_NAME = "Address book"
 
+    def __init__(self, listable_companies: List[str] = None):
+        self._listable_companies = listable_companies
+
     def _get_html_content(self) -> str: # pylint: disable=R0912, R0903
         output = ""
         first_company = True
         companies_json = Company.get_companies()
         for company_json in companies_json["companies"]:
+            if self._listable_companies is not None:
+                if company_json["name"] not in self._listable_companies:
+                    continue
+
             if not first_company:
                 output += "<hr>"
             company = Company(company_json["name"])

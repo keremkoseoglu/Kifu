@@ -1,3 +1,6 @@
+""" Constants """
+# pylint: disable=C0301
+
 # Company
 COMPANY_NAME_ACCOUNTING = "Seda Akçelep"
 COMPANY_NAME_1E1 = "1e1"
@@ -17,9 +20,9 @@ DEFAULT_BANK = "Akbank"
 DEFAULT_INCOME_TAX_RATE = 30
 DEFAULT_VAT_RATE = 18
 GOVERNMENT_BANK = "Vakıfbank"
-PAYMENT_LONG_RECURRENCE_BUFFER=3650
-PAYMENT_RECURRENCE_BUFFER=32
-PAYMENT_NOTIFICATION_BUFFER=32
+PAYMENT_LONG_RECURRENCE_BUFFER = 3650
+PAYMENT_RECURRENCE_BUFFER = 32
+PAYMENT_NOTIFICATION_BUFFER = 32
 
 # File system
 BACKUP_DIR_PATH = "backup"
@@ -37,6 +40,7 @@ VAT_DECLARATION_LAST_DAY = 28
 
 # URL
 BANK_HOLIDAY_URL = "https://calendar.google.com/calendar/ical/tr.turkish%23holiday%40group.v.calendar.google.com/public/basic.ics"
+E_ARCHIVE_URL = "https://earsivportal.efatura.gov.tr/intragiris.html"
 CURRENCY_CONV_URL = "http://www.tcmb.gov.tr/kurlar/today.xml"
 CURRENY_GOLD_URL = "http://www.trt.net.tr/finans/altin.aspx?id=XGLD"
 

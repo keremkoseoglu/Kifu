@@ -1,16 +1,16 @@
+""" HTML report abstract module """
 from abc import ABC, abstractmethod
-from config.constants import *
 import os
 from datetime import datetime
+from config.constants import *
 
 class HtmlReport(ABC):
+    """ Abstract class for HTML based reports """
 
     _EXTENSION = "html"
 
-    def __init__(self):
-        pass
-
     def execute(self):
+        """ Creates & opens the report """
         complete_html_content = \
             self._get_html_prefix() +\
             self._get_html_content() +\
@@ -18,8 +18,8 @@ class HtmlReport(ABC):
 
         file_path = self._get_file_path()
 
-        with open(file_path, "w") as f:
-            f.write(complete_html_content)
+        with open(file_path, "w") as report_file:
+            report_file.write(complete_html_content)
 
         os.system("open \"" + file_path + "\"")
 
