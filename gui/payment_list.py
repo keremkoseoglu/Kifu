@@ -1,4 +1,6 @@
-import tkinter, tkinter.ttk
+""" Payment list window """
+import tkinter
+import tkinter.ttk
 from config.constants import GUI_CELL_HEIGHT
 from model import payment
 from util import backup, date_time
@@ -9,6 +11,7 @@ from report.reconciliation import Reconciliation
 
 
 class PaymentListWindow(tkinter.Toplevel):
+    """ Payment list window """
 
     _BUTTON_WIDTH = 150
     _WINDOW_WIDTH = 1200
@@ -141,14 +144,14 @@ class PaymentListWindow(tkinter.Toplevel):
             return
 
         selected_companies = []
-        for sp in selected_payments:
+        for sel_pay in selected_payments:
             already_appended = False
-            for sc in selected_companies:
-                if sp.company.name == sc.name:
+            for sel_comp in selected_companies:
+                if sel_pay.company.name == sel_comp.name:
                     already_appended = True
                     break
             if not already_appended:
-                selected_companies.append(sp.company)
+                selected_companies.append(sel_pay.company)
 
         Reconciliation(selected_companies).execute()
 
@@ -161,7 +164,6 @@ class PaymentListWindow(tkinter.Toplevel):
             return
 
         first_selected_payment = selected_payments[0]
-        ps = PaymentStatus()
-        ps.set_payment(first_selected_payment)
-        ps.execute()
-
+        pay_stat = PaymentStatus()
+        pay_stat.set_payment(first_selected_payment)
+        pay_stat.execute()

@@ -1,3 +1,4 @@
+""" Company list window """
 import tkinter
 import tkinter.ttk
 from typing import List
@@ -6,6 +7,7 @@ from model.company import Company
 
 
 class CompanyList(tkinter.Toplevel):
+    """ Company list window """
 
     _WINDOW_WIDTH = 200
     _WINDOW_HEIGHT = 250
@@ -33,4 +35,3 @@ class CompanyList(tkinter.Toplevel):
         if len(obj_array) <= 0:
             return
         self._close_handler(obj_array)
-

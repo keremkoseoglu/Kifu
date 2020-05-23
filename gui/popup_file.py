@@ -1,3 +1,4 @@
+""" Popup utilities """
 import os
 import tkinter
 import tkinter.filedialog
@@ -5,7 +6,11 @@ import webbrowser
 from typing import List
 
 
-def popup_email(recipients: List[str] = None, subject: str = None, body: str = None, attachment: str = None):
+def popup_email(recipients: List[str] = None,
+                subject: str = None,
+                body: str = None,
+                attachment: str = None):
+    """ Popup an E-Mail window """
     if recipients is None:
         _recipients = []
     else:
@@ -31,11 +36,12 @@ def popup_email(recipients: List[str] = None, subject: str = None, body: str = N
     webbrowser.open(command, new=1)
 
     if attachment is not None and attachment != "":
-        folder, file = os.path.split(attachment)
-        os.system("open " + folder)
+        sel_folder, sel_file = os.path.split(attachment) # pylint: disable=W0612
+        os.system("open " + sel_folder)
 
 
 def popup_open_file() -> str:
+    """ Popup an open file dialog """
     root = tkinter.Toplevel()
     root.withdraw()
     return tkinter.filedialog.askopenfilename()

@@ -1,14 +1,20 @@
-from config.constants import *
+""" Activity window """
+import datetime
+import tkinter
+import tkinter.ttk
+from config.constants import GUI_CELL_HEIGHT, GUI_CELL_WIDTH
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
 from util import ecz_daha
-import model.activity, model.location, model.project
+import model.activity
+import model.location
+import model.project
 from model.project import Project
 from model.activity import Activity
-import datetime, tkinter, tkinter.ttk
 
 
 class ActivityWindow(tkinter.Toplevel):
+    """ Activity window """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 250
@@ -40,7 +46,12 @@ class ActivityWindow(tkinter.Toplevel):
         self._locations = model.location.get_locations()
         self._location_combo_val = []
         self._build_location_combo_values()
-        self._location_combo = LabeledCombobox(self, "Location", self._location_combo_val, 0, cell_y)
+        self._location_combo = LabeledCombobox(
+            self,
+            "Location",
+            self._location_combo_val,
+            0,
+            cell_y)
         cell_y += GUI_CELL_HEIGHT
 
         # Date
@@ -72,7 +83,7 @@ class ActivityWindow(tkinter.Toplevel):
         self._status_label.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=GUI_CELL_HEIGHT)
 
     def fill_with_activity(self, act: model.activity.Activity):
-
+        """ Fills window with given activity """
         proj = act.project
         clnt = proj.client
 
@@ -84,6 +95,7 @@ class ActivityWindow(tkinter.Toplevel):
         self._guid.set_value(act.guid)
 
     def fill_with_last_activity(self):
+        """ Fills window with last activity """
         last_activity = Activity.get_last_activity()
         if last_activity == {}:
             return

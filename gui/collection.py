@@ -1,12 +1,15 @@
-import datetime, tkinter
+""" Money collection window """
+import datetime
+import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.labeled_checkbox import LabeledCheckbox
 from gui.labeled_textbox import LabeledTextbox
-from config.constants import *
+from config.constants import GUI_CELL_WIDTH, GUI_CELL_HEIGHT
 from model.payment import Collection as Collection_Model
 
 
 class Collection:
+    """ Money collection window """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 200
@@ -18,7 +21,12 @@ class Collection:
         self._window.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
         cell_y = 0
 
-        self._date = LabeledTextbox(self._window, "Date", datetime.datetime.now().isoformat(), 0, cell_y)
+        self._date = LabeledTextbox(
+            self._window,
+            "Date",
+            datetime.datetime.now().isoformat(),
+            0,
+            cell_y)
         cell_y += GUI_CELL_HEIGHT
 
         self._description = LabeledTextbox(self._window, "Description", "", 0, cell_y)

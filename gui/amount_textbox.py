@@ -1,10 +1,18 @@
-from config.constants import *
+""" Amount text box control """
 import tkinter
+from config.constants import GUI_CELL_WIDTH
 from util import amount as util_amount
 
 class AmountTextbox:
+    """ Amount text box control """
 
-    def __init__(self, parent: tkinter.Toplevel, label_text: str, amount: float, currency: str, x_pos: int, y_pos: int):
+    def __init__(self,
+                 parent: tkinter.Toplevel,
+                 label_text: str,
+                 amount: float,
+                 currency: str,
+                 x_pos: int,
+                 y_pos: int):
         self._parent = parent
         self._label = tkinter.Label(parent, text=label_text)
         self._label.place(x=x_pos, y=y_pos)
@@ -24,18 +32,22 @@ class AmountTextbox:
         self._currency_box.place(x=x_pos + GUI_CELL_WIDTH + (amount_width * 10), y=y_pos)
 
     def disable(self):
+        """ Disable """
         self._amount_box.configure(state="disabled")
         self._currency_box.configure(state="disabled")
 
     def get_amount(self) -> float:
-        x = self._amount_val.get()
-        x = x.replace(",", "")
-        return float(x)
+        """ Returns amount """
+        output = self._amount_val.get()
+        output = output.replace(",", "")
+        return float(output)
 
     def get_currency(self):
+        """ Returns currency """
         return self._currency_val.get()
 
     def set_value(self, amount: float, currency: str):
+        """ Sets value into contorl """
         self._amount_val.set(util_amount.get_formatted_amount(amount))
         self._currency_val.set(currency)
         self._parent.update()

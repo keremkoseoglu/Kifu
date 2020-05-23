@@ -1,7 +1,9 @@
+""" Are you sure popup """
 import tkinter
 
 
 class PopupAreYouSure:
+    """ Are you sure popup """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 200

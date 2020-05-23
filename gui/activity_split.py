@@ -1,13 +1,17 @@
-from config.constants import *
+""" Split activity window """
+import tkinter
+import tkinter.ttk
+from config.constants import GUI_CELL_WIDTH, GUI_CELL_HEIGHT
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
-import model.activity, model.project
+import model.activity
+import model.project
 from model.project import Project
 from model.activity import Activity
-import tkinter, tkinter.ttk
 
 
 class ActivitySplit(tkinter.Toplevel):
+    """ Split activity window """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 250
@@ -47,7 +51,7 @@ class ActivitySplit(tkinter.Toplevel):
         cell_y += GUI_CELL_HEIGHT
 
     def fill_with_activity(self, act: model.activity.Activity):
-
+        """ Fills window with given activity """
         self._debut_activity = act
 
         proj = self._debut_activity.project
@@ -58,6 +62,7 @@ class ActivitySplit(tkinter.Toplevel):
         self._work.set_value(act.work)
 
     def fill_with_last_activity(self):
+        """ Fills window with latest activity """
         last_activity = Activity.get_last_activity()
         if last_activity == {}:
             return

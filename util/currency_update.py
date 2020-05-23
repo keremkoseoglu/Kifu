@@ -1,9 +1,12 @@
-import requests, xmltodict
+""" Currency update """
+import requests
+import xmltodict
 from model import currency
-from config.constants import *
+from config.constants import CURRENCY_CONV_URL, CURRENY_GOLD_URL
 
 
 def execute():
+    """ Runs currency update """
 
     # Currencies from TCMB
     resp = requests.get(CURRENCY_CONV_URL)

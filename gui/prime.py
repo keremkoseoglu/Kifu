@@ -1,3 +1,4 @@
+""" Primary window """
 import os
 import tkinter
 from util import backup, currency_update, file_system
@@ -21,6 +22,7 @@ from report import \
 
 
 class Prime:
+    """ Primary window """
     _NOTIF_HEIGHT = 250
     _WINDOW_WIDTH = 800
     _WINDOW_HEIGHT = 350
@@ -36,7 +38,7 @@ class Prime:
         self._root.geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Status label
-        self._status_label = tkinter.Label(master = self._root, text="Welcome to Kifu")
+        self._status_label = tkinter.Label(master=self._root, text="Welcome to Kifu")
         self._status_label.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=GUI_CELL_HEIGHT)
         cell_y += GUI_CELL_HEIGHT
 
@@ -58,51 +60,55 @@ class Prime:
 
         file_menu = tkinter.Menu(self._menu, tearoff=0)
         for data_file in file_system.get_data_file_list():
-            file_menu.add_command(label=data_file, command=lambda df=data_file: self._edit_data_file(df))
+            file_menu.add_command(
+                label=data_file,
+                command=lambda df=data_file: Prime._edit_data_file(df))
         file_menu.add_separator()
-        file_menu.add_command(label="Show data files", command=self._show_data_files)
+        file_menu.add_command(label="Show data files", command=Prime._show_data_files)
         file_menu.add_command(label="Backup data files", command=self._backup_data)
         file_menu.add_command(label="Exit", command=self._root.quit)
         self._menu.add_cascade(menu=file_menu, label="File")
 
         timesheet_menu = tkinter.Menu(self._menu, tearoff=0)
-        timesheet_menu.add_command(label="Add activity", command=self._add_activity)
-        timesheet_menu.add_command(label="Edit activities", command=self._list_activity)
-        timesheet_menu.add_command(label="Split latest", command=self._split_latest_activity)
+        timesheet_menu.add_command(label="Add activity", command=Prime._add_activity)
+        timesheet_menu.add_command(label="Edit activities", command=Prime._list_activity)
+        timesheet_menu.add_command(label="Split latest", command=Prime._split_latest_activity)
         timesheet_menu.add_separator()
-        timesheet_menu.add_command(label="List invoices", command=self._list_invoice)
+        timesheet_menu.add_command(label="List invoices", command=Prime._list_invoice)
 
         self._menu.add_cascade(menu=timesheet_menu, label="Timesheet")
 
         payment_menu = tkinter.Menu(self._menu, tearoff=0)
-        payment_menu.add_command(label="Add payment", command=self._add_payment)
-        payment_menu.add_command(label="Book cash movement", command=self._add_cash)
-        payment_menu.add_command(label="Buy foreign currency", command=self._buy_curr)
-        payment_menu.add_command(label="Pay VAT", command=self._pay_vat)
-        payment_menu.add_command(label="Pay income tax", command=self._pay_tax)
+        payment_menu.add_command(label="Add payment", command=Prime._add_payment)
+        payment_menu.add_command(label="Book cash movement", command=Prime._add_cash)
+        payment_menu.add_command(label="Buy foreign currency", command=Prime._buy_curr)
+        payment_menu.add_command(label="Pay VAT", command=Prime._pay_vat)
+        payment_menu.add_command(label="Pay income tax", command=Prime._pay_tax)
         payment_menu.add_separator()
-        payment_menu.add_command(label="List payments", command=self._list_payment)
+        payment_menu.add_command(label="List payments", command=Prime._list_payment)
         payment_menu.add_separator()
-        payment_menu.add_command(label="Delete completed payments", command=self._del_completed_payments)
+        payment_menu.add_command(
+            label="Delete completed payments",
+            command=self._del_completed_payments)
         self._menu.add_cascade(menu=payment_menu, label="Payment")
 
         report_menu = tkinter.Menu(self._menu, tearoff=0)
-        report_menu.add_command(label="Activity report", command=self._activity_report)
-        report_menu.add_command(label="Ecz activity comparison", command=self._ecz_activity)
-        report_menu.add_command(label="Reconciliation", command=self._reconciliation)
+        report_menu.add_command(label="Activity report", command=Prime._activity_report)
+        report_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
+        report_menu.add_command(label="Reconciliation", command=Prime._reconciliation)
         report_menu.add_separator()
-        report_menu.add_command(label="Net worth", command=self._net_worth)
-        report_menu.add_command(label="Account balances", command=self._bank_account_balance)
-        report_menu.add_command(label="Currency balances", command=self._currency_account)
+        report_menu.add_command(label="Net worth", command=Prime._net_worth)
+        report_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
+        report_menu.add_command(label="Currency balances", command=Prime._currency_account)
         report_menu.add_separator()
-        report_menu.add_command(label="IBAN list", command=self._iban_list)
-        report_menu.add_command(label="Address book", command=self._address_book)
+        report_menu.add_command(label="IBAN list", command=Prime._iban_list)
+        report_menu.add_command(label="Address book", command=Prime._address_book)
         self._menu.add_cascade(menu=report_menu, label="Report")
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
         util_menu.add_command(label="Update currencies", command=self._currency_update)
         util_menu.add_command(label="Print labels", command=self._print_label)
-        util_menu.add_command(label="Delete idle companies", command=self._del_idle_companies)
+        util_menu.add_command(label="Delete idle companies", command=Prime._del_idle_companies)
 
         self._menu.add_cascade(menu=util_menu, label="Util")
 
@@ -112,23 +118,28 @@ class Prime:
         self._root.configure(menu=self._menu)
         self._root.mainloop()
 
-    def _activity_report(self):
+    @staticmethod
+    def _activity_report():
         activity_list_report.ActivityList().execute()
 
-    def _add_activity(self):
+    @staticmethod
+    def _add_activity():
         activity_window = activity.ActivityWindow()
         activity_window.fill_with_last_activity()
         activity_window.mainloop()
 
-    def _add_cash(self):
+    @staticmethod
+    def _add_cash():
         cash_movement.CashMovement()
 
-    def _add_payment(self):
+    @staticmethod
+    def _add_payment():
         payment_window = payment.PaymentWindow()
         payment_window.fill_with_new_payment()
         payment_window.mainloop()
 
-    def _address_book(self):
+    @staticmethod
+    def _address_book():
         address_book.AddressBook().execute()
 
     def _backup_data(self):
@@ -136,13 +147,16 @@ class Prime:
         backup.execute()
         self._set_status("Backup complete")
 
-    def _bank_account_balance(self):
+    @staticmethod
+    def _bank_account_balance():
         bank_account_balance.BankAccountBalance().execute()
 
-    def _buy_curr(self):
+    @staticmethod
+    def _buy_curr():
         buy_foreign_currency.BuyForeignCurrency()
 
-    def _currency_account(self):
+    @staticmethod
+    def _currency_account():
         curr_acc_dist.CurrencyAccountDistribution().execute()
 
     def _currency_update(self):
@@ -155,45 +169,56 @@ class Prime:
         delete_completed_payments()
         self._set_status("Deletion complete")
 
-    def _del_idle_companies(self):
+    @staticmethod
+    def _del_idle_companies():
         idle_companies = get_companies_without_payment()
         if len(idle_companies) <= 0:
             return
-        company_list.CompanyList(self._del_idle_companies__selected, companies=idle_companies).mainloop()
+        company_list.CompanyList(
+            Prime._del_idle_companies__selected,
+            companies=idle_companies).mainloop()
 
-    def _del_idle_companies__selected(self, companies: []):
-        for c in companies:
-            c.delete()
+    @staticmethod
+    def _del_idle_companies__selected(companies: []):
+        for company in companies:
+            company.delete()
 
-    def _ecz_activity(self):
+    @staticmethod
+    def _ecz_activity():
         ecz_activity_comparison.EczActivityComparison().execute()
 
-    def _edit_data_file(self, file_name: str):
+    @staticmethod
+    def _edit_data_file(file_name: str):
         full_path = os.path.join(DATA_DIR_PATH, file_name)
         os.system("open " + full_path)
 
-    def _iban_list(self):
+    @staticmethod
+    def _iban_list():
         iban_list.IbanList().execute()
 
-    def _list_activity(self):
+    @staticmethod
+    def _list_activity():
         list_window = activity_list.ActivityListWindow()
         list_window.mainloop()
 
-    def _list_invoice(self):
+    @staticmethod
+    def _list_invoice():
         inv_window = invoice_list.InvoiceListWindow()
         inv_window.mainloop()
 
-    def _list_payment(self):
+    @staticmethod
+    def _list_payment():
         payment_window = payment_list.PaymentListWindow()
         payment_window.mainloop()
 
-    def _net_worth(self):
+    @staticmethod
+    def _net_worth():
         net_worth.NetWorth().execute()
 
-    def _notif_double_click(self, event):
-        s = self._notif_list.get(self._notif_list.curselection())
-        if s.__contains__("Payment"):
-            payment_guid = s[s.find("{")+1:s.find("}")]
+    def _notif_double_click(self):
+        selection = self._notif_list.get(self._notif_list.curselection())
+        if selection.__contains__("Payment"):
+            payment_guid = selection[selection.find("{")+1:selection.find("}")]
             payment_obj = payment_model.get_payment_with_guid(payment_guid)
             if payment_obj is None:
                 return
@@ -201,22 +226,28 @@ class Prime:
             payment_win.fill_with_payment(payment_obj)
             payment_win.mainloop()
 
-    def _pay_tax(self):
+    @staticmethod
+    def _pay_tax():
         pay_income_tax.PayIncomeTax()
 
-    def _pay_vat(self):
+    @staticmethod
+    def _pay_vat():
         pay_vat.PayVat()
 
-    def _print_label(self):
-        company_list.CompanyList(self._print_label__company_selected).mainloop()
+    @staticmethod
+    def _print_label():
+        company_list.CompanyList(Prime._print_label__company_selected).mainloop()
 
-    def _print_label__company_selected(self, companies: []):
+    @staticmethod
+    def _print_label__company_selected(companies: []):
         CompanyLabel().generate(companies)
 
-    def _reconciliation(self):
-        company_list.CompanyList(self._reconciliation__company_selected).mainloop()
+    @staticmethod
+    def _reconciliation():
+        company_list.CompanyList(Prime._reconciliation__company_selected).mainloop()
 
-    def _reconciliation__company_selected(self, companies: []):
+    @staticmethod
+    def _reconciliation__company_selected(companies: []):
         reconciliation.Reconciliation(companies).execute()
 
     def _refresh(self):
@@ -231,13 +262,14 @@ class Prime:
         self._status_label["text"] = status
         self._root.update()
 
-    def _show_data_files(self):
+    @staticmethod
+    def _show_data_files():
         os.system("open " + DATA_DIR_PATH)
 
-    def _split_latest_activity(self):
+    @staticmethod
+    def _split_latest_activity():
         last_activity = Activity(Activity.get_last_activity())
 
         as_window = activity_split.ActivitySplit()
         as_window.fill_with_activity(last_activity)
         as_window.mainloop()
-

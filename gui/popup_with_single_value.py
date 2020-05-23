@@ -1,8 +1,10 @@
+""" Single value popup window """
 import tkinter
 from gui.labeled_textbox import LabeledTextbox
 
 
 class PopupWithSingleValue:
+    """ Single value popup window """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 200

@@ -1,13 +1,17 @@
-import datetime, os, shutil
-from config.constants import *
+""" Backup """
+import datetime
+import os
+import shutil
+from config.constants import BACKUP_PRESERVE_DAYS, DATA_DIR_PATH, BACKUP_DIR_PATH
 
 
 def clear_old_backups():
+    """ Clear old backups """
     subfolder_path = [f.path for f in os.scandir(_get_root_backup_dir()) if f.is_dir()]
     subfolder_name = [f.name for f in os.scandir(_get_root_backup_dir()) if f.is_dir()]
     deletable_paths = []
 
-    earliest_preservable_date = datetime.datetime.now() - datetime.timedelta(days=BACKUP_PRESERVE_DAYS)
+    earliest_preservable_date = datetime.datetime.now() - datetime.timedelta(days=BACKUP_PRESERVE_DAYS) # pylint: disable=C0301
 
     list_pos = 0
     for name in subfolder_name:
@@ -20,6 +24,8 @@ def clear_old_backups():
 
 
 def execute():
+    """ Create a new backup """
+
     # Create new directory
     backup_dir = os.path.join(_get_root_backup_dir(), _get_dir_name())
     os.makedirs(backup_dir)

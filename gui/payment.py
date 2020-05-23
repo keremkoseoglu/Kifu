@@ -1,4 +1,7 @@
-import datetime, tkinter, tkinter.ttk
+""" Payment window """
+import datetime
+import tkinter
+import tkinter.ttk
 from gui.amount_textbox import AmountTextbox
 from gui.collection import Collection
 from gui.company_combobox import CompanyCombobox
@@ -7,7 +10,7 @@ from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textarea import LabeledTextarea
 from gui.labeled_textbox import LabeledTextbox
 from gui.popup_with_single_value import PopupWithSingleValue
-from config.constants import *
+from config.constants import GUI_CELL_HEIGHT, HOME_CURRENCY, GUI_CELL_WIDTH
 import model.payment as payment_model
 from util import amount as util_amount
 from util import date_time
@@ -15,6 +18,7 @@ from report.payment_status import PaymentStatus
 
 
 class PaymentWindow(tkinter.Toplevel):
+    """ Payment window """
 
     _SPACING = 100
     _WINDOW_WIDTH = 1000
@@ -29,9 +33,9 @@ class PaymentWindow(tkinter.Toplevel):
         cell_y = 0
         self._payment = None
 
-        '''
-        Payment
-        '''
+        ##########
+        # Payment
+        ##########
 
         # GUID
         self._guid = LabeledTextbox(self, "GUID", "", cell_x, cell_y)
@@ -56,7 +60,12 @@ class PaymentWindow(tkinter.Toplevel):
         cell_y += GUI_CELL_HEIGHT
 
         # Direction
-        self._direction = LabeledCombobox(self, "Direction", payment_model.get_direction_values(), cell_x, cell_y)
+        self._direction = LabeledCombobox(
+            self,
+            "Direction",
+            payment_model.get_direction_values(),
+            cell_x,
+            cell_y)
         cell_y += GUI_CELL_HEIGHT
 
         # Amount
@@ -84,9 +93,9 @@ class PaymentWindow(tkinter.Toplevel):
         cell_y += GUI_CELL_HEIGHT
         cell_y_bookmark = cell_y
 
-        '''
-        Scheme
-        '''
+        ##########
+        # Scheme
+        ##########
 
         cell_x = (GUI_CELL_WIDTH * 2) + self._SPACING
         cell_y = 0
@@ -96,7 +105,12 @@ class PaymentWindow(tkinter.Toplevel):
         cell_y += GUI_CELL_HEIGHT
 
         # Period
-        self._period = LabeledCombobox(self, "Period", payment_model.get_period_values(), cell_x, cell_y)
+        self._period = LabeledCombobox(
+            self,
+            "Period",
+            payment_model.get_period_values(),
+            cell_x,
+            cell_y)
         cell_y += GUI_CELL_HEIGHT
 
         # Start
@@ -111,21 +125,27 @@ class PaymentWindow(tkinter.Toplevel):
         self._notes = LabeledTextarea(self, "Notes", "", cell_x, cell_y)
         cell_y += GUI_CELL_HEIGHT
 
-        '''
-        Recurrence
-        '''
+        ##########
+        # Recurrence
+        ##########
 
         cell_x = 0
         cell_y = cell_y_bookmark + GUI_CELL_HEIGHT
 
         # Visual
 
-        tkinter.Label(self, text="Recurrence:").place(x=cell_x, y=cell_y)
+        tkinter.Label(
+            self,
+            text="Recurrence:").place(x=cell_x, y=cell_y)
         cell_y += GUI_CELL_HEIGHT
 
         self._recurrence_tree = tkinter.ttk.Treeview(self)
         tree_height = GUI_CELL_HEIGHT * 5
-        self._recurrence_tree.place(x=cell_x, y=cell_y, width=self._WINDOW_WIDTH, height=tree_height)
+        self._recurrence_tree.place(
+            x=cell_x,
+            y=cell_y,
+            width=self._WINDOW_WIDTH,
+            height=tree_height)
         cell_y += tree_height
 
         self._recurrence_tree["columns"] = ("Exp.Date", "Amount", "Open Amount", "Cleared")
@@ -138,7 +158,11 @@ class PaymentWindow(tkinter.Toplevel):
 
         recurrence_clear_button = tkinter.Button(self, text="Clear", command=self._clear_recurrence)
         recurrence_clear_button.place(x=0, y=cell_y)
-        recurrence_postpone_button = tkinter.Button(self, text="Postpone", command=self._rec_postpone_popup)
+
+        recurrence_postpone_button = tkinter.Button(
+            self,
+            text="Postpone",
+            command=self._rec_postpone_popup)
         recurrence_postpone_button.place(x=GUI_CELL_WIDTH, y=cell_y)
         recurrence_add_button = tkinter.Button(self, text="Add", command=self._recurrence_popup)
         recurrence_add_button.place(x=GUI_CELL_WIDTH*2, y=cell_y)
@@ -147,16 +171,20 @@ class PaymentWindow(tkinter.Toplevel):
         # Data
         self._recurrence_tree_content = {}
 
-        '''
-        Collections
-        '''
+        ##########
+        # Collections
+        ##########
 
         cell_y += GUI_CELL_HEIGHT
         tkinter.Label(self, text="Collections:").place(x=cell_x, y=cell_y)
         cell_y += GUI_CELL_HEIGHT
 
         self._collection_tree = tkinter.ttk.Treeview(self)
-        self._collection_tree.place(x=cell_x, y=cell_y, width=self._WINDOW_WIDTH, height=tree_height)
+        self._collection_tree.place(
+            x=cell_x,
+            y=cell_y,
+            width=self._WINDOW_WIDTH,
+            height=tree_height)
         cell_y += tree_height
 
         self._collection_tree["columns"] = ("Description", "Amount")
@@ -170,9 +198,9 @@ class PaymentWindow(tkinter.Toplevel):
         # Data
         self._collection_tree_content = {}
 
-        '''
-        Final
-        '''
+        ##########
+        # Final
+        ##########
 
         cell_y += (self._SPACING / 2)
 
@@ -190,6 +218,7 @@ class PaymentWindow(tkinter.Toplevel):
         cell_y += GUI_CELL_HEIGHT
 
     def add_collection(self, collection: payment_model.Collection, clear=False):
+        """ Adds a new payment collection """
         rec = self._get_selected_recurrence()
         if rec is None:
             return
@@ -201,7 +230,7 @@ class PaymentWindow(tkinter.Toplevel):
         self._clear_collection_tree()
 
     def add_recurrence(self, date: str):
-
+        """ Adds a new payment recurrence """
         amount, currency = self._payment.amount
 
         recurrence_json = {
@@ -211,13 +240,14 @@ class PaymentWindow(tkinter.Toplevel):
             "currency": currency,
             "cleared": False,
             "collections": []
-       }
+        }
 
         recurrence_obj = payment_model.Recurrence(recurrence_json)
         self._payment.scheme.add_recurrence(recurrence_obj)
         self._paint_recurrences()
 
     def fill_with_new_payment(self):
+        """ Fills the form with a new payment """
         payment_json = {
             "creation_date": datetime.datetime.now().isoformat(),
             "scheme": {
@@ -232,6 +262,7 @@ class PaymentWindow(tkinter.Toplevel):
         self.fill_with_payment(new_payment)
 
     def fill_with_payment(self, pay: payment_model.Payment):
+        """ Fills the form with the given payment """
 
         # Preparation
 
@@ -274,6 +305,7 @@ class PaymentWindow(tkinter.Toplevel):
         self._delete_warning_label["text"] = del_warning_text
 
     def postpone_recurrence(self, date_txt: str):
+        """ Click handler for postpone """
         rec = self._get_selected_recurrence()
         rec.expected_payment_date = date_time.parse_json_date(date_txt)
         self._paint_recurrences()
@@ -285,7 +317,7 @@ class PaymentWindow(tkinter.Toplevel):
 
     def _clear_recurrence(self):
         selected_recurrence = self._get_selected_recurrence()
-        if selected_recurrence != None:
+        if selected_recurrence is not None:
             selected_recurrence.toggle_cleared()
 
         self._paint_recurrences()
@@ -296,13 +328,18 @@ class PaymentWindow(tkinter.Toplevel):
     def _get_selected_recurrence(self) -> payment_model.Recurrence:
         try:
             item = self._recurrence_tree.selection()[0]
-        except:
+        except Exception:
             return None
         clicked_date_txt = self._recurrence_tree.item(item, "text")
         clicked_year = int(clicked_date_txt[:4])
         clicked_month = int(clicked_date_txt[5:7])
         clicked_day = int(clicked_date_txt[8:10])
-        clicked_recurrence = self._payment.scheme.get_recurrence_on_date(clicked_year, clicked_month, clicked_day)
+
+        clicked_recurrence = self._payment.scheme.get_recurrence_on_date(
+            clicked_year,
+            clicked_month,
+            clicked_day)
+
         return clicked_recurrence
 
     def _delete(self):
@@ -310,7 +347,7 @@ class PaymentWindow(tkinter.Toplevel):
         self.destroy()
 
     def _paint_recurrences(self):
-        self._recurrence_tree_content_content = {}
+        self._recurrence_tree_content = {}
         self._recurrence_tree.delete(*self._recurrence_tree.get_children())
         self.update()
 
@@ -346,7 +383,7 @@ class PaymentWindow(tkinter.Toplevel):
         rec = self._get_selected_recurrence()
         PopupWithSingleValue(self.postpone_recurrence, "Date", rec.expected_payment_date)
 
-    def _recurrence_select(self, event):
+    def _recurrence_select(self):
 
         # Prepare
 
@@ -399,6 +436,6 @@ class PaymentWindow(tkinter.Toplevel):
         self.destroy()
 
     def _status(self):
-        ps = PaymentStatus()
-        ps.set_payment(self._payment)
-        ps.execute()
+        pay_stat = PaymentStatus()
+        pay_stat.set_payment(self._payment)
+        pay_stat.execute()

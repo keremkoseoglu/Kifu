@@ -1,11 +1,14 @@
+""" Bank account """
+import json
+import os
 from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY
-import json, os
 from model.currency import CurrencyConverter
 
 _BANK_ACCOUNT_FILE = "bank_account.json"
 
 
 def get_accounts_with_currency(currency: str) -> []:
+    """ Returns all bank accounts having the given currency """
     output = []
 
     for bank_account in get_bank_accounts()["bank_accounts"]:
@@ -16,12 +19,15 @@ def get_accounts_with_currency(currency: str) -> []:
 
 
 def get_account_balances_in_both_currencies() -> []:
+    """ Account balances in original and home currencies """
     output = []
     accounts = get_bank_accounts()
     currency_converter = CurrencyConverter()
 
     for account in accounts["bank_accounts"]:
-        amount = currency_converter.convert_to_local_currency(account["balance"], account["currency"])
+        amount = currency_converter.convert_to_local_currency(
+            account["balance"],
+            account["currency"])
         output_dict = {
             "name": account["bank_name"] + " - " + account["account_name"],
             "home_balance": amount,
@@ -34,12 +40,14 @@ def get_account_balances_in_both_currencies() -> []:
 
 
 def get_bank_accounts():
-    with open(_get_file_path()) as f:
-        json_data = json.load(f)
+    """ Returns all bank accounts """
+    with open(_get_file_path()) as acc_file:
+        json_data = json.load(acc_file)
     return json_data
 
 
 def get_currencies() -> []:
+    """ Returns all currencies in bank accounts """
     output = []
 
     for bank_account in get_bank_accounts()["bank_accounts"]:
@@ -50,17 +58,21 @@ def get_currencies() -> []:
 
 
 def get_current_account_balance_sum() -> float:
+    """ Returns money in banks in home currency """
     amount = 0
     accounts = get_bank_accounts()
     currency_converter = CurrencyConverter()
 
     for account in accounts["bank_accounts"]:
-        amount += currency_converter.convert_to_local_currency(account["balance"], account["currency"])
+        amount += currency_converter.convert_to_local_currency(
+            account["balance"],
+            account["currency"])
 
     return amount
 
 
 def get_home_account_of_bank(bank: str) -> str:
+    """ Returns bank account in home currency """
     for bank_account in get_bank_accounts()["bank_accounts"]:
         if bank_account["bank_name"] == bank and bank_account["currency"] == HOME_CURRENCY:
             return bank_account["account_name"]
@@ -68,6 +80,9 @@ def get_home_account_of_bank(bank: str) -> str:
 
 
 def get_next_investment_account() -> tuple:
+    """ Selects and returns the most suitable investment account
+    This is the account with the lowest amount
+    """
     accs = get_account_balances_in_both_currencies()
     inv_accs = []
     for acc in accs:
@@ -80,18 +95,19 @@ def get_next_investment_account() -> tuple:
         if acc["home_balance"] < next_acc["home_balance"]:
             next_acc = acc
 
-    ba = next_acc["name"].split()
+    account_parts = next_acc["name"].split()
     acc = ""
-    for b in ba:
-        if b == "-":
+    for account_part in account_parts:
+        if account_part == "-":
             break
         if acc != "":
             acc += " "
-        acc += b
-    return acc, ba[len(ba)-1]
+        acc += account_part
+    return acc, account_parts[len(account_parts)-1]
 
 
 def get_vat_account() -> dict:
+    """ Returns the default VAT account """
     for bank_account in get_bank_accounts()["bank_accounts"]:
         if bank_account["is_vat"]:
             return bank_account

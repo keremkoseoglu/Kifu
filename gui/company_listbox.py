@@ -1,11 +1,17 @@
+""" Company list box control """
 import tkinter
 from typing import List
 from model.company import Company
 
 
 class CompanyListbox:
+    """ Company list box control """
 
-    def __init__(self, parent: tkinter.Toplevel, x_pos: int, y_pos: int, companies: List[Company] = None):
+    def __init__(self,
+                 parent: tkinter.Toplevel,
+                 x_pos: int,
+                 y_pos: int,
+                 companies: List[Company] = None):
         self._combo_val = []
 
         if companies is None:
@@ -18,11 +24,12 @@ class CompanyListbox:
 
         self._combo = tkinter.Listbox(parent, selectmode=tkinter.EXTENDED)
 
-        for c in self._combo_val:
-            self._combo.insert(tkinter.END, c)
+        for value in self._combo_val:
+            self._combo.insert(tkinter.END, value)
 
         self._combo.place(x=x_pos, y=y_pos)
 
-    def get_selected_company_names(self) -> []:
+    def get_selected_company_names(self) -> List[str]:
+        """ Returns selected company names """
         items = self._combo.curselection()
         return [self._combo_val[int(item)] for item in items]

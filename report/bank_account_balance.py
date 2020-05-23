@@ -1,9 +1,11 @@
+""" Bank account balance report """
 from report.html_report import HtmlReport
 from model import bank_account
 from util import amount
-from config.constants import *
+from config.constants import HOME_CURRENCY_SYMBOL
 
 class BankAccountBalance(HtmlReport):
+    """ Bank account balance report """
 
     _REPORT_NAME = "Bank Account Balance"
 
@@ -13,8 +15,8 @@ class BankAccountBalance(HtmlReport):
         for balance in bank_account.get_account_balances_in_both_currencies():
             output += "<tr>"
             output += "<td>" + balance["name"] + "</td>"
-            output += "<td align=right>" + amount.get_formatted_amount(balance["original_balance"]) + " " + balance["original_currency"] + "</td>"
-            output += "<td align=right>" + amount.get_formatted_amount(balance["home_balance"]) + " " + HOME_CURRENCY_SYMBOL + "</td>"
+            output += "<td align=right>" + amount.get_formatted_amount(balance["original_balance"]) + " " + balance["original_currency"] + "</td>" # pylint: disable=C0301
+            output += "<td align=right>" + amount.get_formatted_amount(balance["home_balance"]) + " " + HOME_CURRENCY_SYMBOL + "</td>" # pylint: disable=C0301
             output += "</tr>"
 
         output += "</table>"

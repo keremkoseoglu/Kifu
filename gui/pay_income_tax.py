@@ -1,10 +1,12 @@
+""" Income tax payment window """
 import tkinter
 from gui.amount_textbox import AmountTextbox
-from config.constants import *
+from config.constants import GUI_CELL_WIDTH, GUI_CELL_HEIGHT, HOME_GOVERNMENT, HOME_CURRENCY
 import model.payment as payment
 
 
 class PayIncomeTax:
+    """ Income tax payment window """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 200

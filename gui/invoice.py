@@ -1,11 +1,12 @@
 """ Invoice window """
 import tkinter
 import webbrowser
-from config.constants import *
+from config.constants import COMPANY_NAME_ACCOUNTING, GUI_CELL_HEIGHT, HOME_CURRENCY,\
+    GUI_CELL_WIDTH, E_ARCHIVE_URL
 from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
-from gui.popup_file import *
+from gui.popup_file import popup_email, popup_open_file
 from model.invoice import Invoice
 import model.company
 from model.company import Company
@@ -28,7 +29,7 @@ def open_invoice_as_email(inv: Invoice):
                 attachment=inv.file_path)
 
 
-class InvoiceWindow(tkinter.Toplevel): # pylint: disable=R9092
+class InvoiceWindow(tkinter.Toplevel):
     """ Invoice window """
 
     _SMALL_SPACE = 25
@@ -133,7 +134,7 @@ class InvoiceWindow(tkinter.Toplevel): # pylint: disable=R9092
         self._income_tax.set_value(str(invoice.income_tax_rate))
         self._income_tax_amount.set_value((str(invoice.income_tax_amount)))
         self._file_path.set_value(invoice.file_path)
-        
+
         if browser:
             AddressBook(listable_companies=[invoice.payer.name]).execute()
             webbrowser.open(E_ARCHIVE_URL)
