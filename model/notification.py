@@ -1,8 +1,9 @@
+""" Notifications in main window """
+import datetime
 from model import payment
 from model.activity import Activity
 from util import amount as util_amount
 from util import date_time
-import datetime
 
 
 ICON_GREEN = "   "
@@ -11,6 +12,7 @@ ICON_RED = " ! "
 
 
 def get_notifications() -> []:
+    """ Builds and returns a notification list """
     output = []
 
     if not Activity.has_activity_for_today():
@@ -18,7 +20,7 @@ def get_notifications() -> []:
 
     # Completed payments
     for pay in payment.get_completed_payments():
-        output.append(ICON_GREEN + "Completed payment: " + pay.company.name + " - " + pay.description)
+        output.append(ICON_GREEN + "Completed payment: " + pay.company.name + " - " + pay.description) # pylint: disable=C0301
 
     # Approaching or late payments
     for pay in get_raw_recurrence_list():
@@ -29,11 +31,12 @@ def get_notifications() -> []:
 
 
 def get_raw_recurrence_list() -> []:
+    """ Returns the raw recurrence list """
     output = []
     today = datetime.date.today()
 
     payment.generate_high_time_recurrences()
-    for pay, sch, recs in payment.get_approaching_or_late_recurrences():
+    for pay, sch, recs in payment.get_approaching_or_late_recurrences(): # pylint: disable=W0612
         for rec in recs:
             amount, currency = rec.open_amount
             rec_date = rec.realistic_payment_date

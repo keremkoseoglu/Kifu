@@ -1,13 +1,17 @@
+""" Cash movement GUI """
 import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.labeled_combobox import LabeledCombobox
-from config.constants import *
+from config.constants import GUI_CELL_WIDTH, GUI_CELL_HEIGHT, HOME_CURRENCY
 import model.payment as payment
 
 
 class CashMovement:
+    """ GUI to record a cash movement
+    The movement may be an incoming, outcoming or transfer payment
+    """
 
     _WINDOW_WIDTH = 400
     _WINDOW_HEIGHT = 200

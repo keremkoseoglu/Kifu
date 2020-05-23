@@ -1,3 +1,4 @@
+""" IBAN list report """
 from report.html_report import HtmlReport
 from model import bank_account
 from model.company import Company
@@ -5,6 +6,7 @@ from config.constants import HOME_COMPANY
 
 
 class IbanList(HtmlReport):
+    """ IBAN list report """
 
     _REPORT_NAME = "IBAN List"
 
@@ -27,4 +29,3 @@ class IbanList(HtmlReport):
 
     def _get_report_name(self) -> str:
         return self._REPORT_NAME
-

@@ -1,13 +1,15 @@
-from config.constants import *
+""" Reconciliation report """
+from typing import List
+from config.constants import HOME_CURRENCY_SYMBOL
 from model.company import Company
 from model import payment
 from report.html_report import HtmlReport
 from report.payment_status import PaymentStatus
-from typing import List
-from util.amount import *
+from util.amount import get_formatted_amount
 
 
 class ReconciliationCursor:
+    """ Reconciliation cursor """
     def __init__(self, company: Company = None):
         self._company = company
         self.output = ""
@@ -16,20 +18,24 @@ class ReconciliationCursor:
 
     @property
     def balance(self) -> float:
+        """ Reconciliation balance """
         return self.open_incoming_amount - self.open_outgoing_amount
 
     @property
     def company(self) -> Company:
+        """ Reconciliation company """
         return self._company
 
     @company.setter
     def company(self, company: Company):
+        """ Reconciliation company """
         self._company = company
         self._open_payments = []
         self._open_payments_read = False
 
     @property
     def open_payments(self) -> List[payment.Payment]:
+        """ Open payments """
         if not self._open_payments_read:
             if self._company is not None:
                 self._open_payments = payment.get_open_payments_of_company(self.company.name)
@@ -38,25 +44,29 @@ class ReconciliationCursor:
 
     @property
     def open_incoming_amount(self) -> float:
+        """ Open incoming amount """
         return ReconciliationCursor._get_amount_sum_of_payments(self.open_incoming_payments)
 
     @property
     def open_incoming_payments(self) -> List[payment.Payment]:
+        """ Open incoming payments """
         return self._get_open_payments_with_direction(payment.DIRECTION_IN)
 
     @property
     def open_outgoing_amount(self) -> float:
+        """ Open outgoing amount """
         return ReconciliationCursor._get_amount_sum_of_payments(self.open_outgoing_payments)
 
     @property
     def open_outgoing_payments(self) -> List[payment.Payment]:
+        """ Open outgoing payments """
         return self._get_open_payments_with_direction(payment.DIRECTION_OUT)
 
     @staticmethod
     def _get_amount_sum_of_payments(payments: List[payment.Payment]) -> float:
         output = 0
-        for p in payments:
-            output += p.open_amount_in_local_currency
+        for pay in payments:
+            output += pay.open_amount_in_local_currency
         return output
 
     def _get_open_payments_with_direction(self, direction: str) -> List[payment.Payment]:
@@ -68,6 +78,7 @@ class ReconciliationCursor:
 
 
 class Reconciliation(HtmlReport):
+    """ Reconciliation report """
     _REPORT_NAME = "Reconciliation"
 
     def __init__(self, companies: List[Company]):
@@ -120,12 +131,12 @@ class Reconciliation(HtmlReport):
             return
 
         first_payment = True
-        for p in payments:
+        for pay in payments:
             if not first_payment:
                 self._cursor.output += "<hr>"
-            self._cursor.output += "<h3>" + p.description + "</h3>"
+            self._cursor.output += "<h3>" + pay.description + "</h3>"
             self._cursor.output += PaymentStatus.get_html_for_payment(
-                p,
+                pay,
                 with_title=False,
                 with_description=False,
                 subtitle_tag="h4")

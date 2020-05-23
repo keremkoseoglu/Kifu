@@ -1,13 +1,17 @@
-from config.constants import *
+""" Activity list window """
+import tkinter
+import tkinter.ttk
+from config.constants import GUI_CELL_HEIGHT
 from model import activity, invoice
 from model.activity import Activity
-import tkinter, tkinter.ttk
 from gui.activity import ActivityWindow
 from gui.activity_split import ActivitySplit
 from gui.invoice import InvoiceWindow
 from util import activity_xlsx_report, backup, date_time
 
+
 class ActivityListWindow(tkinter.Toplevel):
+    """ Activity list window """
 
     _BUTTON_WIDTH = 150
     _WINDOW_WIDTH = 1200

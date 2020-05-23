@@ -1,5 +1,9 @@
-import datetime, json, os, copy
-from config.constants import *
+""" Activity """
+import datetime
+import json
+import os
+import copy
+from config.constants import DATA_DIR_PATH
 from model.currency import CurrencyConverter
 from model.project import Project
 from model.company import Company
@@ -7,10 +11,12 @@ from util import date_time, identifier
 
 
 class Activity:
+    """ Activity """
     _ACTIVITY_FILE = "activity.json"
 
     @staticmethod
     def delete_activities(activity_guids: []):
+        """ Deletes the given activities """
         all_activities = Activity.get_activities()
         new_activities = {"activities": []}
         for i in range(len(all_activities["activities"])):
@@ -21,20 +27,22 @@ class Activity:
 
     @staticmethod
     def get_activities():
-        with open(Activity._get_file_path()) as f:
-            json_data = json.load(f)
+        """ Returns all activities """
+        with open(Activity._get_file_path()) as act_file:
+            json_data = json.load(act_file)
         return json_data
 
     @staticmethod
     def get_last_activity() -> {}:
+        """ Returns last activity """
         all_activities = Activity.get_activities()["activities"]
         if len(all_activities) == 0:
             return {}
-        else:
-            return all_activities[len(all_activities) - 1]
+        return all_activities[len(all_activities) - 1]
 
     @staticmethod
     def get_time_sum(client_name: str, date: datetime) -> int:
+        """ Returns the sum of time spent """
         output = 0
 
         all_activities = Activity.get_activities()
@@ -50,6 +58,7 @@ class Activity:
 
     @staticmethod
     def get_total_activity_earnings() -> float:
+        """ Returns current activity earnings """
         output = 0
         for activity_dict in Activity.get_activities()["activities"]:
             activity = Activity(activity_dict)
@@ -58,6 +67,9 @@ class Activity:
 
     @staticmethod
     def has_activity_for_today() -> bool:
+        """ Has activity for today?
+        Used in notifications to warn on missing activities
+        """
         for act_json in Activity.get_activities()["activities"]:
             act_obj = Activity(act_json)
             if date_time.is_today(act_obj.date):
@@ -70,8 +82,8 @@ class Activity:
 
     @staticmethod
     def _write_activities_to_disk(activities: {}):
-        with open(Activity._get_file_path(), "w") as f:
-            json.dump(activities, f, indent=3)
+        with open(Activity._get_file_path(), "w") as act_file:
+            json.dump(activities, act_file, indent=3)
 
     def __init__(self, activity: {}):
         self._activity = None
@@ -80,91 +92,111 @@ class Activity:
 
     @property
     def client(self) -> Company:
+        """ Activity client """
         return self.project.client
 
     @property
     def date(self) -> datetime:
+        """ Activity dateclient """
         return date_time.parse_json_date(self._activity["date"])
 
     @date.setter
     def date(self, date: datetime.datetime):
+        """ Activity client """
         self._activity["date"] = date.isoformat()
 
     @property
     def guid(self) -> str:
+        """ Activity guid """
         return self._activity["guid"]
 
     @guid.setter
     def guid(self, guid: str):
+        """ Activity guid """
         self._activity["guid"] = guid
 
     @property
     def earned_amount(self) -> tuple:
+        """ Activity generated amount """
         return self._project.get_earned_amount(self.hours)
 
     @property
     def earned_amount_in_local_currency(self) -> float:
+        """ Activity generated amount in local currency """
         foreign_amount, foreign_currency = self.earned_amount
         return CurrencyConverter().convert_to_local_currency(foreign_amount, foreign_currency)
 
     @property
     def hours(self) -> int:
+        """ Activity hours """
         return int(self._activity["duration"])
 
     @hours.setter
     def hours(self, hours: int):
+        """ Activity hours """
         self._activity["duration"] = hours
 
     @property
     def dict(self) -> {}:
+        """ Activity as a dict """
         return self._activity
 
     @dict.setter
     def dict(self, activity: {}):
+        """ Activity as a dict """
         self._activity = activity
         self.set_project(activity["client_name"], activity["project_name"])
 
     @property
     def location(self) -> str:
+        """ Activity location """
         return self._activity["location"]
 
     @property
     def month(self) -> int:
+        """ Activity month """
         return self.date.month
 
     @property
     def period(self) -> tuple:
+        """ Activity period """
         year = int(self._activity["date"][:4])
         month = int(self._activity["date"][5:7])
         return year, month
 
     @property
     def project(self) -> Project:
+        """ Activity project """
         return self._project
 
     @property
     def year(self) -> int:
+        """ Activity year """
         return self.date.year
 
     @property
     def work(self) -> str:
+        """ Activity work """
         return self._activity["work"]
 
     @work.setter
     def work(self, work: str):
+        """ Activity work """
         self._activity["work"] = work
 
     def is_in_month(self, p_year: int, p_month: int) -> bool:
+        """ Is activity in the given month? """
         return self.year == p_year and self.month == p_month
 
     def save(self):
+        """ Write activity to disk """
         if "guid" not in self._activity:
             self._activity["guid"] = identifier.get_guid()
         elif self._activity["guid"] == "":
             self._activity["guid"] = identifier.get_guid()
 
         current_activities = Activity.get_activities()
-        new_activities = { "activities" : [] }
+        new_activities = {"activities": []}
 
         updated = False
         for act in current_activities["activities"]:
@@ -180,6 +212,7 @@ class Activity:
         Activity._write_activities_to_disk(new_activities)
 
     def set_project(self, client_name: str, project_name: str):
+        """ Activity project """
         self._activity["client_name"] = client_name
         self._activity["project_name"] = project_name
         self._project = Project(self._activity["client_name"], self._activity["project_name"])
@@ -189,6 +222,10 @@ class Activity:
               project_name: str,
               hours: int,
               work: str):
+        """ Splits the activity
+        Used when you entered the activity in the morning,
+        but worked for a different client during the day
+        """
 
         self.hours -= hours
 

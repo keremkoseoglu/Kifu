@@ -1,18 +1,21 @@
+""" Eczacibasi activity comparison """
+from datetime import datetime
 from report.html_report import HtmlReport
 from util import date_time, ecz_daha
 from model.activity import Activity
-from config.constants import *
-from datetime import datetime
+from config.constants import COMPANY_NAME_ECZ_TUG
+
 
 
 class EczActivityComparisonLine:
-    date: str
-    comment: str
-    ecz_hours: str
-    kifu_hours: str
-    diff_icon: str
+    """ Eczacibasi activity comparison line """
 
-    def __init__(self, p_date: str, p_comment: str, p_ecz_hours: str, p_kifu_hours: str, p_diff_icon: str=""):
+    def __init__(self,
+                 p_date: str,
+                 p_comment: str,
+                 p_ecz_hours: str,
+                 p_kifu_hours: str,
+                 p_diff_icon: str = ""):
         self.date = p_date
         self.comment = p_comment
         self.ecz_hours = p_ecz_hours
@@ -21,6 +24,7 @@ class EczActivityComparisonLine:
 
 
 class EczActivityComparison(HtmlReport):
+    """ Eczacibasi activity comparison report """
 
     _REPORT_NAME = "ECZ Activity Comparison"
     _output: str
@@ -76,15 +80,22 @@ class EczActivityComparison(HtmlReport):
 
         for ecz_activity in ecz_activities:
             date_of_activity = date_time.parse_sap_date(ecz_activity["date"])
-            kifu_hour_sum = Activity.get_time_sum(client_name=COMPANY_NAME_ECZ_TUG, date=date_of_activity)
+
+            kifu_hour_sum = Activity.get_time_sum(
+                client_name=COMPANY_NAME_ECZ_TUG,
+                date=date_of_activity)
+
             diff_icon = "✅"
+
             if kifu_hour_sum != ecz_activity["hours"]:
                 diff_icon = "🔴"
+
             line = EczActivityComparisonLine(p_date=ecz_activity["date"],
                                              p_comment=ecz_activity["comment"],
                                              p_ecz_hours=str(ecz_activity["hours"]),
                                              p_kifu_hours=str(kifu_hour_sum),
                                              p_diff_icon=diff_icon)
+
             self._append_comparison_line(line)
 
         self._output += "</table>"

@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 import os
 from datetime import datetime
-from config.constants import *
+from config.constants import DOWNLOAD_DIR
 
 class HtmlReport(ABC):
     """ Abstract class for HTML based reports """
@@ -12,9 +12,9 @@ class HtmlReport(ABC):
     def execute(self):
         """ Creates & opens the report """
         complete_html_content = \
-            self._get_html_prefix() +\
+            HtmlReport._get_html_prefix() +\
             self._get_html_content() +\
-            self._get_html_suffix()
+            HtmlReport._get_html_suffix()
 
         file_path = self._get_file_path()
 
@@ -43,10 +43,12 @@ class HtmlReport(ABC):
     def _get_file_path(self) -> str:
         return os.path.join(DOWNLOAD_DIR, self._get_file_name())
 
-    def _get_html_prefix(self) -> str:
+    @staticmethod
+    def _get_html_prefix() -> str:
         output = "<html>"
         return output
 
-    def _get_html_suffix(self) -> str:
+    @staticmethod
+    def _get_html_suffix() -> str:
         output = "</html>"
         return output

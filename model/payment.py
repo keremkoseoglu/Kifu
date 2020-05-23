@@ -1,10 +1,13 @@
 
+""" Payment module """
 import datetime
 import json
 import os
 from typing import List
-from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY, PAYMENT_NOTIFICATION_BUFFER, PAYMENT_RECURRENCE_BUFFER
-from config.constants import PAYMENT_LONG_RECURRENCE_BUFFER, DEFAULT_BANK, HOME_GOVERNMENT, COMPANY_NAME_UNKNOWN
+from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY, \
+    PAYMENT_NOTIFICATION_BUFFER, PAYMENT_RECURRENCE_BUFFER
+from config.constants import PAYMENT_LONG_RECURRENCE_BUFFER, DEFAULT_BANK, \
+    HOME_GOVERNMENT, COMPANY_NAME_UNKNOWN
 from model.company import Company
 from model.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
@@ -26,6 +29,7 @@ _PAYMENT_FILE = "payment.json"
 
 
 def delete_completed_payments():
+    """ Deletes completed payments """
     completed_guids = []
     for completed_payment in get_completed_payments():
         completed_guids.append(completed_payment.guid)
@@ -33,6 +37,7 @@ def delete_completed_payments():
 
 
 def delete_payments(payment_guids: []):
+    """ Deletes given payments """
     if payment_guids is None or len(payment_guids) <= 0:
         return
     all_payments = get_payments()
@@ -45,6 +50,7 @@ def delete_payments(payment_guids: []):
 
 
 def generate_high_time_recurrences():
+    """ Generates approaching / due recurrences """
     for payment_json in get_payments()["payments"]:
         payment_obj = Payment(payment_json)
         payment_obj.generate_high_time_recurrences()
@@ -52,6 +58,7 @@ def generate_high_time_recurrences():
 
 
 def get_approaching_or_late_recurrences() -> []:
+    """ Returns approaching or late recurrences """
     output = []
     for pay in get_payments()["payments"]:
         pay_obj = Payment(pay)
@@ -61,19 +68,20 @@ def get_approaching_or_late_recurrences() -> []:
             if len(recs) > 0:
                 output.append((pay_obj, scheme, recs))
 
-    for o2 in output:
-        o2[2].sort(key=lambda x: x.realistic_payment_date)
+    for output2 in output:
+        output2[2].sort(key=lambda x: x.realistic_payment_date)
 
     output.sort(key=lambda x: x[2][0].realistic_payment_date)
     return output
 
 
 def get_completed_payments() -> []:
+    """ Returns completed payments """
     output = []
 
     for pay in get_payments()["payments"]:
         pay_obj = Payment(pay)
-        open_amount, open_curr = pay_obj.open_amount
+        open_amount, open_curr = pay_obj.open_amount # pylint: disable=W0612
         if pay_obj.cleared or open_amount == 0:
             output.append(pay_obj)
 
@@ -81,6 +89,10 @@ def get_completed_payments() -> []:
 
 
 def get_companies_without_payment() -> List[Company]:
+    """ Companies without payment
+    Those may be considered deletable, in case
+    they won't be needed in the future
+    """
     output = []
     all_companies = Company.get_companies()
     all_payments = get_payments()
@@ -98,10 +110,12 @@ def get_companies_without_payment() -> List[Company]:
 
 
 def get_direction_values() -> []:
+    """ Returns all payment directions as enum """
     return [DIRECTION_IN, DIRECTION_OUT, DIRECTION_TRANSFER]
 
 
 def get_open_vat_payments() -> []:
+    """ Returns open VAT payments """
     output = []
     all_payments = get_payments()
 
@@ -115,6 +129,7 @@ def get_open_vat_payments() -> []:
 
 
 def get_open_payments_of_company(company: str) -> []:
+    """ Returns open payments of company """
     output = []
     all_payments = get_payments()
 
@@ -130,12 +145,14 @@ def get_open_payments_of_company(company: str) -> []:
 
 
 def get_payments():
-    with open(_get_file_path()) as f:
-        json_data = json.load(f)
+    """ All payments """
+    with open(_get_file_path()) as payment_file:
+        json_data = json.load(payment_file)
     return json_data
 
 
 def get_payment_balance() -> float:
+    """ Payment balance """
     output = 0
 
     payment_dicts = get_payments()
@@ -156,6 +173,7 @@ def get_payment_balance() -> float:
 
 
 def get_period_values() -> []:
+    """ Returns all periods """
     return [PERIOD_DAILY, PERIOD_WEEKLY, PERIOD_MONTHLY, PERIOD_YEARLY]
 
 
@@ -167,6 +185,7 @@ def record_cash_movement(
         description: str,
         income_tax_only: bool = False
 ):
+    """ Records a new cash movement """
     ##############################
     # Preparation
     ##############################
@@ -174,7 +193,7 @@ def record_cash_movement(
     backup.execute()
 
     changed_payments = []
-    cc = CurrencyConverter()
+    curr_conv = CurrencyConverter()
     open_amount = amount
     open_payments = get_open_payments_of_company(company)
     date_iso = datetime.datetime.now().isoformat()
@@ -205,7 +224,7 @@ def record_cash_movement(
             if not recurrence.cleared:
                 rec_open_amount, rec_curr = recurrence.open_amount
 
-                open_amount_conv = cc.convert_to_currency(
+                open_amount_conv = curr_conv.convert_to_currency(
                     from_amount=open_amount,
                     from_currency=currency,
                     to_currency=rec_curr
@@ -311,7 +330,11 @@ def _create_credit_card_transaction(bank: str, description: str, card: str, amou
     trn_pay.save()
 
 
-def _create_investment_transaction(bank: str, description: str, trn_account: str, inv_account: str, amount: float):
+def _create_investment_transaction(bank: str,
+                                   description: str,
+                                   trn_account: str,
+                                   inv_account: str,
+                                   amount: float):
     trn_pay_json = {
         "guid": identifier.get_guid(),
         "creation_date": datetime.datetime.now().isoformat(),
@@ -387,9 +410,10 @@ def record_investment_payment(
         paid_curr: str,
         description_prefix: str
 ):
+    """ Records a new investment payment into the most suitable account """
     # Get investable amount
     investable_amount = CurrencyConverter().convert_to_local_currency(investable_amount, paid_curr)
-    
+
     # Pay credit card debts
     credit_card_debts = get_credit_card_debts()
     for cc_debt in credit_card_debts.debts:
@@ -410,12 +434,17 @@ def record_investment_payment(
             return
 
     if investable_amount <= 0:
-        return 
+        return
 
     # Invest
     inv_bank, inv_acc = get_next_investment_account()
     trn_acc = get_home_account_of_bank(inv_bank)
-    _create_investment_transaction(inv_bank, description_prefix, trn_acc, inv_acc, investable_amount)
+    _create_investment_transaction(
+        inv_bank,
+        description_prefix,
+        trn_acc,
+        inv_acc,
+        investable_amount)
 
 
 def record_vat_payment(
@@ -423,9 +452,10 @@ def record_vat_payment(
         paid_amount: float,
         paid_curr: str
 ):
+    """ Records a new VAT payment """
     paid_vats = []
     all_vats = get_open_vat_payments()
-    cc = CurrencyConverter()
+    curr_conv = CurrencyConverter()
     vat_amount = 0
 
     for pay in all_vats:
@@ -435,7 +465,7 @@ def record_vat_payment(
     for pay in paid_vats:
         pay.generate_very_long_term_recurrences()
         debt_amount, debt_curr = pay.open_amount
-        debt_amount_conv = cc.convert_to_currency(
+        debt_amount_conv = curr_conv.convert_to_currency(
             from_amount=debt_amount,
             from_currency=debt_curr,
             to_currency=paid_curr
@@ -475,41 +505,50 @@ def _get_file_path():
 
 
 def _write_payments_to_disk(payments: {}):
-    with open(_get_file_path(), "w") as f:
-        json.dump(payments, f, indent=3)
+    with open(_get_file_path(), "w") as payment_file:
+        json.dump(payments, payment_file, indent=3)
 
 
 class Collection:
+    """ Money collection """
     def __init__(self, collection: dict):
         self._collection = collection
 
     @property
     def amount(self) -> tuple:
+        """ Collection amount """
         return float(self._collection["amount"]), self._collection["currency"]
 
     @property
     def date(self) -> datetime:
+        """ Collection date """
         return date_time.parse_json_date(self._collection["date"])
 
     @property
     def description(self) -> str:
+        """ Description """
         return self._collection["description"]
 
     @property
     def json(self) -> dict:
+        """ Collection in JSON format """
         return self._collection
 
 
 class Recurrence:
+    """ Payment recurrence """
+
     def __init__(self, recurrence: dict):
         self._recurrence = recurrence
 
     @property
     def amount(self) -> tuple:
+        """ Amount """
         return float(self._recurrence["amount"]), self.currency
 
     @property
     def collections(self) -> list:
+        """ All collections in recurrence """
         output = []
         for col in self._recurrence["collections"]:
             output.append(Collection(col))
@@ -517,18 +556,22 @@ class Recurrence:
 
     @property
     def currency(self) -> str:
+        """ Currency """
         return self._recurrence["currency"]
 
     @property
     def expected_payment_date(self) -> datetime:
+        """ Expected payment date """
         return date_time.parse_json_date(self._recurrence["expected_payment_date"])
 
     @expected_payment_date.setter
     def expected_payment_date(self, date: datetime):
+        """ Expected payment date """
         self._recurrence["expected_payment_date"] = date.isoformat()
 
     @property
     def open_amount(self) -> tuple:
+        """ Open amount """
         if self.cleared:
             return 0, self.currency
 
@@ -537,21 +580,25 @@ class Recurrence:
 
         for coll in self.collections:
             coll_amount, coll_curr = coll.amount
-            converted_coll_amount = currency_conv.convert_to_currency(coll_amount, coll_curr, open_currency)
+            converted_coll_amount = currency_conv.convert_to_currency(
+                coll_amount,
+                coll_curr,
+                open_currency)
             open_amount -= converted_coll_amount
 
         return open_amount, open_currency
 
     @property
     def paid_amount(self) -> tuple:
+        """ Paid amount """
         full_amount, full_currency = self.amount
         open_amount, open_currency = self.open_amount
-        assert (full_currency == open_currency)
-
+        assert full_currency == open_currency
         return (full_amount - open_amount), full_currency
 
     @property
     def realistic_payment_date(self) -> datetime:
+        """ Realistic payment date """
         epd = self.expected_payment_date
         rcd = self.recurrence_date
 
@@ -564,14 +611,17 @@ class Recurrence:
 
     @property
     def json(self) -> dict:
+        """ Recurrence as JSON (dict) """
         return self._recurrence
 
     @property
     def recurrence_date(self) -> datetime:
+        """ Recurrence date """
         return date_time.parse_json_date(self._recurrence["recurrence_date"])
 
     @property
     def approaching_or_late(self) -> bool:
+        """ Is recurrence approaching or late? """
         if self.cleared:
             return False
         return self.recurrence_date <= datetime.datetime.now() + datetime.timedelta(
@@ -579,16 +629,20 @@ class Recurrence:
 
     @property
     def cleared(self) -> bool:
+        """ Is recurrence cleared? """
         return self._recurrence["cleared"]
 
     @cleared.setter
     def cleared(self, cleared: bool):
+        """ Is recurrence cleared? """
         self._recurrence["cleared"] = cleared
 
     def add_collection(self, collection: Collection):
+        """ Add new collection """
         self._recurrence["collections"].append(collection.json)
 
     def toggle_cleared(self):
+        """ Toggle cleared forth and back """
         if self.cleared:
             self.cleared = False
         else:
@@ -596,12 +650,14 @@ class Recurrence:
 
 
 class Scheme:
+    """ Payment scheme """
 
     def __init__(self, scheme: {}):
         self._scheme = scheme
 
     @property
     def approaching_or_late_recurrences(self) -> []:
+        """ Returns all approaching or late recurrences """
         output = []
         for rec in self.recurrences:
             if rec.approaching_or_late:
@@ -610,14 +666,17 @@ class Scheme:
 
     @property
     def frequency(self) -> tuple:
+        """ Payment frequency """
         return self._scheme["frequency"], self._scheme["period"]
 
     @property
     def dict(self) -> dict:
+        """ Returns scheme as a dict """
         return self._scheme
 
     @property
     def earliest_uncleared_recurrence(self) -> Recurrence:
+        """ Earliest uncleared recurrence """
         all_recurrences = self.recurrences
         if len(all_recurrences) == 0:
             return None
@@ -632,16 +691,17 @@ class Scheme:
 
     @property
     def next_significant_date(self) -> datetime:
+        """ Next significant date """
         next_recurrence = self.earliest_uncleared_recurrence
         if next_recurrence is not None:
             return next_recurrence.realistic_payment_date
-        elif self.has_cleared_recurrence:
+        if self.has_cleared_recurrence:
             return datetime.datetime(year=8888, month=12, day=31)
-        else:
-            return self.start_date
+        return self.start_date
 
     @property
     def recurrences(self) -> list:
+        """ All recurrences """
         output = []
         for rec in self._scheme["recurrence"]:
             output.append(Recurrence(rec))
@@ -649,26 +709,31 @@ class Scheme:
 
     @recurrences.setter
     def recurrences(self, recurrences: []):
+        """ All recurrences """
         self.clear_recurrences()
         for rec in recurrences:
             self.add_recurrence(rec)
 
     @property
     def repeat(self) -> int:
+        """ How many times the scheme will repeat """
         return self._scheme["repeat"]
 
     @repeat.setter
     def repeat(self, repeat: int):
+        """ How many times the scheme will repeat """
         self._scheme["repeat"] = repeat
 
     @property
     def start_date(self) -> datetime:
+        """ Scheme start date """
         if "start" not in self._scheme:
             self._scheme["start"] = datetime.datetime.now().isoformat()
         return date_time.parse_json_date(self._scheme["start"])
 
     @property
     def has_cleared_recurrence(self) -> bool:
+        """ If scheme has any cleared recurrence, returns true """
         for rec in self.recurrences:
             if rec.cleared:
                 return True
@@ -676,21 +741,25 @@ class Scheme:
 
     @property
     def repeats_forever(self) -> bool:
+        """ If scheme repeats forever, returns true """
         if "repeat_forever" in self._scheme:
             return self._scheme["repeat_forever"]
-        else:
-            return False
+        return False
 
     def set_start_date_from_iso(self, start_date: str):
+        """ Set start date """
         self._scheme["start"] = start_date
 
     def add_recurrence(self, recurrence: Recurrence):
+        """ Adds a new recurrence """
         self._scheme["recurrence"].append(recurrence.json)
 
     def clear_recurrences(self):
+        """ Initializes recurrences completely """
         self._scheme["recurrence"] = []
 
     def get_recurrence_on_date(self, year: int, month: int, day: int) -> Recurrence:
+        """ Returns recurrence on given date """
         for rec in self.recurrences:
             rec_date = rec.recurrence_date
             if rec_date.year == year and rec_date.month == month and rec_date.day == day:
@@ -698,101 +767,120 @@ class Scheme:
         return None
 
     def has_recurrence(self, on_date: datetime.datetime) -> bool:
+        """ Returns true if has recurrence on the given date """
         for rec in self.recurrences:
             if date_time.equals(rec.recurrence_date, on_date):
                 return True
         return False
 
     def set_frequency(self, frequency: int, period: str):
+        """ Sets payment frequency """
         self._scheme["frequency"] = frequency
         self._scheme["period"] = period
 
 
 class Payment:
+    """ Payment """
 
     def __init__(self, payment: dict):
         self._payment = payment
 
     @property
     def amount(self) -> tuple:
+        """ Payment amount """
         if "amount" not in self._payment:
             self._payment["amount"] = 0
         return float(self._payment["amount"]), self.currency
 
     @property
     def amount_in_local_currency(self) -> float:
+        """ Payment amount in home currency """
         amount, currency = self.amount
         local_amount = CurrencyConverter().convert_to_local_currency(amount, currency)
         return local_amount
 
     @property
     def company(self) -> Company:
+        """ 3rd party company """
         if "company" not in self._payment:
             self._payment["company"] = HOME_COMPANY
         return Company(self._payment["company"])
 
     @company.setter
     def company(self, company: str):
+        """ 3rd party company """
         self._payment["company"] = company
 
     @property
     def description(self) -> str:
+        """ Payment description """
         if "description" not in self._payment:
             self._payment["description"] = ""
         return self._payment["description"]
 
     @description.setter
     def description(self, description: str):
+        """ Payment description """
         self._payment["description"] = description
 
     @property
     def direction(self) -> str:
+        """ Payment direction """
         if "direction" not in self._payment:
             self._payment["direction"] = DIRECTION_OUT
         return self._payment["direction"]
 
     @direction.setter
     def direction(self, direction: str):
+        """ Payment direction """
         self._payment["direction"] = direction
 
     @property
     def creation_date(self) -> datetime:
+        """ Payment creation date """
         return date_time.parse_json_date(self._payment["creation_date"])
 
     @property
     def currency(self) -> str:
+        """ Payment currency """
         if "currency" not in self._payment:
             self._payment["currency"] = HOME_CURRENCY
         return self._payment["currency"]
 
     @property
     def guid(self) -> str:
+        """ Unique payment guid """
         if "guid" not in self._payment:
             self._payment["guid"] = identifier.get_guid()
         return self._payment["guid"]
 
     @property
     def invoice_guid(self) -> str:
+        """ Unique invoice guid """
         if "invoice_guid" not in self._payment:
             self._payment["invoice_guid"] = ""
         return self._payment["invoice_guid"]
 
     @invoice_guid.setter
     def invoice_guid(self, guid: str):
+        """ Unique invoice guid """
         self._payment["invoice_guid"] = guid
 
     @property
     def notes(self) -> str:
+        """ Payment notes """
         if "notes" not in self._payment:
             self._payment["notes"] = ""
         return self._payment["notes"]
 
     @notes.setter
     def notes(self, notes: str):
+        """ Payment notes """
         self._payment["notes"] = notes
 
     @property
     def open_amount(self) -> tuple:
+        """ Payment open amount """
         currency_conv = CurrencyConverter()
         scheme = self.scheme
 
@@ -805,13 +893,17 @@ class Payment:
 
         for rec in self.scheme.recurrences:
             paid_amount, paid_currency = rec.paid_amount
-            converted_paid_amount = currency_conv.convert_to_currency(paid_amount, paid_currency, open_currency)
+            converted_paid_amount = currency_conv.convert_to_currency(
+                paid_amount,
+                paid_currency,
+                open_currency)
             open_amount -= converted_paid_amount
 
         return open_amount, open_currency
 
     @property
     def open_amount_in_local_currency(self) -> float:
+        """ Payment open amount in local currency """
         open_amount, curr = self.open_amount
         local_amount = CurrencyConverter().convert_to_local_currency(
             open_amount,
@@ -820,54 +912,65 @@ class Payment:
 
     @property
     def scheme(self) -> Scheme:
+        """ Payment scheme """
         scheme_dict = self._payment["scheme"]
         return Scheme(scheme_dict)
 
     @scheme.setter
     def scheme(self, scheme: Scheme):
+        """ Payment scheme """
         self._payment["scheme"] = scheme.dict
 
     @property
     def total_amount(self) -> tuple:
+        """ Payment total amount and currency """
         amt, curr = self.amount
         amt *= self.scheme.repeat
         return amt, curr
 
     @property
     def cleared(self) -> bool:
+        """ Is payment cleared """
         if "cleared" not in self._payment:
             self._payment["cleared"] = False
         return self._payment["cleared"]
 
     @cleared.setter
     def cleared(self, cleared: bool):
+        """ Is payment cleared """
         self._payment["cleared"] = cleared
 
     @property
     def is_income_tax(self) -> bool:
+        """ Is payment an income tax payment """
         if "is_income_tax" not in self._payment:
             self._payment["is_income_tax"] = False
         return self._payment["is_income_tax"]
 
     @is_income_tax.setter
     def is_income_tax(self, is_tax: bool):
+        """ Is payment an income tax payment """
         self._payment["is_income_tax"] = is_tax
 
     @property
     def is_vat(self) -> bool:
+        """ Is payment a VAT payment """
         if "is_vat" not in self._payment:
             self._payment["is_vat"] = False
         return self._payment["is_vat"]
 
     @is_vat.setter
     def is_vat(self, is_tax: bool):
+        """ Is payment a VAT payment """
         self._payment["is_vat"] = is_tax
 
     def generate_high_time_recurrences(self):
-        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=PAYMENT_RECURRENCE_BUFFER)
+        """ Generates recurrences which are approaching or due """
+        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=PAYMENT_RECURRENCE_BUFFER) # pylint: disable=C0301
         self.generate_recurrences(tick_limit_date)
 
     def generate_recurrences(self, tick_limit_date: datetime.datetime):
+        """ Generates recurrences """
         if self.cleared:
             return
 
@@ -923,10 +1026,12 @@ class Payment:
             self.scheme = scheme
 
     def generate_very_long_term_recurrences(self):
-        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=PAYMENT_LONG_RECURRENCE_BUFFER)
+        """ Generates very long term recurrences """
+        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=PAYMENT_LONG_RECURRENCE_BUFFER) # pylint: disable=C0301
         self.generate_recurrences(tick_limit_date)
 
     def save(self):
+        """ Write payment to disk """
         if "guid" not in self._payment:
             self._payment["guid"] = identifier.get_guid()
             self._payment["creation_date"] = datetime.datetime.now().isoformat()
@@ -951,11 +1056,13 @@ class Payment:
         _write_payments_to_disk(new_payments)
 
     def set_amount(self, amount: float, currency: str):
+        """ Set payment amount """
         self._payment["amount"] = amount
         self._payment["currency"] = currency
 
 
 def get_payment_objects_from_invoice(invoice: Invoice) -> list:
+    """ Extracts new payment objects out of an invoice """
     # Preparation
 
     output = []
@@ -1098,7 +1205,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
     # Income tax transfer
 
-    itax_amount = currency_converter.convert_to_local_currency(invoice.income_tax_amount, invoice_currency)
+    itax_amount = currency_converter.convert_to_local_currency(
+        invoice.income_tax_amount,
+        invoice_currency)
 
     itax_transfer_json = {
         "guid": identifier.get_guid(),
@@ -1140,7 +1249,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
     # Income tax payment
 
-    itax_amount = currency_converter.convert_to_local_currency(invoice.income_tax_amount, invoice_currency)
+    itax_amount = currency_converter.convert_to_local_currency(
+        invoice.income_tax_amount,
+        invoice_currency)
 
     itax_payment_json = {
         "guid": identifier.get_guid(),
@@ -1183,7 +1294,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
     # Alms
 
-    alms_amount = currency_converter.convert_to_local_currency(invoice.alms_amount, invoice_currency)
+    alms_amount = currency_converter.convert_to_local_currency(
+        invoice.alms_amount,
+        invoice_currency)
 
     alms_payment_json = {
         "guid": identifier.get_guid(),
@@ -1229,6 +1342,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
 
 def get_payment_with_guid(guid: str) -> Payment:
+    """ Returns a payment object having the provided GUID """
     for pay in get_payments()["payments"]:
         if pay["guid"] == guid:
             return Payment(pay)

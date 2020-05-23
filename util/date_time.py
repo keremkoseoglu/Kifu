@@ -1,29 +1,45 @@
-import datetime, re, requests
+""" Date time stuff """
+import datetime
+import re
+import requests
 from ics import Calendar
-from config.constants import *
+from config.constants import BANK_HOLIDAY_URL
 
 _FIRST_MONTH = 1
 _MAX_MONTH = 12
-_MONTHS = ["January", "February", "March", "April", "June", "July", "August", "September", "October", "November", "December"]
+_MONTHS = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"]
 _TURKISH_DATE_LEN = 10
 _TURKISH_DATE_REGEX = "[0-3][0-9].[0-1][0-9].[1-2][0-9][0-9][0-9]"
 _BANK_HOLIDAY_CALENDAR = None
 
 
 def equals(date1: datetime.datetime, date2: datetime.datetime):
+    """ Do both dates equal """
     if date1.year == date2.year and date1.month == date2.month and date1.day == date2.day:
         return True
-    else:
-        return False
+    return False
 
 
 def get_first_day_of_month(date: datetime.datetime):
+    """ First day of month """
     year = date.year
     month = date.month
     return datetime.datetime(year=year, month=month, day=1)
 
 
-def get_first_day_of_next_month(date:datetime.datetime):
+def get_first_day_of_next_month(date: datetime.datetime):
+    """ First day of next month """
     year = date.year
     month = date.month
     if month == _MAX_MONTH:
@@ -33,12 +49,13 @@ def get_first_day_of_next_month(date:datetime.datetime):
         month += 1
     return datetime.datetime(year=year, month=month, day=1)
 
-
 def get_formatted_date(date: datetime.datetime) -> str:
+    """ Formatted date """
     return date.isoformat()[:10]
 
 
 def get_last_day_of_prev_month(date: datetime.datetime) -> datetime:
+    """ Last day of previous month """
     previous_month = get_previous_month(date)
     year = previous_month.year
     month = previous_month.month
@@ -48,56 +65,63 @@ def get_last_day_of_prev_month(date: datetime.datetime) -> datetime:
             day = 29
         else:
             day = 28
-    elif month == 4 or month == 6 or month == 9 or month == 11:
+    elif month in (4, 6, 9, 11):
         day = 30
     else:
         day = 31
 
     return datetime.datetime(year=year, month=month, day=day)
 
-
 def get_last_day_of_month(date: datetime.datetime) -> datetime:
+    """ Last day of given month """
     year = date.year
     month = date.month
     day = 31
     if month == 2 and year % 4 == 0:
         day = 28
-    elif month == 4 or month == 6 or month == 9 or month == 11:
+    elif month in (4, 6, 9, 11):
         day = 30
     return datetime.datetime(year=year, month=month, day=day)
 
 
 def get_mid_day_of_month(date: datetime.datetime):
+    """ Middle day of month """
     year = date.year
     month = date.month
     return datetime.datetime(year=year, month=month, day=15)
 
 
 def get_mid_day_of_next_month(date: datetime.datetime):
+    """ Middle day of next month """
     date2 = get_next_month(date)
     year = date2.year
     month = date2.month
     return datetime.datetime(year=year, month=month, day=15)
 
 
-def get_mid_day_of_next_year(date:datetime.datetime):
+def get_mid_day_of_next_year(date: datetime.datetime):
+    """ Middle day of next year """
     return get_next_year(get_mid_day_of_year(date))
 
 
 def get_mid_day_of_year(date: datetime.datetime):
+    """ Middle day of year """
     year = date.year
     return datetime.datetime(year=year, month=6, day=15)
 
 
 def get_month_name(month: int) -> str:
+    """ Name of given month """
     return _MONTHS[month]
 
 
-def get_next_day(date:datetime.datetime, next_count=1):
+def get_next_day(date: datetime.datetime, next_count=1):
+    """ Tomorrow, tomorrow, I love you, tomorrow """
     return date + datetime.timedelta(days=next_count)
 
 
-def get_next_month(date:datetime, next_count=1):
+def get_next_month(date: datetime, next_count=1):
+    """ Next month """
     next_year = date.year
     next_month = date.month + next_count
     while next_month > _MAX_MONTH:
@@ -106,17 +130,18 @@ def get_next_month(date:datetime, next_count=1):
     day = date.day
     if next_month == 2 and day > 28:
         day = 28
-    elif (next_month == 4 or next_month == 6 or next_month == 9 or next_month == 11) and day > 30:
+    elif next_month in (4, 6, 9, 11) and day > 30:
         day = 30
     return datetime.datetime(year=next_year, month=next_month, day=day)
 
 
-def get_next_week(date:datetime, next_count=1):
+def get_next_week(date: datetime, next_count=1):
+    """ Next week """
     return date + datetime.timedelta(weeks=next_count)
 
 
 def get_nearest_workday(date: datetime, backwards=False):
-
+    """ Nearest workday """
     output = date
 
     while output.weekday() == 5 or output.weekday() == 6 or is_bank_holiday(output):
@@ -129,10 +154,12 @@ def get_nearest_workday(date: datetime, backwards=False):
 
 
 def get_next_year(date: datetime, next_count=1):
+    """ Next year """
     return datetime.datetime(date.year+next_count, date.month, date.day)
 
 
-def get_previous_month(date:datetime) -> datetime:
+def get_previous_month(date: datetime) -> datetime:
+    """ Previous month """
     year = date.year
     month = date.month
     day = date.day
@@ -156,6 +183,7 @@ def get_previous_month(date:datetime) -> datetime:
 
 
 def get_turkish_date_at_start(line: str) -> datetime.datetime:
+    """ Turkish formatted """
     split_line = line.split(";")
 
     if len(split_line) < 2:
@@ -184,6 +212,7 @@ def get_turkish_date_at_start(line: str) -> datetime.datetime:
 
 
 def get_two_digit_month(month: int) -> str:
+    """ Two digit month """
     output = str(month)
     while len(output) < 2:
         output = "0" + output
@@ -191,6 +220,7 @@ def get_two_digit_month(month: int) -> str:
 
 
 def is_bank_holiday(date: datetime) -> bool:
+    """ Is bank holiday """
     global _BANK_HOLIDAY_CALENDAR
 
     if _BANK_HOLIDAY_CALENDAR is None:
@@ -205,62 +235,64 @@ def is_bank_holiday(date: datetime) -> bool:
                                         month=holiday_event.end.datetime.month,
                                         day=holiday_event.end.datetime.day)
 
-        if date >= holiday_begin and date < holiday_end:
+        if date >= holiday_begin and date < holiday_end: # pylint: disable=R1716
             return True
 
     return False
 
 
 def is_today(date: datetime) -> bool:
+    """ Is date today """
     return equals(date, datetime.datetime.now())
 
 
 def is_turkish_date(date: str) -> bool:
-    if re.compile(_TURKISH_DATE_REGEX).match(date) is not None:
-        return True
-    else:
-        return False
+    """ Is the given date a Turkish date """
+    return re.compile(_TURKISH_DATE_REGEX).match(date) is not None
 
 
 def is_working_day(date: datetime) -> bool:
+    """ Is the given date a working day """
     weekday = date.weekday()
-    if weekday == 5 or weekday == 6:
+    if weekday in (5, 6):
         return False
-    elif is_bank_holiday(date):
+    if is_bank_holiday(date):
         return False
-    else:
-        return True
+    return True
+
 
 def parse_json_date(json_date: str) -> datetime:
+    """ Parses a JSON date """
     try:
         return datetime.datetime.strptime(json_date, '%Y-%m-%dT%H:%M:%S.%f')
-    except:
+    except Exception:
         pass
 
     try:
         return datetime.datetime.strptime(json_date, '%Y-%m-%dT%H:%M:%S.%fZ')
-    except:
+    except Exception:
         pass
 
     try:
         return datetime.datetime.strptime(json_date, '%Y-%m-%d %H:%M:%S.%f')
-    except:
+    except Exception:
         pass
 
     try:
         return datetime.datetime.strptime(json_date, '%Y-%m-%dT%H:%M:%S')
-    except:
+    except Exception:
         pass
 
     try:
         return datetime.datetime.strptime(json_date, '%Y-%m-%d %H:%M:%S')
-    except:
+    except Exception:
         pass
 
     return datetime.datetime.strptime(json_date, '%Y-%m-%d')
 
 
 def parse_sap_date(date: str) -> datetime.datetime:
+    """ Parse date in SAP format """
     year = int(date[0] + date[1] + date[2] + date[3])
     month = int(date[4] + date[5])
     day = int(date[6] + date[7])
@@ -268,10 +300,9 @@ def parse_sap_date(date: str) -> datetime.datetime:
 
 
 def parse_turkish_date(date: str) -> datetime.datetime:
+    """ Parse date in Turkish format """
     split_date = date.split(".")
     year = int(split_date[2])
     month = int(split_date[1])
     day = int(split_date[0])
     return datetime.datetime(year=year, month=month, day=day)
-
-

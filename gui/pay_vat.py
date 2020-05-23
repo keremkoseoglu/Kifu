@@ -1,11 +1,13 @@
+""" VAT payment window """
 import tkinter
 from gui.amount_textbox import AmountTextbox
-from config.constants import *
+from config.constants import GUI_CELL_HEIGHT, GUI_CELL_WIDTH, HOME_CURRENCY
 import model.payment as payment
 from util import amount
 
 
 class PayVat:
+    """ VAT payment window """
     _NOTIF_HEIGHT = 250
     _WINDOW_WIDTH = 800
     _WINDOW_HEIGHT = 400
@@ -32,8 +34,8 @@ class PayVat:
         sel_values = [self._vat_list.get(idx) for idx in self._vat_list.curselection()]
         if sel_values is None or len(sel_values) == 0:
             return
-        for s in sel_values:
-            vat_guid = s[s.find("{") + 1:s.find("}")]
+        for sel_value in sel_values:
+            vat_guid = sel_value[sel_value.find("{") + 1:sel_value.find("}")]
             vat_guids.append(vat_guid)
 
         payment.record_vat_payment(
@@ -50,6 +52,8 @@ class PayVat:
         for vat in payment.get_open_vat_payments():
             amt, curr = vat.open_amount
             astr = amount.get_formatted_amount(amt)
-            self._vat_list.insert(vat_count, vat.description + " " + astr + curr + " {" + vat.guid + "}")
+            self._vat_list.insert(
+                vat_count,
+                vat.description + " " + astr + curr + " {" + vat.guid + "}")
             vat_count += 1
         self._window.update()

@@ -1,10 +1,13 @@
-from config.constants import *
-from model.company import Company
+""" Company label printing """
 import os
+from config.constants import HOME_COMPANY, DOWNLOAD_DIR
+from model.company import Company
+
 
 
 class CompanyLabel:
-    
+    """ Company label printing """
+
     def __init__(self):
         self._html = ""
         self._html_count = 0
@@ -12,7 +15,7 @@ class CompanyLabel:
         self._home_company = Company(HOME_COMPANY)
 
     def generate(self, companies: []):
-
+        """ Generate labels """
         self._html = ""
         self._html_count = 0
         self._company_count = 0
@@ -22,7 +25,7 @@ class CompanyLabel:
 
         if self._html != "":
             if self._company_count == 1:
-                self._html += "<td width=50%>&nbsp;</td></tr><tr><td width=50%>&nbsp;</td><td width=50%>&nbsp;</td></tr>"
+                self._html += "<td width=50%>&nbsp;</td></tr><tr><td width=50%>&nbsp;</td><td width=50%>&nbsp;</td></tr>" # pylint: disable=C0301
             if self._company_count == 2:
                 self._html += "<tr><td width=50%>&nbsp;</td><td width=50%>&nbsp;</td></tr>"
             if self._company_count == 3:
@@ -72,7 +75,7 @@ class CompanyLabel:
 
     def _save_html(self):
         file_path = DOWNLOAD_DIR + "labels " + str(self._html_count) + ".html"
-        with open(file_path, "w") as f:
-            f.write(self._html)
+        with open(file_path, "w") as company_file:
+            company_file.write(self._html)
         os.system("open \"" + file_path + "\"")
         self._html = ""
