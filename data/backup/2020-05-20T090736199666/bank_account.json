@@ -5,7 +5,7 @@
       "account_name": "GV",
       "account_number": "0143-0148557",
       "is_vat": false,
-      "balance": 19493,
+      "balance": 31207,
       "currency": "TRY",
       "iban": "TR820004600143888000148557"
     },
@@ -14,7 +14,7 @@
       "account_name": "KDV",
       "account_number": "0143-0148556",
       "is_vat": true,
-      "balance": 7085,
+      "balance": 7182,
       "currency": "TRY",
       "iban": "TR120004600143888000148556"
     },
@@ -23,7 +23,7 @@
       "account_name": "TRY",
       "account_number": "0143-0124482",
       "is_vat": false,
-      "balance": 3925,
+      "balance": 8569,
       "currency": "TRY",
       "iban": "TR130004600143888000124482"
     },
@@ -32,7 +32,7 @@
       "account_name": "Altın",
       "account_number": "277-9074267",
       "is_vat": false,
-      "balance": 48.26,
+      "balance": 31.83,
       "currency": "DGC",
       "iban": "TR270006200027700009074267"
     },
@@ -41,7 +41,7 @@
       "account_name": "TRY",
       "account_number": "277-6694589",
       "is_vat": false,
-      "balance": 2,
+      "balance": 1,
       "currency": "TRY",
       "iban": "TR85 0006 2000 2770 0006 6945 89"
     },
@@ -68,7 +68,7 @@
       "account_name": "USD",
       "account_number": "1235-49291",
       "is_vat": false,
-      "balance": 8841,
+      "balance": 8375,
       "currency": "USD",
       "iban": "TR850006400000212350029696"
     },
@@ -90,7 +90,7 @@
       "bank_name": "Tesuji",
       "account_name": "TRY",
       "is_vat": false,
-      "balance": 8000,
+      "balance": 2000,
       "currency": "TRY"
     },
     {
@@ -129,7 +129,7 @@
       "account_name": "EUR",
       "account_number": "1012-92673365",
       "is_vat": false,
-      "balance": 7252.85,
+      "balance": 8003,
       "currency": "EUR",
       "iban": "TR350006701000000092673365"
     },
@@ -137,7 +137,7 @@
       "bank_name": "Yapı Kredi",
       "account_name": "TRY",
       "is_vat": false,
-      "balance": 6,
+      "balance": 4,
       "currency": "TRY",
       "iban": "TR950006701000000092666271"
     }

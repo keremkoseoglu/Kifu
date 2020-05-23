@@ -353,6 +353,75 @@
          "is_income_tax": false
       },
       {
+         "guid": "773e20c166ab4d3495e68f8d2c87e8c8",
+         "creation_date": "2020-02-03T19:24:39.719125",
+         "company": "TC",
+         "description": "1e1 - 2020-02-03(GIB2020000000001) - income tax payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 10758.75,
+         "currency": "TRY",
+         "cleared": false,
+         "is_income_tax": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2021-03-15",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2021-03-15",
+                  "expected_payment_date": "2021-03-15",
+                  "amount": 10758.75,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": [
+                     {
+                        "date": "2020-04-08T16:02:50.855078",
+                        "description": "Ge\u00e7ici vergi \u00f6demesi",
+                        "amount": 7833.059999999997,
+                        "currency": "TRY"
+                     },
+                     {
+                        "date": "2020-04-27T09:26:34.848348",
+                        "description": "Ge\u00e7ici vergi \u00f6demesi",
+                        "amount": 2444.0,
+                        "currency": "TRY"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "guid": "11661fe4f59e4605b03c73f49079b9eb",
+         "creation_date": "2020-02-03T19:28:36.052962",
+         "company": "TC",
+         "description": "TeamPro - 2020-02-03(GIB2020000000002) - income tax payment",
+         "invoice_guid": "",
+         "direction": "O",
+         "amount": 1050.0,
+         "currency": "TRY",
+         "cleared": false,
+         "is_income_tax": true,
+         "scheme": {
+            "frequency": 1,
+            "period": "D",
+            "start": "2021-03-15",
+            "repeat": 1,
+            "recurrence": [
+               {
+                  "recurrence_date": "2021-03-15",
+                  "expected_payment_date": "2021-03-15",
+                  "amount": 1050.0,
+                  "currency": "TRY",
+                  "cleared": false,
+                  "collections": []
+               }
+            ]
+         }
+      },
+      {
          "creation_date": "2020-02-05T09:32:58.400572",
          "scheme": {
             "frequency": 1,
@@ -426,18 +495,12 @@
                   "expected_payment_date": "2020-05-25T00:00:00",
                   "amount": 3000.0,
                   "currency": "TRY",
-                  "cleared": true,
+                  "cleared": false,
                   "collections": [
                      {
                         "date": "2020-05-08T14:49:17.020973",
                         "description": "Moollon ara \u00f6deme",
                         "amount": 2500.0,
-                        "currency": "TRY"
-                     },
-                     {
-                        "date": "2020-05-22T12:04:12.121757",
-                        "description": "Ara \u00f6deme",
-                        "amount": 500.0,
                         "currency": "TRY"
                      }
                   ]
@@ -466,7 +529,7 @@
          "guid": "79f38ec5aa2843baba7958ff842cd827",
          "company": "Teoman Keklik",
          "description": "Moollon",
-         "notes": "\n\n\n\n\n\n\n\n\n\n",
+         "notes": "\n\n\n\n\n\n\n\n\n",
          "invoice_guid": "",
          "direction": "I",
          "cleared": false,
@@ -496,14 +559,7 @@
                   "amount": 11328.75,
                   "currency": "TRY",
                   "cleared": false,
-                  "collections": [
-                     {
-                        "date": "2020-05-20T09:07:36.218465",
-                        "description": "Ge\u00e7ici vergi \u00f6demesi",
-                        "amount": 11241.309999999998,
-                        "currency": "TRY"
-                     }
-                  ]
+                  "collections": []
                }
             ]
          }

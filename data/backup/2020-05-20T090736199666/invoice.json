@@ -9,7 +9,8 @@
          "amount": 25081.88,
          "currency": "TRY",
          "vat_rate": 18,
-         "income_tax_rate": 30
+         "income_tax_rate": 30,
+         "file_path": ""
       },
       {
          "guid": "642828d5fc87406586abdf27238bde89",
@@ -20,7 +21,8 @@
          "amount": 23925.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "daab490012d54e01a14bbc5a04c61cfd",
@@ -31,7 +33,8 @@
          "amount": 24650.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "452219625d1641b7a60a2aba318c5b03",
@@ -42,7 +45,8 @@
          "amount": 26341.67,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "d24a429412ce4078b4090e90b7cadc53",
@@ -53,7 +57,8 @@
          "amount": 27550.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "dded03d67631418e9e44570f9495450a",
@@ -64,7 +69,8 @@
          "amount": 28637.5,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "3b392b787bc247c1993d422b8d6860a8",
@@ -75,7 +81,8 @@
          "amount": 29201.39,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "7f0745c636624d2eb4383880996d6003",
@@ -86,7 +93,8 @@
          "amount": 33913.06,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "eaae05117e6f4ad39b220964e887f02b",
@@ -97,7 +105,8 @@
          "amount": 203.75,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "7a9983d385c3450986df26d5c38567ee",
@@ -108,7 +117,8 @@
          "amount": 31196.39,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "a595d75c505f4e31a3a4d3e7b4ed024c",
@@ -119,7 +129,8 @@
          "amount": 31966.11,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "2bcc6c533a234307a15b86698b343ce7",
@@ -130,7 +141,8 @@
          "amount": 31581.25,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "5ace06564e3441ba80b22b35f00d2bad",
@@ -141,7 +153,8 @@
          "amount": 33641.39,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "49c43ca0b2354a7980f6de6a55eeab9b",
@@ -152,7 +165,8 @@
          "amount": 20375.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "16fc8f9e403643d19589c9ba1135e7cd",
@@ -163,7 +177,8 @@
          "amount": 38062.5,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "ceb8764bb34443a69ca20a24da0bddf6",
@@ -174,7 +189,8 @@
          "amount": 26906.25,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "7e9251609a024fa999ce3d818fa5a4a2",
@@ -185,7 +201,8 @@
          "amount": 7000.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "a91e12546220447e9c44aaeec66f41e0",
@@ -196,7 +213,8 @@
          "amount": 34781.25,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "98da678d5dfd44eca739b478982ba21a",
@@ -207,7 +225,8 @@
          "amount": 25593.75,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "6d2f268d8a5c46d1aa196b03be086c5c",
@@ -218,7 +237,8 @@
          "amount": 35243.06,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "458ce032dbff45a8a789ec6776d792d4",
@@ -229,7 +249,8 @@
          "amount": 31250.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "37bc7bdbc6084785a25971fe82ccb3c7",
@@ -240,7 +261,8 @@
          "amount": 36093.75,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": ""
       },
       {
          "guid": "9bcbf0704ff24e718d26e93a1579301f",
@@ -251,7 +273,8 @@
          "amount": 35862.5,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.01/5092a345-18ae-4900-98e3-4b08dba6faf3_f/5092a345-18ae-4900-98e3-4b08dba6faf3_f.html"
       },
       {
          "guid": "754aa5763c0e43aaa2b3f6eb7cfced04",
@@ -262,7 +285,44 @@
          "amount": 3500.0,
          "currency": "TRY",
          "vat_rate": 18.0,
-         "income_tax_rate": 30.0
+         "income_tax_rate": 30.0,
+         "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.01/63a7bafe-77df-4b16-8f4d-edd374cabc06_f/63a7bafe-77df-4b16-8f4d-edd374cabc06_f.html"
+      },
+      {
+         "guid": "570fa5cef85c4a69b900e9de30968677",
+         "serial": "GIB2020000000003",
+         "payer": "1e1",
+         "invoice_date": "2020-02-28 00:00:00",
+         "due_date": "2020-04-01 00:00:00",
+         "amount": 37762.5,
+         "currency": "TRY",
+         "vat_rate": 18.0,
+         "income_tax_rate": 30.0,
+         "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.02/34722110-0c32-4024-b465-6b5a140b7f75_f/34722110-0c32-4024-b465-6b5a140b7f75_f.html"
+      },
+      {
+         "guid": "e4ec4f35ac70451b80c2e8e9718c0e72",
+         "serial": "GIB2020000000004",
+         "payer": "1e1",
+         "invoice_date": "2020-03-31 00:00:00",
+         "due_date": "2020-05-06 00:00:00",
+         "amount": 42512.5,
+         "currency": "TRY",
+         "vat_rate": 18.0,
+         "income_tax_rate": 30.0,
+         "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.03/494e7016-4944-418d-86d0-414694a5fba2_f/494e7016-4944-418d-86d0-414694a5fba2_f.html"
+      },
+      {
+         "guid": "9c50bb9d7a9d4315a47ab0050205c0f5",
+         "serial": "GIB2020000000005",
+         "payer": "1e1",
+         "invoice_date": "2020-04-30 00:00:00",
+         "due_date": "2020-06-03 00:00:00",
+         "amount": 39900.0,
+         "currency": "TRY",
+         "vat_rate": 18.0,
+         "income_tax_rate": 30.0,
+         "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.04/bf2e5042-4180-4378-b9c4-12c1f011ac8e_f/bf2e5042-4180-4378-b9c4-12c1f011ac8e_f.html"
       }
    ]
 }
