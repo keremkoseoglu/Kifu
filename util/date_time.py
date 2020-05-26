@@ -59,28 +59,14 @@ def get_last_day_of_prev_month(date: datetime.datetime) -> datetime:
     previous_month = get_previous_month(date)
     year = previous_month.year
     month = previous_month.month
-
-    if month == 2:
-        if year % 4 == 0:
-            day = 29
-        else:
-            day = 28
-    elif month in (4, 6, 9, 11):
-        day = 30
-    else:
-        day = 31
-
+    day = _get_last_day_of_month(month, year)
     return datetime.datetime(year=year, month=month, day=day)
 
 def get_last_day_of_month(date: datetime.datetime) -> datetime:
     """ Last day of given month """
     year = date.year
     month = date.month
-    day = 31
-    if month == 2 and year % 4 == 0:
-        day = 28
-    elif month in (4, 6, 9, 11):
-        day = 30
+    day = _get_last_day_of_month(month, year)
     return datetime.datetime(year=year, month=month, day=day)
 
 
@@ -127,11 +113,8 @@ def get_next_month(date: datetime, next_count=1):
     while next_month > _MAX_MONTH:
         next_month -= _MAX_MONTH
         next_year += 1
-    day = date.day
-    if next_month == 2 and day > 28:
-        day = 28
-    elif next_month in (4, 6, 9, 11) and day > 30:
-        day = 30
+
+    day = _shift_day_to_month(date.day, next_month, next_year)
     return datetime.datetime(year=next_year, month=next_month, day=day)
 
 
@@ -162,23 +145,13 @@ def get_previous_month(date: datetime) -> datetime:
     """ Previous month """
     year = date.year
     month = date.month
-    day = date.day
 
     month -= 1
     if month == 0:
         month = 12
         year -= 1
 
-    if month == 2:
-        if day > 29:
-            day = 29
-        if day == 29:
-            if year % 4 != 0:
-                day = 28
-    elif month == 4 or month == 6 or 9 or month == 11:
-        if day > 30:
-            day = 30
-
+    day = _shift_day_to_month(date.day, month, year)
     return datetime.datetime(year=year, month=month, day=day)
 
 
@@ -306,3 +279,19 @@ def parse_turkish_date(date: str) -> datetime.datetime:
     month = int(split_date[1])
     day = int(split_date[0])
     return datetime.datetime(year=year, month=month, day=day)
+
+def _month_has_30_days(month: int) -> bool:
+    return month in (4, 6, 9, 11)
+
+def _get_last_day_of_month(month: int, year: int) -> int:
+    if month == 2 and year % 4 == 0:
+        return 29
+    if _month_has_30_days(month):
+        return 30
+    return 31
+
+def _shift_day_to_month(day: int, month: int, year: int) -> int:
+    last_day_of_month = _get_last_day_of_month(month, year)
+    if day > last_day_of_month:
+        return last_day_of_month
+    return day
