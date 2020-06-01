@@ -215,7 +215,7 @@ class Prime:
     def _net_worth():
         net_worth.NetWorth().execute()
 
-    def _notif_double_click(self):
+    def _notif_double_click(self, dummy): # pylint: disable=W0613
         selection = self._notif_list.get(self._notif_list.curselection())
         if selection.__contains__("Payment"):
             payment_guid = selection[selection.find("{")+1:selection.find("}")]
