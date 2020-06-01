@@ -1,0 +1,175 @@
+{
+   "activities": [
+      {
+         "date": "2020-05-04T07:41:35.972135",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP (Remote)",
+         "guid": "49578bf0163d4670bbfd7458a5392c9c"
+      },
+      {
+         "date": "2020-05-05T08:01:24.496317",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP (Remote)",
+         "guid": "dc11a309f5e44a229e5aea382847375a"
+      },
+      {
+         "date": "2020-05-06T07:50:28.411712",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP (Remote)",
+         "guid": "dae582b8f9044058a3922b38d7ca144c"
+      },
+      {
+         "date": "2020-05-07T07:52:26.580884",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP (Remote)",
+         "guid": "7d2c89504549404bbcff6e754d345652"
+      },
+      {
+         "date": "2020-05-08T07:53:27.498910",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "7",
+         "work": "ABAP (Remote)",
+         "guid": "1915d75df1ab487b8a911eb2f18ced81"
+      },
+      {
+         "date": "2020-05-08T07:53:27.498910",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "7",
+         "work": "ABAP",
+         "guid": "e5d3bff6917b437dafaaaa15671be94c"
+      },
+      {
+         "date": "2020-05-08T07:53:27.498910",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "7",
+         "work": "ABAP",
+         "guid": "10709bd1b471448999f7f1665ec1e9a3"
+      },
+      {
+         "date": "2020-05-11T07:56:30.269623",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "4dd5709a133a488398a994d42287ee47"
+      },
+      {
+         "date": "2020-05-12T07:54:23.142121",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "74465f9563a049fda6b67cfad6fd78e1"
+      },
+      {
+         "date": "2020-05-13T07:52:13.512176",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "65bea01571284fa2a2b103ee0984a4d2"
+      },
+      {
+         "date": "2020-05-14T07:48:50.418673",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "a8f4232afd404dfdb492874e2de8002c"
+      },
+      {
+         "date": "2020-05-15T07:43:41.170429",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "ab774b59dba24f3aa8a8ea511d5421a1"
+      },
+      {
+         "date": "2020-05-18T07:54:12.658963",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "856439fe34ce4b27a7e716edd768e7ee"
+      },
+      {
+         "date": "2020-05-20T07:35:06.220566",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "27d30a6fc0ba4211aa631a8171dce3ae"
+      },
+      {
+         "date": "2020-05-21T07:56:14.670082",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "c0a643113bd444f2afd4999f374abbb2"
+      },
+      {
+         "date": "2020-05-22T07:40:08.389906",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "c3d4a3d679274f30a538a07667e67d13"
+      },
+      {
+         "date": "2020-05-27T07:43:29.829946",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "8dfa5e8a0ca241d8b7b1baf2e9b66407"
+      },
+      {
+         "date": "2020-05-28T07:40:37.270807",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "7477f75418aa46d2b41a6ee9cb674fde"
+      },
+      {
+         "date": "2020-05-29T07:42:36.613135",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "774882eb6d184060a8942103d84b418c"
+      }
+   ]
+}

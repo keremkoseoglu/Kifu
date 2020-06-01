@@ -334,21 +334,6 @@
                   "expected_payment_date": "2020-06-01T00:00:00",
                   "amount": 2900.0,
                   "currency": "TRY",
-                  "cleared": true,
-                  "collections": [
-                     {
-                        "date": "2020-06-01T08:33:08.828036",
-                        "description": "Haziran \u00f6deme",
-                        "amount": 2900.0,
-                        "currency": "TRY"
-                     }
-                  ]
-               },
-               {
-                  "recurrence_date": "2020-07-01T00:00:00",
-                  "expected_payment_date": "2020-07-01T00:00:00",
-                  "amount": 2900.0,
-                  "currency": "TRY",
                   "cleared": false,
                   "collections": []
                }
@@ -360,7 +345,7 @@
          "guid": "cd196b9791bf436aa6ecb55b7e7f6cad",
          "company": "Ay\u015fe Deniz Y\u00fczba\u015f\u0131o\u011flu",
          "description": "Kira",
-         "notes": "\n\n\n\n\n",
+         "notes": "\n\n\n\n",
          "invoice_guid": "",
          "direction": "O",
          "cleared": false,
@@ -1028,36 +1013,6 @@
                }
             ]
          }
-      },
-      {
-         "creation_date": "2020-05-30T13:17:40.102283",
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-06-08T13:17:40.216515",
-                  "expected_payment_date": "2020-06-08T13:17:40.216515",
-                  "amount": 2900.0,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ],
-            "start": "2020-06-08 13:17:40.216515"
-         },
-         "amount": 2900.0,
-         "currency": "TRY",
-         "guid": "b188edb657fc41c58f4ad8043ba4a2ba",
-         "company": "Akbank",
-         "description": "Axess",
-         "notes": "\n",
-         "invoice_guid": "",
-         "direction": "O",
-         "cleared": false,
-         "is_vat": false,
-         "is_income_tax": false
       }
    ]
 }

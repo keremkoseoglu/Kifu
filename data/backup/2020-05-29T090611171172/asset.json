@@ -1,15 +1,27 @@
 {
   "assets": [
     {
+      "name": "Fender Geddy Lee Jazz Bass",
+      "purchase_value": 6500,
+      "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
+      "name": "Fender Marcus Miller Jazz Bass",
+      "purchase_value": 6500,
+      "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
       "name": "Fender Mexico Jazz Bass",
       "purchase_value": 5000,
       "sales_value": 2500,
       "currency": "TRY"
     },
     {
-      "name": "Fender Ultra Precision",
-      "purchase_value": 16000,
-      "sales_value": 8000,
+      "name": "Fender Player Telecaster",
+      "purchase_value": 6300,
+      "sales_value": 4000,
       "currency": "TRY"
     },
     {
@@ -25,9 +37,15 @@
       "currency": "TRY"
     },
     {
-      "name": "Macbook Pro",
+      "name": "Macbook Pro 2012",
       "purchase_value": 8000,
       "sales_value": 4000,
+      "currency": "TRY"
+    },
+    {
+      "name": "Macbook Pro 2019",
+      "purchase_value": 18000,
+      "sales_value": 10000,
       "currency": "TRY"
     },
     {

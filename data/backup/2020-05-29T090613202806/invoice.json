@@ -323,18 +323,6 @@
          "vat_rate": 18.0,
          "income_tax_rate": 30.0,
          "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.04/bf2e5042-4180-4378-b9c4-12c1f011ac8e_f/bf2e5042-4180-4378-b9c4-12c1f011ac8e_f.html"
-      },
-      {
-         "guid": "bd4e689589944f59a238789cb1db8800",
-         "serial": "GIB2020000000006",
-         "payer": "1e1",
-         "invoice_date": "2020-05-31 00:00:00",
-         "due_date": "2020-07-01 00:00:00",
-         "amount": 32062.5,
-         "currency": "TRY",
-         "vat_rate": 18.0,
-         "income_tax_rate": 30.0,
-         "file_path": "/Users/kerem/Dropbox/software/Tesuji/Tesuji/Billing/earsiv/2020.05/8bffeea4-de8b-46e7-ae2d-1f046461386e_f/8bffeea4-de8b-46e7-ae2d-1f046461386e_f.html"
       }
    ]
 }

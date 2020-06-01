@@ -334,21 +334,6 @@
                   "expected_payment_date": "2020-06-01T00:00:00",
                   "amount": 2900.0,
                   "currency": "TRY",
-                  "cleared": true,
-                  "collections": [
-                     {
-                        "date": "2020-06-01T08:33:08.828036",
-                        "description": "Haziran \u00f6deme",
-                        "amount": 2900.0,
-                        "currency": "TRY"
-                     }
-                  ]
-               },
-               {
-                  "recurrence_date": "2020-07-01T00:00:00",
-                  "expected_payment_date": "2020-07-01T00:00:00",
-                  "amount": 2900.0,
-                  "currency": "TRY",
                   "cleared": false,
                   "collections": []
                }
@@ -360,7 +345,7 @@
          "guid": "cd196b9791bf436aa6ecb55b7e7f6cad",
          "company": "Ay\u015fe Deniz Y\u00fczba\u015f\u0131o\u011flu",
          "description": "Kira",
-         "notes": "\n\n\n\n\n",
+         "notes": "\n\n\n\n",
          "invoice_guid": "",
          "direction": "O",
          "cleared": false,
@@ -767,21 +752,19 @@
          "scheme": {
             "frequency": 1,
             "period": "D",
-            "start": "2020-05-28 00:00:00",
+            "start": "2020-05-28",
             "repeat": 1,
             "recurrence": [
                {
                   "recurrence_date": "2020-05-28",
-                  "expected_payment_date": "2020-06-05T00:00:00",
+                  "expected_payment_date": "2020-05-28",
                   "amount": 7182.0,
                   "currency": "TRY",
                   "cleared": false,
                   "collections": []
                }
             ]
-         },
-         "notes": "\n",
-         "is_income_tax": false
+         }
       },
       {
          "guid": "97565d05d56e453cb3bd1000b126631c",
@@ -864,200 +847,6 @@
                }
             ]
          }
-      },
-      {
-         "guid": "4f2df8967eaf48c6afdad65cf9346fb8",
-         "creation_date": "2020-05-29T17:07:03.388040",
-         "company": "1e1",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - Incoming payment",
-         "invoice_guid": "bd4e689589944f59a238789cb1db8800",
-         "direction": "I",
-         "amount": 37833.75,
-         "currency": "TRY",
-         "cleared": false,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2020-07-01T00:00:00",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-07-01T00:00:00",
-                  "expected_payment_date": "2020-07-01T00:00:00",
-                  "amount": 37833.75,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
-         "guid": "eb7f29decd664767a5e1a9de78043556",
-         "creation_date": "2020-05-29T17:07:03.388707",
-         "company": "Akbank",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - VAT transfer",
-         "invoice_guid": "",
-         "direction": "T",
-         "amount": 5771.25,
-         "currency": "TRY",
-         "cleared": false,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2020-06-12",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-06-12",
-                  "expected_payment_date": "2020-06-12",
-                  "amount": 5771.25,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
-         "guid": "8f5a6bee52034170ae2df052da93ce13",
-         "creation_date": "2020-05-29T17:07:03.389277",
-         "company": "TC",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - VAT payment",
-         "invoice_guid": "",
-         "direction": "O",
-         "amount": 5771.25,
-         "currency": "TRY",
-         "cleared": false,
-         "is_vat": true,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2020-06-27",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-06-27",
-                  "expected_payment_date": "2020-06-27",
-                  "amount": 5771.25,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
-         "guid": "0ed7e900f55644cf955c5a6da089cb34",
-         "creation_date": "2020-05-29T17:07:03.389394",
-         "company": "Akbank",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - income tax transfer",
-         "invoice_guid": "",
-         "direction": "T",
-         "amount": 9618.75,
-         "currency": "TRY",
-         "cleared": false,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2020-07-02T00:00:00",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-07-02T00:00:00",
-                  "expected_payment_date": "2020-07-02T00:00:00",
-                  "amount": 9618.75,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
-         "guid": "cb3609e397464a9381b4a1ca2ce2ce1f",
-         "creation_date": "2020-05-29T17:07:03.389491",
-         "company": "TC",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - income tax payment",
-         "invoice_guid": "",
-         "direction": "O",
-         "amount": 9618.75,
-         "currency": "TRY",
-         "cleared": false,
-         "is_income_tax": true,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2021-03-15",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2021-03-15",
-                  "expected_payment_date": "2021-03-15",
-                  "amount": 9618.75,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
-         "guid": "2638c07085b3492ea4ed35abe0527bc4",
-         "creation_date": "2020-05-29T17:07:03.389581",
-         "company": "Unknown",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - alms",
-         "invoice_guid": "",
-         "direction": "O",
-         "amount": 561.09375,
-         "currency": "TRY",
-         "cleared": false,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2020-07-02T00:00:00",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-07-02T00:00:00",
-                  "expected_payment_date": "2020-07-02T00:00:00",
-                  "amount": 561.09375,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
-         "creation_date": "2020-05-30T13:17:40.102283",
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-06-08T13:17:40.216515",
-                  "expected_payment_date": "2020-06-08T13:17:40.216515",
-                  "amount": 2900.0,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ],
-            "start": "2020-06-08 13:17:40.216515"
-         },
-         "amount": 2900.0,
-         "currency": "TRY",
-         "guid": "b188edb657fc41c58f4ad8043ba4a2ba",
-         "company": "Akbank",
-         "description": "Axess",
-         "notes": "\n",
-         "invoice_guid": "",
-         "direction": "O",
-         "cleared": false,
-         "is_vat": false,
-         "is_income_tax": false
       }
    ]
 }
