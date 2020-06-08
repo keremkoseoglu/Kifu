@@ -1,0 +1,22 @@
+{
+   "activities": [
+      {
+         "date": "2020-06-01T07:58:32.678810",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "23c92708d5284c0fb514bb296201d923"
+      },
+      {
+         "date": "2020-06-02T07:44:31.271091",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "0062d8f2155f4281bd51a8be077a16d5"
+      }
+   ]
+}

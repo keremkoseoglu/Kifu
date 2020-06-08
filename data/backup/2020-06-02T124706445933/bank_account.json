@@ -5,7 +5,7 @@
       "account_name": "GV",
       "account_number": "0143-0148557",
       "is_vat": false,
-      "balance": 38901,
+      "balance": 18431,
       "currency": "TRY",
       "iban": "TR820004600143888000148557"
     },
@@ -23,7 +23,7 @@
       "account_name": "TRY",
       "account_number": "0143-0124482",
       "is_vat": false,
-      "balance": 13798,
+      "balance": 4460,
       "currency": "TRY",
       "iban": "TR130004600143888000124482"
     },
@@ -41,7 +41,7 @@
       "account_name": "TRY",
       "account_number": "277-6694589",
       "is_vat": false,
-      "balance": 5011,
+      "balance": 11,
       "currency": "TRY",
       "iban": "TR85 0006 2000 2770 0006 6945 89"
     },

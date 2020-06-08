@@ -4,14 +4,14 @@
       "bank_name": "Akbank",
       "card_name": "Axess",
       "credit_limit": 25000,
-      "usable_limit": 14300,
+      "usable_limit": 22645,
       "currency": "TRY"
     },
     {
       "bank_name": "Garanti",
       "card_name": "Bonus",
       "credit_limit": 25000,
-      "usable_limit": 21756,
+      "usable_limit": 19174,
       "currency": "TRY"
     }
   ]
