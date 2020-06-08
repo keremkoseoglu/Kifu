@@ -383,14 +383,11 @@ class PaymentWindow(tkinter.Toplevel):
         rec = self._get_selected_recurrence()
         PopupWithSingleValue(self.postpone_recurrence, "Date", rec.expected_payment_date)
 
-    def _recurrence_select(self):
-
+    def _recurrence_select(self, dummy): # pylint: disable=W0613
         # Prepare
-
         self._clear_collection_tree()
 
         # Get clicked recurrence payments
-
         clicked_recurrence = self._get_selected_recurrence()
         if clicked_recurrence is None:
             return
@@ -398,7 +395,6 @@ class PaymentWindow(tkinter.Toplevel):
         collections = clicked_recurrence.collections
 
         # Paint
-
         for collection in collections:
             amount, currency = collection.amount
             tree_val = (
