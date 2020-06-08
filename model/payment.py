@@ -7,7 +7,7 @@ from typing import List
 from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY, \
     PAYMENT_NOTIFICATION_BUFFER, PAYMENT_RECURRENCE_BUFFER
 from config.constants import PAYMENT_LONG_RECURRENCE_BUFFER, DEFAULT_BANK, \
-    HOME_GOVERNMENT, COMPANY_NAME_UNKNOWN
+    HOME_GOVERNMENT, COMPANY_NAME_UNKNOWN, PAY_CREDIT_DEBT_BEFORE_INVESTMENT
 from model.company import Company
 from model.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
@@ -415,23 +415,24 @@ def record_investment_payment(
     investable_amount = CurrencyConverter().convert_to_local_currency(investable_amount, paid_curr)
 
     # Pay credit card debts
-    credit_card_debts = get_credit_card_debts()
-    for cc_debt in credit_card_debts.debts:
-        if investable_amount < cc_debt.amount:
-            payable_amount = investable_amount
-            investable_amount = 0
-        else:
-            payable_amount = cc_debt.amount
-            investable_amount -= payable_amount
+    if PAY_CREDIT_DEBT_BEFORE_INVESTMENT:
+        credit_card_debts = get_credit_card_debts()
+        for cc_debt in credit_card_debts.debts:
+            if investable_amount < cc_debt.amount:
+                payable_amount = investable_amount
+                investable_amount = 0
+            else:
+                payable_amount = cc_debt.amount
+                investable_amount -= payable_amount
 
-        _create_credit_card_transaction(
-            cc_debt.bank_name,
-            description_prefix,
-            cc_debt.card_name,
-            payable_amount)
+            _create_credit_card_transaction(
+                cc_debt.bank_name,
+                description_prefix,
+                cc_debt.card_name,
+                payable_amount)
 
-        if investable_amount <= 0:
-            return
+            if investable_amount <= 0:
+                return
 
     if investable_amount <= 0:
         return
