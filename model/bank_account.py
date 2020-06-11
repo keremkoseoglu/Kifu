@@ -4,7 +4,7 @@ import os
 from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY
 from model.currency import CurrencyConverter
 
-_BANK_ACCOUNT_FILE = "bank_account.json"
+_BANK_ACCOUNT_FILE = "bank.json"
 
 
 def get_accounts_with_currency(currency: str) -> []:
