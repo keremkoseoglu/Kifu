@@ -6,7 +6,7 @@ from config.constants import HOME_CURRENCY, DATA_DIR_PATH
 from model.currency import CurrencyConverter
 
 
-_CREDIT_CARD_FILE = "credit_card.json"
+_CREDIT_CARD_FILE = "bank.json"
 
 
 class CreditCardDebt: # pylint: disable=R0903

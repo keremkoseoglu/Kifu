@@ -47,6 +47,6 @@ CURRENY_GOLD_URL = "http://www.trt.net.tr/finans/altin.aspx?id=XGLD"
 
 # ECZ
 ECZ_DAHA_USER = "X-KEREMKOS"
-ECZ_DAHA_PASS = "Empress4"
+ECZ_DAHA_PASS = "Focusrite4"
 ECZ_DAHA_DAILY_URL = "http://tgvnwdev.tuketimgrubu.eczacibasi.com.tr:8000/sap/bc/bsp/sap/zbc_daha/get_user_day_summary.htm"
 ECZ_DAHA_MONTHLY_URL = "http://tgvnwdev.tuketimgrubu.eczacibasi.com.tr:8000/sap/bc/bsp/sap/zbc_daha/get_user_month_summary.htm"
