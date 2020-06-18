@@ -29,7 +29,8 @@ class CompanyListbox:
 
         self._combo.place(x=x_pos, y=y_pos)
 
-    def get_selected_company_names(self) -> List[str]:
+    @property
+    def selected_company_names(self) -> List[str]:
         """ Returns selected company names """
         items = self._combo.curselection()
         return [self._combo_val[int(item)] for item in items]

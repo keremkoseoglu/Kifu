@@ -40,8 +40,8 @@ class PayVat:
 
         payment.record_vat_payment(
             vat_guids=vat_guids,
-            paid_amount=self._amount.get_amount(),
-            paid_curr=self._amount.get_currency()
+            paid_amount=self._amount.amount,
+            paid_curr=self._amount.currency
         )
 
         self._window.destroy()

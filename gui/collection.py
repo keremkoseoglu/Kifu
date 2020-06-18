@@ -44,13 +44,13 @@ class Collection:
     def _ok_click(self):
 
         collection_dict = {
-            "date": self._date.get_value(),
-            "description": self._description.get_value(),
-            "amount": self._amount.get_amount(),
-            "currency": self._amount.get_currency()
+            "date": self._date.value,
+            "description": self._description.value,
+            "amount": self._amount.amount,
+            "currency": self._amount.currency
         }
 
         collection_obj = Collection_Model(collection_dict)
 
-        self._click_handler(collection_obj, clear=self._cleared.is_checked())
+        self._click_handler(collection_obj, clear=self._cleared.checked)
         self._window.destroy()

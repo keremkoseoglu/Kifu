@@ -66,8 +66,26 @@ class ActivityListWindow(tkinter.Toplevel):
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
+    @property
+    def _first_selected_activity(self) -> activity.Activity:
+        selected_activities = self._selected_activities
+        if len(selected_activities) == 0:
+            return None
+
+        return selected_activities[0]
+
+    @property
+    def _selected_activities(self) -> []:
+        selected_activities = []
+
+        for selected_id in self._tree.selection():
+            selected_activity = self._tree_content[selected_id]
+            selected_activities.append(selected_activity)
+
+        return selected_activities
+
     def _delete_click(self):
-        deletable_activities = self._get_selected_activities()
+        deletable_activities = self._selected_activities
         if len(deletable_activities) == 0:
             return
 
@@ -81,7 +99,7 @@ class ActivityListWindow(tkinter.Toplevel):
         self._fill_tree_with_activities()
 
     def _edit_click(self):
-        first_selected_activity = self._get_first_selected_activity()
+        first_selected_activity = self._first_selected_activity
         if first_selected_activity is None:
             return
 
@@ -91,7 +109,7 @@ class ActivityListWindow(tkinter.Toplevel):
         activity_window.mainloop()
 
     def _excel_click(self):
-        selected_activity_objects = self._get_selected_activities()
+        selected_activity_objects = self._selected_activities
         activity_xlsx_report.Report().generate_with_activity_objects(selected_activity_objects)
 
     def _fill_tree_with_activities(self):
@@ -121,25 +139,9 @@ class ActivityListWindow(tkinter.Toplevel):
 
         self.update()
 
-    def _get_first_selected_activity(self) -> activity.Activity:
-        selected_activities = self._get_selected_activities()
-        if len(selected_activities) == 0:
-            return None
-
-        return selected_activities[0]
-
-    def _get_selected_activities(self) -> []:
-        selected_activities = []
-
-        for selected_id in self._tree.selection():
-            selected_activity = self._tree_content[selected_id]
-            selected_activities.append(selected_activity)
-
-        return selected_activities
-
     def _invoice_click(self):
 
-        selected_activities = self._get_selected_activities()
+        selected_activities = self._selected_activities
         if len(selected_activities) == 0:
             return
 
@@ -150,7 +152,7 @@ class ActivityListWindow(tkinter.Toplevel):
         invoice_window.mainloop()
 
     def _split_click(self):
-        first_selected_activity = self._get_first_selected_activity()
+        first_selected_activity = self._first_selected_activity
         if first_selected_activity is None:
             return
         activity_split = ActivitySplit()

@@ -35,8 +35,8 @@ class BuyForeignCurrency: # pylint: disable=R0903
             return
 
         payment.record_investment_payment(
-            self._amount.get_amount(),
-            self._amount.get_currency(),
+            self._amount.amount,
+            self._amount.currency,
             "Buy foreign currency from " + sel_values[0])
 
         self._window.destroy()

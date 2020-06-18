@@ -272,28 +272,28 @@ class PaymentWindow(tkinter.Toplevel):
 
         # Payment
 
-        self._guid.set_value(self._payment.guid)
-        self._creation_date.set_value(self._payment.creation_date.isoformat())
-        self._company_combo.set_company(self._payment.company.name)
-        self._description.set_value(self._payment.description)
-        self._notes.set_value(self._payment.notes)
-        self._invoice_guid.set_value(self._payment.invoice_guid)
-        self._direction.set_selected_value(self._payment.direction)
-        self._amount.set_value(amount, currency)
-        self._open_amount.set_value(open_amount, open_currency)
-        self._cleared.set_value(self._payment.cleared)
-        self._is_vat.set_value(self._payment.is_vat)
-        self._is_income_tax.set_value(self._payment.is_income_tax)
+        self._guid.value = self._payment.guid
+        self._creation_date.value = self._payment.creation_date.isoformat()
+        self._company_combo.company_name = self._payment.company.name
+        self._description.value = self._payment.description
+        self._notes.value = self._payment.notes
+        self._invoice_guid.value = self._payment.invoice_guid
+        self._direction.selected_value = self._payment.direction
+        self._amount.value = (amount, currency)
+        self._open_amount.value = (open_amount, open_currency)
+        self._cleared.checked = self._payment.cleared
+        self._is_vat.checked = self._payment.is_vat
+        self._is_income_tax.checked = self._payment.is_income_tax
 
         # Scheme
 
         scheme = self._payment.scheme
         frequency, period = scheme.frequency
         repeat = scheme.repeat
-        self._frequency.set_value(frequency)
-        self._period.set_selected_value(period)
-        self._start.set_value(scheme.start_date)
-        self._repeat.set_value(str(repeat))
+        self._frequency.value = frequency
+        self._period.selected_value = period
+        self._start.value = scheme.start_date
+        self._repeat.value = str(repeat)
 
         # Recurrences
         self._paint_recurrences()
@@ -413,20 +413,20 @@ class PaymentWindow(tkinter.Toplevel):
         self.update()
 
     def _save(self):
-        self._payment.company = self._company_combo.get_company_name()
-        self._payment.description = self._description.get_value()
-        self._payment.notes = self._notes.get_value()
-        self._payment.invoice_guid = self._invoice_guid.get_value()
-        self._payment.direction = self._direction.get_selected_value()
-        self._payment.set_amount(self._amount.get_amount(), self._amount.get_currency())
-        self._payment.cleared = self._cleared.is_checked()
-        self._payment.is_vat = self._is_vat.is_checked()
-        self._payment.is_income_tax = self._is_income_tax.is_checked()
+        self._payment.company = self._company_combo.company_name
+        self._payment.description = self._description.value
+        self._payment.notes = self._notes.value
+        self._payment.invoice_guid = self._invoice_guid.value
+        self._payment.direction = self._direction.selected_value
+        self._payment.set_amount(self._amount.amount, self._amount.currency)
+        self._payment.cleared = self._cleared.checked
+        self._payment.is_vat = self._is_vat.checked
+        self._payment.is_income_tax = self._is_income_tax.checked
 
         scheme = self._payment.scheme
-        scheme.set_frequency(int(self._frequency.get_value()), self._period.get_selected_value())
-        scheme.set_start_date_from_iso(self._start.get_value())
-        scheme.repeat = int(self._repeat.get_value())
+        scheme.set_frequency(int(self._frequency.value), self._period.selected_value)
+        scheme.set_start_date_from_iso(self._start.value)
+        scheme.repeat = int(self._repeat.value)
 
         self._payment.save()
         self.destroy()

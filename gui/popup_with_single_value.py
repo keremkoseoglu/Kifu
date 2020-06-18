@@ -22,5 +22,5 @@ class PopupWithSingleValue:
         save_button.place(x=200, y=100)
 
     def _ok_click(self):
-        self._click_handler(self._labeled_textbox.get_value())
+        self._click_handler(self._labeled_textbox.value)
         self._window.destroy()

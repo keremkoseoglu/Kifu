@@ -30,10 +30,12 @@ class LabeledCombobox:
         self._combobox.config(values=combo_values)
         self._combobox.place(x=x_pos + GUI_CELL_WIDTH, y=y_pos)
 
-    def get_selected_value(self) -> str:
+    @property
+    def selected_value(self) -> str:
         """ Returns selected value """
         return self._selected_value.get()
 
-    def set_selected_value(self, value: str):
+    @selected_value.setter
+    def selected_value(self, value: str):
         """ Sets selected value """
         self._selected_value.set(value)
