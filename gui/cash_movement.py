@@ -40,11 +40,11 @@ class CashMovement:
     def _ok_click(self):
 
         payment.record_cash_movement(
-            company=self._company.get_company_name(),
-            direction=self._direction.get_selected_value(),
-            amount=self._amount.get_amount(),
-            currency=self._amount.get_currency(),
-            description=self._description.get_value()
+            company=self._company.company_name,
+            direction=self._direction.selected_value,
+            amount=self._amount.amount,
+            currency=self._amount.currency,
+            description=self._description.value
         )
 
         self._window.destroy()

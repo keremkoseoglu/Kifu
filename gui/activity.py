@@ -87,12 +87,12 @@ class ActivityWindow(tkinter.Toplevel):
         proj = act.project
         clnt = proj.client
 
-        self._project_combo.set_selected_value(clnt.name + " - " + proj.name)
-        self._location_combo.set_selected_value(act.location)
-        self._date.set_value(act.date.isoformat())
-        self._duration.set_value(str(act.hours))
-        self._work.set_value(act.work)
-        self._guid.set_value(act.guid)
+        self._project_combo.selected_value = clnt.name + " - " + proj.name
+        self._location_combo.selected_value = act.location
+        self._date.value = act.date.isoformat()
+        self._duration.value = str(act.hours)
+        self._work.value = act.work
+        self._guid.value = act.guid
 
     def fill_with_last_activity(self):
         """ Fills window with last activity """
@@ -114,19 +114,19 @@ class ActivityWindow(tkinter.Toplevel):
             self._location_combo_val.append(loc)
 
     def _ecz_click(self):
-        sap_date = self._date.get_value()[:12].replace("-", "")
+        sap_date = self._date.value[:12].replace("-", "")
         daily_activity = ecz_daha.get_daily_activity(sap_date)
-        self._duration.set_value(daily_activity["hours"])
-        self._work.set_value(daily_activity["comment"])
+        self._duration.value = daily_activity["hours"]
+        self._work.value = daily_activity["comment"]
 
     def _save_click(self):
-        project_full = self._project_combo.get_selected_value()
+        project_full = self._project_combo.selected_value
         client, project = project_full.split(" - ")
-        location = self._location_combo.get_selected_value()
-        date = self._date.get_value()
-        duration = self._duration.get_value()
-        work = self._work.get_value()
-        guid = self._guid.get_value()
+        location = self._location_combo.selected_value
+        date = self._date.value
+        duration = self._duration.value
+        work = self._work.value
+        guid = self._guid.value
 
         act = {
             "date": date,

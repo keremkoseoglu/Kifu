@@ -21,22 +21,20 @@ class LabeledTextarea:
         self._text_box.place(x=x_pos + GUI_CELL_WIDTH, y=y_pos)
 
         if isinstance(text_value, str):
-            self.set_value(text_value)
+            self.value = text_value
         elif isinstance(text_value, list):
             string_value = ""
             for val in text_value:
                 string_value += val # pylint: disable=R1713
-            self.set_value(string_value)
+            self.value = string_value
 
-    def disable(self):
-        """ Disables control """
-        self._text_box.configure(state="disabled")
-
-    def get_value(self):
+    @property
+    def value(self):
         """ Returns value of control """
         return self._text_box.get("1.0", tkinter.END)
 
-    def set_value(self, value):
+    @value.setter
+    def value(self, value):
         """ Sets value of control """
         if isinstance(value, str):
             self._text_box.insert(tkinter.INSERT, value)
@@ -44,5 +42,9 @@ class LabeledTextarea:
             string_value = ""
             for val in value:
                 string_value += val # pylint: disable=R1713
-            self.set_value(string_value)
+            self.value = string_value
         self._parent.update()
+
+    def disable(self):
+        """ Disables control """
+        self._text_box.configure(state="disabled")

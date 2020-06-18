@@ -36,13 +36,15 @@ class AmountTextbox:
         self._amount_box.configure(state="disabled")
         self._currency_box.configure(state="disabled")
 
-    def get_amount(self) -> float:
+    @property
+    def amount(self) -> float:
         """ Returns amount """
         output = self._amount_val.get()
         output = output.replace(",", "")
         return float(output)
 
-    def get_currency(self):
+    @property
+    def currency(self):
         """ Returns currency """
         return self._currency_val.get()
 

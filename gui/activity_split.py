@@ -57,9 +57,9 @@ class ActivitySplit(tkinter.Toplevel):
         proj = self._debut_activity.project
         clnt = self._debut_activity.client
 
-        self._project_combo.set_selected_value(clnt.name + " - " + proj.name)
-        self._duration.set_value(str(0))
-        self._work.set_value(act.work)
+        self._project_combo.selected_value = clnt.name + " - " + proj.name
+        self._duration.value = str(0)
+        self._work.value = act.work
 
     def fill_with_last_activity(self):
         """ Fills window with latest activity """
@@ -73,15 +73,14 @@ class ActivitySplit(tkinter.Toplevel):
             self._project_combo_val.append(prj["client_name"] + " - " + prj["project_name"])
 
     def _save_click(self):
-
-        project_full = self._project_combo.get_selected_value()
+        project_full = self._project_combo.selected_value
         client, project = project_full.split(" - ")
 
         self._debut_activity.split(
             client_name=client,
             project_name=project,
-            hours=int(self._duration.get_value()),
-            work=self._work.get_value()
+            hours=int(self._duration.value),
+            work=self._work.value
         )
 
         self.destroy()

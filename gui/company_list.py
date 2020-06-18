@@ -28,7 +28,7 @@ class CompanyList(tkinter.Toplevel):
 
     def _company_selected(self):
         obj_array = []
-        selected_companies = self._listbox.get_selected_company_names()
+        selected_companies = self._listbox.selected_company_names
         for selected_company in selected_companies:
             company_obj = Company(selected_company)
             obj_array.append(company_obj)

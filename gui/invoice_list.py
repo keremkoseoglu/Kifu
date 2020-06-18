@@ -66,8 +66,18 @@ class InvoiceListWindow(tkinter.Toplevel):
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
+    @property
+    def _selected_invoices(self) -> []:
+        selected_invoices = []
+
+        for selected_id in self._tree.selection():
+            selected_invoice = self._tree_content[selected_id]
+            selected_invoices.append(selected_invoice)
+
+        return selected_invoices
+
     def _delete_click(self):
-        deletable_invoices = self._get_selected_invoices()
+        deletable_invoices = self._selected_invoices
         if len(deletable_invoices) == 0:
             return
 
@@ -81,7 +91,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         self._fill_tree_with_invoices()
 
     def _edit_click(self):
-        selected_invoices = self._get_selected_invoices()
+        selected_invoices = self._selected_invoices
         if len(selected_invoices) == 0:
             return
 
@@ -93,7 +103,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         invoice_window.mainloop()
 
     def _email_click(self):
-        selected_invoices = self._get_selected_invoices()
+        selected_invoices = self._selected_invoices
         if len(selected_invoices) == 0:
             return
         open_invoice_as_email(selected_invoices[0])
@@ -124,21 +134,11 @@ class InvoiceListWindow(tkinter.Toplevel):
 
         self.update()
 
-    def _get_selected_invoices(self) -> []:
-        selected_invoices = []
-
-        for selected_id in self._tree.selection():
-            selected_invoice = self._tree_content[selected_id]
-            selected_invoices.append(selected_invoice)
-
-        return selected_invoices
-
     def _label_click(self):
-        invoice_label.InvoiceLabel.generate(self._get_selected_invoices())
+        invoice_label.InvoiceLabel.generate(self._selected_invoices)
 
     def _payment_click(self):
-
-        selected_invoices = self._get_selected_invoices()
+        selected_invoices = self._selected_invoices
 
         for selected_invoice in selected_invoices:
             new_payments = payment.get_payment_objects_from_invoice(selected_invoice)

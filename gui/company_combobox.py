@@ -16,10 +16,12 @@ class CompanyCombobox:
 
         self._combo = LabeledCombobox(parent, label_text, self._combo_val, x_pos, y_pos)
 
-    def get_company_name(self) -> str:
+    @property
+    def company_name(self) -> str:
         """ Returns company name """
-        return self._combo.get_selected_value()
+        return self._combo.selected_value
 
-    def set_company(self, name: str):
+    @company_name.setter
+    def company_name(self, name: str):
         """ Sets company name """
-        self._combo.set_selected_value(name)
+        self._combo.selected_value = name

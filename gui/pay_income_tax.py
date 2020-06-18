@@ -28,8 +28,8 @@ class PayIncomeTax:
         payment.record_cash_movement(
             company=HOME_GOVERNMENT,
             direction=payment.DIRECTION_OUT,
-            amount=self._amount.get_amount(),
-            currency=self._amount.get_currency(),
+            amount=self._amount.amount,
+            currency=self._amount.currency,
             description="Geçici vergi ödemesi",
             income_tax_only=True
         )

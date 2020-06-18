@@ -116,6 +116,15 @@
          "duration": "8",
          "work": "ABAP",
          "guid": "4c8c68ed6773401997f82d01966d840b"
+      },
+      {
+         "date": "2020-06-18T07:58:11.669348",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "20d995972d9741c0aa000945a9aa07fc"
       }
    ]
 }

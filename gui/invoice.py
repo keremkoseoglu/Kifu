@@ -122,44 +122,44 @@ class InvoiceWindow(tkinter.Toplevel):
         If browser == True, also opens a new browser window & address book.
         This functionality is typically used when creating a new invoice.
         """
-        self._guid.set_value(invoice.guid)
-        self._serial.set_value(invoice.serial)
-        self._invoice_date.set_value(str(invoice.invoice_date))
-        self._due_date.set_value(str(invoice.due_date))
-        self._amount.set_value(invoice.amount, invoice.currency)
-        self._payer_combo.set_company(invoice.payer.name)
-        self._vat.set_value(str(invoice.vat_rate))
-        self._vat_amount.set_value(str(invoice.vat_amount))
-        self._total_amount.set_value(str(invoice.amount_plus_vat))
-        self._income_tax.set_value(str(invoice.income_tax_rate))
-        self._income_tax_amount.set_value((str(invoice.income_tax_amount)))
-        self._file_path.set_value(invoice.file_path)
+        self._guid.value = invoice.guid
+        self._serial.value = invoice.serial
+        self._invoice_date.value = str(invoice.invoice_date)
+        self._due_date.value = str(invoice.due_date)
+        self._amount.value = invoice.amount, invoice.currency
+        self._payer_combo.company_name = invoice.payer.name
+        self._vat.value = str(invoice.vat_rate)
+        self._vat_amount.value = str(invoice.vat_amount)
+        self._total_amount.value = str(invoice.amount_plus_vat)
+        self._income_tax.value = str(invoice.income_tax_rate)
+        self._income_tax_amount.value = str(invoice.income_tax_amount)
+        self._file_path.value = invoice.file_path
 
         if browser:
             AddressBook(listable_companies=[invoice.payer.name]).execute()
             webbrowser.open(E_ARCHIVE_URL)
 
     def _file_open_click(self):
-        open_file(self._file_path.get_value())
+        open_file(self._file_path.value)
 
     def _file_path_click(self):
         path = popup_open_file()
         if path is None or path == "":
             return
-        self._file_path.set_value(path)
+        self._file_path.value = path
 
     def _get_invoice_dict_from_gui(self) -> {}:
         return {
-            "guid": self._guid.get_value(),
-            "serial": self._serial.get_value(),
-            "payer": self._payer_combo.get_company_name(),
-            "invoice_date": self._invoice_date.get_value(),
-            "due_date": self._due_date.get_value(),
-            "amount": self._amount.get_amount(),
-            "currency": self._amount.get_currency(),
-            "vat_rate": float(self._vat.get_value()),
-            "income_tax_rate": float(self._income_tax.get_value()),
-            "file_path": self._file_path.get_value()
+            "guid": self._guid.value,
+            "serial": self._serial.value,
+            "payer": self._payer_combo.company_name,
+            "invoice_date": self._invoice_date.value,
+            "due_date": self._due_date.value,
+            "amount": self._amount.amount,
+            "currency": self._amount.currency,
+            "vat_rate": float(self._vat.value),
+            "income_tax_rate": float(self._income_tax.value),
+            "file_path": self._file_path.value
         }
 
     def _save_click(self):
