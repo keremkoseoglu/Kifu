@@ -31,6 +31,8 @@ BACKUP_PRESERVE_DAYS = 93
 DATA_DIR_PATH = "/Users/kerem/Documents/Software/Kerem/Development/Kifu/data/"
 DATA_FILE_EXTENSION = "json"
 DOWNLOAD_DIR = "/Users/kerem/Downloads/"
+HOSTS_FROM = "/Users/kerem/Documents/etc/config/hosts"
+HOSTS_TO = "/private/etc/hosts"
 
 # GUI
 GUI_CELL_HEIGHT = 30
