@@ -1,7 +1,7 @@
 """ Hosts """
 from shutil import copy
-
+from config.constants import HOSTS_FROM, HOSTS_TO
 
 def overwrite_host_file():
     """ Override hosts file """
-    copy("/Users/kerem/OneDrive/etc/config/hosts", "/private/etc/hosts")
+    copy(HOSTS_FROM, HOSTS_TO)
