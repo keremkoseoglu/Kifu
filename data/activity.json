@@ -125,6 +125,33 @@
          "duration": "8",
          "work": "ABAP",
          "guid": "20d995972d9741c0aa000945a9aa07fc"
+      },
+      {
+         "date": "2020-06-19T07:55:53.315618",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Tesuji - Home",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "054a0e83b2aa47a0a4c65da0c883743d"
+      },
+      {
+         "date": "2020-06-22T06:45:37.790338",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "c858e8d2db7846f8b1a96cdb1f408d1b"
+      },
+      {
+         "date": "2020-06-23T06:41:13.446538",
+         "client_name": "Eczac\u0131ba\u015f\u0131 T\u00dcG",
+         "project_name": "Support",
+         "location": "Eczac\u0131ba\u015f\u0131 T\u00dcG - Kavac\u0131k",
+         "duration": "8",
+         "work": "ABAP",
+         "guid": "0d8448257ced4237936b304456c72a9c"
       }
    ]
 }

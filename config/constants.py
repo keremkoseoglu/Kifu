@@ -28,7 +28,7 @@ PAY_CREDIT_DEBT_BEFORE_INVESTMENT = False
 # File system
 BACKUP_DIR_PATH = "backup"
 BACKUP_PRESERVE_DAYS = 93
-DATA_DIR_PATH = "/Users/kerem/OneDrive/Software/Kerem/Development/Kifu/data/"
+DATA_DIR_PATH = "/Users/kerem/Documents/Software/Kerem/Development/Kifu/data/"
 DATA_FILE_EXTENSION = "json"
 DOWNLOAD_DIR = "/Users/kerem/Downloads/"
 
