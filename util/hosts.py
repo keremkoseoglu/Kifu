@@ -1,7 +1,8 @@
 """ Hosts """
 from shutil import copy
-from config.constants import HOSTS_FROM, HOSTS_TO
+import config
+
 
 def overwrite_host_file():
     """ Override hosts file """
-    copy(HOSTS_FROM, HOSTS_TO)
+    copy(config.CONSTANTS["HOSTS_FROM"], config.CONSTANTS["HOSTS_TO"])

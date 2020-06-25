@@ -1,12 +1,10 @@
 """ Labeled textbox """
 import tkinter
-from config.constants import GUI_CELL_WIDTH
+import config
 
 
 class LabeledTextbox:
     """ Labeled textbox """
-    ##todo burada kaldın
-
     def __init__(self,
                  parent: tkinter.Toplevel,
                  label_text: str,
@@ -19,7 +17,7 @@ class LabeledTextbox:
         self._text_val = tkinter.StringVar()
         self._text_val.set(text_value)
         self._text_box = tkinter.Entry(parent, textvariable=self._text_val)
-        self._text_box.place(x=x_pos + GUI_CELL_WIDTH, y=y_pos)
+        self._text_box.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
     @property
     def value(self):

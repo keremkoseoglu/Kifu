@@ -3,10 +3,9 @@ import tkinter.ttk
 from util import amount, backup, date_time, invoice_label
 from gui.payment_list import PaymentListWindow
 from gui.invoice import InvoiceWindow, open_invoice_as_email
-from config.constants import GUI_CELL_HEIGHT
 from model.invoice import Invoice
 from model import payment
-
+import config
 
 class InvoiceListWindow(tkinter.Toplevel):
     """ Invoice list window """
@@ -26,7 +25,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         # Build tree
 
         self._tree = tkinter.ttk.Treeview(self)
-        tree_height = self._WINDOW_HEIGHT - GUI_CELL_HEIGHT - self._Y_SPACING
+        tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
         cell_y = tree_height + self._Y_SPACING
 

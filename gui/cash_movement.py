@@ -4,8 +4,8 @@ from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.labeled_combobox import LabeledCombobox
-from config.constants import GUI_CELL_WIDTH, GUI_CELL_HEIGHT, HOME_CURRENCY
 import model.payment as payment
+import config
 
 
 class CashMovement:
@@ -23,19 +23,25 @@ class CashMovement:
         cell_y = 0
 
         self._company = CompanyCombobox(self._window, "Company", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._direction = LabeledCombobox(self._window, "Direction", ["I", "O"], 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
-        self._amount = AmountTextbox(self._window, "Amount", 0, HOME_CURRENCY, 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        self._amount = AmountTextbox(
+            self._window,
+            "Amount",
+            0,
+            config.CONSTANTS["HOME_CURRENCY"],
+            0,
+            cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._description = LabeledTextbox(self._window, "Description", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
-        save_button.place(x=GUI_CELL_WIDTH, y=cell_y)
+        save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):
 

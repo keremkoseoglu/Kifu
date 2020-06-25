@@ -1,8 +1,9 @@
 """ Assets """
 import json
 import os
-from config.constants import DATA_DIR_PATH
 from model.currency import CurrencyConverter
+import config
+
 
 _ASSET_FILE = "asset.json"
 
@@ -32,4 +33,4 @@ def get_asset_resale_value_sum() -> float:
 
 
 def _get_file_path():
-    return os.path.join(DATA_DIR_PATH + _ASSET_FILE)
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _ASSET_FILE)

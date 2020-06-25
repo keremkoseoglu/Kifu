@@ -1,9 +1,9 @@
 """ VAT payment window """
 import tkinter
 from gui.amount_textbox import AmountTextbox
-from config.constants import GUI_CELL_HEIGHT, GUI_CELL_WIDTH, HOME_CURRENCY
 import model.payment as payment
 from util import amount
+import config
 
 
 class PayVat:
@@ -18,8 +18,15 @@ class PayVat:
         self._window.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
         cell_y = 0
 
-        self._amount = AmountTextbox(self._window, "Amount", 0, HOME_CURRENCY, 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        self._amount = AmountTextbox(
+            self._window,
+            "Amount",
+            0,
+            config.CONSTANTS["HOME_CURRENCY"],
+            0,
+            cell_y)
+
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._vat_list = tkinter.Listbox(self._window, selectmode=tkinter.MULTIPLE)
         self._refresh()
@@ -27,7 +34,7 @@ class PayVat:
         cell_y += self._NOTIF_HEIGHT
 
         save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
-        save_button.place(x=GUI_CELL_WIDTH, y=cell_y)
+        save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):
         vat_guids = []

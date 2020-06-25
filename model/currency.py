@@ -1,7 +1,8 @@
 """ Currency """
 import json
 import os
-from config.constants import DATA_DIR_PATH, HOME_CURRENCY
+import config
+
 
 _CURR_CONV_FILE = "currency_conv.json"
 
@@ -14,7 +15,7 @@ def save_currency_conv(conv_as_dict: {}):
 
 
 def _get_file_path() -> str:
-    return os.path.join(DATA_DIR_PATH + _CURR_CONV_FILE)
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _CURR_CONV_FILE)
 
 
 class CurrencyConverter:
@@ -35,17 +36,17 @@ class CurrencyConverter:
         if from_currency == to_currency:
             return from_amount
 
-        if from_currency == HOME_CURRENCY:
+        if from_currency == config.CONSTANTS["HOME_CURRENCY"]:
             return self.convert_to_foreign_currency(from_amount, to_currency)
 
-        if to_currency == HOME_CURRENCY:
+        if to_currency == config.CONSTANTS["HOME_CURRENCY"]:
             return self.convert_to_local_currency(from_amount, to_currency)
 
         raise Exception("Unsupported currency conversion")
 
     def convert_to_foreign_currency(self, local_amount: float, foreign_currency) -> float:
-        """ Convers an amount in HOME_CURRENCY to foreign currency """
-        if foreign_currency == HOME_CURRENCY:
+        """ Convers an amount in config.CONSTANTS["HOME_CURRENCY"] to foreign currency """
+        if foreign_currency == config.CONSTANTS["HOME_CURRENCY"]:
             return local_amount
 
         conv_rate = self.get_local_conversion_rate(foreign_currency)
@@ -53,7 +54,7 @@ class CurrencyConverter:
 
     def convert_to_local_currency(self, foreign_amount: float, foreign_currency: str) -> float:
         """ Converts an amount to FOREIGN_CURRENCY """
-        if foreign_currency == HOME_CURRENCY:
+        if foreign_currency == config.CONSTANTS["HOME_CURRENCY"]:
             return foreign_amount
 
         conv_rate = self.get_local_conversion_rate(foreign_currency)

@@ -2,7 +2,7 @@
 import json
 import os
 from model.company import Company
-from config.constants import DATA_DIR_PATH
+import config
 
 
 class Project:
@@ -12,7 +12,7 @@ class Project:
     @staticmethod
     def get_projects():
         """ Returns all projects """
-        file_path = os.path.join(DATA_DIR_PATH + Project._PROJECT_FILE)
+        file_path = os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Project._PROJECT_FILE)
         with open(file_path) as project_file:
             json_data = json.load(project_file)
         return json_data

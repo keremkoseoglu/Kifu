@@ -2,7 +2,8 @@
 from report.html_report import HtmlReport
 from model import bank_account
 from util import amount
-from config.constants import HOME_CURRENCY_SYMBOL
+import config
+
 
 class BankAccountBalance(HtmlReport):
     """ Bank account balance report """
@@ -16,7 +17,7 @@ class BankAccountBalance(HtmlReport):
             output += "<tr>"
             output += "<td>" + balance["name"] + "</td>"
             output += "<td align=right>" + amount.get_formatted_amount(balance["original_balance"]) + " " + balance["original_currency"] + "</td>" # pylint: disable=C0301
-            output += "<td align=right>" + amount.get_formatted_amount(balance["home_balance"]) + " " + HOME_CURRENCY_SYMBOL + "</td>" # pylint: disable=C0301
+            output += "<td align=right>" + amount.get_formatted_amount(balance["home_balance"]) + " " + config.CONSTANTS["HOME_CURRENCY_SYMBOL"] + "</td>" # pylint: disable=C0301
             output += "</tr>"
 
         output += "</table>"

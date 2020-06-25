@@ -1,13 +1,13 @@
 """ Activity list window """
 import tkinter
 import tkinter.ttk
-from config.constants import GUI_CELL_HEIGHT
 from model import activity, invoice
 from model.activity import Activity
 from gui.activity import ActivityWindow
 from gui.activity_split import ActivitySplit
 from gui.invoice import InvoiceWindow
 from util import activity_xlsx_report, backup, date_time
+import config
 
 
 class ActivityListWindow(tkinter.Toplevel):
@@ -28,7 +28,7 @@ class ActivityListWindow(tkinter.Toplevel):
         # Build tree
 
         self._tree = tkinter.ttk.Treeview(self)
-        tree_height = self._WINDOW_HEIGHT - GUI_CELL_HEIGHT - self._Y_SPACING
+        tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
         cell_y = tree_height + self._Y_SPACING
 

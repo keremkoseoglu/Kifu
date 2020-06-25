@@ -2,7 +2,6 @@
 import datetime
 import tkinter
 import tkinter.ttk
-from config.constants import GUI_CELL_HEIGHT, GUI_CELL_WIDTH
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
 from util import ecz_daha
@@ -11,6 +10,7 @@ import model.location
 import model.project
 from model.project import Project
 from model.activity import Activity
+import config
 
 
 class ActivityWindow(tkinter.Toplevel):
@@ -31,7 +31,7 @@ class ActivityWindow(tkinter.Toplevel):
 
         self._guid = LabeledTextbox(self, "GUID", "", 0, cell_y)
         self._guid.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Project
 
@@ -39,7 +39,7 @@ class ActivityWindow(tkinter.Toplevel):
         self._project_combo_val = []
         self._build_project_combo_values()
         self._project_combo = LabeledCombobox(self, "Project", self._project_combo_val, 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Location
 
@@ -52,35 +52,39 @@ class ActivityWindow(tkinter.Toplevel):
             self._location_combo_val,
             0,
             cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Date
 
         self._date = LabeledTextbox(self, "Date", datetime.datetime.now().isoformat(), 0, cell_y)
         save_button = tkinter.Button(self, text="Ecz", command=self._ecz_click)
-        save_button.place(x=(GUI_CELL_WIDTH*2+50), y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        save_button.place(x=(config.CONSTANTS["GUI_CELL_WIDTH"]*2+50), y=cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Duration
 
         self._duration = LabeledTextbox(self, "Duration", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Work
 
         self._work = LabeledTextbox(self, "Work", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
 
         save_button = tkinter.Button(self, text="Save", command=self._save_click)
-        save_button.place(x=GUI_CELL_WIDTH, y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Status
 
         self._status_label = tkinter.Label(master=self, text="")
-        self._status_label.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=GUI_CELL_HEIGHT)
+        self._status_label.place(
+            x=0,
+            y=cell_y,
+            width=self._WINDOW_WIDTH,
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
 
     def fill_with_activity(self, act: model.activity.Activity):
         """ Fills window with given activity """

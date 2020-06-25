@@ -1,19 +1,15 @@
-
 """ Payment module """
 import datetime
 import json
 import os
 from typing import List
-from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY, \
-    PAYMENT_NOTIFICATION_BUFFER, PAYMENT_RECURRENCE_BUFFER
-from config.constants import PAYMENT_LONG_RECURRENCE_BUFFER, DEFAULT_BANK, \
-    HOME_GOVERNMENT, COMPANY_NAME_UNKNOWN, PAY_CREDIT_DEBT_BEFORE_INVESTMENT
 from model.company import Company
 from model.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
 from model.invoice import Invoice
 from model.bank_account import get_home_account_of_bank, get_next_investment_account
 from util import backup, date_time, identifier
+import config
 
 
 DIRECTION_IN = "I"
@@ -303,7 +299,7 @@ def _create_credit_card_transaction(bank: str, description: str, card: str, amou
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
-        "currency": HOME_CURRENCY,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False
     }
 
@@ -343,7 +339,7 @@ def _create_investment_transaction(bank: str,
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
-        "currency": HOME_CURRENCY,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False
     }
 
@@ -376,7 +372,7 @@ def _create_investment_transaction(bank: str,
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
-        "currency": HOME_CURRENCY,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False
     }
 
@@ -415,7 +411,7 @@ def record_investment_payment(
     investable_amount = CurrencyConverter().convert_to_local_currency(investable_amount, paid_curr)
 
     # Pay credit card debts
-    if PAY_CREDIT_DEBT_BEFORE_INVESTMENT:
+    if config.CONSTANTS["PAY_CREDIT_DEBT_BEFORE_INVESTMENT"]:
         credit_card_debts = get_credit_card_debts()
         for cc_debt in credit_card_debts.debts:
             if investable_amount < cc_debt.amount:
@@ -502,7 +498,7 @@ def record_vat_payment(
 
 
 def _get_file_path():
-    return os.path.join(DATA_DIR_PATH + _PAYMENT_FILE)
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _PAYMENT_FILE)
 
 
 def _write_payments_to_disk(payments: {}):
@@ -626,7 +622,7 @@ class Recurrence:
         if self.cleared:
             return False
         return self.recurrence_date <= datetime.datetime.now() + datetime.timedelta(
-            days=PAYMENT_NOTIFICATION_BUFFER)
+            days=config.CONSTANTS["PAYMENT_NOTIFICATION_BUFFER"])
 
     @property
     def cleared(self) -> bool:
@@ -804,7 +800,7 @@ class Payment:
     def company(self) -> Company:
         """ 3rd party company """
         if "company" not in self._payment:
-            self._payment["company"] = HOME_COMPANY
+            self._payment["company"] = config.CONSTANTS["HOME_COMPANY"]
         return Company(self._payment["company"])
 
     @company.setter
@@ -845,7 +841,7 @@ class Payment:
     def currency(self) -> str:
         """ Payment currency """
         if "currency" not in self._payment:
-            self._payment["currency"] = HOME_CURRENCY
+            self._payment["currency"] = config.CONSTANTS["HOME_CURRENCY"]
         return self._payment["currency"]
 
     @property
@@ -967,7 +963,7 @@ class Payment:
 
     def generate_high_time_recurrences(self):
         """ Generates recurrences which are approaching or due """
-        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=PAYMENT_RECURRENCE_BUFFER) # pylint: disable=C0301
+        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=config.CONSTANTS["PAYMENT_RECURRENCE_BUFFER"]) # pylint: disable=C0301
         self.generate_recurrences(tick_limit_date)
 
     def generate_recurrences(self, tick_limit_date: datetime.datetime):
@@ -1028,7 +1024,7 @@ class Payment:
 
     def generate_very_long_term_recurrences(self):
         """ Generates very long term recurrences """
-        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=PAYMENT_LONG_RECURRENCE_BUFFER) # pylint: disable=C0301
+        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=config.CONSTANTS["PAYMENT_LONG_RECURRENCE_BUFFER"]) # pylint: disable=C0301
         self.generate_recurrences(tick_limit_date)
 
     def save(self):
@@ -1125,12 +1121,12 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         vat_transfer_json = {
             "guid": identifier.get_guid(),
             "creation_date": datetime.datetime.now().isoformat(),
-            "company": DEFAULT_BANK,
+            "company": config.CONSTANTS["DEFAULT_BANK"],
             "description": description_prefix + " - VAT transfer",
             "invoice_guid": "",
             "direction": DIRECTION_TRANSFER,
             "amount": vat_amount,
-            "currency": HOME_CURRENCY,
+            "currency": config.CONSTANTS["HOME_CURRENCY"],
             "cleared": False
         }
 
@@ -1146,7 +1142,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                     "recurrence_date": vat_transfer_date.isoformat(),
                     "expected_payment_date": vat_transfer_date.isoformat(),
                     "amount": vat_amount,
-                    "currency": HOME_CURRENCY,
+                    "currency": config.CONSTANTS["HOME_CURRENCY"],
                     "cleared": False,
                     "collections": []
                 }
@@ -1168,12 +1164,12 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         vat_payment_json = {
             "guid": identifier.get_guid(),
             "creation_date": datetime.datetime.now().isoformat(),
-            "company": HOME_GOVERNMENT,
+            "company": config.CONSTANTS["HOME_GOVERNMENT"],
             "description": description_prefix + " - VAT payment",
             "invoice_guid": "",
             "direction": DIRECTION_OUT,
             "amount": vat_amount,
-            "currency": HOME_CURRENCY,
+            "currency": config.CONSTANTS["HOME_CURRENCY"],
             "cleared": False,
             "is_vat": True
         }
@@ -1190,7 +1186,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                     "recurrence_date": vat_payment_date.isoformat(),
                     "expected_payment_date": vat_payment_date.isoformat(),
                     "amount": vat_amount,
-                    "currency": HOME_CURRENCY,
+                    "currency": config.CONSTANTS["HOME_CURRENCY"],
                     "cleared": False,
                     "collections": []
                 }
@@ -1213,12 +1209,12 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     itax_transfer_json = {
         "guid": identifier.get_guid(),
         "creation_date": datetime.datetime.now().isoformat(),
-        "company": DEFAULT_BANK,
+        "company": config.CONSTANTS["DEFAULT_BANK"],
         "description": description_prefix + " - income tax transfer",
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
         "amount": itax_amount,
-        "currency": HOME_CURRENCY,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False
     }
 
@@ -1234,7 +1230,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "recurrence_date": itax_transfer_date.isoformat(),
                 "expected_payment_date": itax_transfer_date.isoformat(),
                 "amount": itax_amount,
-                "currency": HOME_CURRENCY,
+                "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "cleared": False,
                 "collections": []
             }
@@ -1257,12 +1253,12 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     itax_payment_json = {
         "guid": identifier.get_guid(),
         "creation_date": datetime.datetime.now().isoformat(),
-        "company": HOME_GOVERNMENT,
+        "company": config.CONSTANTS["HOME_GOVERNMENT"],
         "description": description_prefix + " - income tax payment",
         "invoice_guid": "",
         "direction": DIRECTION_OUT,
         "amount": itax_amount,
-        "currency": HOME_CURRENCY,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False,
         "is_income_tax": True
     }
@@ -1279,7 +1275,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "recurrence_date": itax_payment_date.isoformat(),
                 "expected_payment_date": itax_payment_date.isoformat(),
                 "amount": itax_amount,
-                "currency": HOME_CURRENCY,
+                "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "cleared": False,
                 "collections": []
             }
@@ -1302,12 +1298,12 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     alms_payment_json = {
         "guid": identifier.get_guid(),
         "creation_date": datetime.datetime.now().isoformat(),
-        "company": COMPANY_NAME_UNKNOWN,
+        "company": config.CONSTANTS["COMPANY_NAME_UNKNOWN"],
         "description": description_prefix + " - alms",
         "invoice_guid": "",
         "direction": DIRECTION_OUT,
         "amount": alms_amount,
-        "currency": HOME_CURRENCY,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False
     }
 
@@ -1323,7 +1319,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "recurrence_date": alms_payment_date.isoformat(),
                 "expected_payment_date": alms_payment_date.isoformat(),
                 "amount": alms_amount,
-                "currency": HOME_CURRENCY,
+                "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "cleared": False,
                 "collections": []
             }

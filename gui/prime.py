@@ -6,7 +6,6 @@ from util.company_label import CompanyLabel
 from gui import activity, activity_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax
 from gui import payment, payment_list, pay_vat, activity_split, buy_foreign_currency
-from config.constants import DATA_DIR_PATH, GUI_CELL_HEIGHT
 from model import notification, payment as payment_model
 from model.activity import Activity
 from model.payment import delete_completed_payments, get_companies_without_payment
@@ -19,6 +18,7 @@ from report import \
     ecz_activity_comparison, \
     reconciliation, \
     address_book
+import config
 
 
 class Prime:
@@ -39,8 +39,13 @@ class Prime:
 
         # Status label
         self._status_label = tkinter.Label(master=self._root, text="Welcome to Kifu")
-        self._status_label.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=GUI_CELL_HEIGHT)
-        cell_y += GUI_CELL_HEIGHT
+        self._status_label.place(
+            x=0,
+            y=cell_y,
+            width=self._WINDOW_WIDTH,
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
+
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Notifications
 
@@ -52,7 +57,7 @@ class Prime:
 
         refresh_button = tkinter.Button(self._root, text="Refresh", command=self._refresh)
         refresh_button.place(x=0, y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Main menu
 
@@ -189,7 +194,7 @@ class Prime:
 
     @staticmethod
     def _edit_data_file(file_name: str):
-        full_path = os.path.join(DATA_DIR_PATH, file_name)
+        full_path = os.path.join(config.CONSTANTS["DATA_DIR_PATH"], file_name)
         os.system("open " + full_path)
 
     @staticmethod
@@ -264,7 +269,7 @@ class Prime:
 
     @staticmethod
     def _show_data_files():
-        os.system("open " + DATA_DIR_PATH)
+        os.system("open " + config.CONSTANTS["DATA_DIR_PATH"])
 
     @staticmethod
     def _split_latest_activity():

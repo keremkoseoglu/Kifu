@@ -3,7 +3,8 @@ from report.html_report import HtmlReport
 from util import amount
 from model import bank_account
 from model.currency import CurrencyConverter
-from config.constants import HOME_CURRENCY_SYMBOL, HOME_COMPANY
+import config
+
 
 class CurrencyAccountDistribution(HtmlReport):
     """ Currency account distribution report """
@@ -35,7 +36,7 @@ class CurrencyAccountDistribution(HtmlReport):
 
                 currency_sum += account_balance
 
-                if account["bank_name"] == HOME_COMPANY:
+                if account["bank_name"] == config.CONSTANTS["HOME_COMPANY"]:
                     home_sum += account_balance
                 else:
                     bank_sum += account_balance
@@ -44,9 +45,9 @@ class CurrencyAccountDistribution(HtmlReport):
                 home_perc = int((home_sum / currency_sum) * 100)
                 bank_perc = 100 - home_perc
 
-            output += "<td align=right>" + amount.get_formatted_amount(currency_sum) + " " + HOME_CURRENCY_SYMBOL + "</td>" # pylint: disable=C0301
-            output += "<td align=right>" + amount.get_formatted_amount(bank_sum) + " " + HOME_CURRENCY_SYMBOL + "</td>" # pylint: disable=C0301
-            output += "<td align=right>" + amount.get_formatted_amount(home_sum) + " " + HOME_CURRENCY_SYMBOL + "</td>" # pylint: disable=C0301
+            output += "<td align=right>" + amount.get_formatted_amount(currency_sum) + " " + config.CONSTANTS["HOME_CURRENCY_SYMBOL"] + "</td>" # pylint: disable=C0301
+            output += "<td align=right>" + amount.get_formatted_amount(bank_sum) + " " + config.CONSTANTS["HOME_CURRENCY_SYMBOL"] + "</td>" # pylint: disable=C0301
+            output += "<td align=right>" + amount.get_formatted_amount(home_sum) + " " + config.CONSTANTS["HOME_CURRENCY_SYMBOL"] + "</td>" # pylint: disable=C0301
             output += "<td align=right>" + str(bank_perc) + " %</td>"
             output += "<td align=right>" + str(home_perc) + " %</td>"
             output += "</tr>"
