@@ -3,11 +3,11 @@ import datetime
 import json
 import os
 import copy
-from config.constants import DATA_DIR_PATH
 from model.currency import CurrencyConverter
 from model.project import Project
 from model.company import Company
 from util import date_time, identifier
+import config
 
 
 class Activity:
@@ -78,7 +78,7 @@ class Activity:
 
     @staticmethod
     def _get_file_path() -> str:
-        return os.path.join(DATA_DIR_PATH + Activity._ACTIVITY_FILE)
+        return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Activity._ACTIVITY_FILE)
 
     @staticmethod
     def _write_activities_to_disk(activities: {}):

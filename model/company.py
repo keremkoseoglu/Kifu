@@ -2,7 +2,7 @@
 import json
 import os
 from typing import List
-from config.constants import DATA_DIR_PATH, HOME_COUNTRY
+import config
 
 
 class Company:
@@ -52,7 +52,7 @@ class Company:
     @property
     def is_foreign(self) -> bool:
         """ Returns if the company belongs to the home company country or not """
-        return self.country != HOME_COUNTRY
+        return self.country != config.CONSTANTS["HOME_COUNTRY"]
 
     @property
     def locations(self) -> List[str]:
@@ -111,7 +111,7 @@ class Company:
 
     @staticmethod
     def _get_company_data_file_path() -> str:
-        return os.path.join(DATA_DIR_PATH + Company._COMPANY_FILE)
+        return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Company._COMPANY_FILE)
 
     @staticmethod
     def _write_json_to_disk(data: {}):

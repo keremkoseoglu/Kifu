@@ -1,11 +1,11 @@
 """ File system utilities """
 import os
-from config.constants import DATA_DIR_PATH, DATA_FILE_EXTENSION
+import config
 
 
 def get_data_file_list() -> []:
     """ Data file list """
-    return get_files_in_dir(DATA_DIR_PATH)
+    return get_files_in_dir(config.CONSTANTS["DATA_DIR_PATH"])
 
 
 def get_desktop_path():
@@ -26,7 +26,8 @@ def get_files_in_dir(dir_name: str) -> []:
     for current_item in os.listdir(dir_name):
         current_path = os.path.join(dir_name, current_item)
         try:
-            if os.path.isfile(current_path) and DATA_FILE_EXTENSION in current_item:
+            if os.path.isfile(current_path) and \
+                config.CONSTANTS["DATA_FILE_EXTENSION"] in current_item:
                 output.append(current_item)
         except Exception as error:
             print(error)

@@ -4,8 +4,8 @@ import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.labeled_checkbox import LabeledCheckbox
 from gui.labeled_textbox import LabeledTextbox
-from config.constants import GUI_CELL_WIDTH, GUI_CELL_HEIGHT
 from model.payment import Collection as Collection_Model
+import config
 
 
 class Collection:
@@ -27,19 +27,19 @@ class Collection:
             datetime.datetime.now().isoformat(),
             0,
             cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._description = LabeledTextbox(self._window, "Description", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._amount = AmountTextbox(self._window, "Amount", 0, default_currency, 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._cleared = LabeledCheckbox(self._window, "Clear", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
-        save_button.place(x=GUI_CELL_WIDTH, y=cell_y)
+        save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):
 

@@ -2,18 +2,18 @@
 import requests
 import xmltodict
 from model import currency
-from config.constants import CURRENCY_CONV_URL, CURRENY_GOLD_URL
+import config
 
 
 def execute():
     """ Runs currency update """
 
     # Currencies from TCMB
-    resp = requests.get(CURRENCY_CONV_URL)
+    resp = requests.get(config.CONSTANTS["CURRENCY_CONV_URL"])
     resp_as_dict = xmltodict.parse(resp.text)
 
     # Gold conversion
-    gold_resp = requests.get(CURRENY_GOLD_URL)
+    gold_resp = requests.get(config.CONSTANTS["CURRENY_GOLD_URL"])
     pos1 = gold_resp.text.find('<table class="table table-striped">') + 113
     gold_price_txt = gold_resp.text[pos1:pos1+7].replace("<", "").replace(",", ".")
     gold_price = float(gold_price_txt)

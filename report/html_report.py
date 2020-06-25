@@ -2,7 +2,8 @@
 from abc import ABC, abstractmethod
 import os
 from datetime import datetime
-from config.constants import DOWNLOAD_DIR
+import config
+
 
 class HtmlReport(ABC):
     """ Abstract class for HTML based reports """
@@ -41,7 +42,7 @@ class HtmlReport(ABC):
             self._EXTENSION
 
     def _get_file_path(self) -> str:
-        return os.path.join(DOWNLOAD_DIR, self._get_file_name())
+        return os.path.join(config.CONSTANTS["DOWNLOAD_DIR"], self._get_file_name())
 
     @staticmethod
     def _get_html_prefix() -> str:

@@ -5,7 +5,7 @@ from model.activity import Activity
 from model.company import Company
 from model.project import Project
 import util.file_system
-from config.constants import COMPANY_NAME_1E1, HOME_COMPANY, COMPANY_NAME_ECZ_TUG
+import config
 
 
 def _get_excel_key(year: int, month: int, project: Project):
@@ -19,7 +19,7 @@ class ExcelFile:
 
     def __init__(self):
         self._activities = []
-        self._home_company = Company(HOME_COMPANY)
+        self._company = Company(config.CONSTANTS["HOME_COMPANY"])
 
     def add_activity(self, activity: model.activity.Activity):
         """ Add new activity to Excel file """
@@ -87,7 +87,8 @@ class ExcelFile:
 
         for activity in self._activities:
             prj = activity.project
-            if prj.client.name == COMPANY_NAME_ECZ_TUG and prj.payer.name == COMPANY_NAME_1E1:
+            if prj.client.name == config.CONSTANTS["COMPANY_NAME_ECZ_TUG"] and \
+                prj.payer.name == config.CONSTANTS["COMPANY_NAME_1E1"]:
                 if not tug_found:
                     tug_found = True
                     worksheet = workbook.add_worksheet("Eczacibasi")
@@ -99,7 +100,7 @@ class ExcelFile:
                     worksheet.write(row, 4, "Faturalanabilir saat", bold_format)
 
                 row += 1
-                worksheet.write(row, 0, self._home_company.contact_person)
+                worksheet.write(row, 0, self._company.contact_person)
                 worksheet.write(row, 1, activity.date, date_format)
                 worksheet.write(row, 2, activity.location)
                 worksheet.write(row, 3, activity.work)

@@ -1,11 +1,11 @@
 """ Reconciliation report """
 from typing import List
-from config.constants import HOME_CURRENCY_SYMBOL
 from model.company import Company
 from model import payment
 from report.html_report import HtmlReport
 from report.payment_status import PaymentStatus
 from util.amount import get_formatted_amount
+import config
 
 
 class ReconciliationCursor:
@@ -88,7 +88,7 @@ class Reconciliation(HtmlReport):
 
     def _append_amount_in_home_currency(self, value: float):
         self._cursor.output += get_formatted_amount(value)
-        self._cursor.output += " " + HOME_CURRENCY_SYMBOL
+        self._cursor.output += " " + config.CONSTANTS["HOME_CURRENCY_SYMBOL"]
 
     def _append_separator_cell(self):
         self._cursor.output += "<td bgcolor=#cc0000>&nbsp;</td>"

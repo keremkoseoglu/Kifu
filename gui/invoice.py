@@ -1,8 +1,6 @@
 """ Invoice window """
 import tkinter
 import webbrowser
-from config.constants import COMPANY_NAME_ACCOUNTING, GUI_CELL_HEIGHT, HOME_CURRENCY,\
-    GUI_CELL_WIDTH, E_ARCHIVE_URL
 from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
@@ -13,6 +11,7 @@ from model.company import Company
 from model import payment
 from report.address_book import AddressBook
 from util.file_system import open_file
+import config
 
 
 def open_invoice_as_email(inv: Invoice):
@@ -20,7 +19,7 @@ def open_invoice_as_email(inv: Invoice):
     recipients = []
     if inv.payer.email != "":
         recipients.append(inv.payer.email)
-    accounting_company = Company(COMPANY_NAME_ACCOUNTING)
+    accounting_company = Company(config.CONSTANTS["COMPANY_NAME_ACCOUNTING"])
     if accounting_company.email != "":
         recipients.append(accounting_company.email)
 
@@ -47,55 +46,61 @@ class InvoiceWindow(tkinter.Toplevel):
         # GUID
         self._guid = LabeledTextbox(self, "GUID", "", 0, cell_y)
         self._guid.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Serial
         self._serial = LabeledTextbox(self, "Serial", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Payer
         self._payer_combo = CompanyCombobox(self, "Payer", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Invoice date
         self._invoice_date = LabeledTextbox(self, "Invoice date", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Due date
         self._due_date = LabeledTextbox(self, "Due date", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Amount
-        self._amount = AmountTextbox(self, "Amount", 0, HOME_CURRENCY, 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        self._amount = AmountTextbox(
+            self,
+            "Amount",
+            0,
+            config.CONSTANTS["HOME_CURRENCY"],
+            0,
+            cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # VAT
         self._vat = LabeledTextbox(self, "VAT %", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # VAT amount
         self._vat_amount = LabeledTextbox(self, "VAT amount", "", 0, cell_y)
         self._vat_amount.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Total amount
         self._total_amount = LabeledTextbox(self, "Total amount", "", 0, cell_y)
         self._total_amount.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Income tax rate
         self._income_tax = LabeledTextbox(self, "Inc.Tax %", "", 0, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Income tax amount
         self._income_tax_amount = LabeledTextbox(self, "Inc.Tax amount", "", 0, cell_y)
         self._income_tax_amount.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # File Path
         self._file_path = LabeledTextbox(self, "File path", "", 0, cell_y)
 
-        cell_x = (GUI_CELL_WIDTH * 2) + InvoiceWindow._SPACE
+        cell_x = (config.CONSTANTS["GUI_CELL_WIDTH"] * 2) + InvoiceWindow._SPACE
         file_path_button = tkinter.Button(self, text="...", command=self._file_path_click)
         file_path_button.place(x=cell_x, y=cell_y)
 
@@ -103,19 +108,23 @@ class InvoiceWindow(tkinter.Toplevel):
         file_open_button = tkinter.Button(self, text="!", command=self._file_open_click)
         file_open_button.place(x=cell_x, y=cell_y)
 
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
         save_button = tkinter.Button(self, text="Save", command=self._save_click)
-        save_button.place(x=GUI_CELL_WIDTH, y=cell_y)
+        save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         save2_button = tkinter.Button(self, text="Save with payments", command=self._save_pay_click)
-        save2_button.place(x=GUI_CELL_WIDTH + InvoiceWindow._SPACE, y=cell_y)
+        save2_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"] + InvoiceWindow._SPACE, y=cell_y)
 
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Status
         self._status_label = tkinter.Label(master=self, text="")
-        self._status_label.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=GUI_CELL_HEIGHT)
+        self._status_label.place(
+            x=0,
+            y=cell_y,
+            width=self._WINDOW_WIDTH,
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
 
     def fill_with_invoice(self, invoice: model.invoice.Invoice, browser: bool = False):
         """ Fills the window with the given invoice
@@ -137,7 +146,7 @@ class InvoiceWindow(tkinter.Toplevel):
 
         if browser:
             AddressBook(listable_companies=[invoice.payer.name]).execute()
-            webbrowser.open(E_ARCHIVE_URL)
+            webbrowser.open(config.CONSTANTS["E_ARCHIVE_URL"])
 
     def _file_open_click(self):
         open_file(self._file_path.value)

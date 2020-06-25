@@ -1,8 +1,9 @@
 """ Bank account """
 import json
 import os
-from config.constants import DATA_DIR_PATH, HOME_COMPANY, HOME_CURRENCY
 from model.currency import CurrencyConverter
+import config
+
 
 _BANK_ACCOUNT_FILE = "bank.json"
 
@@ -74,9 +75,10 @@ def get_current_account_balance_sum() -> float:
 def get_home_account_of_bank(bank: str) -> str:
     """ Returns bank account in home currency """
     for bank_account in get_bank_accounts()["bank_accounts"]:
-        if bank_account["bank_name"] == bank and bank_account["currency"] == HOME_CURRENCY:
+        if bank_account["bank_name"] == bank and \
+            bank_account["currency"] == config.CONSTANTS["HOME_CURRENCY"]:
             return bank_account["account_name"]
-    raise Exception(HOME_CURRENCY + " account of " + bank + " not found")
+    raise Exception(config.CONSTANTS["HOME_CURRENCY"] + " account of " + bank + " not found")
 
 
 def get_next_investment_account() -> tuple:
@@ -86,7 +88,8 @@ def get_next_investment_account() -> tuple:
     accs = get_account_balances_in_both_currencies()
     inv_accs = []
     for acc in accs:
-        if acc["original_currency"] != HOME_CURRENCY and acc["name"].find(HOME_COMPANY) == -1:
+        if acc["original_currency"] != config.CONSTANTS["HOME_CURRENCY"] and \
+            acc["name"].find(config.CONSTANTS["HOME_COMPANY"]) == -1:
             inv_accs.append(acc)
 
     next_acc = inv_accs[0]
@@ -115,4 +118,4 @@ def get_vat_account() -> dict:
 
 
 def _get_file_path():
-    return os.path.join(DATA_DIR_PATH + _BANK_ACCOUNT_FILE)
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _BANK_ACCOUNT_FILE)

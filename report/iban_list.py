@@ -2,7 +2,7 @@
 from report.html_report import HtmlReport
 from model import bank_account
 from model.company import Company
-from config.constants import HOME_COMPANY
+import config
 
 
 class IbanList(HtmlReport):
@@ -11,7 +11,7 @@ class IbanList(HtmlReport):
     _REPORT_NAME = "IBAN List"
 
     def __init__(self):
-        self._home_company = Company(HOME_COMPANY)
+        self._company = Company(config.CONSTANTS["HOME_COMPANY"])
 
     def _get_html_content(self) -> str:
 
@@ -22,7 +22,7 @@ class IbanList(HtmlReport):
             if "iban" not in acc:
                 continue
             output += "<b>" + acc["bank_name"] + "</b> (" + acc["account_name"] + ")<br>"
-            output += self._home_company.contact_person + "<br>"
+            output += self._company.contact_person + "<br>"
             output += acc["iban"] + "<br><hr>"
 
         return output

@@ -1,13 +1,13 @@
 """ Payment list window """
 import tkinter
 import tkinter.ttk
-from config.constants import GUI_CELL_HEIGHT
 from model import payment
 from util import backup, date_time
 from util import amount as util_amount
 from gui.payment import PaymentWindow
 from report.payment_status import PaymentStatus
 from report.reconciliation import Reconciliation
+import config
 
 
 class PaymentListWindow(tkinter.Toplevel):
@@ -28,7 +28,7 @@ class PaymentListWindow(tkinter.Toplevel):
         # Build tree
 
         self._tree = tkinter.ttk.Treeview(self)
-        tree_height = self._WINDOW_HEIGHT - GUI_CELL_HEIGHT - self._Y_SPACING
+        tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
         cell_y = tree_height + self._Y_SPACING
 

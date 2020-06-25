@@ -1,6 +1,6 @@
 """ Labeled checkbox """
 import tkinter
-from config.constants import GUI_CELL_WIDTH
+import config
 
 
 class LabeledCheckbox:
@@ -12,7 +12,7 @@ class LabeledCheckbox:
 
         self._val = tkinter.BooleanVar()
         self._checkbox = tkinter.Checkbutton(parent, text="", variable=self._val)
-        self._checkbox.place(x=x_pos + GUI_CELL_WIDTH, y=y_pos)
+        self._checkbox.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
     @property
     def checked(self) -> bool:
@@ -23,4 +23,3 @@ class LabeledCheckbox:
     def checked(self, val: bool):
         """ Sets the checkbox """
         self._val.set(val)
-

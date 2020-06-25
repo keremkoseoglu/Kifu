@@ -4,9 +4,9 @@ from enum import Enum
 import json
 import os
 from util import identifier, date_time
-from config.constants import VAT_DECLARATION_LAST_DAY, DATA_DIR_PATH, DEFAULT_ALMS_RATE
 from model.company import Company
 from model.currency import CurrencyConverter
+import config
 
 
 class MultiValueError(Exception):
@@ -84,7 +84,7 @@ class Invoice:
 
     @staticmethod
     def _get_file_path():
-        return os.path.join(DATA_DIR_PATH + Invoice._INVOICE_FILE)
+        return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Invoice._INVOICE_FILE)
 
     @staticmethod
     def _write_invoices_to_disk(invoices: []):
@@ -101,7 +101,7 @@ class Invoice:
     @property
     def alms_amount(self) -> float:
         """ Amount of recommended alms """
-        return (self.amount - self.income_tax_amount) * DEFAULT_ALMS_RATE / 100
+        return (self.amount - self.income_tax_amount) * config.CONSTANTS["DEFAULT_ALMS_RATE"] / 100
 
     @property
     def alms_payment_date(self) -> datetime:
@@ -207,10 +207,16 @@ class Invoice:
         invoice_date = self.invoice_date
         invoice_day = invoice_date.day
 
-        if invoice_day < VAT_DECLARATION_LAST_DAY:
-            output = datetime.date(invoice_date.year, invoice_date.month, VAT_DECLARATION_LAST_DAY)
+        if invoice_day < config.CONSTANTS["VAT_DECLARATION_LAST_DAY"]:
+            output = datetime.date(
+                invoice_date.year,
+                invoice_date.month,
+                config.CONSTANTS["VAT_DECLARATION_LAST_DAY"])
         else:
-            output = datetime.date(invoice_date.year, invoice_date.month, VAT_DECLARATION_LAST_DAY)
+            output = datetime.date(
+                invoice_date.year,
+                invoice_date.month,
+                config.CONSTANTS["VAT_DECLARATION_LAST_DAY"])
             output = output + datetime.timedelta(days=30)
 
         return output

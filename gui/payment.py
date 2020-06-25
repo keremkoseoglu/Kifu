@@ -10,11 +10,11 @@ from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textarea import LabeledTextarea
 from gui.labeled_textbox import LabeledTextbox
 from gui.popup_with_single_value import PopupWithSingleValue
-from config.constants import GUI_CELL_HEIGHT, HOME_CURRENCY, GUI_CELL_WIDTH
 import model.payment as payment_model
 from util import amount as util_amount
 from util import date_time
 from report.payment_status import PaymentStatus
+import config
 
 
 class PaymentWindow(tkinter.Toplevel):
@@ -40,24 +40,24 @@ class PaymentWindow(tkinter.Toplevel):
         # GUID
         self._guid = LabeledTextbox(self, "GUID", "", cell_x, cell_y)
         self._guid.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Creation date
         self._creation_date = LabeledTextbox(self, "Creation", "", cell_x, cell_y)
         self._creation_date.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Company
         self._company_combo = CompanyCombobox(self, "Company", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Description
         self._description = LabeledTextbox(self, "Description", "", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Invoice GUID
         self._invoice_guid = LabeledTextbox(self, "Invoice GUID", "", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Direction
         self._direction = LabeledCombobox(
@@ -66,43 +66,57 @@ class PaymentWindow(tkinter.Toplevel):
             payment_model.get_direction_values(),
             cell_x,
             cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Amount
 
-        self._amount = AmountTextbox(self, "Amount", 0, HOME_CURRENCY, cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        self._amount = AmountTextbox(
+            self,
+            "Amount",
+            0,
+            config.CONSTANTS["HOME_CURRENCY"],
+            cell_x,
+            cell_y)
+
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Open amount
 
-        self._open_amount = AmountTextbox(self, "Open Amount", 0, HOME_CURRENCY, cell_x, cell_y)
+        self._open_amount = AmountTextbox(
+            self,
+            "Open Amount",
+            0,
+            config.CONSTANTS["HOME_CURRENCY"],
+            cell_x,
+            cell_y)
+
         self._open_amount.disable()
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Cleared
 
         self._cleared = LabeledCheckbox(self, "Cleared", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Tax
 
         self._is_vat = LabeledCheckbox(self, "Is VAT", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._is_income_tax = LabeledCheckbox(self, "Is Income Tax", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
         cell_y_bookmark = cell_y
 
         ##########
         # Scheme
         ##########
 
-        cell_x = (GUI_CELL_WIDTH * 2) + self._SPACING
+        cell_x = (config.CONSTANTS["GUI_CELL_WIDTH"] * 2) + self._SPACING
         cell_y = 0
 
         # Frequency
         self._frequency = LabeledTextbox(self, "Frequency", "", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Period
         self._period = LabeledCombobox(
@@ -111,36 +125,36 @@ class PaymentWindow(tkinter.Toplevel):
             payment_model.get_period_values(),
             cell_x,
             cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Start
         self._start = LabeledTextbox(self, "Start", "", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Repeat
         self._repeat = LabeledTextbox(self, "Repeat", "", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Notes
         self._notes = LabeledTextarea(self, "Notes", "", cell_x, cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         ##########
         # Recurrence
         ##########
 
         cell_x = 0
-        cell_y = cell_y_bookmark + GUI_CELL_HEIGHT
+        cell_y = cell_y_bookmark + config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Visual
 
         tkinter.Label(
             self,
             text="Recurrence:").place(x=cell_x, y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._recurrence_tree = tkinter.ttk.Treeview(self)
-        tree_height = GUI_CELL_HEIGHT * 5
+        tree_height = config.CONSTANTS["GUI_CELL_HEIGHT"] * 5
         self._recurrence_tree.place(
             x=cell_x,
             y=cell_y,
@@ -163,10 +177,10 @@ class PaymentWindow(tkinter.Toplevel):
             self,
             text="Postpone",
             command=self._rec_postpone_popup)
-        recurrence_postpone_button.place(x=GUI_CELL_WIDTH, y=cell_y)
+        recurrence_postpone_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         recurrence_add_button = tkinter.Button(self, text="Add", command=self._recurrence_popup)
-        recurrence_add_button.place(x=GUI_CELL_WIDTH*2, y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        recurrence_add_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"]*2, y=cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Data
         self._recurrence_tree_content = {}
@@ -175,9 +189,9 @@ class PaymentWindow(tkinter.Toplevel):
         # Collections
         ##########
 
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
         tkinter.Label(self, text="Collections:").place(x=cell_x, y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         self._collection_tree = tkinter.ttk.Treeview(self)
         self._collection_tree.place(
@@ -193,7 +207,7 @@ class PaymentWindow(tkinter.Toplevel):
 
         add_collection_button = tkinter.Button(self, text="Add", command=self._collection_popup)
         add_collection_button.place(x=0, y=cell_y)
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Data
         self._collection_tree_content = {}
@@ -215,7 +229,7 @@ class PaymentWindow(tkinter.Toplevel):
         self._delete_warning_label = tkinter.Label(self, text="!")
         self._delete_warning_label.place(x=350, y=cell_y)
 
-        cell_y += GUI_CELL_HEIGHT
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
     def add_collection(self, collection: payment_model.Collection, clear=False):
         """ Adds a new payment collection """

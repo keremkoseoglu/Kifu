@@ -1,6 +1,6 @@
 """ Labeled text area control """
 import tkinter
-from config.constants import GUI_CELL_WIDTH
+import config
 
 
 class LabeledTextarea:
@@ -18,7 +18,7 @@ class LabeledTextarea:
         self._label = tkinter.Label(parent, text=label_text)
         self._label.place(x=x_pos, y=y_pos)
         self._text_box = tkinter.Text(parent, height=10)
-        self._text_box.place(x=x_pos + GUI_CELL_WIDTH, y=y_pos)
+        self._text_box.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
         if isinstance(text_value, str):
             self.value = text_value

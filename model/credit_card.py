@@ -2,8 +2,8 @@
 import json
 import os
 from typing import List
-from config.constants import HOME_CURRENCY, DATA_DIR_PATH
 from model.currency import CurrencyConverter
+import config
 
 
 _CREDIT_CARD_FILE = "bank.json"
@@ -37,7 +37,7 @@ def get_credit_cards():
 
 def get_credit_card_debts() -> CreditCardDebtList:
     """ Returns all credit card debts """
-    output = CreditCardDebtList(HOME_CURRENCY)
+    output = CreditCardDebtList(config.CONSTANTS["HOME_CURRENCY"])
     credit_cards = get_credit_cards()
     currency_converter = CurrencyConverter()
 
@@ -62,4 +62,4 @@ def get_current_credit_card_debt_sum() -> float:
 
 
 def _get_file_path():
-    return os.path.join(DATA_DIR_PATH + _CREDIT_CARD_FILE)
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _CREDIT_CARD_FILE)

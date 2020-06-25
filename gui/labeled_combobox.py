@@ -1,6 +1,6 @@
 """ Labeled combobox control """
 import tkinter
-from config.constants import GUI_CELL_WIDTH
+import config
 
 
 class LabeledCombobox:
@@ -28,7 +28,7 @@ class LabeledCombobox:
                 textvariable=self._selected_value)
 
         self._combobox.config(values=combo_values)
-        self._combobox.place(x=x_pos + GUI_CELL_WIDTH, y=y_pos)
+        self._combobox.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
     @property
     def selected_value(self) -> str:

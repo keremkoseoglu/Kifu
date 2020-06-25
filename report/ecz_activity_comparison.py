@@ -3,8 +3,7 @@ from datetime import datetime
 from report.html_report import HtmlReport
 from util import date_time, ecz_daha
 from model.activity import Activity
-from config.constants import COMPANY_NAME_ECZ_TUG
-
+import config
 
 
 class EczActivityComparisonLine:
@@ -82,7 +81,7 @@ class EczActivityComparison(HtmlReport):
             date_of_activity = date_time.parse_sap_date(ecz_activity["date"])
 
             kifu_hour_sum = Activity.get_time_sum(
-                client_name=COMPANY_NAME_ECZ_TUG,
+                client_name=config.CONSTANTS["COMPANY_NAME_ECZ_TUG"],
                 date=date_of_activity)
 
             diff_icon = "✅"

@@ -3,7 +3,8 @@ import datetime
 import re
 import requests
 from ics import Calendar
-from config.constants import BANK_HOLIDAY_URL
+import config
+
 
 _FIRST_MONTH = 1
 _MAX_MONTH = 12
@@ -197,7 +198,7 @@ def is_bank_holiday(date: datetime) -> bool:
     global _BANK_HOLIDAY_CALENDAR
 
     if _BANK_HOLIDAY_CALENDAR is None:
-        _BANK_HOLIDAY_CALENDAR = Calendar(requests.get(BANK_HOLIDAY_URL).text)
+        _BANK_HOLIDAY_CALENDAR = Calendar(requests.get(config.CONSTANTS["BANK_HOLIDAY_URL"]).text)
 
     for holiday_event in _BANK_HOLIDAY_CALENDAR.events:
         holiday_begin = datetime.datetime(year=holiday_event.begin.datetime.year,

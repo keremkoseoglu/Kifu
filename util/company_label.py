@@ -1,8 +1,7 @@
 """ Company label printing """
 import os
-from config.constants import HOME_COMPANY, DOWNLOAD_DIR
 from model.company import Company
-
+import config
 
 
 class CompanyLabel:
@@ -12,7 +11,7 @@ class CompanyLabel:
         self._html = ""
         self._html_count = 0
         self._company_count = 0
-        self._home_company = Company(HOME_COMPANY)
+        self._company = Company(config.CONSTANTS["HOME_COMPANY"])
 
     def generate(self, companies: []):
         """ Generate labels """
@@ -57,8 +56,8 @@ class CompanyLabel:
             self._html += "<br><b>(" + shipping_note + ")</b>"
         #self._html += "<br><hr>"
         #self._html += "<b>Gönderen: </b>"
-        #self._html += self._home_company.contact_person + ", "
-        #self._html += self._home_company.sender_address
+        #self._html += self._config.CONSTANTS["HOME_COMPANY"].contact_person + ", "
+        #self._html += self._config.CONSTANTS["HOME_COMPANY"].sender_address
         self._html += "</td>"
 
         if self._company_count == 2 or self._company_count == 4:
@@ -74,7 +73,7 @@ class CompanyLabel:
         self._html += "</body></html>"
 
     def _save_html(self):
-        file_path = DOWNLOAD_DIR + "labels " + str(self._html_count) + ".html"
+        file_path = config.CONSTANTS["DOWNLOAD_DIR"] + "labels " + str(self._html_count) + ".html"
         with open(file_path, "w") as company_file:
             company_file.write(self._html)
         os.system("open \"" + file_path + "\"")
