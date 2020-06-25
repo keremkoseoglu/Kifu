@@ -32,7 +32,7 @@
       "account_name": "Altın",
       "account_number": "277-9074267",
       "is_vat": false,
-      "balance": 34.45,
+      "balance": 53.88,
       "currency": "DGC",
       "iban": "TR270006200027700009074267"
     },
@@ -41,7 +41,7 @@
       "account_name": "TRY",
       "account_number": "277-6694589",
       "is_vat": false,
-      "balance": 5011,
+      "balance": 26,
       "currency": "TRY",
       "iban": "TR85 0006 2000 2770 0006 6945 89"
     },

@@ -775,34 +775,6 @@
          }
       },
       {
-         "guid": "8f5a6bee52034170ae2df052da93ce13",
-         "creation_date": "2020-05-29T17:07:03.389277",
-         "company": "TC",
-         "description": "1e1 - 2020-05-31(GIB2020000000006) - VAT payment",
-         "invoice_guid": "",
-         "direction": "O",
-         "amount": 5771.25,
-         "currency": "TRY",
-         "cleared": false,
-         "is_vat": true,
-         "scheme": {
-            "frequency": 1,
-            "period": "D",
-            "start": "2020-06-27",
-            "repeat": 1,
-            "recurrence": [
-               {
-                  "recurrence_date": "2020-06-27",
-                  "expected_payment_date": "2020-06-27",
-                  "amount": 5771.25,
-                  "currency": "TRY",
-                  "cleared": false,
-                  "collections": []
-               }
-            ]
-         }
-      },
-      {
          "guid": "0ed7e900f55644cf955c5a6da089cb34",
          "creation_date": "2020-05-29T17:07:03.389394",
          "company": "Akbank",
