@@ -2,12 +2,12 @@
 import os
 from os import path
 import json
+from sagkutana.switcher import Switcher
 
 
 CONSTANTS = {}
 _CONFIG_FILE = "config.json"
 _CONFIG = {}
-
 
 
 def read_constants():
@@ -18,6 +18,7 @@ def read_constants():
     _read_config()
     with open(_CONFIG["constants"]) as constants_file:
         CONSTANTS = json.load(constants_file)
+    _read_kutapada()
 
 
 def _read_config():
@@ -27,3 +28,16 @@ def _read_config():
     config_path = path.join(os.getcwd(), _CONFIG_FILE)
     with open(config_path) as config_file:
         _CONFIG = json.load(config_file)
+
+def _read_kutapada():
+    global CONSTANTS
+    if "KUTAPADA_PATH" not in CONSTANTS:
+        return
+    with open(CONSTANTS["KUTAPADA_PATH"]) as kutapada_file:
+        kutapada_json = json.load(kutapada_file)
+    for system in kutapada_json["systems"]:
+        if system["name"] == CONSTANTS["ECZ_DAHA_KUTAPADA"]:
+            account = system["accounts"][0]
+            CONSTANTS["ECZ_DAHA_USER"] = account["name"]
+            CONSTANTS["ECZ_DAHA_PASS"] = Switcher().decrypt_text(account["credential"])
+            return
