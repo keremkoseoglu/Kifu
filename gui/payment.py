@@ -14,6 +14,7 @@ import model.payment as payment_model
 from util import amount as util_amount
 from util import date_time
 from report.payment_status import PaymentStatus
+from report.reconciliation import Reconciliation
 import config
 
 
@@ -221,8 +222,11 @@ class PaymentWindow(tkinter.Toplevel):
         status_button = tkinter.Button(self, text="Status", command=self._status)
         status_button.place(x=0, y=cell_y)
 
+        recon_button = tkinter.Button(self, text="Reconciliation", command=self._reconciliation)
+        recon_button.place(x=50, y=cell_y)
+
         save_button = tkinter.Button(self, text="Save", command=self._save)
-        save_button.place(x=150, y=cell_y)
+        save_button.place(x=200, y=cell_y)
 
         del_button = tkinter.Button(self, text="Delete", command=self._delete)
         del_button.place(x=300, y=cell_y)
@@ -449,3 +453,7 @@ class PaymentWindow(tkinter.Toplevel):
         pay_stat = PaymentStatus()
         pay_stat.set_payment(self._payment)
         pay_stat.execute()
+
+    def _reconciliation(self):
+        recon = Reconciliation([self._payment.company])
+        recon.execute()
