@@ -23,9 +23,8 @@ def clear_old_backups():
         shutil.rmtree(path)
 
 
-def execute():
+def execute() -> str:
     """ Create a new backup """
-
     # Create new directory
     backup_dir = os.path.join(_get_root_backup_dir(), _get_dir_name())
     os.makedirs(backup_dir)
@@ -35,6 +34,9 @@ def execute():
         data_file_path = os.path.join(config.CONSTANTS["DATA_DIR_PATH"], data_file)
         if os.path.isfile(data_file_path):
             shutil.copy(data_file_path, backup_dir)
+
+    # Output
+    return backup_dir
 
 
 def _get_date_in_name(name: str) -> datetime.datetime:

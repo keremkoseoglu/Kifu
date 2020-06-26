@@ -3,9 +3,11 @@ import os
 from os import path
 import json
 from sagkutana.switcher import Switcher
+from util import backup
 
 
 CONSTANTS = {}
+TEST_MODE = False
 _CONFIG_FILE = "config.json"
 _CONFIG = {}
 
@@ -19,6 +21,14 @@ def read_constants():
     with open(_CONFIG["constants"]) as constants_file:
         CONSTANTS = json.load(constants_file)
     _read_kutapada()
+
+
+def test_mode():
+    """ Activates test mode """
+    global CONSTANTS, TEST_MODE
+    TEST_MODE = True
+    backup_dir = backup.execute()
+    CONSTANTS["DATA_DIR_PATH"] = backup_dir + "/"
 
 
 def _read_config():
