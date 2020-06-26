@@ -18,6 +18,8 @@ You will find a sample dataset under the folder sample_data.
 
 Simply start main.py in your Python environment.
 
+To start the app in test mode, you can add the arg -test . When you do that, the application will backup all your data files and start running using this backup as the database.
+
 ## Trivia
 
 Kifu is the scoreboard of the ancient game Go. As a freelancer, I found it appropriate to name my time tracker after that. After all, I'm keeping "score" with this app, right?

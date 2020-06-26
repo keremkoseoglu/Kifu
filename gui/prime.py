@@ -34,7 +34,10 @@ class Prime:
 
         # Main container
         self._root = tkinter.Tk()
-        self._root.title("Kifu")
+        if config.TEST_MODE:
+            self._root.title("Kifu [TEST MODE]")
+        else:
+            self._root.title("Kifu")
         self._root.geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Status label
