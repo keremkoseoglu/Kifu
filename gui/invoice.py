@@ -135,7 +135,7 @@ class InvoiceWindow(tkinter.Toplevel):
         self._serial.value = invoice.serial
         self._invoice_date.value = str(invoice.invoice_date)
         self._due_date.value = str(invoice.due_date)
-        self._amount.value = invoice.amount, invoice.currency
+        self._amount.set_value(invoice.amount, invoice.currency)
         self._payer_combo.company_name = invoice.payer.name
         self._vat.value = str(invoice.vat_rate)
         self._vat_amount.value = str(invoice.vat_amount)

@@ -297,7 +297,7 @@ class PaymentWindow(tkinter.Toplevel):
         self._notes.value = self._payment.notes
         self._invoice_guid.value = self._payment.invoice_guid
         self._direction.selected_value = self._payment.direction
-        self._amount.value = (amount, currency)
+        self._amount.set_value(amount, currency)
         self._open_amount.value = (open_amount, open_currency)
         self._cleared.checked = self._payment.cleared
         self._is_vat.checked = self._payment.is_vat
