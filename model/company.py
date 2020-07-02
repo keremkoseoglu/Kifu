@@ -96,6 +96,13 @@ class Company:
             tax_office = self._company["tax_office"]
         return tax_number, tax_office
 
+    @property
+    def activity_emails(self) -> List[str]:
+        """ Returns a list of activity related E-Mails """
+        if "activity_emails" not in self._company:
+            return []
+        return self._company["activity_emails"]
+
     def delete(self):
         """ Deletes the company from the JSON file """
         all_companies = Company.get_companies()

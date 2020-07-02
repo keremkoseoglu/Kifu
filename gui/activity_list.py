@@ -3,9 +3,11 @@ import tkinter
 import tkinter.ttk
 from model import activity, invoice
 from model.activity import Activity
+from model.company import Company
 from gui.activity import ActivityWindow
 from gui.activity_split import ActivitySplit
 from gui.invoice import InvoiceWindow
+from gui.popup_file import popup_email
 from util import activity_xlsx_report, backup, date_time
 import config
 
@@ -110,7 +112,14 @@ class ActivityListWindow(tkinter.Toplevel):
 
     def _excel_click(self):
         selected_activity_objects = self._selected_activities
-        activity_xlsx_report.Report().generate_with_activity_objects(selected_activity_objects)
+        xlsx_report = activity_xlsx_report.Report()
+        xlsx_report.generate_with_activity_objects(selected_activity_objects)
+
+        activity_company = Company(config.CONSTANTS["COMPANY_NAME_1E1"])
+
+        popup_email(recipients=activity_company.activity_emails,
+                    subject="Bu ayki aktivitelerim",
+                    attachment=xlsx_report.last_saved_files[0])
 
     def _fill_tree_with_activities(self):
 
