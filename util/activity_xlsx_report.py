@@ -119,6 +119,7 @@ class Report:
     def __init__(self):
         self._activities = []
         self._excel_files = {}
+        self.last_saved_files = []
 
     def generate(self):
         """ Generate report with all activities """
@@ -151,6 +152,7 @@ class Report:
             self._excel_files[excel_key].add_activity(act)
 
     def _save_excel_files(self):
+        self.last_saved_files = []
         for excel_key in self._excel_files:
             file_name = ""
             for i in range(len(excel_key)): # pylint: disable=C0200
@@ -159,3 +161,4 @@ class Report:
                 file_name += str(excel_key[i])
             file_path = util.file_system.get_desktop_file_name(file_name, ExcelFile.FILE_EXTENSION)
             self._excel_files[excel_key].save_file(file_path)
+            self.last_saved_files.append(file_path)
