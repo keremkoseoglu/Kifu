@@ -23,6 +23,10 @@ class PaymentStatus(HtmlReport):
         total_amount, curr = payment_obj.total_amount
         total_open_amount, curr = payment_obj.open_amount
 
+        ##############################
+        # HTML table
+        ##############################
+
         if with_title:
             output += "<h1>Payment Status</h1>"
         output += "<" + subtitle_tag + ">Summary</" + subtitle_tag + ">"
@@ -44,7 +48,6 @@ class PaymentStatus(HtmlReport):
         recurrences = scheme.recurrences
 
         if len(recurrences) > 0:
-
             output += "<" + subtitle_tag + ">Recurrence</" + subtitle_tag + ">"
             output += "<table border=0 cellspacing=4 cellpadding=4>"
             output += "<tr>"
@@ -83,7 +86,38 @@ class PaymentStatus(HtmlReport):
 
                 output += "</tr>"
 
-            output += "</table>"
+            output += "</table><hr>"
+
+        ##############################
+        # Chart
+        ##############################
+
+        output += "<div id='canvas-holder' style='width:100%'>"
+        output += "<canvas id='chart-area'></canvas>"
+        output += "</div>"
+        output += "<script>"
+        output += "var config = {"
+        output += "type: 'pie',"
+        output += "data: {"
+        output += "datasets: [{"
+        output += "data: ["
+        output += str(round(total_amount - total_open_amount)) + ", "
+        output += str(round(total_open_amount)) + "],"
+
+        output += "backgroundColor: ['#00FF00', '#FF0000'],"
+        output += "label: 'Status'"
+        output += "}],"
+        output += "labels: ['Paid', 'Open']"
+        output += "}, options: {responsive: true} };"
+
+        output += "window.onload = function() {"
+        output += "var ctx = document.getElementById('chart-area').getContext('2d');"
+        output += "window.myPie = new Chart(ctx, config); };"
+        output += "</script>"
+
+        ##############################
+        # Flush
+        ##############################
 
         return output
 
