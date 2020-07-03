@@ -12,8 +12,13 @@ class CurrencyAccountDistribution(HtmlReport):
     _REPORT_NAME = "Currency Account Distribution"
 
     def _get_html_content(self) -> str:
-        output = "<table cellspacing=0 cellpadding=10>"
+        chart_list = []
 
+        ##############################
+        # HTML table (also prepares chart data)
+        ##############################
+
+        output = "<table cellspacing=0 cellpadding=10>"
         output += "<tr><td>Currency</td><td>Total</td><td>Bank</td><td>Home</td><td>Bank</td><td> Home</td></tr>" # pylint: disable=C0301
 
         currency_conv = CurrencyConverter()
@@ -29,7 +34,6 @@ class CurrencyAccountDistribution(HtmlReport):
             bank_perc = 0
 
             for account in accounts:
-
                 account_balance = currency_conv.convert_to_local_currency(
                     account["balance"],
                     account["currency"])
@@ -52,7 +56,79 @@ class CurrencyAccountDistribution(HtmlReport):
             output += "<td align=right>" + str(home_perc) + " %</td>"
             output += "</tr>"
 
-        output += "</table>"
+            chart_item = {"currency": currency, "sum": currency_sum}
+            chart_list.append(chart_item)
+
+        output += "</table><hr>"
+
+        ##############################
+        # Chart
+        ##############################
+
+        chart_list.sort(key=lambda x: x["sum"], reverse=True)
+
+        output += "<div id='canvas-holder' style='width:100%'>"
+        output += "<canvas id='chart-area'></canvas>"
+        output += "</div>"
+        output += "<script>"
+        output += "var config = {"
+        output += "type: 'pie',"
+        output += "data: {"
+        output += "datasets: [{"
+        output += "data: ["
+
+        first_balance = True
+        for chart_item in chart_list:
+            if not first_balance:
+                output += ", "
+            output += str(round(chart_item["sum"]))
+            first_balance = False
+        output += "],"
+
+        output += "backgroundColor: ["
+        first_balance = True
+        balance_pos = 0
+        for chart_item in chart_list:
+            if not first_balance:
+                output += ", "
+            if balance_pos == 0:
+                color = "006600"
+            elif balance_pos == 1:
+                color = "008800"
+            elif balance_pos == 2:
+                color = "00AA00"
+            elif balance_pos == 3:
+                color = "00CC00"
+            elif balance_pos == 4:
+                color = "00EE00"
+            else:
+                color = "AAAAAA"
+
+            output += "'#" + color + "'"
+            first_balance = False
+            balance_pos += 1
+        output += "],"
+        output += "label: 'Currencies'"
+        output += "}],"
+
+        output += "labels: ["
+        first_balance = True
+        for chart_item in chart_list:
+            if not first_balance:
+                output += ", "
+            output += "'" + chart_item["currency"] + "'"
+            first_balance = False
+        output += "]}, options: {responsive: true} };"
+
+        output += "window.onload = function() {"
+        output += "var ctx = document.getElementById('chart-area').getContext('2d');"
+        output += "window.myPie = new Chart(ctx, config); };"
+        output += "</script>"
+
+        ##############################
+        # Flush
+        ##############################
+
         return output
 
     def _get_report_name(self) -> str:
