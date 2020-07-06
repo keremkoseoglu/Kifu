@@ -92,7 +92,10 @@ class PaymentStatus(HtmlReport):
         # Chart
         ##############################
 
-        output += "<div id='canvas-holder' style='width:100%'>"
+        chart_paid = str(round(total_amount - total_open_amount))
+        chart_open = str(round(total_open_amount))
+
+        output += "<div id='canvas-holder'>"
         output += "<canvas id='chart-area'></canvas>"
         output += "</div>"
         output += "<script>"
@@ -101,13 +104,13 @@ class PaymentStatus(HtmlReport):
         output += "data: {"
         output += "datasets: [{"
         output += "data: ["
-        output += str(round(total_amount - total_open_amount)) + ", "
-        output += str(round(total_open_amount)) + "],"
+        output += chart_paid + ", "
+        output += chart_open + "],"
 
         output += "backgroundColor: ['#00FF00', '#FF0000'],"
         output += "label: 'Status'"
         output += "}],"
-        output += "labels: ['Paid', 'Open']"
+        output += "labels: ['Paid: " + chart_paid + "', 'Open: " + chart_open + "']"
         output += "}, options: {responsive: true} };"
 
         output += "window.onload = function() {"
