@@ -3,7 +3,7 @@ from typing import List
 from model.company import Company
 from model import payment
 from report.html_report import HtmlReport
-from report.payment_status import PaymentStatus
+from report.payment_status import PaymentStatus, PaymentStatusHtml
 from util.amount import get_formatted_amount
 import config
 
@@ -139,13 +139,14 @@ class Reconciliation(HtmlReport):
                 pay,
                 with_title=False,
                 with_description=False,
-                subtitle_tag="h4")
+                subtitle_tag="h4").body
             first_payment = False
 
         self._cursor.output += "</td>"
 
     def _get_html_content(self) -> str:
         self._output = ""
+        PaymentStatusHtml.reset()
         payment.generate_high_time_recurrences()
         for company in self._companies:
             self._cursor = ReconciliationCursor(company=company)
@@ -153,6 +154,7 @@ class Reconciliation(HtmlReport):
             if self._output != "":
                 self._output += "<br><hr>"
             self._output += self._cursor.output
+        self._output += PaymentStatusHtml.footer_script()
         return self._output
 
     def _get_report_name(self) -> str:
