@@ -287,6 +287,8 @@ def _month_has_30_days(month: int) -> bool:
 def _get_last_day_of_month(month: int, year: int) -> int:
     if month == 2 and year % 4 == 0:
         return 29
+    if month == 2:
+        return 28
     if _month_has_30_days(month):
         return 30
     return 31
