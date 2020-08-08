@@ -21,14 +21,11 @@ class ActivityListWindow(tkinter.Toplevel):
     _Y_SPACING = 10
 
     def __init__(self):
-
         # Initialization
-
         tkinter.Toplevel.__init__(self)
         self.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Build tree
-
         self._tree = tkinter.ttk.Treeview(self)
         tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
@@ -149,15 +146,13 @@ class ActivityListWindow(tkinter.Toplevel):
         self.update()
 
     def _invoice_click(self):
-
         selected_activities = self._selected_activities
         if len(selected_activities) == 0:
             return
 
         new_invoice = invoice.get_invoice_obj_from_activities(selected_activities)
-
         invoice_window = InvoiceWindow()
-        invoice_window.fill_with_invoice(new_invoice, browser=True)
+        invoice_window.fill_with_invoice(new_invoice, browser=True, invoice_dir=True)
         invoice_window.mainloop()
 
     def _split_click(self):

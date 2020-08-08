@@ -1,6 +1,7 @@
 """ Invoice window """
 import tkinter
 import webbrowser
+import subprocess
 from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
@@ -126,7 +127,10 @@ class InvoiceWindow(tkinter.Toplevel):
             width=self._WINDOW_WIDTH,
             height=config.CONSTANTS["GUI_CELL_HEIGHT"])
 
-    def fill_with_invoice(self, invoice: model.invoice.Invoice, browser: bool = False):
+    def fill_with_invoice(self,
+                          invoice: model.invoice.Invoice,
+                          browser: bool = False,
+                          invoice_dir: bool = False):
         """ Fills the window with the given invoice
         If browser == True, also opens a new browser window & address book.
         This functionality is typically used when creating a new invoice.
@@ -147,6 +151,9 @@ class InvoiceWindow(tkinter.Toplevel):
         if browser:
             AddressBook(listable_companies=[invoice.payer.name]).execute()
             webbrowser.open(config.CONSTANTS["E_ARCHIVE_URL"])
+
+        if invoice_dir and "INVOICE_FILE_PATH" in config.CONSTANTS:
+            subprocess.call(["open", "-R", config.CONSTANTS["INVOICE_FILE_PATH"]])
 
     def _file_open_click(self):
         open_file(self._file_path.value)
