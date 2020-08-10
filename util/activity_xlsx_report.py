@@ -6,6 +6,7 @@ from model.company import Company
 from model.project import Project
 import util.file_system
 import config
+from util.date_time import get_two_digit_month
 
 
 def _get_excel_key(year: int, month: int, project: Project):
@@ -159,6 +160,15 @@ class Report:
                 if file_name != "":
                     file_name += " "
                 file_name += str(excel_key[i])
+            file_name = Report._beautify_file_name(file_name)
             file_path = util.file_system.get_desktop_file_name(file_name, ExcelFile.FILE_EXTENSION)
             self._excel_files[excel_key].save_file(file_path)
             self.last_saved_files.append(file_path)
+
+    @staticmethod
+    def _beautify_file_name(file_name: str) -> str:
+        fragments = file_name.split(" ")
+        year = fragments[0]
+        month = get_two_digit_month(fragments[1])
+        suffix = fragments[2]
+        return year + "." + month + " - " + suffix
