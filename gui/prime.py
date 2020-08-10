@@ -51,7 +51,6 @@ class Prime:
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Notifications
-
         self._notif_list = tkinter.Listbox(self._root)
         self._refresh()
         self._notif_list.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT)
@@ -63,7 +62,6 @@ class Prime:
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Main menu
-
         self._menu = tkinter.Menu(self._root, tearoff=0)
 
         file_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -120,9 +118,7 @@ class Prime:
 
         self._menu.add_cascade(menu=util_menu, label="Util")
 
-
         # Flush
-
         self._root.configure(menu=self._menu)
         self._root.mainloop()
 
@@ -176,6 +172,7 @@ class Prime:
         self._set_status("Deleting completed payments")
         delete_completed_payments()
         self._set_status("Deletion complete")
+        self._refresh()
 
     @staticmethod
     def _del_idle_companies():
