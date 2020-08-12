@@ -29,6 +29,7 @@ def test_mode():
     TEST_MODE = True
     backup_dir = backup.execute()
     CONSTANTS["DATA_DIR_PATH"] = backup_dir + "/"
+    CONSTANTS["UPDATE_CURRENCIES_ON_STARTUP"] = False
 
 
 def _read_config():
