@@ -27,8 +27,7 @@ class Prime:
     _WINDOW_WIDTH = 800
     _WINDOW_HEIGHT = 350
 
-    def __init__(self):
-
+    def __init__(self, add_activity: bool = False):
         # Initialization
         cell_y = 0
 
@@ -120,6 +119,8 @@ class Prime:
 
         # Flush
         self._root.configure(menu=self._menu)
+        if add_activity:
+            Prime._add_activity()
         self._root.mainloop()
 
     @staticmethod
