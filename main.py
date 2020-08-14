@@ -2,6 +2,7 @@
 import sys
 import datetime
 from gui.prime import Prime
+from gui.prime_singleton import PrimeSingleton
 from model import payment
 from model.activity import Activity
 from util import backup, currency_update, date_time
@@ -26,7 +27,9 @@ def startup():
         not Activity.has_activity_for_today()
     ])
 
-    Prime(add_activity=add_activity)
+    prime = Prime(add_activity=add_activity)
+    PrimeSingleton.set(prime)
+    prime.start()
 
 if __name__ == "__main__":
     startup()

@@ -3,6 +3,7 @@ import tkinter.ttk
 from util import amount, backup, date_time, invoice_label
 from gui.payment_list import PaymentListWindow
 from gui.invoice import InvoiceWindow, open_invoice_as_email
+from gui.prime_singleton import PrimeSingleton
 from model.invoice import Invoice
 from model import payment
 import config
@@ -88,6 +89,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         Invoice.delete_invoices(deletable_guids)
 
         self._fill_tree_with_invoices()
+        PrimeSingleton.get().refresh()
 
     def _edit_click(self):
         selected_invoices = self._selected_invoices
@@ -108,7 +110,6 @@ class InvoiceListWindow(tkinter.Toplevel):
         open_invoice_as_email(selected_invoices[0])
 
     def _fill_tree_with_invoices(self):
-
         self._invoices = Invoice.get_invoices()
         self._tree_content = {}
 

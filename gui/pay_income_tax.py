@@ -1,6 +1,7 @@
 """ Income tax payment window """
 import tkinter
 from gui.amount_textbox import AmountTextbox
+from gui.prime_singleton import PrimeSingleton
 import model.payment as payment
 import config
 
@@ -12,7 +13,6 @@ class PayIncomeTax:
     _WINDOW_HEIGHT = 200
 
     def __init__(self):
-
         self._window = tkinter.Toplevel()
         self._window.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
         cell_y = 0
@@ -26,12 +26,10 @@ class PayIncomeTax:
             cell_y)
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
-
         save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):
-
         payment.record_cash_movement(
             company=config.CONSTANTS["HOME_GOVERNMENT"],
             direction=payment.DIRECTION_OUT,
@@ -41,4 +39,5 @@ class PayIncomeTax:
             income_tax_only=True
         )
 
+        PrimeSingleton.get().refresh()
         self._window.destroy()

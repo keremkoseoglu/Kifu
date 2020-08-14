@@ -4,6 +4,7 @@ import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.labeled_checkbox import LabeledCheckbox
 from gui.labeled_textbox import LabeledTextbox
+from gui.prime_singleton import PrimeSingleton
 from model.payment import Collection as Collection_Model
 import config
 
@@ -53,4 +54,5 @@ class Collection:
         collection_obj = Collection_Model(collection_dict)
 
         self._click_handler(collection_obj, clear=self._cleared.checked)
+        PrimeSingleton.get().refresh()
         self._window.destroy()

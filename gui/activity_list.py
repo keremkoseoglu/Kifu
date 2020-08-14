@@ -8,6 +8,7 @@ from gui.activity import ActivityWindow
 from gui.activity_split import ActivitySplit
 from gui.invoice import InvoiceWindow
 from gui.popup_file import popup_email
+from gui.prime_singleton import PrimeSingleton
 from util import activity_xlsx_report, backup, date_time
 import config
 
@@ -96,6 +97,7 @@ class ActivityListWindow(tkinter.Toplevel):
         Activity.delete_activities(deletable_guids)
 
         self._fill_tree_with_activities()
+        PrimeSingleton.get().refresh()
 
     def _edit_click(self):
         first_selected_activity = self._first_selected_activity
@@ -119,7 +121,6 @@ class ActivityListWindow(tkinter.Toplevel):
                     attachment=xlsx_report.last_saved_files[0])
 
     def _fill_tree_with_activities(self):
-
         self._activities = Activity.get_activities()
         self._tree_content = {}
 

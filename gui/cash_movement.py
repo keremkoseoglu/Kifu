@@ -4,6 +4,7 @@ from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.labeled_combobox import LabeledCombobox
+from gui.prime_singleton import PrimeSingleton
 import model.payment as payment
 import config
 
@@ -53,4 +54,5 @@ class CashMovement:
             description=self._description.value
         )
 
+        PrimeSingleton.get().refresh()
         self._window.destroy()
