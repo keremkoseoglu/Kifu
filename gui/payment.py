@@ -10,6 +10,7 @@ from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textarea import LabeledTextarea
 from gui.labeled_textbox import LabeledTextbox
 from gui.popup_with_single_value import PopupWithSingleValue
+from gui.prime_singleton import PrimeSingleton
 import model.payment as payment_model
 from util import amount as util_amount
 from util import date_time
@@ -362,6 +363,7 @@ class PaymentWindow(tkinter.Toplevel):
 
     def _delete(self):
         payment_model.delete_payments([self._payment.guid])
+        PrimeSingleton.get().refresh()
         self.destroy()
 
     def _paint_recurrences(self):
@@ -447,6 +449,7 @@ class PaymentWindow(tkinter.Toplevel):
         scheme.repeat = int(self._repeat.value)
 
         self._payment.save()
+        PrimeSingleton.get().refresh()
         self.destroy()
 
     def _status(self):

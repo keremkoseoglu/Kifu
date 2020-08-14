@@ -6,6 +6,7 @@ from gui.amount_textbox import AmountTextbox
 from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.popup_file import popup_email, popup_open_file
+from gui.prime_singleton import PrimeSingleton
 from model.invoice import Invoice
 import model.company
 from model.company import Company
@@ -196,6 +197,7 @@ class InvoiceWindow(tkinter.Toplevel):
 
     def _saved(self):
         self._set_status("Saved!")
+        PrimeSingleton.get().refresh()
         self.after(1, self.destroy())
 
     def _set_status(self, status: str):

@@ -5,6 +5,7 @@ from model import payment
 from util import backup, date_time
 from util import amount as util_amount
 from gui.payment import PaymentWindow
+from gui.prime_singleton import PrimeSingleton
 from report.payment_status import PaymentStatus
 from report.reconciliation import Reconciliation
 import config
@@ -19,14 +20,11 @@ class PaymentListWindow(tkinter.Toplevel):
     _Y_SPACING = 10
 
     def __init__(self):
-
         # Initialization
-
         tkinter.Toplevel.__init__(self)
         self.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Build tree
-
         self._tree = tkinter.ttk.Treeview(self)
         tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
@@ -47,7 +45,6 @@ class PaymentListWindow(tkinter.Toplevel):
         self._fill_tree_with_payments()
 
         # Buttons
-
         cell_x = 0
 
         refresh_button = tkinter.Button(self, text="Refresh", command=self._refresh_click)
@@ -83,6 +80,7 @@ class PaymentListWindow(tkinter.Toplevel):
         payment.delete_payments(deletable_guids)
 
         self._fill_tree_with_payments()
+        PrimeSingleton.get().refresh()
 
     def _edit_click(self):
         selected_payments = self._get_selected_payments()
@@ -96,7 +94,6 @@ class PaymentListWindow(tkinter.Toplevel):
         payment_window.mainloop()
 
     def _fill_tree_with_payments(self):
-
         self._payments = payment.get_payments()
         self._tree_content = {}
 

@@ -4,6 +4,7 @@ import tkinter
 import tkinter.ttk
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
+from gui.prime_singleton import PrimeSingleton
 from util import ecz_daha
 import model.activity
 import model.location
@@ -144,6 +145,7 @@ class ActivityWindow(tkinter.Toplevel):
 
         model.activity.Activity(act).save()
         self._set_status("Saved!")
+        PrimeSingleton.get().refresh()
         self.after(1, self.destroy())
 
     def _set_status(self, status: str):

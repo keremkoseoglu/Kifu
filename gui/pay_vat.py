@@ -1,6 +1,7 @@
 """ VAT payment window """
 import tkinter
 from gui.amount_textbox import AmountTextbox
+from gui.prime_singleton import PrimeSingleton
 import model.payment as payment
 from util import amount
 import config
@@ -13,7 +14,6 @@ class PayVat:
     _WINDOW_HEIGHT = 400
 
     def __init__(self):
-
         self._window = tkinter.Toplevel()
         self._window.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
         cell_y = 0
@@ -51,6 +51,7 @@ class PayVat:
             paid_curr=self._amount.currency
         )
 
+        PrimeSingleton.get().refresh()
         self._window.destroy()
 
     def _refresh(self):

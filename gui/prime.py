@@ -51,12 +51,12 @@ class Prime:
 
         # Notifications
         self._notif_list = tkinter.Listbox(self._root)
-        self._refresh()
+        self.refresh()
         self._notif_list.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT)
         self._notif_list.bind('<Double-1>', self._notif_double_click)
         cell_y += self._NOTIF_HEIGHT
 
-        refresh_button = tkinter.Button(self._root, text="Refresh", command=self._refresh)
+        refresh_button = tkinter.Button(self._root, text="Refresh", command=self.refresh)
         refresh_button.place(x=0, y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -121,6 +121,9 @@ class Prime:
         self._root.configure(menu=self._menu)
         if add_activity:
             Prime._add_activity()
+
+    def start(self):
+        """ Starts main loop """
         self._root.mainloop()
 
     @staticmethod
@@ -173,7 +176,7 @@ class Prime:
         self._set_status("Deleting completed payments")
         delete_completed_payments()
         self._set_status("Deletion complete")
-        self._refresh()
+        self.refresh()
 
     @staticmethod
     def _del_idle_companies():
@@ -256,7 +259,8 @@ class Prime:
     def _reconciliation__company_selected(companies: []):
         reconciliation.Reconciliation(companies).execute()
 
-    def _refresh(self):
+    def refresh(self):
+        """ Refreshes notifications """
         self._notif_list.delete(0, tkinter.END)
         notif_count = 0
         for ntf in notification.get_notifications():
