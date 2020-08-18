@@ -17,7 +17,8 @@ from report import \
     net_worth, \
     ecz_activity_comparison, \
     reconciliation, \
-    address_book
+    address_book, \
+    workdays_wo_activity
 import config
 
 
@@ -99,6 +100,9 @@ class Prime:
 
         report_menu = tkinter.Menu(self._menu, tearoff=0)
         report_menu.add_command(label="Activity report", command=Prime._activity_report)
+        report_menu.add_command(
+            label="Workdays without activity",
+            command=Prime._workdays_wo_activity)
         report_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
         report_menu.add_command(label="Reconciliation", command=Prime._reconciliation)
         report_menu.add_separator()
@@ -129,6 +133,10 @@ class Prime:
     @staticmethod
     def _activity_report():
         activity_list_report.ActivityList().execute()
+
+    @staticmethod
+    def _workdays_wo_activity():
+        workdays_wo_activity.WorkdaysWithoutActivityReport().execute()
 
     @staticmethod
     def _add_activity():
