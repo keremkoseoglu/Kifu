@@ -33,7 +33,8 @@ def get_account_balances_in_both_currencies() -> []:
             "name": account["bank_name"] + " - " + account["account_name"],
             "home_balance": amount,
             "original_balance": account["balance"],
-            "original_currency": account["currency"]
+            "original_currency": account["currency"],
+            "is_investment": account["is_investment"]
         }
         output.append(output_dict)
 
@@ -85,19 +86,41 @@ def get_next_investment_account() -> tuple:
     """ Selects and returns the most suitable investment account
     This is the account with the lowest amount
     """
+    # Determine list of foreign currencies, sorted by amount ascending
     accs = get_account_balances_in_both_currencies()
-    inv_accs = []
+
+    foreign_currency_balances = []
     for acc in accs:
-        if acc["original_currency"] != config.CONSTANTS["HOME_CURRENCY"] and \
-            acc["name"].find(config.CONSTANTS["HOME_COMPANY"]) == -1:
-            inv_accs.append(acc)
+        if acc["original_currency"] == config.CONSTANTS["HOME_CURRENCY"]:
+            continue
+        found = False
+        for fcb in foreign_currency_balances:
+            if fcb["original_currency"] == acc["original_currency"]:
+                fcb["home_balance"] += acc["home_balance"]
+                found = True
+        if found:
+            continue
+        new_fcb = {
+            "original_currency": acc["original_currency"],
+            "home_balance": acc["home_balance"]
+        }
+        foreign_currency_balances.append(new_fcb)
 
-    next_acc = inv_accs[0]
+    foreign_currency_balances = sorted(foreign_currency_balances, key=lambda x: x["home_balance"])
 
-    for acc in inv_accs:
-        if acc["home_balance"] < next_acc["home_balance"]:
-            next_acc = acc
+    # Find investment account with least amount
+    next_acc = None
+    for fcb in foreign_currency_balances:
+        for acc in accs:
+            if not acc["is_investment"]:
+                continue
+            if acc["original_currency"] == fcb["original_currency"]:
+                next_acc = acc
+                break
+        if next_acc is not None:
+            break
 
+    # Format & return
     account_parts = next_acc["name"].split()
     acc = ""
     for account_part in account_parts:
