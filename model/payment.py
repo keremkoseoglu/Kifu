@@ -1200,11 +1200,53 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
         output.append(vat_payment_payment_obj)
 
-    # Income tax transfer
+    # Income tax investment & transfer
 
     itax_amount = currency_converter.convert_to_local_currency(
         invoice.income_tax_amount,
         invoice_currency)
+
+    itax_investment_rate = 100
+    itax_investment_rate -= config.CONSTANTS["TEMP_INCOME_TAX_RATE"]
+    itax_investment_rate -= config.CONSTANTS["SAFETY_INCOME_TAX_RATE"]
+    itax_investment_amount = itax_amount * itax_investment_rate / 100
+    itax_amount -= itax_investment_amount
+
+    itax_transfer_json = {
+        "guid": identifier.get_guid(),
+        "creation_date": datetime.datetime.now().isoformat(),
+        "company": config.CONSTANTS["DEFAULT_BANK"],
+        "description": description_prefix + " - income tax investment",
+        "invoice_guid": "",
+        "direction": DIRECTION_TRANSFER,
+        "amount": itax_investment_amount,
+        "currency": config.CONSTANTS["HOME_CURRENCY"],
+        "cleared": False
+    }
+
+    itax_transfer_date = invoice.income_tax_transfer_date
+
+    itax_transfer_scheme_json = {
+        "frequency": 1,
+        "period": PERIOD_DAILY,
+        "start": itax_transfer_date.isoformat(),
+        "repeat": 1,
+        "recurrence": [
+            {
+                "recurrence_date": itax_transfer_date.isoformat(),
+                "expected_payment_date": itax_transfer_date.isoformat(),
+                "amount": itax_amount,
+                "currency": config.CONSTANTS["HOME_CURRENCY"],
+                "cleared": False,
+                "collections": []
+            }
+        ]
+    }
+
+    itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
+    itax_transfer_payment_obj = Payment(itax_transfer_json)
+    itax_transfer_payment_obj.scheme = itax_transfer_scheme_obj
+    output.append(itax_transfer_payment_obj)
 
     itax_transfer_json = {
         "guid": identifier.get_guid(),
@@ -1238,10 +1280,8 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     }
 
     itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
-
     itax_transfer_payment_obj = Payment(itax_transfer_json)
     itax_transfer_payment_obj.scheme = itax_transfer_scheme_obj
-
     output.append(itax_transfer_payment_obj)
 
     # Income tax payment
@@ -1334,7 +1374,6 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     output.append(alms_payment_payment_obj)
 
     # Flush
-
     return output
 
 
