@@ -127,7 +127,7 @@ class Prime:
         if add_activity:
             Prime._add_activity()
 
-        IncubusFactory.get_instance().start(5)
+        IncubusFactory.get_instance().start(15)
 
     def start(self):
         """ Starts main loop """
