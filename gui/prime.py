@@ -5,7 +5,7 @@ from incubus import IncubusFactory
 from util import backup, currency_update, file_system
 from util.company_label import CompanyLabel
 from gui import activity, activity_list
-from gui import cash_movement, company_list, invoice_list, pay_income_tax
+from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
 from gui import payment, payment_list, pay_vat, activity_split, buy_foreign_currency
 from model import notification, payment as payment_model
 from model.activity import Activity
@@ -87,6 +87,7 @@ class Prime:
 
         payment_menu = tkinter.Menu(self._menu, tearoff=0)
         payment_menu.add_command(label="Add payment", command=Prime._add_payment)
+        payment_menu.add_command(label="Book CC statement", command=Prime._add_cc_statement)
         payment_menu.add_command(label="Book cash movement", command=Prime._add_cash)
         payment_menu.add_command(label="Buy foreign currency", command=Prime._buy_curr)
         payment_menu.add_command(label="Pay VAT", command=Prime._pay_vat)
@@ -154,6 +155,11 @@ class Prime:
     def _add_cash():
         IncubusFactory.get_instance().user_event()
         cash_movement.CashMovement()
+
+    @staticmethod
+    def _add_cc_statement():
+        IncubusFactory.get_instance().user_event()
+        credit_card_statement.CreditCardStatement()
 
     @staticmethod
     def _add_payment():

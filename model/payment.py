@@ -179,8 +179,7 @@ def record_cash_movement(
         amount: float,
         currency: str,
         description: str,
-        income_tax_only: bool = False
-):
+        income_tax_only: bool = False):
     """ Records a new cash movement """
     ##############################
     # Preparation
@@ -290,28 +289,46 @@ def record_cash_movement(
     for payment in changed_payments:
         payment.save()
 
-def _create_credit_card_transaction(bank: str, description: str, card: str, amount: float):
+def create_credit_card_transaction(bank: str,
+                                   description: str,
+                                   card: str,
+                                   amount: float,
+                                   currency: str = None,
+                                   pay_date: str = None):
+    """ Creates a new credit card payment with the given details """
+    if currency is None:
+        writeable_currency = config.CONSTANTS["HOME_CURRENCY"]
+    else:
+        writeable_currency = currency
+
+    now_date = datetime.datetime.now().isoformat()
+
+    if pay_date is None:
+        writeable_date = now_date
+    else:
+        writeable_date = pay_date
+
     trn_pay_json = {
         "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
+        "creation_date": now_date,
         "company": bank,
         "description": description + " - transfer to " + card,
         "invoice_guid": "",
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
-        "currency": config.CONSTANTS["HOME_CURRENCY"],
+        "currency": writeable_currency,
         "cleared": False
     }
 
     trn_scheme_json = {
         "frequency": 1,
         "period": PERIOD_DAILY,
-        "start": trn_pay_json["creation_date"],
+        "start": writeable_date,
         "repeat": 1,
         "recurrence": [
             {
-                "recurrence_date": trn_pay_json["creation_date"],
-                "expected_payment_date": trn_pay_json["creation_date"],
+                "recurrence_date": writeable_date,
+                "expected_payment_date": writeable_date,
                 "amount": trn_pay_json["amount"],
                 "currency": trn_pay_json["currency"],
                 "cleared": False,
@@ -421,7 +438,7 @@ def record_investment_payment(
                 payable_amount = cc_debt.amount
                 investable_amount -= payable_amount
 
-            _create_credit_card_transaction(
+            create_credit_card_transaction(
                 cc_debt.bank_name,
                 description_prefix,
                 cc_debt.card_name,
