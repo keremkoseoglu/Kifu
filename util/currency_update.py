@@ -9,7 +9,7 @@ def execute():
     """ Runs currency update """
 
     # Currencies from TCMB
-    resp = requests.get(config.CONSTANTS["CURRENCY_CONV_URL"])
+    resp = requests.get(config.CONSTANTS["CURRENCY_CONV_URL"], verify=False)
     resp_as_dict = xmltodict.parse(resp.text)
 
     # Gold conversion
