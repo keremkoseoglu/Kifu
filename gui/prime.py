@@ -19,7 +19,8 @@ from report import \
     ecz_activity_comparison, \
     reconciliation, \
     address_book, \
-    workdays_wo_activity
+    workdays_wo_activity, \
+    asset_profit
 import config
 
 
@@ -111,6 +112,7 @@ class Prime:
         report_menu.add_command(label="Net worth", command=Prime._net_worth)
         report_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
         report_menu.add_command(label="Currency balances", command=Prime._currency_account)
+        report_menu.add_command(label="Asset profit", command=Prime._asset_profit)
         report_menu.add_separator()
         report_menu.add_command(label="IBAN list", command=Prime._iban_list)
         report_menu.add_command(label="Address book", command=Prime._address_book)
@@ -193,6 +195,11 @@ class Prime:
     def _currency_account():
         IncubusFactory.get_instance().user_event()
         curr_acc_dist.CurrencyAccountDistribution().execute()
+
+    @staticmethod
+    def _asset_profit():
+        IncubusFactory.get_instance().user_event()
+        asset_profit.AssetProfit().execute()
 
     def _currency_update(self):
         IncubusFactory.get_instance().user_event()

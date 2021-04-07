@@ -56,12 +56,13 @@ class NetWorth(HtmlReport):
             amount.get_formatted_amount(sum_val))
 
         # Asset resale
-        asset_resale = asset.get_asset_resale_value_sum()
-        sum_val += asset_resale
-        output += NetWorth._get_table_line(
-            "Asset resale",
-            amount.get_formatted_amount(asset_resale),
-            amount.get_formatted_amount(sum_val))
+        asset_resales = asset.get_asset_type_resale_value_sum()
+        for asset_resale in asset_resales:
+            sum_val += asset_resale["sales_value"]
+            output += NetWorth._get_table_line(
+                asset_resale["type"] + " resale",
+                amount.get_formatted_amount(asset_resale["sales_value"]),
+                amount.get_formatted_amount(sum_val))
 
         # Flush
         output += "</table>"
