@@ -1,6 +1,6 @@
 """ Bank account balance report """
 from report.html_report import HtmlReport
-from model import bank_account
+from model import asset, bank_account
 from util import amount
 import config
 
@@ -10,8 +10,22 @@ class BankAccountBalance(HtmlReport):
 
     _REPORT_NAME = "Bank Account Balance"
 
+    @staticmethod
+    def _get_balances() -> []:
+        result = []
+        bank_balances = bank_account.get_account_balances_in_both_currencies()
+        asset_balances = asset.get_liquid_assets_in_both_currencies()
+
+        for bank_balance in bank_balances:
+            result.append(bank_balance)
+        for asset_balance in asset_balances:
+            result.append(asset_balance)
+
+        return result
+
     def _get_html_content(self) -> str:
-        balances = bank_account.get_account_balances_in_both_currencies()
+        balances = BankAccountBalance._get_balances()
+
         output = "<table border=0 cellspacing=0 cellpadding=10>"
 
         for balance in balances:
