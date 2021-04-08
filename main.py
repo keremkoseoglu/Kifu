@@ -5,8 +5,9 @@ from gui.prime import Prime
 from gui.prime_singleton import PrimeSingleton
 from model import payment
 from model.activity import Activity
-from util import backup, currency_update, date_time
+from util import backup, currency_update, date_time, stock_update, crypto_update
 import config
+
 
 def startup():
     """ Main startup function """
@@ -20,6 +21,10 @@ def startup():
 
     if config.CONSTANTS["UPDATE_CURRENCIES_ON_STARTUP"]:
         currency_update.execute()
+    if config.CONSTANTS["UPDATE_STOCKS_ON_STARTUP"]:
+        stock_update.execute()
+    if config.CONSTANTS["UPDATE_CRYPTO_ON_STARTUP"]:
+        crypto_update.execute()
 
     add_activity = all([
         date_time.is_working_day(datetime.datetime.now()),

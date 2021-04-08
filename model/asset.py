@@ -19,6 +19,12 @@ def get_assets():
     return json_data
 
 
+def set_assets(assets: dict):
+    """ Saves assets to disk """
+    with open(_get_file_path(), "w") as ass_file:
+        json.dump(assets, ass_file, indent=3)
+
+
 def get_asset_type_resale_value_sum(only_liquid: bool = False) -> []:
     """ Asset type resale value sum
     Used when calculating net worth
