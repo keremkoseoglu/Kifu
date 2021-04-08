@@ -6,7 +6,7 @@ from model.bank_account import get_accounts_with_currency
 import config
 
 
-class BuyForeignCurrency: # pylint: disable=R0903
+class Invest: # pylint: disable=R0903
     """ Class to buy foreign currency """
     _NOTIF_HEIGHT = 250
     _WINDOW_WIDTH = 800

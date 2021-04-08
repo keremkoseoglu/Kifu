@@ -8,7 +8,6 @@ from model.activity import Activity
 from util import backup, currency_update, date_time
 import config
 
-
 def startup():
     """ Main startup function """
     config.read_constants()

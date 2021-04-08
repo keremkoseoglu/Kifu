@@ -7,7 +7,7 @@ from model.company import Company
 from model.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
 from model.invoice import Invoice
-from model.bank_account import get_home_account_of_bank, get_next_investment_account
+from model.investor import InvestmentAdviser
 from util import backup, date_time, identifier
 import config
 
@@ -451,14 +451,15 @@ def record_investment_payment(
         return
 
     # Invest
-    inv_bank, inv_acc = get_next_investment_account()
-    trn_acc = get_home_account_of_bank(inv_bank)
-    _create_investment_transaction(
-        inv_bank,
-        description_prefix,
-        trn_acc,
-        inv_acc,
-        investable_amount)
+    investments = InvestmentAdviser().advise(investable_amount)
+
+    for inv in investments:
+        _create_investment_transaction(
+            inv["bank"],
+            description_prefix,
+            inv["account"],
+            inv["account"],
+            inv["amount"])
 
 
 def record_vat_payment(
