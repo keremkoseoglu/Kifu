@@ -1,11 +1,9 @@
 """ Asset profit """
 from typing import List
-from time import sleep
 from report.html_report import HtmlReport
 from model import asset as imp_asset
-from model.currency import CurrencyConverter
-from util import amount, date_time, currency_update
-
+from model.currency import CurrencyConverter, OldCurrencyConverter
+from util import amount, date_time
 
 class AssetProfit(HtmlReport):
     """ Asset profit """
@@ -42,26 +40,31 @@ class AssetProfit(HtmlReport):
     def _append_assets(self):
         assets = imp_asset.get_assets()
         currency_converter = CurrencyConverter()
-        actual_usd_curr = currency_converter.get_local_conversion_rate("USD")
 
         for asset in assets["assets"]:
             purchase_date = date_time.parse_json_date(asset["purchase_date"])
-            old_usd = currency_update.get_old_currency(purchase_date, "USD")
-            sleep(1)
+            old_currency_converter = OldCurrencyConverter(purchase_date)
 
             purchase_value = currency_converter.convert_to_local_currency(
                 asset["purchase_value"],
                 asset["currency"])
 
             purchase_total = asset["quantity"] * purchase_value
-            purchase_usd_total = purchase_total / old_usd
+
+            purchase_usd_total = old_currency_converter.convert_to_foreign_currency(
+                purchase_total,
+                "USD")
 
             sales_value = currency_converter.convert_to_local_currency(
                 asset["sales_value"],
                 asset["currency"])
 
             sales_total = asset["quantity"] * sales_value
-            actual_usd_price = sales_value / actual_usd_curr
+
+            actual_usd_price = currency_converter.convert_to_foreign_currency(
+                sales_value,
+                "USD")
+
             actual_usd_total = asset["quantity"] * actual_usd_price
 
             usd_profit = actual_usd_total - purchase_usd_total

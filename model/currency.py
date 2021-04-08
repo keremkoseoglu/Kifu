@@ -1,9 +1,12 @@
 """ Currency """
 import json
 import os
+from datetime import datetime
 import config
+from util import date_time, old_currency
 
-
+_CURR_CONV_FILE_PREFIX = "currency_conv"
+_CURR_CONV_FILE_EXTENSION = "json"
 _CURR_CONV_FILE = "currency_conv.json"
 
 
@@ -13,14 +16,25 @@ def save_currency_conv(conv_as_dict: {}):
     with open(file_path, "w") as curr_file:
         json.dump(conv_as_dict, curr_file, indent=3)
 
+def save_old_currency_conv(date: datetime, conv_as_dict: {}):
+    """ Writes old / historic currency conversions to the disk """
+    file_path = _get_old_file_path(date)
+    with open(file_path, "w") as curr_file:
+        json.dump(conv_as_dict, curr_file, indent=3)
 
 def _get_file_path() -> str:
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _CURR_CONV_FILE)
 
+def _get_old_file_path(date: datetime) -> str:
+    year = str(date.year)
+    month = date_time.get_two_digit_month(date.month)
+    day = date_time.get_two_digit_month(date.day)
+    file_name = _CURR_CONV_FILE_PREFIX + "_" + year + month + day + "." + _CURR_CONV_FILE_EXTENSION
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + file_name)
+
 
 class CurrencyConverter:
     """ Currency converter """
-
     def __init__(self):
         self._conv_cache = {}
 
@@ -74,3 +88,19 @@ class CurrencyConverter:
                     float_val = float(curr_in_list["BanknoteBuying"])
                     self._conv_cache[foreign_currency] = float_val
                     return float_val
+
+
+class OldCurrencyConverter(CurrencyConverter):
+    """ Old / historic currency converter """
+    def __init__(self, date: datetime): # pylint: disable=W0231
+        self._conv_cache = {}
+        self._date = date
+
+        file_path = _get_old_file_path(self._date)
+
+        if os.path.exists(file_path):
+            with open(file_path) as curr_file:
+                self._conv_rates = json.load(curr_file)
+        else:
+            self._conv_rates = old_currency.get_old_currencies(date)
+            save_old_currency_conv(self._date, self._conv_rates)
