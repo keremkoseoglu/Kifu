@@ -6,7 +6,7 @@ from util import backup, currency_update, file_system
 from util.company_label import CompanyLabel
 from gui import activity, activity_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
-from gui import payment, payment_list, pay_vat, activity_split, buy_foreign_currency
+from gui import payment, payment_list, pay_vat, activity_split, invest
 from model import notification, payment as payment_model
 from model.activity import Activity
 from model.payment import delete_completed_payments, get_companies_without_payment
@@ -90,7 +90,7 @@ class Prime:
         payment_menu.add_command(label="Add payment", command=Prime._add_payment)
         payment_menu.add_command(label="Book CC statement", command=Prime._add_cc_statement)
         payment_menu.add_command(label="Book cash movement", command=Prime._add_cash)
-        payment_menu.add_command(label="Buy foreign currency", command=Prime._buy_curr)
+        payment_menu.add_command(label="Invest", command=Prime._invest)
         payment_menu.add_command(label="Pay VAT", command=Prime._pay_vat)
         payment_menu.add_command(label="Pay income tax", command=Prime._pay_tax)
         payment_menu.add_separator()
@@ -187,9 +187,9 @@ class Prime:
         bank_account_balance.BankAccountBalance().execute()
 
     @staticmethod
-    def _buy_curr():
+    def _invest():
         IncubusFactory.get_instance().user_event()
-        buy_foreign_currency.BuyForeignCurrency()
+        invest.Invest()
 
     @staticmethod
     def _currency_account():

@@ -27,7 +27,8 @@ def get_files_in_dir(dir_name: str) -> []:
         current_path = os.path.join(dir_name, current_item)
         try:
             if os.path.isfile(current_path) and \
-                config.CONSTANTS["DATA_FILE_EXTENSION"] in current_item:
+                config.CONSTANTS["DATA_FILE_EXTENSION"] in current_item and \
+                "currency_conv_" not in current_item:
                 output.append(current_item)
         except Exception as error:
             print(error)
