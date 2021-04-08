@@ -68,7 +68,10 @@ class AssetProfit(HtmlReport):
             actual_usd_total = asset["quantity"] * actual_usd_price
 
             usd_profit = actual_usd_total - purchase_usd_total
-            perc_profit = (usd_profit / purchase_usd_total) * 100
+            if purchase_usd_total == 0:
+                perc_profit = 0
+            else:
+                perc_profit = (usd_profit / purchase_usd_total) * 100
 
             cols = [asset["name"],
                     date_time.get_formatted_date(purchase_date),
