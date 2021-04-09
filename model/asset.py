@@ -12,10 +12,17 @@ def _is_liquid(asset_type: str) -> bool:
     return asset_type in ("STOCK", "CRYPTO")
 
 
-def get_assets():
+def get_assets(deduct_income_tax: bool = False):
     """ Returns all assets """
     with open(_get_file_path()) as asset_file:
         json_data = json.load(asset_file)
+
+    if deduct_income_tax:
+        rate = 1 - (config.CONSTANTS["DEFAULT_INCOME_TAX_RATE"] / 100)
+        for asset in json_data["assets"]:
+            if "income_tax" in asset and asset["income_tax"]:
+                asset["sales_value"] = asset["sales_value"] * rate
+
     return json_data
 
 
@@ -25,13 +32,14 @@ def set_assets(assets: dict):
         json.dump(assets, ass_file, indent=3)
 
 
-def get_asset_type_resale_value_sum(only_liquid: bool = False) -> []:
+def get_asset_type_resale_value_sum(only_liquid: bool = False,
+                                    deduct_income_tax: bool = False) -> []:
     """ Asset type resale value sum
     Used when calculating net worth
     """
     result = []
 
-    assets = get_assets()
+    assets = get_assets(deduct_income_tax=deduct_income_tax)
     currency_converter = CurrencyConverter()
 
     for asset in assets["assets"]:
@@ -69,10 +77,10 @@ def get_asset_resale_value_sum() -> float:
     return result
 
 
-def get_liquid_assets_in_both_currencies() -> []:
+def get_liquid_assets_in_both_currencies(deduct_income_tax: bool = False) -> []:
     """ Asset balances in original and home currencies """
     output = []
-    assets = get_assets()
+    assets = get_assets(deduct_income_tax=deduct_income_tax)
     currency_converter = CurrencyConverter()
 
     for asset in assets["assets"]:

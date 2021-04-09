@@ -55,7 +55,7 @@ class CurrencyAccountDistribution(HtmlReport):
             self._chart_list.append(chart_item)
 
     def _append_assets(self):
-        assets = imp_asset.get_asset_type_resale_value_sum(only_liquid=True)
+        assets = imp_asset.get_asset_type_resale_value_sum(only_liquid=True, deduct_income_tax=True)
 
         for asset in assets:
             html = "<tr>"

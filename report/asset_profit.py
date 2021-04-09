@@ -38,7 +38,7 @@ class AssetProfit(HtmlReport):
         self._append_line(cols)
 
     def _append_assets(self):
-        assets = imp_asset.get_assets()
+        assets = imp_asset.get_assets(deduct_income_tax=True)
         currency_converter = CurrencyConverter()
 
         for asset in assets["assets"]:

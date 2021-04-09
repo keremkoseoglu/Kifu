@@ -56,7 +56,7 @@ class NetWorth(HtmlReport):
             amount.get_formatted_amount(sum_val))
 
         # Asset resale
-        asset_resales = asset.get_asset_type_resale_value_sum()
+        asset_resales = asset.get_asset_type_resale_value_sum(deduct_income_tax=True)
         for asset_resale in asset_resales:
             sum_val += asset_resale["sales_value"]
             output += NetWorth._get_table_line(
