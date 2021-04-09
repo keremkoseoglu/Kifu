@@ -14,7 +14,7 @@ class BankAccountBalance(HtmlReport):
     def _get_balances() -> []:
         result = []
         bank_balances = bank_account.get_account_balances_in_both_currencies()
-        asset_balances = asset.get_liquid_assets_in_both_currencies()
+        asset_balances = asset.get_liquid_assets_in_both_currencies(deduct_income_tax=True)
 
         for bank_balance in bank_balances:
             result.append(bank_balance)
