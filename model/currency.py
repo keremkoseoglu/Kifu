@@ -3,7 +3,8 @@ import json
 import os
 from datetime import datetime
 import config
-from util import date_time, old_currency
+from util import date_time
+from update import old_currency
 
 _CURR_CONV_FILE_PREFIX = "currency_conv"
 _CURR_CONV_FILE_EXTENSION = "json"
