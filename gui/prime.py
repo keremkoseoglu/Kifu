@@ -2,7 +2,7 @@
 import os
 import tkinter
 from incubus import IncubusFactory
-from util import backup, currency_update, file_system
+from util import backup, file_system
 from util.company_label import CompanyLabel
 from gui import activity, activity_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
@@ -22,6 +22,7 @@ from report import \
     workdays_wo_activity, \
     asset_profit
 import config
+from update import currency_update
 
 
 class Prime:

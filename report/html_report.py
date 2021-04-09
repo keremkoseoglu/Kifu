@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from shutil import copyfile
 import config
+from update.update_facade import UpdateFacadeFactory
 
 
 class HtmlReport(ABC):
@@ -15,6 +16,8 @@ class HtmlReport(ABC):
 
     def execute(self):
         """ Creates & opens the report """
+        UpdateFacadeFactory().get_instance().execute()
+
         complete_html_content = \
             HtmlReport._get_html_prefix() +\
             self._get_html_content() +\
