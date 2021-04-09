@@ -93,6 +93,10 @@ class CurrencyConverter:
 class OldCurrencyConverter(CurrencyConverter):
     """ Old / historic currency converter """
     def __init__(self, date: datetime): # pylint: disable=W0231
+        if date_time.is_today(date):
+            super(OldCurrencyConverter, self).__init__()
+            return
+
         self._conv_cache = {}
         self._date = date
 
