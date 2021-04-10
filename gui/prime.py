@@ -22,7 +22,7 @@ from report import \
     workdays_wo_activity, \
     asset_profit
 import config
-from update import currency_update
+from update import currency_update, commodity_update
 
 
 class Prime:
@@ -121,6 +121,7 @@ class Prime:
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
         util_menu.add_command(label="Update currencies", command=self._currency_update)
+        util_menu.add_command(label="Update commodities", command=self._commodity_update)
         util_menu.add_command(label="Print labels", command=self._print_label)
         util_menu.add_command(label="Delete idle companies", command=Prime._del_idle_companies)
 
@@ -207,6 +208,12 @@ class Prime:
         self._set_status("Updating currencies")
         currency_update.execute()
         self._set_status("Currencies updated")
+
+    def _commodity_update(self):
+        IncubusFactory.get_instance().user_event()
+        self._set_status("Updating commodities")
+        commodity_update.execute()
+        self._set_status("Commodities updated")
 
     def _del_completed_payments(self):
         IncubusFactory.get_instance().user_event()

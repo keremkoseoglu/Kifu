@@ -15,6 +15,8 @@ class UpdateFacade():
         currency_update.execute()
         stock_update.execute()
         crypto_update.execute()
+        # Commodities are not updated because it is slow.
+        # Update commodities via menu if needed
 
         self._executed = True
 
