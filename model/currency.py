@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 import config
 from util import date_time
-from update import old_currency
+from update import old_currency, currency_update
 
 _CURR_CONV_FILE_PREFIX = "currency_conv"
 _CURR_CONV_FILE_EXTENSION = "json"
@@ -37,6 +37,7 @@ def _get_old_file_path(date: datetime) -> str:
 class CurrencyConverter:
     """ Currency converter """
     def __init__(self):
+        currency_update.execute()
         self._conv_cache = {}
 
         file_path = _get_file_path()

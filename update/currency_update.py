@@ -4,8 +4,14 @@ import xmltodict
 from model import currency
 import config
 
+_EXECUTED_TODAY = False
+
 def execute():
     """ Runs currency update """
+    global _EXECUTED_TODAY
+
+    if _EXECUTED_TODAY:
+        return
 
     # Currencies from TCMB
     resp = requests.get(config.CONSTANTS["CURRENCY_CONV_URL"], verify=False)
@@ -32,3 +38,4 @@ def execute():
 
     # Save
     currency.save_currency_conv(resp_as_dict)
+    _EXECUTED_TODAY = True
