@@ -11,9 +11,9 @@ from model.invoice import Invoice
 import model.company
 from model.company import Company
 from model import payment
-from report.address_book import AddressBook
 from util.file_system import open_file
 import config
+from web.app import startup_url
 
 
 def open_invoice_as_email(inv: Invoice):
@@ -150,7 +150,7 @@ class InvoiceWindow(tkinter.Toplevel):
         self._file_path.value = invoice.file_path
 
         if browser:
-            AddressBook(listable_companies=[invoice.payer.name]).execute()
+            startup_url("address_book", query_string="name=" + invoice.payer.name)
             webbrowser.open(config.CONSTANTS["E_ARCHIVE_URL"])
 
         if invoice_dir and "INVOICE_FILE_PATH" in config.CONSTANTS:

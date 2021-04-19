@@ -1,4 +1,5 @@
 """ Payment list window """
+import urllib
 import tkinter
 import tkinter.ttk
 from model import payment
@@ -6,9 +7,8 @@ from util import backup, date_time
 from util import amount as util_amount
 from gui.payment import PaymentWindow
 from gui.prime_singleton import PrimeSingleton
-from report.payment_status import PaymentStatus
-from report.reconciliation import Reconciliation
 import config
+from web.app import startup_url
 
 
 class PaymentListWindow(tkinter.Toplevel):
@@ -150,7 +150,13 @@ class PaymentListWindow(tkinter.Toplevel):
             if not already_appended:
                 selected_companies.append(sel_pay.company)
 
-        Reconciliation(selected_companies).execute()
+        names = ""
+        for selco in selected_companies:
+            if names != "":
+                names += ","
+            names += selco.name
+
+        startup_url("reconciliation", query_string="names="+urllib.parse.quote(names, safe=''))
 
     def _refresh_click(self):
         self._fill_tree_with_payments()
@@ -161,6 +167,4 @@ class PaymentListWindow(tkinter.Toplevel):
             return
 
         first_selected_payment = selected_payments[0]
-        pay_stat = PaymentStatus()
-        pay_stat.set_payment(first_selected_payment)
-        pay_stat.execute()
+        startup_url("payment_status", query_string="guid=" + first_selected_payment.guid)

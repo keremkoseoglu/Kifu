@@ -1,6 +1,7 @@
 """ Primary window """
 import os
 import tkinter
+import urllib
 from incubus import IncubusFactory
 from util import backup, file_system
 from util.company_label import CompanyLabel
@@ -10,19 +11,9 @@ from gui import payment, payment_list, pay_vat, activity_split, invest
 from model import notification, payment as payment_model
 from model.activity import Activity
 from model.payment import delete_completed_payments, get_companies_without_payment
-from report import \
-    activity_list as activity_list_report, \
-    bank_account_balance, \
-    curr_acc_dist, \
-    iban_list, \
-    net_worth, \
-    ecz_activity_comparison, \
-    reconciliation, \
-    address_book, \
-    workdays_wo_activity, \
-    asset_profit
 import config
 from update import currency_update, commodity_update
+from web.app import startup_url
 
 
 class Prime:
@@ -141,12 +132,12 @@ class Prime:
     @staticmethod
     def _activity_report():
         IncubusFactory.get_instance().user_event()
-        activity_list_report.ActivityList().execute()
+        startup_url("activity_list")
 
     @staticmethod
     def _workdays_wo_activity():
         IncubusFactory.get_instance().user_event()
-        workdays_wo_activity.WorkdaysWithoutActivityReport().execute()
+        startup_url("workdays_wo_activity")
 
     @staticmethod
     def _add_activity():
@@ -175,7 +166,7 @@ class Prime:
     @staticmethod
     def _address_book():
         IncubusFactory.get_instance().user_event()
-        address_book.AddressBook().execute()
+        startup_url("address_book")
 
     def _backup_data(self):
         IncubusFactory.get_instance().user_event()
@@ -186,7 +177,7 @@ class Prime:
     @staticmethod
     def _bank_account_balance():
         IncubusFactory.get_instance().user_event()
-        bank_account_balance.BankAccountBalance().execute()
+        startup_url("bank_account_balances")
 
     @staticmethod
     def _invest():
@@ -196,12 +187,12 @@ class Prime:
     @staticmethod
     def _currency_account():
         IncubusFactory.get_instance().user_event()
-        curr_acc_dist.CurrencyAccountDistribution().execute()
+        startup_url("curr_acc_dist")
 
     @staticmethod
     def _asset_profit():
         IncubusFactory.get_instance().user_event()
-        asset_profit.AssetProfit().execute()
+        startup_url("asset_profit")
 
     def _currency_update(self):
         IncubusFactory.get_instance().user_event()
@@ -241,7 +232,7 @@ class Prime:
     @staticmethod
     def _ecz_activity():
         IncubusFactory.get_instance().user_event()
-        ecz_activity_comparison.EczActivityComparison().execute()
+        startup_url("ecz_activity_comparison")
 
     @staticmethod
     def _edit_data_file(file_name: str):
@@ -252,7 +243,7 @@ class Prime:
     @staticmethod
     def _iban_list():
         IncubusFactory.get_instance().user_event()
-        iban_list.IbanList().execute()
+        startup_url("iban_list")
 
     @staticmethod
     def _list_activity():
@@ -275,7 +266,7 @@ class Prime:
     @staticmethod
     def _net_worth():
         IncubusFactory.get_instance().user_event()
-        net_worth.NetWorth().execute()
+        startup_url("net_worth")
 
     def _notif_double_click(self, dummy): # pylint: disable=W0613
         IncubusFactory.get_instance().user_event()
@@ -317,7 +308,13 @@ class Prime:
     @staticmethod
     def _reconciliation__company_selected(companies: []):
         IncubusFactory.get_instance().user_event()
-        reconciliation.Reconciliation(companies).execute()
+        names = ""
+        for selco in companies:
+            if names != "":
+                names += ","
+            names += selco.name
+
+        startup_url("reconciliation", query_string="names="+urllib.parse.quote(names, safe=''))
 
     def refresh(self):
         """ Refreshes notifications """
