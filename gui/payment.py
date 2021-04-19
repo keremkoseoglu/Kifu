@@ -1,5 +1,6 @@
 """ Payment window """
 import datetime
+import urllib
 import tkinter
 import tkinter.ttk
 from gui.amount_textbox import AmountTextbox
@@ -14,9 +15,8 @@ from gui.prime_singleton import PrimeSingleton
 import model.payment as payment_model
 from util import amount as util_amount
 from util import date_time
-from report.payment_status import PaymentStatus
-from report.reconciliation import Reconciliation
 import config
+from web.app import startup_url
 
 
 class PaymentWindow(tkinter.Toplevel):
@@ -453,10 +453,8 @@ class PaymentWindow(tkinter.Toplevel):
         self.destroy()
 
     def _status(self):
-        pay_stat = PaymentStatus()
-        pay_stat.set_payment(self._payment)
-        pay_stat.execute()
+        startup_url("payment_status", query_string="guid=" + self._payment.guid)
 
     def _reconciliation(self):
-        recon = Reconciliation([self._payment.company])
-        recon.execute()
+        query = "names="+urllib.parse.quote(self._payment.company.name, safe='')
+        startup_url("reconciliation", query_string=query)

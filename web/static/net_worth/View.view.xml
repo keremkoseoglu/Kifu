@@ -1,0 +1,46 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		title="Net Worth"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<Table
+				rows="{/NetWorth}"
+				selectionMode="None"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Net worth"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="12rem">
+						<m:Label text="Title" />
+						<template>
+							<m:Text text="{title}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="12rem" hAlign="End">
+						<m:Label text="Value" />
+						<template>
+							<u:Currency value="{content}" currency="₺"/>
+						</template>
+					</Column>
+					<Column width="12rem" hAlign="End">
+						<m:Label text="Sum" />
+						<template>
+							<u:Currency value="{result}" currency="₺"/>
+						</template>
+					</Column>
+				</columns>
+			</Table>
+		</m:content>
+	</m:Page>
+</mvc:View>

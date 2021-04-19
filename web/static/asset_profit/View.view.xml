@@ -1,0 +1,96 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		title="Asset Profits"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<Table
+				rows="{/Profits}"
+				selectionMode="None"
+				visibleRowCountMode="Auto"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Profits"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+					<Column width="12rem">
+						<m:Label text="Name" />
+						<template>
+							<m:Text text="{name}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Profit - %" />
+						<template>
+							<u:Currency value="{perc_profit}" currency="%"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Profit - $" />
+						<template>
+							<u:Currency value="{usd_profit}" currency="$"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Sell - Total ₺" />
+						<template>
+							<u:Currency value="{sales_total}" currency="₺"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Purchase date" />
+						<template>
+							<m:Text text="{purchase_date}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Buy - Total $" />
+						<template>
+							<u:Currency value="{purchase_usd_total}" currency="$"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Sell - Total $" />
+						<template>
+							<u:Currency value="{actual_usd_total}" currency="$"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Quantity" />
+						<template>
+							<u:Currency value="{quantity}" currency="x"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Buy - Price" />
+						<template>
+							<u:Currency value="{purchase_value}" currency="₺"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Buy - Total ₺" />
+						<template>
+							<u:Currency value="{purchase_total}" currency="₺"/>
+						</template>
+					</Column>
+					<Column width="8rem">
+						<m:Label text="Sell - Price" />
+						<template>
+							<u:Currency value="{sales_value}" currency="₺"/>
+						</template>
+					</Column>
+				</columns>
+			</Table>
+
+		</m:content>
+	</m:Page>
+</mvc:View>
