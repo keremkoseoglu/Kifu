@@ -9,7 +9,10 @@ class AssetProfitAPI():
     @property
     def result(self) -> dict:
         """ Returns result """
-        out = {"Profits": []}
+        out = {"Profits": [],
+               "Sums": {"liquid_sales": 0,
+                        "liquid_profit": 0,
+                        "sales": 0}}
 
         assets = imp_asset.get_assets(deduct_income_tax=True)
         currency_converter = CurrencyConverter()
@@ -55,5 +58,10 @@ class AssetProfitAPI():
                           "perc_profit": perc_profit}
 
             out["Profits"].append(asset_dict)
+
+            if imp_asset.is_liquid(asset["type"]):
+                out["Sums"]["liquid_sales"] += int(actual_usd_total)
+                out["Sums"]["liquid_profit"] += int(usd_profit)
+            out["Sums"]["sales"] += int(actual_usd_total)
 
         return out

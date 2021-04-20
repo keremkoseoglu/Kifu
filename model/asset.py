@@ -8,7 +8,8 @@ import config
 _ASSET_FILE = "asset.json"
 
 
-def _is_liquid(asset_type: str) -> bool:
+def is_liquid(asset_type: str) -> bool:
+    """ Returns true if asset is liquid """
     return asset_type in ("STOCK", "CRYPTO")
 
 
@@ -43,7 +44,7 @@ def get_asset_type_resale_value_sum(only_liquid: bool = False,
     currency_converter = CurrencyConverter()
 
     for asset in assets["assets"]:
-        if only_liquid and not _is_liquid(asset["type"]):
+        if only_liquid and not is_liquid(asset["type"]):
             continue
 
         asset_unit_value = currency_converter.convert_to_local_currency(
@@ -84,7 +85,7 @@ def get_liquid_assets_in_both_currencies(deduct_income_tax: bool = False) -> []:
     currency_converter = CurrencyConverter()
 
     for asset in assets["assets"]:
-        if not _is_liquid(asset["type"]):
+        if not is_liquid(asset["type"]):
             continue
 
         org_amount = asset["sales_value"] * asset["quantity"]

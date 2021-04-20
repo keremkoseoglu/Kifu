@@ -42,4 +42,4 @@ def execute():
         _EXECUTED_TODAY = True
 
     except Exception as error:
-        print("Currency update error: " + error)
+        print("Currency update error: " + str(error))
