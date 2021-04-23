@@ -54,7 +54,8 @@ def build_url(suffix: str, query_string: str = None) -> str:
 def startup_url(suffix: str, query_string: str = None):
     """ Runs web server and starts an URL """
     run_web_server_new_thread()
-    UpdateFacadeFactory().get_instance().execute()
+    if config.CONSTANTS["UPDATE_ON_REPORT"]:
+        UpdateFacadeFactory().get_instance().execute()
     url = build_url(suffix, query_string=query_string)
     webbrowser.open(url)
 
