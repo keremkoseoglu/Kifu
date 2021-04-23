@@ -19,7 +19,7 @@ sap.ui.define([
 		},
 
 		initDataModel : function(names) {
-			var url = "http://localhost:8765/api/reconciliation?names=" + names
+			var url = "/api/reconciliation?names=" + names
 			var oModel = new JSONModel();
 
 			jQuery.ajax(url, {

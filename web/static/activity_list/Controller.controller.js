@@ -19,7 +19,7 @@ sap.ui.define([
 		initSampleDataModel : function() {
 			var oModel = new JSONModel();
 
-			jQuery.ajax("http://localhost:8765/api/activity_list", {
+			jQuery.ajax("/api/activity_list", {
 				dataType: "json",
 				success: function(oData) {
 					oModel.setData(oData);

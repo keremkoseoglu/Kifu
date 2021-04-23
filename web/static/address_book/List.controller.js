@@ -11,7 +11,7 @@ sap.ui.define([
 		onInit: function () {
 			var sName = jQuery.sap.getUriParameters().get("name");
 			if (sName == null) {sName = "";}
-			var oModel = new JSONModel("http://localhost:8765/api/address_book?name=" + sName);
+			var oModel = new JSONModel("/api/address_book?name=" + sName);
 			this.getView().setModel(oModel);
 		},
 

@@ -10,7 +10,7 @@ sap.ui.define([
 
 		onInit: function () {
 			// set explored app's demo model on this sample
-			var oModel = new JSONModel("http://localhost:8765/api/iban_list");
+			var oModel = new JSONModel("/api/iban_list");
 			this.getView().setModel(oModel);
 		},
 

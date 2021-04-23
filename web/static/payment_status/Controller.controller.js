@@ -19,7 +19,7 @@ sap.ui.define([
 		},
 
 		initDataModel : function(guid) {
-			var url = "http://localhost:8765/api/payment_status?guid=" + guid
+			var url = "/api/payment_status?guid=" + guid
 			var oModel = new JSONModel();
 
 			jQuery.ajax(url, {

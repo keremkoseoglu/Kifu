@@ -21,7 +21,7 @@ sap.ui.define([
 
 			var oDateFormat = DateFormat.getDateInstance({source: {pattern: "timestamp"}, pattern: "dd/MM/yyyy"});
 
-			jQuery.ajax("http://localhost:8765/api/net_worth", {
+			jQuery.ajax("/api/net_worth", {
 				dataType: "json",
 				success: function(oData) {
 					oModel.setData(oData);
