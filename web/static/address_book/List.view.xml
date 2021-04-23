@@ -22,21 +22,41 @@
 				</OverflowToolbar>
 			</infoToolbar>
 			<CustomListItem>
-				<VBox>
-					<ObjectHeader
-						title="{name}"
-						class="sapUiResponsivePadding--header" >
-						<statuses>
-							<ObjectStatus text="IBAN: {default_iban}" state="Success" />
-							<ObjectStatus text="Tax No: {tax_number}" state="Success" />
-							<ObjectStatus text="Tax Office: {tax_office}" state="Success" />
-						</statuses>
-						<ObjectAttribute text="{contact_person}" />
-						<ObjectAttribute text="{address} {country}" />
-						<ObjectAttribute text="{phone}" />
-						<ObjectAttribute text="{email}" active="true"/>
-					</ObjectHeader>
-				</VBox>
+				<Title level="H1" text="{name}" />
+				<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+						<HBox alignItems="Center">
+							<Label labelFor="contact" text="Contact" width="10em" />
+							<Input id="contact" value="{contact_person}" width="30em" editable="false" />
+						</HBox>
+						<HBox alignItems="Center">
+							<Label labelFor="address" text="Address" width="10em" />
+							<Input id="address" value="{address} {country}" width="30em" editable="false" />
+						</HBox>
+						<HBox alignItems="Center">
+							<Label labelFor="phone" text="Phone" width="10em" />
+							<Input id="phone" value="{phone}" width="30em" editable="false" />
+						</HBox>
+						<HBox alignItems="Center">
+							<Label labelFor="email" text="E-Mail" width="10em" />
+							<Input id="email" value="{email}" width="30em" editable="false" />
+						</HBox>
+					</VBox>
+					<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+						<HBox alignItems="Center">
+							<Label labelFor="iban" text="IBAN" width="10em" />
+							<Input id="iban" value="{default_iban}" width="30em" editable="false" />
+						</HBox>
+						<HBox alignItems="Center">
+							<Label labelFor="taxno" text="Tax No" width="10em" />
+							<Input id="taxno" value="{tax_number}" width="30em" editable="false" />
+						</HBox>
+						<HBox alignItems="Center">
+							<Label labelFor="taxoff" text="Tax Office" width="10em" />
+							<Input id="taxoff" value="{tax_office}" width="30em" editable="false" />
+						</HBox>
+					</VBox>
+				</HBox>
 			</CustomListItem>
 		</List>
 	</Page>

@@ -22,11 +22,10 @@
 				</OverflowToolbar>
 			</infoToolbar>
 			<CustomListItem>
-				<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-					<Label text="{account}"/>
-					<Label text="{person}"/>
-					<Label text="{iban}"/>
-				</VBox>
+				<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
+					<Label labelFor="iban" text="{account}" width="10em" />
+					<Input id="iban" value="{account} :: {person} :: {iban}" width="40em" editable="false" />
+				</HBox>
 			</CustomListItem>
 		</List>
 	</Page>
