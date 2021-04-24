@@ -7,6 +7,7 @@ import config
 from update.update_facade import UpdateFacadeFactory
 from web.api.net_worth import NetWorthAPI
 from web.api.iban_list import IbanListAPI
+from web.api.income_tax_rates import IncomeTaxRatesAPI
 from web.api.activity_list import ActivityListAPI
 from web.api.address_book import AddressBookAPI
 from web.api.asset_profit import AssetProfitAPI
@@ -122,3 +123,7 @@ def _api_reconciliation():
 @_APP.route("/api/workdays_wo_activity")
 def _api_workdays_wo_activity():
     return jsonify(WorkdaysWoActivityAPI().result)
+
+@_APP.route("/api/income_tax_rates")
+def _api_income_tax_rates():
+    return jsonify(IncomeTaxRatesAPI().result)

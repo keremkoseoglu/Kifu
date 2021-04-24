@@ -8,6 +8,7 @@ from model.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
 from model.invoice import Invoice
 from model.investor import InvestmentAdviser
+from model.income_tax import IncomeTaxCalculatorFactory
 from util import backup, date_time, identifier
 import config
 
@@ -1079,10 +1080,10 @@ class Payment:
 def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     """ Extracts new payment objects out of an invoice """
     # Preparation
-
     output = []
 
     currency_converter = CurrencyConverter()
+    inc_tax_calc = IncomeTaxCalculatorFactory.get_instance()
 
     invoice_currency = invoice.currency
     invoice_date = invoice.invoice_date
@@ -1225,8 +1226,8 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         invoice_currency)
 
     itax_investment_rate = 100
-    itax_investment_rate -= config.CONSTANTS["TEMP_INCOME_TAX_RATE"]
-    itax_investment_rate -= config.CONSTANTS["SAFETY_INCOME_TAX_RATE"]
+    itax_investment_rate -= inc_tax_calc.safety_tax_rate
+    itax_investment_rate -= inc_tax_calc.temp_tax_rate
     itax_investment_amount = itax_amount * itax_investment_rate / 100
     itax_amount -= itax_investment_amount
 

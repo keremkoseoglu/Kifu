@@ -106,6 +106,7 @@ class Prime:
         report_menu.add_command(label="Currency balances", command=Prime._currency_account)
         report_menu.add_command(label="Asset profit", command=Prime._asset_profit)
         report_menu.add_separator()
+        report_menu.add_command(label="Income tax rates", command=Prime._inc_tax_rates)
         report_menu.add_command(label="IBAN list", command=Prime._iban_list)
         report_menu.add_command(label="Address book", command=Prime._address_book)
         self._menu.add_cascade(menu=report_menu, label="Report")
@@ -239,6 +240,11 @@ class Prime:
         IncubusFactory.get_instance().user_event()
         full_path = os.path.join(config.CONSTANTS["DATA_DIR_PATH"], file_name)
         os.system("open " + full_path)
+
+    @staticmethod
+    def _inc_tax_rates():
+        IncubusFactory.get_instance().user_event()
+        startup_url("income_tax_rates")
 
     @staticmethod
     def _iban_list():

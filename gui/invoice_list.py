@@ -5,6 +5,7 @@ from gui.payment_list import PaymentListWindow
 from gui.invoice import InvoiceWindow, open_invoice_as_email
 from gui.prime_singleton import PrimeSingleton
 from model.invoice import Invoice
+from model.invoice_file_reader import get_invoices
 from model import payment
 import config
 
@@ -110,7 +111,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         open_invoice_as_email(selected_invoices[0])
 
     def _fill_tree_with_invoices(self):
-        self._invoices = Invoice.get_invoices()
+        self._invoices = get_invoices()
         self._tree_content = {}
 
         self._tree.delete(*self._tree.get_children())

@@ -1,7 +1,7 @@
 """ Net worth API """
-import config
 from model import asset, bank_account, credit_card, payment
 from model.activity import Activity
+from model.income_tax import IncomeTaxCalculatorFactory
 
 
 class NetWorthAPI():
@@ -29,7 +29,8 @@ class NetWorthAPI():
         self._append_result("Activity earning", activity_earning)
 
         # Activity income tax
-        activity_tax = activity_earning * config.CONSTANTS["DEFAULT_INCOME_TAX_RATE"] / 100 * -1
+        inc_tax_rate = IncomeTaxCalculatorFactory.get_instance().default_tax_rate
+        activity_tax = activity_earning * inc_tax_rate / 100 * -1
         self._append_result("Activity tax", activity_tax)
 
         # Payment balance

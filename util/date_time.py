@@ -50,6 +50,7 @@ def get_first_day_of_next_month(date: datetime.datetime):
         month += 1
     return datetime.datetime(year=year, month=month, day=1)
 
+
 def get_formatted_date(date: datetime.datetime) -> str:
     """ Formatted date """
     return date.isoformat()[:10]
@@ -62,6 +63,7 @@ def get_last_day_of_prev_month(date: datetime.datetime) -> datetime:
     month = previous_month.month
     day = _get_last_day_of_month(month, year)
     return datetime.datetime(year=year, month=month, day=day)
+
 
 def get_last_day_of_month(date: datetime.datetime) -> datetime:
     """ Last day of given month """
@@ -100,6 +102,11 @@ def get_mid_day_of_year(date: datetime.datetime):
 def get_month_name(month: int) -> str:
     """ Name of given month """
     return _MONTHS[month]
+
+
+def get_months_between_dates(low: datetime.datetime, high: datetime.datetime) -> int:
+    """ Calculates and returns months between dates """
+    return (high.year - low.year) * 12 + (high.month - low.month)
 
 
 def get_next_day(date: datetime.datetime, next_count=1):
