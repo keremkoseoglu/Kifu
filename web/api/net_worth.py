@@ -1,6 +1,8 @@
 """ Net worth API """
+import config
 from model import asset, bank_account, credit_card, payment
 from model.activity import Activity
+
 
 class NetWorthAPI():
     """ Net worth API """
@@ -25,6 +27,10 @@ class NetWorthAPI():
         # Activity earnings
         activity_earning = Activity.get_total_activity_earnings()
         self._append_result("Activity earning", activity_earning)
+
+        # Activity income tax
+        activity_tax = activity_earning * config.CONSTANTS["DEFAULT_INCOME_TAX_RATE"] / 100 * -1
+        self._append_result("Activity tax", activity_tax)
 
         # Payment balance
         payment_balance = payment.get_payment_balance()
