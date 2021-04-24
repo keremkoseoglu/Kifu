@@ -2,12 +2,12 @@
 import datetime
 from enum import Enum
 import json
-import os
 from util import identifier, date_time
 from model.company import Company
 from model.currency import CurrencyConverter
+from model.invoice_file_reader import get_invoices, get_file_path
+from model.income_tax import IncomeTaxCalculatorFactory
 import config
-
 
 class MultiValueError(Exception):
     """ Error regarding multiple values
@@ -40,12 +40,10 @@ class MultiValueError(Exception):
 
 class Invoice:
     """ Invoice class """
-    _INVOICE_FILE = "invoice.json"
-
     @staticmethod
     def delete_invoices(invoice_guids: []):
         """ Deletes the provided invoices """
-        all_invoices = Invoice.get_invoices()
+        all_invoices = get_invoices()
         new_invoices = {"invoices": []}
         for i in range(len(all_invoices["invoices"])):
             invoice_i = all_invoices["invoices"][i]
@@ -76,19 +74,8 @@ class Invoice:
         return output
 
     @staticmethod
-    def get_invoices():
-        """ Returns current invoices """
-        with open(Invoice._get_file_path()) as invoice_file:
-            json_data = json.load(invoice_file)
-        return json_data
-
-    @staticmethod
-    def _get_file_path():
-        return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Invoice._INVOICE_FILE)
-
-    @staticmethod
     def _write_invoices_to_disk(invoices: []):
-        with open(Invoice._get_file_path(), "w") as invoice_file:
+        with open(get_file_path(), "w") as invoice_file:
             json.dump(invoices, invoice_file, indent=3)
 
     def __init__(self, invoice: {}):
@@ -164,7 +151,7 @@ class Invoice:
     @property
     def income_tax_rate(self) -> float:
         """ Income tax rate
-        Usually 18%
+        Usually ~30%
         """
         return self._income_tax_rate
 
@@ -244,7 +231,7 @@ class Invoice:
         elif self._invoice["guid"] == "":
             self._invoice["guid"] = identifier.get_guid()
 
-        current_invoices = Invoice.get_invoices()
+        current_invoices = get_invoices()
         new_invoices = {"invoices": []}
 
         updated = False
@@ -279,7 +266,6 @@ def get_invoice_obj_from_activities(activities: []) -> Invoice:
     }
 
     vat_rate_set = False
-    income_tax_rate_set = False
     payer_set = False
     currency_set = False
 
@@ -288,7 +274,6 @@ def get_invoice_obj_from_activities(activities: []) -> Invoice:
         payer_name = proj.payer.name
         earned_amount, earned_curr = proj.get_earned_amount(act.hours)
         vat_rate = proj.vat_rate
-        income_tax_rate = proj.income_tax_rate
 
         if not payer_set:
             inv_json["payer"] = payer_name
@@ -308,12 +293,11 @@ def get_invoice_obj_from_activities(activities: []) -> Invoice:
         elif inv_json["vat_rate"] != vat_rate:
             raise MultiValueError(MultiValueError.ErrorCode.multiple_vat_rates)
 
-        if not income_tax_rate_set:
-            inv_json["income_tax_rate"] = income_tax_rate
-            income_tax_rate_set = True
-        elif inv_json["income_tax_rate"] != income_tax_rate:
-            raise MultiValueError(MultiValueError.ErrorCode.multiple_income_tax_rates)
-
         inv_json["amount"] += earned_amount
+
+    inc_tax_calc = IncomeTaxCalculatorFactory.get_instance()
+    inv_json["income_tax_rate"] = inc_tax_calc.calc_invoice_tax_rate(
+        invoice_date.year,
+        inv_json["amount"])
 
     return Invoice(inv_json)

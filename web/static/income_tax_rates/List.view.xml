@@ -1,0 +1,26 @@
+<mvc:View
+	controllerName="sap.m.sample.ListSelectionSearch.List"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	height="100%">
+	<Page title="Income Tax Rates">
+		<VBox>
+			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
+				<Label labelFor="annual" text="Annual Rate" width="10em" />
+				<Input id="annual" value="{/annual_rate}%" width="40em" editable="false" />
+			</HBox>
+			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
+				<Label labelFor="def" text="Default Rate" width="10em" />
+				<Input id="def" value="{/default_rate}%" width="40em" editable="false" />
+			</HBox>
+			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
+				<Label labelFor="tmp" text="Temp Rate" width="10em" />
+				<Input id="tmp" value="{/temp_rate}%" width="40em" editable="false" />
+			</HBox>
+			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
+				<Label labelFor="safe" text="Safety Rate" width="10em" />
+				<Input id="safe" value="{/safety_rate}%" width="40em" editable="false" />
+			</HBox>
+		</VBox>
+	</Page>
+</mvc:View>

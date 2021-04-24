@@ -35,11 +35,6 @@ class Project:
         return self._client
 
     @property
-    def income_tax_rate(self) -> float:
-        """ Income tax rate as float """
-        return float(self._project["tax"]["income_tax_rate"])
-
-    @property
     def payer(self) -> Company:
         """ Project payer """
         return self._payer

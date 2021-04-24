@@ -2,6 +2,7 @@
 import json
 import os
 from model.currency import CurrencyConverter
+from model.income_tax import IncomeTaxCalculatorFactory
 import config
 
 
@@ -19,7 +20,8 @@ def get_assets(deduct_income_tax: bool = False):
         json_data = json.load(asset_file)
 
     if deduct_income_tax:
-        rate = 1 - (config.CONSTANTS["DEFAULT_INCOME_TAX_RATE"] / 100)
+        inc_tax_rate = IncomeTaxCalculatorFactory.get_instance().default_tax_rate
+        rate = 1 - (inc_tax_rate / 100)
         for asset in json_data["assets"]:
             if "income_tax" in asset and asset["income_tax"]:
                 asset["sales_value"] = asset["sales_value"] * rate
