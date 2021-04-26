@@ -62,10 +62,16 @@ class PaymentStatusAPI():
             open_amt, curr = rec.open_amount
             date = date_time.get_formatted_date(rec.recurrence_date)
 
+            if rec.cleared:
+                icon = "🟢"
+            else:
+                icon = "🔴"
+
             rec_dict = {"date": date,
                         "amount": amt,
                         "paid": paid,
                         "open": open_amt,
+                        "icon": icon,
                         "collections": []}
 
             collections = rec.collections

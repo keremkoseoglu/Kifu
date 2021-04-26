@@ -45,7 +45,7 @@
 						<m:CustomListItem>
 							<m:HBox>
 								<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-									<m:Title level="H2" text="{date} - {amount}" />
+									<m:Title level="H2" text="{icon} {date} - {amount}" />
 									<m:HBox>
 										<m:Label width="6rem" text="Paid "/>
 										<m:Label width="6rem" text="{paid}"/>
