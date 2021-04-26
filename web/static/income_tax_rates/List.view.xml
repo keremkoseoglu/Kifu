@@ -6,20 +6,24 @@
 	<Page title="Income Tax Rates">
 		<VBox>
 			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
-				<Label labelFor="annual" text="Annual Rate" width="10em" />
-				<Input id="annual" value="{/annual_rate}%" width="40em" editable="false" />
+				<Label labelFor="annual" text="This years rate so far" width="20em" />
+				<Input id="annual" value="{/annual_rate}%" width="10em" editable="false" />
 			</HBox>
 			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
-				<Label labelFor="def" text="Default Rate" width="10em" />
-				<Input id="def" value="{/default_rate}%" width="40em" editable="false" />
+				<Label labelFor="for" text="This years forecast rate" width="20em" />
+				<Input id="for" value="{/forecast_rate}%" width="10em" editable="false" />
 			</HBox>
 			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
-				<Label labelFor="tmp" text="Temp Rate" width="10em" />
-				<Input id="tmp" value="{/temp_rate}%" width="40em" editable="false" />
+				<Label labelFor="def" text="Last 12 months rate (default)" width="20em" />
+				<Input id="def" value="{/default_rate}%" width="10em" editable="false" />
 			</HBox>
 			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
-				<Label labelFor="safe" text="Safety Rate" width="10em" />
-				<Input id="safe" value="{/safety_rate}%" width="40em" editable="false" />
+				<Label labelFor="tmp" text="Temp rate" width="20em" />
+				<Input id="tmp" value="{/temp_rate}%" width="10em" editable="false" />
+			</HBox>
+			<HBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" alignItems="Center" >
+				<Label labelFor="safe" text="Safety rate" width="20em" />
+				<Input id="safe" value="{/safety_rate}%" width="10em" editable="false" />
 			</HBox>
 		</VBox>
 	</Page>

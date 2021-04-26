@@ -20,6 +20,9 @@ class IncomeTaxCalculator():
         self._tmp_tax_rate = 0
         self._tmp_tax_rate_calculated = False
 
+        self._forecast_tax_rate = 0
+        self._forecast_tax_rate_calculated = False
+
         self._converter = CurrencyConverter()
         self._read_tax_rates()
 
@@ -55,6 +58,59 @@ class IncomeTaxCalculator():
     def safety_tax_rate(self) -> float:
         """ Returns safety tax rate """
         return self.temp_tax_rate
+
+    @property
+    def forecast_tax_rate(self) -> float:
+        """ Returns forecast tax rate """
+        if not self._forecast_tax_rate_calculated:
+            # Last year (with inflation)
+            last_year = date.today().year - 1
+            last_year_invoices = get_invoices_of_fiscal_year(last_year)
+            invoice_sum = 0
+            for invoice in last_year_invoices:
+                home_amount = self._converter.convert_to_local_currency(
+                    invoice["amount"],
+                    invoice["currency"])
+                home_amount *= 1 + (config.CONSTANTS["TUFE_RATE"] / 100)
+                invoice_sum += home_amount
+
+            if invoice_sum == 0:
+                last_year_rate = 0
+            else:
+                last_year_annual_tax = self._calc_annual_tax(invoice_sum)
+                last_year_rate = last_year_annual_tax / invoice_sum
+
+            # This year (projection)
+            this_year_invoices = get_invoices_of_fiscal_year(date.today().year)
+            invoice_sum = 0
+            for invoice in this_year_invoices:
+                home_amount = self._converter.convert_to_local_currency(
+                    invoice["amount"],
+                    invoice["currency"])
+                home_amount *= 1 + (config.CONSTANTS["TUFE_RATE"] / 100)
+                invoice_sum += home_amount
+            invoice_sum = invoice_sum * (12 - (date.today().month) + 1)
+
+            if invoice_sum == 0:
+                this_year_rate = 0
+            else:
+                this_year_annual_tax = self._calc_annual_tax(invoice_sum)
+                this_year_rate = this_year_annual_tax / invoice_sum
+
+            # Average
+            if this_year_rate == 0:
+                self._forecast_tax_rate = last_year_rate
+            elif last_year_rate == 0:
+                self._forecast_tax_rate = this_year_rate
+            else:
+                if this_year_rate > last_year_rate:
+                    self._forecast_tax_rate = this_year_rate
+                else:
+                    self._forecast_tax_rate = (this_year_rate + last_year_rate) / 2
+
+            self._forecast_tax_rate *= 100
+            self._forecast_tax_rate_calculated = True
+        return self._forecast_tax_rate
 
     def calc_invoice_tax_rate(self, year: int, amount: float) -> float:
         """ Calculate tax rate for given invoice """
