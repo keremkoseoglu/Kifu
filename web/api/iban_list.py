@@ -21,7 +21,7 @@ class IbanListAPI():
                 continue
             entry = {"account": acc["bank_name"] + " (" + acc["account_name"] + ")",
                      "person": self._company.contact_person,
-                     "iban": acc["iban"]}
+                     "iban": acc["iban"].replace(" ", "")}
             result["Ibans"].append(entry)
 
         return result
