@@ -122,6 +122,12 @@ class ActivityListWindow(tkinter.Toplevel):
 
     def _fill_tree_with_activities(self):
         self._activities = Activity.get_activities()
+
+        self._activities["activities"] = sorted(
+            self._activities["activities"],
+            key=lambda x: x["date"],
+            reverse=False)
+
         self._tree_content = {}
 
         self._tree.delete(*self._tree.get_children())
