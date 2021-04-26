@@ -12,7 +12,10 @@ class AssetProfitAPI():
         out = {"Profits": [],
                "Sums": {"liquid_sales": 0,
                         "liquid_profit": 0,
-                        "sales": 0}}
+                        "sales": 0,
+                        "liquid_sales_home": 0,
+                        "liquid_profit_home": 0,
+                        "sales_home": 0}}
 
         assets = imp_asset.get_assets(deduct_income_tax=True)
         currency_converter = CurrencyConverter()
@@ -63,5 +66,17 @@ class AssetProfitAPI():
                 out["Sums"]["liquid_sales"] += int(actual_usd_total)
                 out["Sums"]["liquid_profit"] += int(usd_profit)
             out["Sums"]["sales"] += int(actual_usd_total)
+
+        out["Sums"]["liquid_sales_home"] = int(currency_converter.convert_to_local_currency(
+            out["Sums"]["liquid_sales"],
+            "USD"))
+
+        out["Sums"]["liquid_profit_home"] = int(currency_converter.convert_to_local_currency(
+            out["Sums"]["liquid_profit"],
+            "USD"))
+
+        out["Sums"]["sales_home"] = int(currency_converter.convert_to_local_currency(
+            out["Sums"]["sales"],
+            "USD"))
 
         return out

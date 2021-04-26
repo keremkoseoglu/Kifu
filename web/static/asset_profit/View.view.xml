@@ -91,9 +91,9 @@
 						</Column>
 					</columns>
 				</Table>
-				<m:Label text="Liquid profit: {/Sums/liquid_profit} $" />
-				<m:Label text="Liquid sales: {/Sums/liquid_sales} $" />
-				<m:Label text="Total sales: {/Sums/sales} $" />
+				<m:Label text="Liquid profit: {/Sums/liquid_profit} $ = {/Sums/liquid_profit_home} ₺" />
+				<m:Label text="Liquid sales: {/Sums/liquid_sales} $ = {/Sums/liquid_sales_home} ₺" />
+				<m:Label text="Total sales: {/Sums/sales} $ = {/Sums/sales_home} ₺" />
 			</m:VBox>
 		</m:content>
 	</m:Page>
