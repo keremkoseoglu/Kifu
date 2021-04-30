@@ -27,4 +27,6 @@ class AddressBookAPI():
                 comp["default_iban"] = ""
             if "activity_emails" not in comp:
                 comp["activity_emails"] = []
+            if "tax_number" in comp:
+                comp["tax_number"] = comp["tax_number"].replace(" ", "")
         return result
