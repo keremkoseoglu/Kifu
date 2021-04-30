@@ -39,7 +39,6 @@ class InvoiceListWindow(tkinter.Toplevel):
         self._tree.heading("GUID", text="GUID")
 
         # Fill tree with data
-
         self._invoices = []
         self._tree_content = {}
         self._fill_tree_with_invoices()
@@ -112,6 +111,7 @@ class InvoiceListWindow(tkinter.Toplevel):
 
     def _fill_tree_with_invoices(self):
         self._invoices = get_invoices()
+        self._invoices["invoices"].sort(key=lambda x: x["invoice_date"], reverse=True)
         self._tree_content = {}
 
         self._tree.delete(*self._tree.get_children())
