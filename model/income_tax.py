@@ -5,6 +5,7 @@ from datetime import date
 import config
 from model.invoice_file_reader import get_invoices_of_last_year, get_invoices_of_fiscal_year
 from model.currency import CurrencyConverter
+from model.activity import Activity
 from util.date_time import parse_json_date
 
 _INCOME_TAX_FILE = "income_tax.json"
@@ -89,6 +90,8 @@ class IncomeTaxCalculator():
                     invoice["currency"])
                 home_amount *= 1 + (config.CONSTANTS["TUFE_RATE"] / 100)
                 invoice_sum += home_amount
+
+            invoice_sum += Activity.get_total_activity_earnings()
             invoice_sum = invoice_sum * (12 - (date.today().month) + 1)
 
             if invoice_sum == 0:
