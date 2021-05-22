@@ -1,6 +1,7 @@
 """ Flask web server module """
 from threading import Thread
 import webbrowser
+import json
 from flask import Flask, jsonify, request
 from waitress import serve
 import config
@@ -12,6 +13,7 @@ from web.api.activity_list import ActivityListAPI
 from web.api.address_book import AddressBookAPI
 from web.api.asset_profit import AssetProfitAPI
 from web.api.bank_account_balances import BankAccountBalanceAPI
+from web.api.budget import BudgetAPI
 from web.api.curr_acc_dist import CurrAccDistAPI
 from web.api.ecz_activity_comparison import EczActivityComparisonAPI
 from web.api.payment_status import PaymentStatusAPI
@@ -127,3 +129,41 @@ def _api_workdays_wo_activity():
 @_APP.route("/api/income_tax_rates")
 def _api_income_tax_rates():
     return jsonify(IncomeTaxRatesAPI().result)
+
+@_APP.route("/api/budget_domains")
+def _api_budget_domains():
+    return jsonify(BudgetAPI().domains)
+
+@_APP.route("/api/budget_subjects")
+def _api_budget_subjects():
+    return jsonify(BudgetAPI().subjects)
+
+@_APP.route("/api/budget_domains_and_subjects")
+def _api_budget_domains_and_subjects():
+    return jsonify(BudgetAPI().domain_and_subjects)
+
+@_APP.route("/api/budget_plan")
+def _api_budget_plan():
+    return jsonify(BudgetAPI().plan)
+
+@_APP.route("/api/budget_plan_vs_actual")
+def _api_budget_plan_vs_actual():
+    return jsonify(BudgetAPI().plan_vs_actual)
+
+@_APP.route("/api/salary_simulation")
+def _api_salary_simulation():
+    return jsonify(BudgetAPI().salary_simulation)
+
+@_APP.route("/api/akbank_statement")
+def _api_akbank_statement():
+    return jsonify(BudgetAPI().akbank_statement)
+
+@_APP.route("/api/akbank_statement_sum")
+def _api_akbank_statement_sum():
+    return jsonify(BudgetAPI().akbank_statement_sum)
+
+@_APP.route("/api/akbank_statement_actual_save", methods=["POST"])
+def _api_akbank_statement_actual_save():
+    entries = request.get_json()
+    BudgetAPI.save_akbank_statement_actuals(entries["statement"])
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}

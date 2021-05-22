@@ -22,7 +22,7 @@ class NetWorthAPI():
 
         # Credit card debt
         credit_card_debt = credit_card.get_current_credit_card_debt_sum() * -1
-        self._append_result("Credit card dept", credit_card_debt)
+        self._append_result("Credit card debt", credit_card_debt)
 
         # Activity earnings
         activity_earning = Activity.get_total_activity_earnings()

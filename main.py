@@ -9,6 +9,7 @@ from util import backup, date_time
 import config
 from update.update_facade import UpdateFacadeFactory
 
+
 def startup():
     """ Main startup function """
     config.read_constants()

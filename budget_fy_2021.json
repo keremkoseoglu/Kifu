@@ -1,0 +1,508 @@
+{
+    "plans": [
+        {
+            "domain": "car",
+            "direction": "expenses",
+            "subject": "gas",
+            "frequency": 1,
+            "period": "month",
+            "amount": 200,
+            "currency": "TRY"
+        },
+        {
+            "domain": "car",
+            "direction": "expenses",
+            "subject": "hgs",
+            "frequency": 1,
+            "period": "month",
+            "amount": 40,
+            "currency": "TRY"
+        },
+        {
+            "domain": "car",
+            "direction": "expenses",
+            "subject": "insurance",
+            "frequency": 1,
+            "period": "year",
+            "amount": 1200,
+            "currency": "TRY"
+        },
+        {
+            "domain": "car",
+            "direction": "expenses",
+            "subject": "maintenance",
+            "frequency": 1,
+            "period": "year",
+            "amount": 1800,
+            "currency": "TRY"
+        },
+        {
+            "domain": "car",
+            "direction": "expenses",
+            "subject": "mtv",
+            "frequency": 6,
+            "period": "month",
+            "amount": 450,
+            "currency": "TRY"
+        },
+        {
+            "domain": "car",
+            "direction": "expenses",
+            "subject": "parking",
+            "frequency": 1,
+            "period": "month",
+            "amount": 30,
+            "currency": "TRY"
+        },
+        {
+            "domain": "health",
+            "direction": "expenses",
+            "subject": "insurance",
+            "frequency": 1,
+            "period": "year",
+            "amount": 7200,
+            "currency": "TRY"
+        },
+        {
+            "domain": "health",
+            "direction": "expenses",
+            "subject": "medicine",
+            "frequency": 1,
+            "period": "month",
+            "amount": 50,
+            "currency": "TRY"
+        },
+        {
+            "domain": "health",
+            "direction": "expenses",
+            "subject": "treatment",
+            "frequency": 1,
+            "period": "year",
+            "amount": 600,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "dues",
+            "frequency": 1,
+            "period": "month",
+            "amount": 475,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "enerjisa",
+            "frequency": 1,
+            "period": "month",
+            "amount": 130,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "furniture",
+            "frequency": 1,
+            "period": "month",
+            "amount": 1000,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "getir",
+            "frequency": 1,
+            "period": "month",
+            "amount": 500,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "market",
+            "frequency": 1,
+            "period": "month",
+            "amount": 2100,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "rent",
+            "frequency": 1,
+            "period": "month",
+            "amount": 3260,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "stationery",
+            "frequency": 1,
+            "period": "month",
+            "amount": 150,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "superonline",
+            "frequency": 1,
+            "period": "month",
+            "amount": 150,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "turkcell",
+            "frequency": 1,
+            "period": "month",
+            "amount": 145,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "utilities",
+            "frequency": 1,
+            "period": "month",
+            "amount": 500,
+            "currency": "TRY"
+        },
+        {
+            "domain": "home",
+            "direction": "expenses",
+            "subject": "yemeksepeti",
+            "frequency": 1,
+            "period": "month",
+            "amount": 1000,
+            "currency": "TRY"
+        },
+        {
+            "domain": "hosting",
+            "direction": "expenses",
+            "subject": "aws",
+            "frequency": 1,
+            "period": "month",
+            "amount": 50,
+            "currency": "TRY"
+        },
+        {
+            "domain": "hosting",
+            "direction": "expenses",
+            "subject": "domain",
+            "frequency": 1,
+            "period": "year",
+            "amount": 1260,
+            "currency": "TRY"
+        },
+        {
+            "domain": "hosting",
+            "direction": "expenses",
+            "subject": "github",
+            "frequency": 1,
+            "period": "year",
+            "amount": 400,
+            "currency": "TRY"
+        },
+        {
+            "domain": "hosting",
+            "direction": "expenses",
+            "subject": "icloud",
+            "frequency": 1,
+            "period": "month",
+            "amount": 20,
+            "currency": "TRY"
+        },
+        {
+            "domain": "hosting",
+            "direction": "expenses",
+            "subject": "office",
+            "frequency": 1,
+            "period": "month",
+            "amount": 40,
+            "currency": "TRY"
+        },
+        {
+            "domain": "hosting",
+            "direction": "expenses",
+            "subject": "wordpress",
+            "frequency": 1,
+            "period": "year",
+            "amount": 1200,
+            "currency": "TRY"
+        },
+        {
+            "domain": "leisure",
+            "direction": "expenses",
+            "subject": "device",
+            "frequency": 1,
+            "period": "year",
+            "amount": 9000,
+            "currency": "TRY"
+        },
+        {
+            "domain": "leisure",
+            "direction": "expenses",
+            "subject": "media",
+            "frequency": 1,
+            "period": "month",
+            "amount": 500,
+            "currency": "TRY"
+        },
+        {
+            "domain": "leisure",
+            "direction": "expenses",
+            "subject": "netflix",
+            "frequency": 1,
+            "period": "month",
+            "amount": 18,
+            "currency": "TRY"
+        },
+        {
+            "domain": "leisure",
+            "direction": "expenses",
+            "subject": "outfit",
+            "frequency": 1,
+            "period": "month",
+            "amount": 200,
+            "currency": "TRY"
+        },
+        {
+            "domain": "leisure",
+            "direction": "expenses",
+            "subject": "spotify",
+            "frequency": 1,
+            "period": "month",
+            "amount": 19,
+            "currency": "TRY"
+        },
+        {
+            "domain": "music",
+            "direction": "expenses",
+            "subject": "gear purchase",
+            "frequency": 1,
+            "period": "month",
+            "amount": 300,
+            "currency": "TRY"
+        },
+        {
+            "domain": "music",
+            "direction": "expenses",
+            "subject": "publishing",
+            "frequency": 1,
+            "period": "year",
+            "amount": 250,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "incomes",
+            "subject": "consulting",
+            "frequency": 1,
+            "period": "month",
+            "amount": 48500,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "incomes",
+            "subject": "products",
+            "frequency": 1,
+            "period": "year",
+            "amount": 120000,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "expenses",
+            "subject": "accounting",
+            "frequency": 1,
+            "period": "month",
+            "amount": 630,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "expenses",
+            "subject": "income tax",
+            "frequency": 1,
+            "period": "month",
+            "amount": 12331,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "expenses",
+            "subject": "lunch",
+            "frequency": 1,
+            "period": "month",
+            "amount": 1500,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "expenses",
+            "subject": "registry",
+            "frequency": 1,
+            "period": "year",
+            "amount": 1800,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "expenses",
+            "subject": "sgk",
+            "frequency": 1,
+            "period": "month",
+            "amount": 900,
+            "currency": "TRY"
+        },
+        {
+            "domain": "programming",
+            "direction": "expenses",
+            "subject": "vat",
+            "frequency": 1,
+            "period": "month",
+            "amount": 7398,
+            "currency": "TRY"
+        },
+        {
+            "domain": "social",
+            "direction": "expenses",
+            "subject": "donation",
+            "frequency": 1,
+            "period": "month",
+            "amount": 719,
+            "currency": "TRY"
+        },
+        {
+            "domain": "social",
+            "direction": "expenses",
+            "subject": "gift",
+            "frequency": 1,
+            "period": "month",
+            "amount": 719,
+            "currency": "TRY"
+        },
+        {
+            "domain": "social",
+            "direction": "expenses",
+            "subject": "going out",
+            "frequency": 1,
+            "period": "month",
+            "amount": 200,
+            "currency": "TRY"
+        },
+        {
+            "domain": "writing",
+            "direction": "incomes",
+            "subject": "sap royalty",
+            "frequency": 6,
+            "period": "month",
+            "amount": 4000,
+            "currency": "TRY"
+        },
+        {
+            "domain": "writing",
+            "direction": "incomes",
+            "subject": "pusula royalty",
+            "frequency": 1,
+            "period": "year",
+            "amount": 3000,
+            "currency": "TRY"
+        },
+        {
+            "domain": "writing",
+            "direction": "incomes",
+            "subject": "youtube",
+            "frequency": 1,
+            "period": "year",
+            "amount": 500,
+            "currency": "TRY"
+        }
+    ],
+    "actuals": [
+        {
+            "month": 1,
+            "values": [
+                {
+                    "domain": "car",
+                    "direction": "expenses",
+                    "subject": "gas",
+                    "amount": 150,
+                    "currency": "TRY"
+                }
+            ]
+        },
+        {
+            "month": 2,
+            "values": [
+                {
+                    "domain": "car",
+                    "direction": "expenses",
+                    "subject": "gas",
+                    "amount": 1500,
+                    "currency": "TRY"
+                }
+            ]
+        },
+        {
+            "month": 3,
+            "values": []
+        },
+        {
+            "month": 4,
+            "values": [
+                {
+                    "domain": "music",
+                    "direction": "expenses",
+                    "subject": "gear",
+                    "amount": -500,
+                    "currency": "TRY"
+                },
+                {
+                    "domain": "programming",
+                    "direction": "incomes",
+                    "subject": "consulting",
+                    "amount": 4624,
+                    "currency": "TRY"
+                }
+            ]
+        },
+        {
+            "month": 5,
+            "values": []
+        },
+        {
+            "month": 6,
+            "values": []
+        },
+        {
+            "month": 7,
+            "values": []
+        },
+        {
+            "month": 8,
+            "values": []
+        },
+        {
+            "month": 9,
+            "values": []
+        },
+        {
+            "month": 10,
+            "values": []
+        },
+        {
+            "month": 11,
+            "values": []
+        },
+        {
+            "month": 12,
+            "values": []
+        }
+    ]
+}
