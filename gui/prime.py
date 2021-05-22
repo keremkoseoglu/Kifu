@@ -70,46 +70,51 @@ class Prime:
         self._menu.add_cascade(menu=file_menu, label="File")
 
         timesheet_menu = tkinter.Menu(self._menu, tearoff=0)
-        timesheet_menu.add_command(label="Add activity", command=Prime._add_activity)
-        timesheet_menu.add_command(label="Edit activities", command=Prime._list_activity)
+        timesheet_menu.add_command(label="Add", command=Prime._add_activity)
+        timesheet_menu.add_command(label="Edit", command=Prime._list_activity)
         timesheet_menu.add_command(label="Split latest", command=Prime._split_latest_activity)
         timesheet_menu.add_separator()
-        timesheet_menu.add_command(label="List invoices", command=Prime._list_invoice)
-
+        timesheet_menu.add_command(label="Activity report", command=Prime._activity_report)
+        timesheet_menu.add_command(
+            label="Workdays without activity",
+            command=Prime._workdays_wo_activity)
+        timesheet_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
+        timesheet_menu.add_command(label="Reconciliation", command=Prime._reconciliation)
         self._menu.add_cascade(menu=timesheet_menu, label="Timesheet")
 
         payment_menu = tkinter.Menu(self._menu, tearoff=0)
-        payment_menu.add_command(label="Add payment", command=Prime._add_payment)
+        payment_menu.add_command(label="Add", command=Prime._add_payment)
+        payment_menu.add_command(label="Edit", command=Prime._list_payment)
+        payment_menu.add_command(
+            label="Delete completed payments",
+            command=self._del_completed_payments)
+        payment_menu.add_separator()
         payment_menu.add_command(label="Book CC statement", command=Prime._add_cc_statement)
         payment_menu.add_command(label="Book cash movement", command=Prime._add_cash)
         payment_menu.add_command(label="Invest", command=Prime._invest)
         payment_menu.add_command(label="Pay VAT", command=Prime._pay_vat)
         payment_menu.add_command(label="Pay income tax", command=Prime._pay_tax)
         payment_menu.add_separator()
-        payment_menu.add_command(label="List payments", command=Prime._list_payment)
-        payment_menu.add_separator()
-        payment_menu.add_command(
-            label="Delete completed payments",
-            command=self._del_completed_payments)
+        payment_menu.add_command(label="Income tax rates", command=Prime._inc_tax_rates)
+        payment_menu.add_command(label="IBAN list", command=Prime._iban_list)
+        payment_menu.add_command(label="Address book", command=Prime._address_book)
         self._menu.add_cascade(menu=payment_menu, label="Payment")
 
-        report_menu = tkinter.Menu(self._menu, tearoff=0)
-        report_menu.add_command(label="Activity report", command=Prime._activity_report)
-        report_menu.add_command(
-            label="Workdays without activity",
-            command=Prime._workdays_wo_activity)
-        report_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
-        report_menu.add_command(label="Reconciliation", command=Prime._reconciliation)
-        report_menu.add_separator()
-        report_menu.add_command(label="Net worth", command=Prime._net_worth)
-        report_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
-        report_menu.add_command(label="Currency balances", command=Prime._currency_account)
-        report_menu.add_command(label="Asset profit", command=Prime._asset_profit)
-        report_menu.add_separator()
-        report_menu.add_command(label="Income tax rates", command=Prime._inc_tax_rates)
-        report_menu.add_command(label="IBAN list", command=Prime._iban_list)
-        report_menu.add_command(label="Address book", command=Prime._address_book)
-        self._menu.add_cascade(menu=report_menu, label="Report")
+        asset_menu = tkinter.Menu(self._menu, tearoff=0)
+        asset_menu.add_separator()
+        asset_menu.add_command(label="Net worth", command=Prime._net_worth)
+        asset_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
+        asset_menu.add_command(label="Currency balances", command=Prime._currency_account)
+        asset_menu.add_command(label="Asset profit", command=Prime._asset_profit)
+        asset_menu.add_separator()
+        self._menu.add_cascade(menu=asset_menu, label="Asset")
+
+        budget_menu = tkinter.Menu(self._menu, tearoff=0)
+        budget_menu.add_command(label="Akbank statement", command=Prime._akbank_statement)
+        budget_menu.add_command(label="Plan", command=Prime._budget_plan)
+        budget_menu.add_command(label="Plan vs actual", command=Prime._budget_plan_vs_actual)
+        budget_menu.add_command(label="Salary simulation", command=Prime._salary_simulation)
+        self._menu.add_cascade(menu=budget_menu, label="Budget")
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
         util_menu.add_command(label="Update currencies", command=self._currency_update)
@@ -134,6 +139,26 @@ class Prime:
     def _activity_report():
         IncubusFactory.get_instance().user_event()
         startup_url("activity_list")
+
+    @staticmethod
+    def _akbank_statement():
+        IncubusFactory.get_instance().user_event()
+        startup_url("akbank_statement_sum")
+
+    @staticmethod
+    def _budget_plan():
+        IncubusFactory.get_instance().user_event()
+        startup_url("budget_plan")
+
+    @staticmethod
+    def _budget_plan_vs_actual():
+        IncubusFactory.get_instance().user_event()
+        startup_url("budget_plan_vs_actual")
+
+    @staticmethod
+    def _salary_simulation():
+        IncubusFactory.get_instance().user_event()
+        startup_url("salary_simulation")
 
     @staticmethod
     def _workdays_wo_activity():
