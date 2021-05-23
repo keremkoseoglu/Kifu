@@ -22,6 +22,8 @@ class InvestmentAdviser:
         result = []
 
         for inv in self._invest:
+            if inv["percentage"] <= 0:
+                continue
             entry_amount = amount * inv["percentage"] / 100
             entry = {"bank": "", "account": "", "amount": entry_amount}
 
