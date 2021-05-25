@@ -79,7 +79,6 @@ class Prime:
             label="Workdays without activity",
             command=Prime._workdays_wo_activity)
         timesheet_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
-        timesheet_menu.add_command(label="Reconciliation", command=Prime._reconciliation)
         self._menu.add_cascade(menu=timesheet_menu, label="Timesheet")
 
         payment_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -95,6 +94,7 @@ class Prime:
         payment_menu.add_command(label="Pay VAT", command=Prime._pay_vat)
         payment_menu.add_command(label="Pay income tax", command=Prime._pay_tax)
         payment_menu.add_separator()
+        payment_menu.add_command(label="Reconciliation", command=Prime._reconciliation)
         payment_menu.add_command(label="Income tax rates", command=Prime._inc_tax_rates)
         payment_menu.add_command(label="IBAN list", command=Prime._iban_list)
         payment_menu.add_command(label="Address book", command=Prime._address_book)
