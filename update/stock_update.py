@@ -23,10 +23,14 @@ def execute():
         if asset["url_suffix"] == "":
             continue
 
-        url = config.CONSTANTS["STOCK_URL"] + asset["url_suffix"]
-        resp = requests.get(url, verify=False)
-        str_val = _find_between(resp.text, '<span class="value">', '</span>')
-        str_val = str_val.replace(".", "").replace(",", ".")
-        asset["sales_value"] = float(str_val)
+        try:
+            url = config.CONSTANTS["STOCK_URL"] + asset["url_suffix"]
+            resp = requests.get(url, verify=False)
+            str_val = _find_between(resp.text, '<span class="value">', '</span>')
+            str_val = str_val.replace(".", "").replace(",", ".")
+            asset["sales_value"] = float(str_val)
+        except Exception as ex:
+            print(str(ex))
+            print("Can't update stock " + asset["name"])
 
     imp_asset.set_assets(assets)

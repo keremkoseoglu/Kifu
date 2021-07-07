@@ -80,6 +80,7 @@ class Prime:
             command=Prime._workdays_wo_activity)
         timesheet_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
         self._menu.add_cascade(menu=timesheet_menu, label="Timesheet")
+        timesheet_menu.add_command(label="Invoices", command=Prime._list_invoice)
 
         payment_menu = tkinter.Menu(self._menu, tearoff=0)
         payment_menu.add_command(label="Add", command=Prime._add_payment)
