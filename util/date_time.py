@@ -221,7 +221,6 @@ def is_bank_holiday(date: datetime) -> bool:
 
     return False
 
-
 def is_today(date: datetime) -> bool:
     """ Is date today """
     return equals(date, datetime.datetime.now())

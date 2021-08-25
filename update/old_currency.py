@@ -9,9 +9,11 @@ def get_old_currencies(date: datetime) -> dict:
     """ Returns the currencies in a former date
     https://www.tcmb.gov.tr/kurlar/202001/15012020.xml
     """
-    year = str(date.year)
-    month = date_time.get_two_digit_month(date.month)
-    day = date_time.get_two_digit_month(date.day)
+    work_date = date_time.get_nearest_workday(date, backwards=True)
+
+    year = str(work_date.year)
+    month = date_time.get_two_digit_month(work_date.month)
+    day = date_time.get_two_digit_month(work_date.day)
 
     url = config.CONSTANTS["OLD_CURRENCY_CONV_URL"]
     url += year + month + "/"
