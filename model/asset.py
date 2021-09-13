@@ -1,13 +1,14 @@
 """ Assets """
 import json
 import os
+from copy import deepcopy
+from datetime import datetime
+from util.date_time import get_formatted_date
 from model.currency import CurrencyConverter
 from model.income_tax import IncomeTaxCalculatorFactory
 import config
 
-
 _ASSET_FILE = "asset.json"
-
 
 def is_liquid(asset_type: str) -> bool:
     """ Returns true if asset is liquid """
@@ -25,14 +26,18 @@ def get_assets(deduct_income_tax: bool = False):
         for asset in json_data["assets"]:
             if "income_tax" in asset and asset["income_tax"]:
                 asset["sales_value"] = asset["sales_value"] * rate
+                if "value_history" in asset:
+                    for hist in asset["value_history"]:
+                        hist["value"] = hist["value"] * rate
 
     return json_data
 
 
 def set_assets(assets: dict):
     """ Saves assets to disk """
+    assets_with_history = _generate_asset_value_history(assets)
     with open(_get_file_path(), "w") as ass_file:
-        json.dump(assets, ass_file, indent=3)
+        json.dump(assets_with_history, ass_file, indent=3)
 
 
 def get_asset_type_resale_value_sum(only_liquid: bool = False,
@@ -118,6 +123,26 @@ def get_liquid_assets_in_both_currencies(deduct_income_tax: bool = False) -> []:
 
     return output
 
-
 def _get_file_path():
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _ASSET_FILE)
+
+def _generate_asset_value_history(assets: dict) -> dict:
+    """ Adds value history to asset dict """
+    result = deepcopy(assets)
+
+    for asset in result["assets"]:
+        if "value_history" in asset:
+            last_hist_idx = len(asset["value_history"]) - 1
+            last_hist_val = asset["value_history"][last_hist_idx]
+
+            if last_hist_val["value"] == asset["sales_value"]:
+                continue
+
+        new_hist_val = {
+            "date": get_formatted_date(datetime.now()),
+            "value": asset["sales_value"]
+        }
+
+        asset["value_history"].append(new_hist_val)
+
+    return result

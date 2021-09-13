@@ -89,6 +89,12 @@
 								<u:Currency value="{sales_value}" currency="₺"/>
 							</template>
 						</Column>
+						<Column width="12rem">
+							<m:Label text="History" />
+							<template>
+								<m:Text text="{history}" wrapping="true" />
+							</template>
+						</Column>
 					</columns>
 				</Table>
 				<m:Label text="Liquid profit: {/Sums/liquid_profit} $ = {/Sums/liquid_profit_home} ₺" />
