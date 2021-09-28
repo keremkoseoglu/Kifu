@@ -133,10 +133,11 @@ def _generate_asset_value_history(assets: dict) -> dict:
     for asset in result["assets"]:
         if "value_history" in asset:
             last_hist_idx = len(asset["value_history"]) - 1
-            last_hist_val = asset["value_history"][last_hist_idx]
+            if last_hist_idx >= 0:
+                last_hist_val = asset["value_history"][last_hist_idx]
 
-            if last_hist_val["value"] == asset["sales_value"]:
-                continue
+                if last_hist_val["value"] == asset["sales_value"]:
+                    continue
 
         new_hist_val = {
             "date": get_formatted_date(datetime.now()),
