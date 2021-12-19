@@ -16,7 +16,6 @@ def startup():
 
     if "-test" in sys.argv:
         config.test_mode()
-        pass
 
     payment.generate_high_time_recurrences()
 

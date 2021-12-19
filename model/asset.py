@@ -128,6 +128,7 @@ def _get_file_path():
 
 def _generate_asset_value_history(assets: dict) -> dict:
     """ Adds value history to asset dict """
+    max_val_hist_size = config.CONSTANTS["ASSET_HISTORY_SIZE"]
     result = deepcopy(assets)
 
     for asset in result["assets"]:
@@ -145,5 +146,9 @@ def _generate_asset_value_history(assets: dict) -> dict:
         }
 
         asset["value_history"].append(new_hist_val)
+
+        if len(asset["value_history"]) > max_val_hist_size:
+            len_diff = len(asset["value_history"]) - max_val_hist_size
+            del asset["value_history"][0 : len_diff]
 
     return result
