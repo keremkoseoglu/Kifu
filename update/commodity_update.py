@@ -1,5 +1,6 @@
 """ Commodity update module """
 import time
+import random
 from sahibinden.search import Search
 import config
 from model import asset as imp_asset
@@ -7,6 +8,7 @@ from model import asset as imp_asset
 def execute():
     """ Stock update """
     assets = imp_asset.get_assets()
+    random.shuffle(assets["assets"])
     first_asset = True
 
     for asset in assets["assets"]:
