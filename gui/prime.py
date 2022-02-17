@@ -5,6 +5,7 @@ import urllib
 from incubus import IncubusFactory
 from util import backup, file_system
 from util.company_label import CompanyLabel
+from util.tax_info import TaxInfo
 from gui import activity, activity_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
 from gui import payment, payment_list, pay_vat, activity_split, invest
@@ -99,6 +100,7 @@ class Prime:
         payment_menu.add_command(label="Income tax rates", command=Prime._inc_tax_rates)
         payment_menu.add_command(label="IBAN list", command=Prime._iban_list)
         payment_menu.add_command(label="Address book", command=Prime._address_book)
+        payment_menu.add_command(label="Tax info", command=Prime._tax_info)
         self._menu.add_cascade(menu=payment_menu, label="Payment")
 
         asset_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -194,6 +196,11 @@ class Prime:
     def _address_book():
         IncubusFactory.get_instance().user_event()
         startup_url("address_book")
+
+    @staticmethod
+    def _tax_info():
+        IncubusFactory.get_instance().user_event()
+        TaxInfo().generate_for_home()
 
     def _backup_data(self):
         IncubusFactory.get_instance().user_event()

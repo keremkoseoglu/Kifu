@@ -3,6 +3,7 @@ import json
 import os
 from typing import List
 import config
+from model import contacts
 
 
 class Company:
@@ -24,10 +25,24 @@ class Company:
                 self._company = company
                 break
 
+        self._address_read = False
+        self._address = ""
+        self._phone_read = False
+        self._phone = ""
+        self._email_read = False
+        self._email = ""
+
     @property
     def address(self) -> str:
         """ Returns company address """
-        return self._get_string_from_dict("address")
+        if not self._address_read:
+            self._address_read = True
+            self._address = self._get_string_from_dict("address")
+            if self._address == "":
+                if "contacts_name" in self._company and "contacts_surname" in self._company:
+                    self._address = contacts.get_address(self._company["contacts_name"],
+                                                         self._company["contacts_surname"])
+        return self._address
 
     @property
     def contact_person(self) -> str:
@@ -42,7 +57,14 @@ class Company:
     @property
     def email(self) -> str:
         """ Returns company email """
-        return self._get_string_from_dict("email")
+        if not self._email_read:
+            self._email_read = True
+            self._email = self._get_string_from_dict("email")
+            if self._email == "":
+                if "contacts_name" in self._company and "contacts_surname" in self._company:
+                    self._email = contacts.get_email(self._company["contacts_name"],
+                                                     self._company["contacts_surname"])
+        return self._email
 
     @property
     def ibans(self) -> List[str]:
@@ -67,7 +89,14 @@ class Company:
     @property
     def phone(self) -> str:
         """ Returns company phone """
-        return self._get_string_from_dict("phone")
+        if not self._phone_read:
+            self._phone_read = True
+            self._phone = self._get_string_from_dict("phone")
+            if self._phone == "":
+                if "contacts_name" in self._company and "contacts_surname" in self._company:
+                    self._phone = contacts.get_phone(self._company["contacts_name"],
+                                                     self._company["contacts_surname"])
+        return self._phone
 
     @property
     def sender_address(self) -> str:

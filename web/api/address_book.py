@@ -14,6 +14,10 @@ class AddressBookAPI():
             if listable_companies is not None and len(listable_companies) > 0:
                 if comp["name"] not in listable_companies:
                     continue
+            comp_obj = Company(comp["name"])
+            comp["address"] = comp_obj.address
+            comp["phone"] = comp_obj.phone
+            comp["email"] = comp_obj.email
             result["companies"].append(comp)
 
         for comp in result["companies"]:
