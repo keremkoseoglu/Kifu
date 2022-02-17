@@ -1,6 +1,7 @@
 """ Tax info """
 import os
 from model.company import Company
+from model.bank_account import get_home_bank_acc_str
 import config
 
 class TaxInfo:
@@ -24,7 +25,8 @@ class TaxInfo:
         self._html += "Telefon: " + self._company.phone + "<br>"
         self._html += "E-Mail: " + self._company.email + "<br>"
         self._html += "Vergi dairesi: " + tax_off + "<br>"
-        self._html += "Vergi no: " + tax_no
+        self._html += "Vergi no: " + tax_no + "<br>"
+        self._html += "IBAN: " + get_home_bank_acc_str()
         self._html += "</body></html>"
 
     def _save_html(self):

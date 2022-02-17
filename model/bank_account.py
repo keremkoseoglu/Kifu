@@ -1,5 +1,6 @@
 """ Bank account """
 import json
+from locale import ABDAY_1
 import os
 from model.currency import CurrencyConverter
 import config
@@ -139,6 +140,19 @@ def get_vat_account() -> dict:
             return bank_account
     raise Exception("VAT account not found")
 
+def get_home_bank_acc_str() -> str:
+    """ Returns home bank account text """
+    for bank_account in get_bank_accounts()["bank_accounts"]:
+        if bank_account["bank_name"] != config.CONSTANTS["DEFAULT_BANK"]:
+            continue
+        if bank_account["account_name"] != config.CONSTANTS["HOME_CURRENCY"]:
+            continue
+        result = bank_account["iban"]
+        break
+
+    result += " (" + config.CONSTANTS["DEFAULT_BANK"] + " - " + config.CONSTANTS["HOME_CURRENCY"] + ")"
+
+    return result
 
 def _get_file_path():
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _BANK_ACCOUNT_FILE)
