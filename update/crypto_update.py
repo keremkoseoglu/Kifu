@@ -3,9 +3,12 @@ import json
 import requests
 import config
 from model import asset as imp_asset
+from util import backup
 
-def execute():
+def execute(run_backup: bool = True):
     """ Crypto update """
+    if run_backup:
+        backup.execute()
     btc_dict = json.loads(requests.get(config.CONSTANTS["BTC_URL"], verify=False).text)
 
     assets = imp_asset.get_assets()

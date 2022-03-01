@@ -1,6 +1,6 @@
 """ Façade update module """
 from update import crypto_update, currency_update, stock_update
-
+from util import backup
 
 class UpdateFacade():
     """ Façade update class """
@@ -12,9 +12,10 @@ class UpdateFacade():
         if self._executed:
             return
 
-        currency_update.execute()
-        stock_update.execute()
-        crypto_update.execute()
+        backup.execute()
+        currency_update.execute(run_backup=False)
+        stock_update.execute(run_backup=False)
+        crypto_update.execute(run_backup=False)
         # Commodities are not updated because it is slow.
         # Update commodities via menu if needed
 

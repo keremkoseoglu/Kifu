@@ -2,6 +2,7 @@
 import requests
 import config
 from model import asset as imp_asset
+from util import backup
 
 def _find_between(doc, first, last):
     try:
@@ -11,8 +12,10 @@ def _find_between(doc, first, last):
     except ValueError:
         return ""
 
-def execute():
+def execute(run_backup: bool = True):
     """ Stock update """
+    if run_backup:
+        backup.execute()
     assets = imp_asset.get_assets()
 
     for asset in assets["assets"]:

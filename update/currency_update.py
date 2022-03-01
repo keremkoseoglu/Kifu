@@ -3,10 +3,11 @@ import requests
 import xmltodict
 from model import currency
 import config
+from util import backup
 
 _EXECUTED_TODAY = False
 
-def execute():
+def execute(run_backup: bool = True):
     """ Runs currency update """
     global _EXECUTED_TODAY
 
@@ -16,6 +17,10 @@ def execute():
     _EXECUTED_TODAY = True
 
     try:
+        # Backup
+        if run_backup:
+            backup.execute()
+
         # Currencies from TCMB
         resp = requests.get(config.CONSTANTS["CURRENCY_CONV_URL"], verify=False, timeout=5)
         resp_as_dict = xmltodict.parse(resp.text)
