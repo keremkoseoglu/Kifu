@@ -22,6 +22,7 @@ class AssetProfitAPI():
                         "sales_home": 0}}
 
         assets = imp_asset.get_assets(deduct_income_tax=True)
+        assets["assets"].sort(key=lambda x: imp_asset.is_liquid(x["type"]), reverse=True)
 
         for asset in assets["assets"]:
             asset_profit = self._calc_asset_profit(asset)
