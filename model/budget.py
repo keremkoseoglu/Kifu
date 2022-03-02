@@ -409,6 +409,20 @@ def save_actuals_with_subject_list_combo(actuals: []):
 
     fiscal_file_dict = _get_latest_fiscal_file_content()
 
+    if len(fiscal_file_dict["actuals"]) <= 0: # Fresh file
+        fiscal_file_dict["actuals"] = [{"month": 1, "values": []},
+                                       {"month": 2, "values": []},
+                                       {"month": 3, "values": []},
+                                       {"month": 4, "values": []},
+                                       {"month": 5, "values": []},
+                                       {"month": 6, "values": []},
+                                       {"month": 7, "values": []},
+                                       {"month": 8, "values": []},
+                                       {"month": 9, "values": []},
+                                       {"month": 10, "values": []},
+                                       {"month": 11, "values": []},
+                                       {"month": 12, "values": []}]
+
     for fiscal_file_act in fiscal_file_dict["actuals"]:
         if fiscal_file_act["month"] != month:
             continue
