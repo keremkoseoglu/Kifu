@@ -3,6 +3,7 @@ import json
 from os import path, listdir
 from copy import deepcopy
 from datetime import datetime
+from typing import List
 import config
 from model.currency import CurrencyConverter
 
@@ -22,7 +23,7 @@ def get_domain_dict() -> dict:
         out = json.load(domain_file)
     return out
 
-def get_subject_list() -> []:
+def get_subject_list() -> List:
     """ Subjects """
     global _INCOME_ICON, _EXPENSE_ICON
 
@@ -51,7 +52,7 @@ def get_subject_list() -> []:
             out.append(exp_dict)
     return out
 
-def get_subject_list_combo() -> []:
+def get_subject_list_combo() -> List:
     """ Returns subject list suitable for combobox """
     out = []
     subjects = get_subject_list()
@@ -64,12 +65,12 @@ def get_subject_list_combo() -> []:
         out.append(entry)
     return out
 
-def get_domain_and_subject_dict() -> {}:
+def get_domain_and_subject_dict() -> dict:
     """ Domain and subjects in same dataset """
     return {"domains": get_domain_dict()["domains"],
             "subjects": get_subject_list()}
 
-def get_plan_list() -> []:
+def get_plan_list() -> List:
     """ Plan values """
     conv = CurrencyConverter()
     out = get_subject_list()
@@ -98,7 +99,7 @@ def get_plan_list() -> []:
 
     return out
 
-def get_plan_vs_actual_list() -> []:
+def get_plan_vs_actual_list() -> List:
     """ Plan vs actual """
     global _GREEN_ICON
     conv = CurrencyConverter()
@@ -154,16 +155,14 @@ def get_plan_list_and_sums() -> dict:
                    "currency_symbol": config.CONSTANTS["HOME_CURRENCY_SYMBOL"]}}
 
     for plan in out["plans"]:
+        out["sum"]["monthly_balance"] += plan["monthly_plan_amount"]
+        out["sum"]["annual_balance"] += plan["annual_plan_amount"]
         if plan["direction"] == "incomes":
             out["sum"]["monthly_income"] += plan["monthly_plan_amount"]
-            out["sum"]["monthly_balance"] += plan["monthly_plan_amount"]
             out["sum"]["annual_income"] += plan["annual_plan_amount"]
-            out["sum"]["annual_balance"] += plan["annual_plan_amount"]
         elif plan["direction"] == "expenses":
             out["sum"]["monthly_expense"] += plan["monthly_plan_amount"]
-            out["sum"]["monthly_balance"] -= plan["monthly_plan_amount"]
             out["sum"]["annual_expense"] += plan["annual_plan_amount"]
-            out["sum"]["annual_balance"] -= plan["annual_plan_amount"]
         else:
             raise Exception("Unknown budget direction: " + plan["direction"])
 
@@ -201,14 +200,14 @@ def get_plan_vs_actual_list_and_sums() -> dict:
             if actual["amount"] > 0 and actual["month"] > latest_month:
                 latest_month = actual["month"]
             pva["actual_sum"] += actual["amount"]
+            out["actual_sum"]["annual_balance"] += actual["amount"]
             if pva["direction"] == "incomes":
                 out["actual_sum"]["annual_income"] += actual["amount"]
-                out["actual_sum"]["annual_balance"] += actual["amount"]
             elif pva["direction"] == "expenses":
                 out["actual_sum"]["annual_expense"] += actual["amount"]
-                out["actual_sum"]["annual_balance"] -= actual["amount"]
             else:
                 raise Exception("Unknown budget direction: " + pva["direction"])
+
         pva["annual_remain_budget"] = pva["annual_plan_amount"] - pva["actual_sum"]
         month_div = 12 - datetime.today().month + 1
         pva["monthly_remain_budget"] = pva["annual_remain_budget"] / month_div
@@ -223,13 +222,11 @@ def get_plan_vs_actual_list_and_sums() -> dict:
         pva["monthly_delta_icon"] = _get_status_icon(pva["monthly_plan_amount"],
                                                      pva["avg_monthly_actual"],
                                                      pva["direction"])
-
+        out["actual_sum"]["avg_monthly_balance"] += pva["avg_monthly_actual"]
         if pva["direction"] == "incomes":
             out["actual_sum"]["avg_monthly_income"] += pva["avg_monthly_actual"]
-            out["actual_sum"]["avg_monthly_balance"] += pva["avg_monthly_actual"]
         elif pva["direction"] == "expenses":
             out["actual_sum"]["avg_monthly_expense"] += pva["avg_monthly_actual"]
-            out["actual_sum"]["avg_monthly_balance"] -= pva["avg_monthly_actual"]
         else:
             raise Exception("Unknown budget direction: " + pva["direction"])
 
@@ -246,7 +243,7 @@ def get_plan_vs_actual_list_and_sums() -> dict:
 
     return out
 
-def get_plan_list_and_sums_flat() -> []:
+def get_plan_list_and_sums_flat() -> List:
     """ Returns plan + sums, but shows sums as a plan category """
     global _SUM_DOMAIN
     pws = get_plan_list_and_sums()
@@ -296,32 +293,14 @@ def get_plan_vs_actual_list_and_sums_flat() -> dict:
             pva_sum["direction"] = "incomes"
             pva_sum["icon"] = _INCOME_ICON
 
-            if pva["direction"] == "expenses":
-                for field in pva:
-                    if isinstance(pva[field], int) or isinstance(pva[field], float): # pylint: disable=R1701
-                        pva_sum[field] *= -1
-                actual_pos = -1
-                for actual in pva["actuals"]:
-                    pva_sum["actuals"][actual_pos]["amount"] *= -1
-
         else:
             for field in pva:
                 if isinstance(pva[field], int) or isinstance(pva[field], float): # pylint: disable=R1701
-                    if pva["direction"] == "incomes":
-                        pva_sum[field] += pva[field]
-                    elif pva["direction"] == "expenses":
-                        pva_sum[field] -= pva[field]
-                    else:
-                        raise Exception("Unknown direction: " + pva["direction"])
+                    pva_sum[field] += pva[field]
             actual_pos = -1
             for actual in pva["actuals"]:
                 actual_pos += 1
-                if pva["direction"] == "incomes":
-                    pva_sum["actuals"][actual_pos]["amount"] += actual["amount"]
-                elif pva["direction"] == "expenses":
-                    pva_sum["actuals"][actual_pos]["amount"] -= actual["amount"]
-                else:
-                    raise Exception("Unknown direction: " + pva["direction"])
+                pva_sum["actuals"][actual_pos]["amount"] += actual["amount"]
 
     if pva_sum != {}:
         pva_sum["monthly_delta_icon"] = _get_status_icon(pva_sum["monthly_plan_amount"],
@@ -337,7 +316,7 @@ def get_plan_vs_actual_list_and_sums_flat() -> dict:
 
     return out
 
-def get_salary_simulation() -> []:
+def get_salary_simulation() -> List:
     """ Simulate salary """
     out = {"plan": [],
            "sum": {"monthly": 0,
@@ -352,19 +331,12 @@ def get_salary_simulation() -> []:
             continue
 
         out["plan"].append(plan)
-
-        if plan["direction"] == "incomes":
-            out["sum"]["monthly"] += plan["monthly_plan_amount"]
-            out["sum"]["annual"] += plan["annual_plan_amount"]
-        elif plan["direction"] == "expenses":
-            out["sum"]["monthly"] -= plan["monthly_plan_amount"]
-            out["sum"]["annual"] -= plan["annual_plan_amount"]
-        else:
-            raise Exception("Unknown direction: " + plan["direction"])
+        out["sum"]["monthly"] += plan["monthly_plan_amount"]
+        out["sum"]["annual"] += plan["annual_plan_amount"]
 
     return out
 
-def get_salary_simulation_and_sum_flat() -> []:
+def get_salary_simulation_and_sum_flat() -> List:
     """ Salary simulation and sum """
     simulation = get_salary_simulation()
     out = simulation["plan"]
@@ -378,7 +350,7 @@ def get_salary_simulation_and_sum_flat() -> []:
                 "currency_symbol": config.CONSTANTS["HOME_CURRENCY_SYMBOL"]})
     return out
 
-def save_actuals_with_subject_list_combo(actuals: []):
+def save_actuals_with_subject_list_combo(actuals: List):
     """ Save actuals """
     month_values = []
     for actual in actuals:
@@ -516,16 +488,7 @@ def _get_status_icon(plan: float, actual: float, direction: str) -> str:
     global _GREEN_ICON, _YELLOW_ICON, _RED_ICON
     result = _GREEN_ICON
     diff = plan - actual
-    if direction == "expenses" and diff < 0:
-        if plan == 0:
-            result = _RED_ICON
-        else:
-            diff_perc = abs((diff / plan) * 100)
-            if diff_perc > config.CONSTANTS["BUDGET_EXCEED_RATE"]:
-                result = _RED_ICON
-            else:
-                result = _YELLOW_ICON
-    elif direction == "incomes" and diff > 0:
+    if diff > 0:
         if plan == 0:
             result = _RED_ICON
         else:
