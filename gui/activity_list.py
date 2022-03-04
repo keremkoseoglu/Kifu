@@ -1,6 +1,7 @@
 """ Activity list window """
 import tkinter
 import tkinter.ttk
+from typing import List
 from model import activity, invoice
 from model.activity import Activity
 from model.company import Company
@@ -75,7 +76,7 @@ class ActivityListWindow(tkinter.Toplevel):
         return selected_activities[0]
 
     @property
-    def _selected_activities(self) -> []:
+    def _selected_activities(self) -> List:
         selected_activities = []
 
         for selected_id in self._tree.selection():

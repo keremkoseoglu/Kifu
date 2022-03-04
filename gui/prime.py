@@ -2,11 +2,13 @@
 import os
 import tkinter
 import urllib
+from typing import List
 from incubus import IncubusFactory
 from util import backup, file_system
 from util.company_label import CompanyLabel
 from util.tax_info import TaxInfo
 from gui import activity, activity_list
+from gui import asset_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
 from gui import payment, payment_list, pay_vat, activity_split, invest
 from model import notification, payment as payment_model
@@ -104,6 +106,8 @@ class Prime:
         self._menu.add_cascade(menu=payment_menu, label="Payment")
 
         asset_menu = tkinter.Menu(self._menu, tearoff=0)
+        asset_menu.add_separator()
+        asset_menu.add_command(label="Edit assets", command=Prime._edit_assets)
         asset_menu.add_separator()
         asset_menu.add_command(label="Net worth", command=Prime._net_worth)
         asset_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
@@ -258,7 +262,7 @@ class Prime:
             companies=idle_companies).mainloop()
 
     @staticmethod
-    def _del_idle_companies__selected(companies: []):
+    def _del_idle_companies__selected(companies: List):
         IncubusFactory.get_instance().user_event()
         for company in companies:
             company.delete()
@@ -303,6 +307,12 @@ class Prime:
         payment_window.mainloop()
 
     @staticmethod
+    def _edit_assets():
+        IncubusFactory.get_instance().user_event()
+        asset_window = asset_list.AssetListWindow()
+        asset_window.mainloop()
+
+    @staticmethod
     def _net_worth():
         IncubusFactory.get_instance().user_event()
         startup_url("net_worth")
@@ -335,7 +345,7 @@ class Prime:
         company_list.CompanyList(Prime._print_label__company_selected).mainloop()
 
     @staticmethod
-    def _print_label__company_selected(companies: []):
+    def _print_label__company_selected(companies: List):
         IncubusFactory.get_instance().user_event()
         CompanyLabel().generate(companies)
 
@@ -345,7 +355,7 @@ class Prime:
         company_list.CompanyList(Prime._reconciliation__company_selected).mainloop()
 
     @staticmethod
-    def _reconciliation__company_selected(companies: []):
+    def _reconciliation__company_selected(companies: List):
         IncubusFactory.get_instance().user_event()
         names = ""
         for selco in companies:
