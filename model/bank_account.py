@@ -1,15 +1,14 @@
 """ Bank account """
 import json
-from locale import ABDAY_1
 import os
+from typing import List
 from model.currency import CurrencyConverter
 import config
-
 
 _BANK_ACCOUNT_FILE = "bank.json"
 
 
-def get_accounts_with_currency(currency: str) -> []:
+def get_accounts_with_currency(currency: str) -> List:
     """ Returns all bank accounts having the given currency """
     output = []
 
@@ -20,7 +19,7 @@ def get_accounts_with_currency(currency: str) -> []:
     return output
 
 
-def get_account_balances_in_both_currencies() -> []:
+def get_account_balances_in_both_currencies() -> List:
     """ Account balances in original and home currencies """
     output = []
     accounts = get_bank_accounts()
@@ -49,7 +48,7 @@ def get_bank_accounts():
     return json_data
 
 
-def get_currencies() -> []:
+def get_currencies() -> List:
     """ Returns all currencies in bank accounts """
     output = []
 
@@ -150,7 +149,8 @@ def get_home_bank_acc_str() -> str:
         result = bank_account["iban"]
         break
 
-    result += " (" + config.CONSTANTS["DEFAULT_BANK"] + " - " + config.CONSTANTS["HOME_CURRENCY"] + ")"
+    result += " (" + config.CONSTANTS["DEFAULT_BANK"]
+    result += " - " + config.CONSTANTS["HOME_CURRENCY"] + ")"
 
     return result
 
