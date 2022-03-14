@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import copy
+from typing import List, Dict
 from model.currency import CurrencyConverter
 from model.project import Project
 from model.company import Company
@@ -15,7 +16,7 @@ class Activity:
     _ACTIVITY_FILE = "activity.json"
 
     @staticmethod
-    def delete_activities(activity_guids: []):
+    def delete_activities(activity_guids: List):
         """ Deletes the given activities """
         all_activities = Activity.get_activities()
         new_activities = {"activities": []}
@@ -33,7 +34,7 @@ class Activity:
         return json_data
 
     @staticmethod
-    def get_last_activity() -> {}:
+    def get_last_activity() -> Dict:
         """ Returns last activity """
         all_activities = Activity.get_activities()["activities"]
         if len(all_activities) == 0:
@@ -81,11 +82,11 @@ class Activity:
         return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Activity._ACTIVITY_FILE)
 
     @staticmethod
-    def _write_activities_to_disk(activities: {}):
+    def _write_activities_to_disk(activities: Dict):
         with open(Activity._get_file_path(), "w") as act_file:
             json.dump(activities, act_file, indent=3)
 
-    def __init__(self, activity: {}):
+    def __init__(self, activity: Dict):
         self._activity = None
         self._project = None
         self.dict = activity
@@ -137,12 +138,12 @@ class Activity:
         self._activity["duration"] = hours
 
     @property
-    def dict(self) -> {}:
+    def dict(self) -> Dict:
         """ Activity as a dict """
         return self._activity
 
     @dict.setter
-    def dict(self, activity: {}):
+    def dict(self, activity: Dict):
         """ Activity as a dict """
         self._activity = activity
         self.set_project(activity["client_name"], activity["project_name"])

@@ -111,7 +111,7 @@ class StatementReader(_AbstractStatementReader):
                 out.append(crd)
         return out
 
-    def read_as_list(self) -> []:
+    def read_as_list(self) -> List:
         """ Returns statement as a list """
         out = []
         statement_entries = self.read()
@@ -123,7 +123,7 @@ class StatementReader(_AbstractStatementReader):
             out.append(entry_dict)
         return out
 
-    def read_as_sum_list(self) -> []:
+    def read_as_sum_list(self) -> List:
         """ Returns statement as a list, summed by text """
         out = []
         statements = self.read_as_list()
