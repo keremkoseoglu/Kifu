@@ -2,6 +2,7 @@
 import datetime
 from enum import Enum
 import json
+from typing import List
 from util import identifier, date_time
 from model.company import Company
 from model.currency import CurrencyConverter
@@ -41,7 +42,7 @@ class MultiValueError(Exception):
 class Invoice:
     """ Invoice class """
     @staticmethod
-    def delete_invoices(invoice_guids: []):
+    def delete_invoices(invoice_guids: List):
         """ Deletes the provided invoices """
         all_invoices = get_invoices()
         new_invoices = {"invoices": []}
@@ -74,11 +75,11 @@ class Invoice:
         return output
 
     @staticmethod
-    def _write_invoices_to_disk(invoices: []):
+    def _write_invoices_to_disk(invoices: List):
         with open(get_file_path(), "w") as invoice_file:
             json.dump(invoices, invoice_file, indent=3)
 
-    def __init__(self, invoice: {}):
+    def __init__(self, invoice: dict):
         self._invoice = invoice
         self._amount = float(self._invoice["amount"])
         self._vat_rate = float(self._invoice["vat_rate"])
@@ -248,7 +249,7 @@ class Invoice:
         Invoice._write_invoices_to_disk(new_invoices)
 
 
-def get_invoice_obj_from_activities(activities: []) -> Invoice:
+def get_invoice_obj_from_activities(activities: List) -> Invoice:
     """ Creates a new invoice from the given activities """
     invoice_date = Invoice.get_invoice_date_suggestion()
     due_date = Invoice.get_due_date_suggestion(invoice_date)

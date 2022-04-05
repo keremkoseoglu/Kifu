@@ -1,5 +1,6 @@
 """ Notifications in main window """
 import datetime
+from typing import List
 from model import payment
 from model.payment import Payment
 from model.activity import Activity
@@ -12,7 +13,7 @@ ICON_YELLOW = " ~ "
 ICON_RED = " ! "
 
 
-def get_notifications() -> []:
+def get_notifications() -> List:
     """ Builds and returns a notification list """
     output = []
 
@@ -33,7 +34,7 @@ def get_notifications() -> []:
     return output
 
 
-def get_raw_recurrence_list() -> []:
+def get_raw_recurrence_list() -> List:
     """ Returns the raw recurrence list """
     output = []
     today = datetime.date.today()

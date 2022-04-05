@@ -1,4 +1,5 @@
 """ Credit card module """
+from dataclasses import dataclass
 import json
 import os
 from typing import List
@@ -8,24 +9,22 @@ import config
 
 _CREDIT_CARD_FILE = "bank.json"
 
-
+@dataclass
 class CreditCardDebt: # pylint: disable=R0903
     """ Credit card debt """
-    def __init__(self, bank_name: str, card_name: str, amount: int):
-        self.bank_name = bank_name
-        self.card_name = card_name
-        self.amount = amount
+    bank_name: str
+    card_name: str
+    amount: int
 
-
+@dataclass
 class CreditCardDebtList: # pylint: disable=R0903
     """ Credit card debt list """
-    def __init__(self, currency: str, debts: List[CreditCardDebt] = None):
-        self.currency = currency
+    currency: str
+    debts: List[CreditCardDebt] = None
 
-        if debts is None:
+    def __post_init__(self):
+        if self.debts is None:
             self.debts = []
-        else:
-            self.debts = debts
 
 
 def get_credit_cards():

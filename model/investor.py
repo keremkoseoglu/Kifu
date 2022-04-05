@@ -1,6 +1,7 @@
 """ Investment adviser module """
 import os
 import json
+from typing import List
 import config
 from model.bank_account import get_next_investment_account
 
@@ -17,7 +18,7 @@ class InvestmentAdviser:
         with open(file_path) as inv_file:
             self._invest = json.load(inv_file)
 
-    def advise(self, amount: float) -> []:
+    def advise(self, amount: float) -> List:
         """ Advise investment """
         result = []
 
