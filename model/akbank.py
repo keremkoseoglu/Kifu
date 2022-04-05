@@ -2,6 +2,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import List
+from dataclasses import dataclass
 import glob
 from os import path
 import csv
@@ -10,18 +11,15 @@ import config
 from model.currency import CurrencyConverter
 from util.date_time import parse_turkish_date
 
-
+@dataclass
 class StatementEntry():
     """ Bank statement entry """
-    def __init__(self,
-                 date: datetime = None,
-                 text: str = "",
-                 amount: float = 0,
-                 currency: str = ""):
-        self.date = date
-        self.text = text
-        self.amount = amount
-        self.currency = currency
+    date: datetime = None
+    text: str = ""
+    amount: float = 0
+    currency: str = ""
+
+    def __post_init__(self):
         self._curr_conv = None
 
     @property

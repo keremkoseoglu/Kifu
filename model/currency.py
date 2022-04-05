@@ -11,13 +11,13 @@ _CURR_CONV_FILE_EXTENSION = "json"
 _CURR_CONV_FILE = "currency_conv.json"
 
 
-def save_currency_conv(conv_as_dict: {}):
+def save_currency_conv(conv_as_dict: dict):
     """ Writes currency conversions to the disk """
     file_path = _get_file_path()
     with open(file_path, "w") as curr_file:
         json.dump(conv_as_dict, curr_file, indent=3)
 
-def save_old_currency_conv(date: datetime, conv_as_dict: {}):
+def save_old_currency_conv(date: datetime, conv_as_dict: dict):
     """ Writes old / historic currency conversions to the disk """
     file_path = _get_old_file_path(date)
     with open(file_path, "w") as curr_file:

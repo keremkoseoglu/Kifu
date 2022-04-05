@@ -33,7 +33,7 @@ def delete_completed_payments():
     delete_payments(completed_guids)
 
 
-def delete_payments(payment_guids: []):
+def delete_payments(payment_guids: List):
     """ Deletes given payments """
     if payment_guids is None or len(payment_guids) <= 0:
         return
@@ -54,7 +54,7 @@ def generate_high_time_recurrences():
         payment_obj.save()
 
 
-def get_approaching_or_late_recurrences() -> []:
+def get_approaching_or_late_recurrences() -> List:
     """ Returns approaching or late recurrences """
     output = []
     for pay in get_payments()["payments"]:
@@ -72,7 +72,7 @@ def get_approaching_or_late_recurrences() -> []:
     return output
 
 
-def get_completed_payments() -> []:
+def get_completed_payments() -> List:
     """ Returns completed payments """
     output = []
 
@@ -106,12 +106,12 @@ def get_companies_without_payment() -> List[Company]:
     return output
 
 
-def get_direction_values() -> []:
+def get_direction_values() -> List:
     """ Returns all payment directions as enum """
     return [DIRECTION_IN, DIRECTION_OUT, DIRECTION_TRANSFER]
 
 
-def get_open_vat_payments() -> []:
+def get_open_vat_payments() -> List:
     """ Returns open VAT payments """
     output = []
     all_payments = get_payments()
@@ -125,7 +125,7 @@ def get_open_vat_payments() -> []:
     return output
 
 
-def get_open_payments_of_company(company: str) -> []:
+def get_open_payments_of_company(company: str) -> List:
     """ Returns open payments of company """
     output = []
     all_payments = get_payments()
@@ -169,7 +169,7 @@ def get_payment_balance() -> float:
     return output
 
 
-def get_period_values() -> []:
+def get_period_values() -> List:
     """ Returns all periods """
     return [PERIOD_DAILY, PERIOD_WEEKLY, PERIOD_MONTHLY, PERIOD_YEARLY]
 
@@ -464,7 +464,7 @@ def record_investment_payment(
 
 
 def record_vat_payment(
-        vat_guids: [],
+        vat_guids: List,
         paid_amount: float,
         paid_curr: str
 ):
@@ -520,7 +520,7 @@ def _get_file_path():
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _PAYMENT_FILE)
 
 
-def _write_payments_to_disk(payments: {}):
+def _write_payments_to_disk(payments: dict):
     with open(_get_file_path(), "w") as payment_file:
         json.dump(payments, payment_file, indent=3)
 
@@ -667,12 +667,11 @@ class Recurrence:
 
 class Scheme:
     """ Payment scheme """
-
     def __init__(self, scheme: {}):
         self._scheme = scheme
 
     @property
-    def approaching_or_late_recurrences(self) -> []:
+    def approaching_or_late_recurrences(self) -> List:
         """ Returns all approaching or late recurrences """
         output = []
         for rec in self.recurrences:
@@ -724,7 +723,7 @@ class Scheme:
         return output
 
     @recurrences.setter
-    def recurrences(self, recurrences: []):
+    def recurrences(self, recurrences: List):
         """ All recurrences """
         self.clear_recurrences()
         for rec in recurrences:

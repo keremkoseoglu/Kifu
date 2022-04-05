@@ -2,7 +2,7 @@
 from model.company import Company
 
 
-def get_locations() -> {}:
+def get_locations() -> dict:
     """ Returns all locations defined in JSON files """
     output = {}
     companies = Company.get_companies()

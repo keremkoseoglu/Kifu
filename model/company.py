@@ -5,7 +5,6 @@ from typing import List
 import config
 from model import contacts
 
-
 class Company:
     """ Company class """
     _COMPANY_FILE = "company.json"
@@ -150,7 +149,7 @@ class Company:
         return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Company._COMPANY_FILE)
 
     @staticmethod
-    def _write_json_to_disk(data: {}):
+    def _write_json_to_disk(data: dict):
         with open(Company._get_company_data_file_path(), "w") as json_file:
             json.dump(data, json_file)
 
