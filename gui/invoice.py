@@ -26,7 +26,7 @@ def open_invoice_as_email(inv: Invoice):
         recipients.append(accounting_company.email)
 
     popup_email(recipients=recipients,
-                subject="Fatura " + inv.serial,
+                subject=f"Fatura {inv.serial}",
                 attachment=inv.file_path)
 
 
@@ -150,7 +150,7 @@ class InvoiceWindow(tkinter.Toplevel):
         self._file_path.value = invoice.file_path
 
         if browser:
-            startup_url("address_book", query_string="name=" + invoice.payer.name)
+            startup_url("address_book", query_string=f"name={invoice.payer.name}")
             webbrowser.open(config.CONSTANTS["E_ARCHIVE_URL"])
 
         if invoice_dir and "INVOICE_FILE_PATH" in config.CONSTANTS:
@@ -165,7 +165,7 @@ class InvoiceWindow(tkinter.Toplevel):
             return
         self._file_path.value = path
 
-    def _get_invoice_dict_from_gui(self) -> {}:
+    def _get_invoice_dict_from_gui(self) -> dict:
         return {
             "guid": self._guid.value,
             "serial": self._serial.value,

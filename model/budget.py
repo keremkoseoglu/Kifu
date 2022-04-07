@@ -92,7 +92,7 @@ def get_plan_list() -> List:
                         monthly_amount = json_amount / (12 * plan["frequency"])
                         annual_amount = json_amount / plan["frequency"]
                     else:
-                        raise Exception("Unknown budget period: " + plan["period"])
+                        raise Exception(f"Unknown budget period: {plan['period']}")
                     subject["monthly_plan_amount"] = monthly_amount
                     subject["annual_plan_amount"] = annual_amount
                     break
@@ -164,7 +164,7 @@ def get_plan_list_and_sums() -> dict:
             out["sum"]["monthly_expense"] += plan["monthly_plan_amount"]
             out["sum"]["annual_expense"] += plan["annual_plan_amount"]
         else:
-            raise Exception("Unknown budget direction: " + plan["direction"])
+            raise Exception(f"Unknown budget direction: {plan['direction']}")
 
     return out
 
@@ -206,7 +206,7 @@ def get_plan_vs_actual_list_and_sums() -> dict:
             elif pva["direction"] == "expenses":
                 out["actual_sum"]["annual_expense"] += actual["amount"]
             else:
-                raise Exception("Unknown budget direction: " + pva["direction"])
+                raise Exception(f"Unknown budget direction: {pva['direction']}")
 
         pva["annual_remain_budget"] = pva["annual_plan_amount"] - pva["actual_sum"]
         month_div = 12 - datetime.today().month + 1
@@ -228,7 +228,7 @@ def get_plan_vs_actual_list_and_sums() -> dict:
         elif pva["direction"] == "expenses":
             out["actual_sum"]["avg_monthly_expense"] += pva["avg_monthly_actual"]
         else:
-            raise Exception("Unknown budget direction: " + pva["direction"])
+            raise Exception(f"Unknown budget direction: {pva['direction']}")
 
     out["delta"] = {
         "annual_income": out["plan_sum"]["annual_income"] - out["actual_sum"]["annual_income"],
@@ -366,7 +366,7 @@ def save_actuals_with_subject_list_combo(actuals: List):
         elif direction_letter == "e":
             direction = "expenses"
         else:
-            raise Exception("Unknown direction: " + direction_letter)
+            raise Exception(f"Unknown direction: {direction_letter}")
 
         month_entry = {"domain": frags[1],
                        "direction": direction,

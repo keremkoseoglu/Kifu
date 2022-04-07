@@ -34,6 +34,6 @@ def execute(run_backup: bool = True):
             asset["sales_value"] = float(str_val)
         except Exception as ex:
             print(str(ex))
-            print("Can't update stock " + asset["name"])
+            print(f"Can't update stock {asset['name']}")
 
     imp_asset.set_assets(assets)

@@ -79,7 +79,7 @@ def get_home_account_of_bank(bank: str) -> str:
         if bank_account["bank_name"] == bank and \
             bank_account["currency"] == config.CONSTANTS["HOME_CURRENCY"]:
             return bank_account["account_name"]
-    raise Exception(config.CONSTANTS["HOME_CURRENCY"] + " account of " + bank + " not found")
+    raise Exception(f"{config.CONSTANTS['HOME_CURRENCY']} account of {bank} not found")
 
 
 def get_next_investment_account() -> tuple:

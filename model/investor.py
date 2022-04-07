@@ -39,7 +39,7 @@ class InvestmentAdviser:
                 entry["bank"] = inv["company"]
                 entry["account"] = inv["type"]
             else:
-                raise Exception("Unknown investment type: " + inv["type"])
+                raise Exception(f"Unknown investment type: {inv['type']}")
 
             result.append(entry)
         return result

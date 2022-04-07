@@ -276,7 +276,7 @@ class Prime:
     def _edit_data_file(file_name: str):
         IncubusFactory.get_instance().user_event()
         full_path = os.path.join(config.CONSTANTS["DATA_DIR_PATH"], file_name)
-        os.system("open " + full_path)
+        os.system(f"open {full_path}")
 
     @staticmethod
     def _inc_tax_rates():
@@ -383,7 +383,7 @@ class Prime:
     @staticmethod
     def _show_data_files():
         IncubusFactory.get_instance().user_event()
-        os.system("open " + config.CONSTANTS["DATA_DIR_PATH"])
+        os.system(f"open {config.CONSTANTS['DATA_DIR_PATH']}")
 
     @staticmethod
     def _split_latest_activity():
