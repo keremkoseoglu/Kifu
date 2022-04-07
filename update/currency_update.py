@@ -48,4 +48,4 @@ def execute(run_backup: bool = True):
         currency.save_currency_conv(resp_as_dict)
 
     except Exception as error:
-        print("Currency update error: " + str(error))
+        print(f"Currency update error: {str(error)}")

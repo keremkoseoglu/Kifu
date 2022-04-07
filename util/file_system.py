@@ -1,9 +1,10 @@
 """ File system utilities """
 import os
+from typing import List
 import config
 
 
-def get_data_file_list() -> []:
+def get_data_file_list() -> List:
     """ Data file list """
     return get_files_in_dir(config.CONSTANTS["DATA_DIR_PATH"])
 
@@ -19,7 +20,7 @@ def get_desktop_file_name(file_name: str, extension: str) -> str:
     return output
 
 
-def get_files_in_dir(dir_name: str) -> []:
+def get_files_in_dir(dir_name: str) -> List:
     """ Returns all files in the given dir """
     output = []
 

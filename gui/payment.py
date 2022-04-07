@@ -453,7 +453,7 @@ class PaymentWindow(tkinter.Toplevel):
         self.destroy()
 
     def _status(self):
-        startup_url("payment_status", query_string="guid=" + self._payment.guid)
+        startup_url("payment_status", query_string=f"guid={self._payment.guid}")
 
     def _reconciliation(self):
         query = "names="+urllib.parse.quote(self._payment.company.name, safe='')

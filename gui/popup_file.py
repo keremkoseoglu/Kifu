@@ -32,7 +32,7 @@ def popup_email(recipients: List[str] = None,
             recipient_csv += ","
         recipient_csv += recipient
 
-    command = "mailto:?to=" + recipient_csv + "&subject=" + _subject + "&body=" + _body
+    command = f"mailto:?to={recipient_csv}&subject={_subject}&body={_body}"
     webbrowser.open(command, new=1)
 
     if attachment is not None and attachment != "":

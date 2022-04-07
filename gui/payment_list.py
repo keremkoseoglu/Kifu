@@ -2,6 +2,7 @@
 import urllib
 import tkinter
 import tkinter.ttk
+from typing import List
 from model import payment
 from util import backup, date_time
 from util import amount as util_amount
@@ -126,7 +127,7 @@ class PaymentListWindow(tkinter.Toplevel):
 
         self.update()
 
-    def _get_selected_payments(self) -> []:
+    def _get_selected_payments(self) -> List:
         selected_payments = []
 
         for selected_id in self._tree.selection():
@@ -167,4 +168,4 @@ class PaymentListWindow(tkinter.Toplevel):
             return
 
         first_selected_payment = selected_payments[0]
-        startup_url("payment_status", query_string="guid=" + first_selected_payment.guid)
+        startup_url("payment_status", query_string=f"guid={first_selected_payment.guid}")
