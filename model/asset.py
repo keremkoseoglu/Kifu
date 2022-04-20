@@ -17,7 +17,7 @@ def is_liquid(asset_type: str) -> bool:
     return asset_type in ("STOCK", "CRYPTO")
 
 
-def get_assets(deduct_income_tax: bool = False):
+def get_assets(deduct_income_tax: bool = False, own_percentage_only: bool = False):
     """ Returns all assets """
     with open(_get_file_path()) as asset_file:
         json_data = json.load(asset_file)
@@ -31,6 +31,17 @@ def get_assets(deduct_income_tax: bool = False):
                 if "value_history" in asset:
                     for hist in asset["value_history"]:
                         hist["value"] = hist["value"] * rate
+
+    if own_percentage_only:
+        for asset in json_data["assets"]:
+            if "own_percentage" not in asset:
+                continue
+            perc = asset["own_percentage"] / 100
+            asset["purchase_value"] = asset["purchase_value"] * perc
+            asset["sales_value"] = asset["sales_value"] * perc
+            if "value_history" in asset:
+                for hist in asset["value_history"]:
+                    hist["value"] = hist["value"] * perc
 
     return json_data
 
@@ -62,13 +73,15 @@ def set_asset(asset: dict):
     set_assets(all_assets)
 
 def get_asset_type_resale_value_sum(only_liquid: bool = False,
-                                    deduct_income_tax: bool = False) -> List:
+                                    deduct_income_tax: bool = False,
+                                    own_percentage_only: bool = False) -> List:
     """ Asset type resale value sum
     Used when calculating net worth
     """
     result = []
 
-    assets = get_assets(deduct_income_tax=deduct_income_tax)
+    assets = get_assets(deduct_income_tax=deduct_income_tax,
+                        own_percentage_only=own_percentage_only)
     currency_converter = CurrencyConverter()
 
     for asset in assets["assets"]:
@@ -106,10 +119,14 @@ def get_asset_resale_value_sum() -> float:
     return result
 
 
-def get_liquid_assets_in_both_currencies(deduct_income_tax: bool = False) -> List:
+def get_liquid_assets_in_both_currencies(deduct_income_tax: bool = False,
+                                         own_percentage_only: bool = False) -> List:
     """ Asset balances in original and home currencies """
     output = []
-    assets = get_assets(deduct_income_tax=deduct_income_tax)
+
+    assets = get_assets(deduct_income_tax=deduct_income_tax,
+                        own_percentage_only=own_percentage_only)
+
     currency_converter = CurrencyConverter()
 
     for asset in assets["assets"]:

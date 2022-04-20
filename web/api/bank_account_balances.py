@@ -13,7 +13,8 @@ class BankAccountBalanceAPI():
 
         # Balances
         bank_balances = bank_account.get_account_balances_in_both_currencies()
-        asset_balances = asset.get_liquid_assets_in_both_currencies(deduct_income_tax=True)
+        asset_balances = asset.get_liquid_assets_in_both_currencies(deduct_income_tax=True,
+                                                                    own_percentage_only=True)
 
         for bank_balance in bank_balances:
             out["Balances"].append(bank_balance)

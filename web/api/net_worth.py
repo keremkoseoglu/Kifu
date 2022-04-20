@@ -38,7 +38,8 @@ class NetWorthAPI():
         self._append_result("Payment balance", payment_balance)
 
         # Asset resale
-        asset_resales = asset.get_asset_type_resale_value_sum(deduct_income_tax=True)
+        asset_resales = asset.get_asset_type_resale_value_sum(deduct_income_tax=True,
+                                                              own_percentage_only=True)
         for asset_resale in asset_resales:
             self._append_result(asset_resale["type"] + " resale", asset_resale["sales_value"])
 

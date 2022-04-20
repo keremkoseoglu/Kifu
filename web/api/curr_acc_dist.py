@@ -61,7 +61,9 @@ class CurrAccDistAPI():
             self._out["Currencies"].append(curr_dict)
 
     def _read_assets(self):
-        assets = imp_asset.get_asset_type_resale_value_sum(only_liquid=True, deduct_income_tax=True)
+        assets = imp_asset.get_asset_type_resale_value_sum(only_liquid=True,
+                                                           deduct_income_tax=True,
+                                                           own_percentage_only=True)
 
         for asset in assets:
             curr_dict = {"currency": asset["type"],

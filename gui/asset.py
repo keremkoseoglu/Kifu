@@ -64,6 +64,10 @@ class AssetWindow(tkinter.Toplevel):
         self._quantity = LabeledTextbox(self, "Quantity", "", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
+        # Percentage
+        self._percentage = LabeledTextbox(self, "Percentage", "", 0, cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
+
         # Bank
         self._bank = LabeledTextbox(self, "Bank", "", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
@@ -99,6 +103,7 @@ class AssetWindow(tkinter.Toplevel):
         self._sales_value.value = asset["sales_value"]
         self._currency.value = asset["currency"]
         self._quantity.value = asset["quantity"]
+        self._percentage.value = asset["own_percentage"]
         self._url_suffix.value = asset["url_suffix"]
         self._income_tax.checked = asset["income_tax"]
 
@@ -120,6 +125,7 @@ class AssetWindow(tkinter.Toplevel):
                  "sales_value": float(self._sales_value.value),
                  "currency": self._currency.value,
                  "quantity": float(self._quantity.value),
+                 "own_percentage": float(self._percentage.value),
                  "bank": self._bank.value,
                  "url_suffix": self._url_suffix.value,
                  "income_tax": self._income_tax.checked,
