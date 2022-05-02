@@ -1,7 +1,6 @@
 """ Akbank related module """
-from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import List
+from typing import List, Protocol
 from dataclasses import dataclass
 import glob
 from os import path
@@ -29,14 +28,16 @@ class StatementEntry():
             self._curr_conv = CurrencyConverter()
         return self._curr_conv.convert_to_local_currency(self.amount, self.currency)
 
-class _AbstractStatementReader(ABC):
+class _AbstractStatementReader(Protocol):
     """ Statement reader class """
-    @abstractmethod
     def read(self) -> List[StatementEntry]:
         """ Reads statements """
+        ...
 
-class _AccountStatementReader(_AbstractStatementReader):
-    """ Account statement reader """
+class _AccountStatementReader():
+    """ Account statement reader 
+    PROTOCOL: _AbstractStatementReader
+    """
     def __init__(self):
         self._out = []
         self._glob_path = path.join(config.CONSTANTS["DOWNLOAD_DIR"], "*.xlsx")
@@ -63,8 +64,10 @@ class _AccountStatementReader(_AbstractStatementReader):
 
         return self._out
 
-class _CreditCardStatementReader(_AbstractStatementReader):
-    """ Credit card statement reader """
+class _CreditCardStatementReader():
+    """ Credit card statement reader
+    PROTOCOL: _AbstractStatementReader
+    """
     def __init__(self):
         self._out = []
         self._glob_path = path.join(config.CONSTANTS["DOWNLOAD_DIR"], "*.csv")
@@ -93,13 +96,16 @@ class _CreditCardStatementReader(_AbstractStatementReader):
 
         return self._out
 
-class StatementReader(_AbstractStatementReader):
-    """ Statement reader """
+class StatementReader():
+    """ Statement reader
+    PROTOCOL: _AbstractStatementReader
+    """
     def __init__(self):
         self._acc_reader = _AccountStatementReader()
         self._crd_reader = _CreditCardStatementReader()
 
     def read(self) -> List[StatementEntry]:
+        """ Reads from sources """
         out = []
         for acc in self._acc_reader.read():
             if abs(acc.amount) >= config.CONSTANTS["STATEMENT_IGNORE_LIMIT"]:
