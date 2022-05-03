@@ -4,6 +4,7 @@ import tkinter.ttk
 from typing import List
 import config
 from gui.asset import AssetWindow
+from gui.font import default_font
 from model import asset
 from util import backup
 
@@ -39,19 +40,31 @@ class AssetListWindow(tkinter.Toplevel):
         # Buttons
         cell_x = 0
 
-        edit_button = tkinter.Button(self, text="Create", command=self._create_click)
+        edit_button = tkinter.Button(self,
+                                     text="Create",
+                                     command=self._create_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self, text="Clone", command=self._clone_click)
+        edit_button = tkinter.Button(self,
+                                     text="Clone",
+                                     command=self._clone_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self, text="Edit", command=self._edit_click)
+        edit_button = tkinter.Button(self,
+                                     text="Edit",
+                                     command=self._edit_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self, text="Delete", command=self._delete_click)
+        invoice_button = tkinter.Button(self,
+                                        text="Delete",
+                                        command=self._delete_click,
+                                        font=default_font())
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 

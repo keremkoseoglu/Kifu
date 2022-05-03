@@ -2,6 +2,7 @@
 import tkinter
 from util import amount as util_amount
 import config
+from gui.font import default_font
 
 
 class AmountTextbox:
@@ -15,23 +16,23 @@ class AmountTextbox:
                  x_pos: int,
                  y_pos: int):
         self._parent = parent
-        self._label = tkinter.Label(parent, text=label_text)
+        self._label = tkinter.Label(parent, text=label_text, font=default_font())
         self._label.place(x=x_pos, y=y_pos)
 
         amount_width = int(config.CONSTANTS["GUI_CELL_WIDTH"] * 70 / 1000)
         self._amount_val = tkinter.StringVar()
         self._amount_val.set(util_amount.get_formatted_amount(amount))
-        self._amount_box = tkinter.Entry(parent, textvariable=self._amount_val)
+        self._amount_box = tkinter.Entry(parent, textvariable=self._amount_val, font=default_font())
         self._amount_box.config(width=amount_width)
         self._amount_box.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
         currency_width = int((config.CONSTANTS["GUI_CELL_WIDTH"] / 10) - amount_width)
         self._currency_val = tkinter.StringVar()
         self._currency_val.set(currency)
-        self._currency_box = tkinter.Entry(parent, textvariable=self._currency_val)
+        self._currency_box = tkinter.Entry(parent, textvariable=self._currency_val, font=default_font())
         self._currency_box.config(width=currency_width)
         self._currency_box.place(
-            x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"] + (amount_width * 10),
+            x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"] + (amount_width * 20),
             y=y_pos)
 
     def disable(self):

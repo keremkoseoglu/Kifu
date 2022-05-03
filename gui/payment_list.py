@@ -8,6 +8,7 @@ from util import backup, date_time
 from util import amount as util_amount
 from gui.payment import PaymentWindow
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 import config
 from web.app import startup_url
 
@@ -48,23 +49,38 @@ class PaymentListWindow(tkinter.Toplevel):
         # Buttons
         cell_x = 0
 
-        refresh_button = tkinter.Button(self, text="Refresh", command=self._refresh_click)
+        refresh_button = tkinter.Button(self,
+                                        text="Refresh",
+                                        command=self._refresh_click,
+                                        font=default_font())
         refresh_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self, text="Edit", command=self._edit_click)
+        edit_button = tkinter.Button(self,
+                                     text="Edit",
+                                     command=self._edit_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self, text="Status", command=self._status_rep_click)
+        edit_button = tkinter.Button(self,
+                                     text="Status",
+                                     command=self._status_rep_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self, text="Reconciliation", command=self._recon_rep_click)
+        edit_button = tkinter.Button(self,
+                                     text="Reconcil.",
+                                     command=self._recon_rep_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self, text="Delete", command=self._delete_click)
+        invoice_button = tkinter.Button(self,
+                                        text="Delete",
+                                        command=self._delete_click,
+                                        font=default_font())
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 

@@ -5,6 +5,7 @@ from gui.amount_textbox import AmountTextbox
 from gui.labeled_checkbox import LabeledCheckbox
 from gui.labeled_textbox import LabeledTextbox
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 from model.payment import Collection as Collection_Model
 import config
 
@@ -12,7 +13,7 @@ import config
 class Collection:
     """ Money collection window """
 
-    _WINDOW_WIDTH = 400
+    _WINDOW_WIDTH = 450
     _WINDOW_HEIGHT = 200
 
     def __init__(self, click_handler, default_currency: str):
@@ -39,7 +40,10 @@ class Collection:
         self._cleared = LabeledCheckbox(self._window, "Clear", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
-        save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
+        save_button = tkinter.Button(self._window,
+                                     text="OK",
+                                     command=self._ok_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):

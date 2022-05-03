@@ -1,6 +1,7 @@
 """ Module to buy foreign currency """
 import tkinter
 from gui.amount_textbox import AmountTextbox
+from gui.font import default_font
 import model.payment as payment
 from model.bank_account import get_accounts_with_currency
 import config
@@ -13,7 +14,6 @@ class Invest: # pylint: disable=R0903
     _WINDOW_HEIGHT = 400
 
     def __init__(self):
-
         self._window = tkinter.Toplevel()
         self._window.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
         cell_y = 0
@@ -28,12 +28,17 @@ class Invest: # pylint: disable=R0903
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
-        self._acc_list = tkinter.Listbox(self._window, selectmode=tkinter.MULTIPLE)
+        self._acc_list = tkinter.Listbox(self._window,
+                                         selectmode=tkinter.MULTIPLE,
+                                         font=default_font())
         self._refresh()
         self._acc_list.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT)
         cell_y += self._NOTIF_HEIGHT
 
-        save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
+        save_button = tkinter.Button(self._window,
+                                     text="OK",
+                                     command=self._ok_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):

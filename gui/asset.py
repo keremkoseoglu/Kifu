@@ -6,12 +6,13 @@ import config
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.labeled_checkbox import LabeledCheckbox
+from gui.font import default_font
 import model.asset as asset_model
 
 class AssetWindow(tkinter.Toplevel):
     """ Asset window """
-    _WINDOW_WIDTH = 400
-    _WINDOW_HEIGHT = 450
+    _WINDOW_WIDTH = 450
+    _WINDOW_HEIGHT = 500
 
     def __init__(self):
         # Initialization
@@ -42,14 +43,14 @@ class AssetWindow(tkinter.Toplevel):
 
         # Purcase date
         self._purchase_date = LabeledTextbox(self,
-                                             "Purchase Date",
+                                             "Pur. Date",
                                              datetime.datetime.now().isoformat(),
                                              0,
                                              cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Purchase value
-        self._purchase_value = LabeledTextbox(self, "Purchase value", "", 0, cell_y)
+        self._purchase_value = LabeledTextbox(self, "Pur. value", "", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Sales value
@@ -77,16 +78,18 @@ class AssetWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Income tax
-        self._income_tax = LabeledCheckbox(self, "Income tax related", 0, cell_y)
+        self._income_tax = LabeledCheckbox(self, "Income tax", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-        save_button = tkinter.Button(self, text="Save", command=self._save_click)
+        save_button = tkinter.Button(self, text="Save",
+                                     command=self._save_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Status
-        self._status_label = tkinter.Label(master=self, text="")
+        self._status_label = tkinter.Label(master=self, text="", font=default_font())
         self._status_label.place(
             x=0,
             y=cell_y,

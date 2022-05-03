@@ -1,9 +1,11 @@
 """ Invoice list window """
 import tkinter.ttk
+from typing import List
 from util import amount, backup, date_time, invoice_label
 from gui.payment_list import PaymentListWindow
 from gui.invoice import InvoiceWindow, open_invoice_as_email
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 from model.invoice import Invoice
 from model.invoice_file_reader import get_invoices
 from model import payment
@@ -18,14 +20,11 @@ class InvoiceListWindow(tkinter.Toplevel):
     _Y_SPACING = 10
 
     def __init__(self):
-
         # Initialization
-
         tkinter.Toplevel.__init__(self)
         self.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Build tree
-
         self._tree = tkinter.ttk.Treeview(self)
         tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
@@ -46,28 +45,43 @@ class InvoiceListWindow(tkinter.Toplevel):
         # Buttons
         cell_x = 0
 
-        edit_button = tkinter.Button(self, text="Edit", command=self._edit_click)
+        edit_button = tkinter.Button(self,
+                                     text="Edit",
+                                     command=self._edit_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self, text="Create payments", command=self._payment_click)
+        invoice_button = tkinter.Button(self,
+                                        text="Create payments",
+                                        command=self._payment_click,
+                                        font=default_font())
         invoice_button.place(x=cell_x, y=cell_y)
-        cell_x += self._BUTTON_WIDTH
+        cell_x += self._BUTTON_WIDTH * 2
 
-        email_button = tkinter.Button(self, text="E-Mail", command=self._email_click)
+        email_button = tkinter.Button(self,
+                                      text="E-Mail",
+                                      command=self._email_click,
+                                      font=default_font())
         email_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        label_button = tkinter.Button(self, text="Labels", command=self._label_click)
+        label_button = tkinter.Button(self,
+                                      text="Labels",
+                                      command=self._label_click,
+                                      font=default_font())
         label_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self, text="Delete", command=self._delete_click)
+        invoice_button = tkinter.Button(self,
+                                        text="Delete",
+                                        command=self._delete_click,
+                                        font=default_font())
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
     @property
-    def _selected_invoices(self) -> []:
+    def _selected_invoices(self) -> List:
         selected_invoices = []
 
         for selected_id in self._tree.selection():

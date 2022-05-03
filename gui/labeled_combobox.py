@@ -1,6 +1,8 @@
 """ Labeled combobox control """
+from typing import List
 import tkinter
 import config
+from gui.font import default_font
 
 
 class LabeledCombobox:
@@ -9,11 +11,11 @@ class LabeledCombobox:
     def __init__(self,
                  parent: tkinter.Toplevel,
                  label_text: str,
-                 combo_values: [],
+                 combo_values: List,
                  x_pos: int,
                  y_pos: int,
                  width=0):
-        self._label = tkinter.Label(parent, text=label_text)
+        self._label = tkinter.Label(parent, text=label_text, font=default_font())
         self._label.place(x=x_pos, y=y_pos)
         self._selected_value = tkinter.StringVar()
 
@@ -21,11 +23,13 @@ class LabeledCombobox:
             self._combobox = tkinter.ttk.Combobox(
                 parent,
                 textvariable=self._selected_value,
-                width=50)
+                width=150,
+                font=default_font())
         else:
             self._combobox = tkinter.ttk.Combobox(
                 parent,
-                textvariable=self._selected_value)
+                textvariable=self._selected_value,
+                font=default_font())
 
         self._combobox.config(values=combo_values)
         self._combobox.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)

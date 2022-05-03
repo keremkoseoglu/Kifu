@@ -2,15 +2,15 @@
 import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 import model.payment as payment
 import config
 
 
 class PayIncomeTax:
     """ Income tax payment window """
-
-    _WINDOW_WIDTH = 400
-    _WINDOW_HEIGHT = 200
+    _WINDOW_WIDTH = 450
+    _WINDOW_HEIGHT = 75
 
     def __init__(self):
         self._window = tkinter.Toplevel()
@@ -26,7 +26,10 @@ class PayIncomeTax:
             cell_y)
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
-        save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
+        save_button = tkinter.Button(self._window,
+                                     text="OK",
+                                     command=self._ok_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):

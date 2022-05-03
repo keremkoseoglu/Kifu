@@ -2,6 +2,7 @@
 import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 import model.payment as payment
 from util import amount
 import config
@@ -10,8 +11,8 @@ import config
 class PayVat:
     """ VAT payment window """
     _NOTIF_HEIGHT = 250
-    _WINDOW_WIDTH = 800
-    _WINDOW_HEIGHT = 400
+    _WINDOW_WIDTH = 825
+    _WINDOW_HEIGHT = 350
 
     def __init__(self):
         self._window = tkinter.Toplevel()
@@ -28,12 +29,17 @@ class PayVat:
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
-        self._vat_list = tkinter.Listbox(self._window, selectmode=tkinter.MULTIPLE)
+        self._vat_list = tkinter.Listbox(self._window,
+                                         selectmode=tkinter.MULTIPLE,
+                                         font=default_font())
         self._refresh()
         self._vat_list.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT)
         cell_y += self._NOTIF_HEIGHT
 
-        save_button = tkinter.Button(self._window, text="OK", command=self._ok_click)
+        save_button = tkinter.Button(self._window,
+                                     text="OK",
+                                     command=self._ok_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
     def _ok_click(self):

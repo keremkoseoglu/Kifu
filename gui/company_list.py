@@ -3,13 +3,14 @@ import tkinter
 import tkinter.ttk
 from typing import List
 from gui.company_listbox import CompanyListbox
+from gui.font import default_font
 from model.company import Company
 
 
 class CompanyList(tkinter.Toplevel):
     """ Company list window """
 
-    _WINDOW_WIDTH = 200
+    _WINDOW_WIDTH = 250
     _WINDOW_HEIGHT = 250
 
     def __init__(self, close_handler, companies: List[Company] = None):
@@ -23,7 +24,10 @@ class CompanyList(tkinter.Toplevel):
         self._listbox = CompanyListbox(self, 0, 0, companies=companies)
 
         # Buttons
-        print_button = tkinter.Button(self, text="Select", command=self._company_selected)
+        print_button = tkinter.Button(self,
+                                      text="Select",
+                                      command=self._company_selected,
+                                      font=default_font())
         print_button.place(x=0, y=200)
 
     def _company_selected(self):

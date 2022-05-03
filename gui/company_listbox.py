@@ -2,7 +2,7 @@
 import tkinter
 from typing import List
 from model.company import Company
-
+from gui.font import default_font
 
 class CompanyListbox:
     """ Company list box control """
@@ -22,7 +22,7 @@ class CompanyListbox:
             for cmp in companies:
                 self._combo_val.append(cmp.name)
 
-        self._combo = tkinter.Listbox(parent, selectmode=tkinter.EXTENDED)
+        self._combo = tkinter.Listbox(parent, selectmode=tkinter.EXTENDED, font=default_font())
 
         for value in self._combo_val:
             self._combo.insert(tkinter.END, value)

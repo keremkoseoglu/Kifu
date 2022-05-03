@@ -6,7 +6,6 @@ from model.company import Company
 
 class CompanyCombobox:
     """ Company combobox """
-
     def __init__(self, parent: tkinter.Toplevel, label_text: str, x_pos: int, y_pos: int):
         self._companies = Company.get_companies()
 
