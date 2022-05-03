@@ -12,6 +12,7 @@ from gui.labeled_textarea import LabeledTextarea
 from gui.labeled_textbox import LabeledTextbox
 from gui.popup_with_single_value import PopupWithSingleValue
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 import model.payment as payment_model
 from util import amount as util_amount
 from util import date_time
@@ -22,9 +23,9 @@ from web.app import startup_url
 class PaymentWindow(tkinter.Toplevel):
     """ Payment window """
 
-    _SPACING = 100
-    _WINDOW_WIDTH = 1000
-    _WINDOW_HEIGHT = 950
+    _SPACING = 150
+    _WINDOW_WIDTH = 1200
+    _WINDOW_HEIGHT = 1000
 
     def __init__(self):
 
@@ -172,15 +173,22 @@ class PaymentWindow(tkinter.Toplevel):
         self._recurrence_tree.bind("<<TreeviewSelect>>", self._recurrence_select)
         self._recurrence_tree.bind("<Double-1>", self._recurrence_double_click)
 
-        recurrence_clear_button = tkinter.Button(self, text="Clear", command=self._clear_recurrence)
+        recurrence_clear_button = tkinter.Button(self,
+                                                 text="Clear",
+                                                 command=self._clear_recurrence,
+                                                 font=default_font())
         recurrence_clear_button.place(x=0, y=cell_y)
 
         recurrence_postpone_button = tkinter.Button(
             self,
             text="Postpone",
-            command=self._rec_postpone_popup)
+            command=self._rec_postpone_popup,
+            font=default_font())
         recurrence_postpone_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
-        recurrence_add_button = tkinter.Button(self, text="Add", command=self._recurrence_popup)
+        recurrence_add_button = tkinter.Button(self,
+                                               text="Add",
+                                               command=self._recurrence_popup,
+                                               font=default_font())
         recurrence_add_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"]*2, y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -207,7 +215,10 @@ class PaymentWindow(tkinter.Toplevel):
         self._collection_tree.heading("Description", text="Description")
         self._collection_tree.heading("Amount", text="Amount")
 
-        add_collection_button = tkinter.Button(self, text="Add", command=self._collection_popup)
+        add_collection_button = tkinter.Button(self,
+                                               text="Add",
+                                               command=self._collection_popup,
+                                               font=default_font())
         add_collection_button.place(x=0, y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -218,21 +229,34 @@ class PaymentWindow(tkinter.Toplevel):
         # Final
         ##########
 
-        cell_y += (self._SPACING / 2)
+        cell_x = 0
 
-        status_button = tkinter.Button(self, text="Status", command=self._status)
-        status_button.place(x=0, y=cell_y)
+        status_button = tkinter.Button(self,
+                                       text="Status",
+                                       command=self._status,
+                                       font=default_font())
+        status_button.place(x=cell_x, y=cell_y)
+        cell_x += PaymentWindow._SPACING
 
-        recon_button = tkinter.Button(self, text="Reconciliation", command=self._reconciliation)
-        recon_button.place(x=50, y=cell_y)
+        recon_button = tkinter.Button(self,
+                                      text="Reconc.",
+                                      command=self._reconciliation,
+                                      font=default_font())
+        recon_button.place(x=cell_x, y=cell_y)
+        cell_x += PaymentWindow._SPACING
 
-        save_button = tkinter.Button(self, text="Save", command=self._save)
-        save_button.place(x=200, y=cell_y)
+        save_button = tkinter.Button(self,
+                                     text="Save",
+                                     command=self._save,
+                                     font=default_font())
+        save_button.place(x=cell_x, y=cell_y)
+        cell_x += PaymentWindow._SPACING
 
-        del_button = tkinter.Button(self, text="Delete", command=self._delete)
-        del_button.place(x=300, y=cell_y)
+        del_button = tkinter.Button(self, text="Delete", command=self._delete, font=default_font())
+        del_button.place(x=cell_x, y=cell_y)
+        cell_x += 100
         self._delete_warning_label = tkinter.Label(self, text="!")
-        self._delete_warning_label.place(x=350, y=cell_y)
+        self._delete_warning_label.place(x=cell_x, y=cell_y)
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 

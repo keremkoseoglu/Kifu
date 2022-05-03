@@ -1,6 +1,7 @@
 """ Labeled text area control """
 import tkinter
 import config
+from gui.font import default_font
 
 
 class LabeledTextarea:
@@ -15,9 +16,9 @@ class LabeledTextarea:
                  x_pos: int,
                  y_pos: int):
         self._parent = parent
-        self._label = tkinter.Label(parent, text=label_text)
+        self._label = tkinter.Label(parent, text=label_text, font=default_font())
         self._label.place(x=x_pos, y=y_pos)
-        self._text_box = tkinter.Text(parent, height=10)
+        self._text_box = tkinter.Text(parent, height=10, width=40, font=default_font())
         self._text_box.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
         if isinstance(text_value, str):

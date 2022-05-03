@@ -37,7 +37,8 @@ def _get_old_file_path(date: datetime) -> str:
 class CurrencyConverter:
     """ Currency converter """
     def __init__(self):
-        currency_update.execute()
+        if not config.TEST_MODE:
+            currency_update.execute()
         self._conv_cache = {}
 
         file_path = _get_file_path()

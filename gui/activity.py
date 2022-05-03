@@ -5,6 +5,7 @@ import tkinter.ttk
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 from util import ecz_daha
 import model.activity
 import model.location
@@ -17,11 +18,10 @@ import config
 class ActivityWindow(tkinter.Toplevel):
     """ Activity window """
 
-    _WINDOW_WIDTH = 400
-    _WINDOW_HEIGHT = 250
+    _WINDOW_WIDTH = 550
+    _WINDOW_HEIGHT = 300
 
     def __init__(self):
-
         # Initialization
 
         tkinter.Toplevel.__init__(self)
@@ -29,13 +29,11 @@ class ActivityWindow(tkinter.Toplevel):
         cell_y = 0
 
         # GUID
-
         self._guid = LabeledTextbox(self, "GUID", "", 0, cell_y)
         self._guid.disable()
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Project
-
         self._projects = Project.get_projects()
         self._project_combo_val = []
         self._build_project_combo_values()
@@ -43,7 +41,6 @@ class ActivityWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Location
-
         self._locations = model.location.get_locations()
         self._location_combo_val = []
         self._build_location_combo_values()
@@ -56,31 +53,26 @@ class ActivityWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Date
-
         self._date = LabeledTextbox(self, "Date", datetime.datetime.now().isoformat(), 0, cell_y)
-        save_button = tkinter.Button(self, text="Ecz", command=self._ecz_click)
-        save_button.place(x=(config.CONSTANTS["GUI_CELL_WIDTH"]*2+50), y=cell_y)
+        save_button = tkinter.Button(self, text="Ecz", command=self._ecz_click, font=default_font())
+        save_button.place(x=(config.CONSTANTS["GUI_CELL_WIDTH"]*2+150), y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Duration
-
         self._duration = LabeledTextbox(self, "Duration", "", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Work
-
         self._work = LabeledTextbox(self, "Work", "", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-
-        save_button = tkinter.Button(self, text="Save", command=self._save_click)
+        save_button = tkinter.Button(self, text="Save", command=self._save_click, font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Status
-
-        self._status_label = tkinter.Label(master=self, text="")
+        self._status_label = tkinter.Label(master=self, text="", font=default_font())
         self._status_label.place(
             x=0,
             y=cell_y,

@@ -1,6 +1,7 @@
 """ Primary window """
 import os
 import tkinter
+from tkinter import font
 import urllib
 from typing import List
 from incubus import IncubusFactory
@@ -11,6 +12,7 @@ from gui import activity, activity_list
 from gui import asset_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
 from gui import payment, payment_list, pay_vat, activity_split, invest
+from gui.font import default_font, configure_treeview_style
 from model import notification, payment as payment_model
 from model.activity import Activity
 from model.payment import delete_completed_payments, get_companies_without_payment
@@ -21,9 +23,9 @@ from web.app import startup_url
 
 class Prime:
     """ Primary window """
-    _NOTIF_HEIGHT = 250
-    _WINDOW_WIDTH = 800
-    _WINDOW_HEIGHT = 350
+    _NOTIF_HEIGHT = 500
+    _WINDOW_WIDTH = 1000
+    _WINDOW_HEIGHT = 600
 
     def __init__(self, add_activity: bool = False):
         # Initialization
@@ -38,7 +40,7 @@ class Prime:
         self._root.geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Status label
-        self._status_label = tkinter.Label(master=self._root, text="Welcome to Kifu")
+        self._status_label = tkinter.Label(master=self._root, text="Welcome to Kifu", font=default_font())
         self._status_label.place(
             x=0,
             y=cell_y,
@@ -48,13 +50,13 @@ class Prime:
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Notifications
-        self._notif_list = tkinter.Listbox(self._root)
+        self._notif_list = tkinter.Listbox(self._root, font=default_font())
         self.refresh()
         self._notif_list.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT)
         self._notif_list.bind('<Double-1>', self._notif_double_click)
         cell_y += self._NOTIF_HEIGHT
 
-        refresh_button = tkinter.Button(self._root, text="Refresh", command=self.refresh)
+        refresh_button = tkinter.Button(self._root, text="Refresh", command=self.refresh, font=default_font())
         refresh_button.place(x=0, y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -133,6 +135,7 @@ class Prime:
 
         # Flush
         self._root.configure(menu=self._menu)
+        configure_treeview_style()
         if add_activity:
             Prime._add_activity()
 

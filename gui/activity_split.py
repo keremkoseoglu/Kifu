@@ -3,6 +3,7 @@ import tkinter
 import tkinter.ttk
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
+from gui.font import default_font
 import model.activity
 import model.project
 from model.project import Project
@@ -12,9 +13,8 @@ import config
 
 class ActivitySplit(tkinter.Toplevel):
     """ Split activity window """
-
-    _WINDOW_WIDTH = 400
-    _WINDOW_HEIGHT = 250
+    _WINDOW_WIDTH = 500
+    _WINDOW_HEIGHT = 150
 
     def __init__(self):
 
@@ -46,7 +46,7 @@ class ActivitySplit(tkinter.Toplevel):
 
         # Button
 
-        save_button = tkinter.Button(self, text="Save", command=self._save_click)
+        save_button = tkinter.Button(self, text="Save", command=self._save_click, font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 

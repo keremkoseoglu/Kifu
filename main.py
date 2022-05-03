@@ -16,11 +16,11 @@ def startup():
 
     if "-test" in sys.argv:
         config.test_mode()
+    else:
+        payment.generate_high_time_recurrences()
 
-    payment.generate_high_time_recurrences()
-
-    if config.CONSTANTS["UPDATE_ON_STARTUP"]:
-        UpdateFacadeFactory.get_instance().execute()
+        if config.CONSTANTS["UPDATE_ON_STARTUP"]:
+            UpdateFacadeFactory.get_instance().execute()
 
     add_activity = all([
         date_time.is_working_day(datetime.datetime.now()),

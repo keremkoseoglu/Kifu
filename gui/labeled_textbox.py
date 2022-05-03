@@ -1,6 +1,7 @@
 """ Labeled textbox """
 import tkinter
 import config
+from gui.font import default_font
 
 
 class LabeledTextbox:
@@ -12,11 +13,11 @@ class LabeledTextbox:
                  x_pos: int,
                  y_pos: int):
         self._parent = parent
-        self._label = tkinter.Label(parent, text=label_text)
+        self._label = tkinter.Label(parent, text=label_text, font=default_font())
         self._label.place(x=x_pos, y=y_pos)
         self._text_val = tkinter.StringVar()
         self._text_val.set(text_value)
-        self._text_box = tkinter.Entry(parent, textvariable=self._text_val)
+        self._text_box = tkinter.Entry(parent, textvariable=self._text_val, font=default_font())
         self._text_box.place(x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"], y=y_pos)
 
     @property

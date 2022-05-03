@@ -7,6 +7,7 @@ from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.popup_file import popup_email, popup_open_file
 from gui.prime_singleton import PrimeSingleton
+from gui.font import default_font
 from model.invoice import Invoice
 import model.company
 from model.company import Company
@@ -32,14 +33,12 @@ def open_invoice_as_email(inv: Invoice):
 
 class InvoiceWindow(tkinter.Toplevel):
     """ Invoice window """
-
-    _SMALL_SPACE = 25
-    _SPACE = 50
-    _WINDOW_WIDTH = 400
-    _WINDOW_HEIGHT = 425
+    _SMALL_SPACE = 50
+    _SPACE = 100
+    _WINDOW_WIDTH = 525
+    _WINDOW_HEIGHT = 475
 
     def __init__(self):
-
         # Initialization
         tkinter.Toplevel.__init__(self)
         self.wm_geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
@@ -113,15 +112,22 @@ class InvoiceWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-        save_button = tkinter.Button(self, text="Save", command=self._save_click)
+        save_button = tkinter.Button(self,
+                                     text="Save",
+                                     command=self._save_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
-        save2_button = tkinter.Button(self, text="Save with payments", command=self._save_pay_click)
+
+        save2_button = tkinter.Button(self,
+                                      text="Save with payments",
+                                      command=self._save_pay_click,
+                                      font=default_font())
         save2_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"] + InvoiceWindow._SPACE, y=cell_y)
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Status
-        self._status_label = tkinter.Label(master=self, text="")
+        self._status_label = tkinter.Label(master=self, text="", font=default_font())
         self._status_label.place(
             x=0,
             y=cell_y,
