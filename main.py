@@ -9,39 +9,6 @@ from util import backup, date_time
 import config
 from update.update_facade import UpdateFacadeFactory
 
-""" TODO #152
-ilk geliştirme
-    yeni ana sayfa ekranı (prime)
-        menü template bul
-        sayfayı hazırla
-        hemen web servisi başlatıp sayfayı göster
-        menü çalışıyor olsun
-    mevcut TK ekranlarını buradan çağırabiliyor ol
-    mevcut web ekranlarını buradan çağırabiliyor ol
-yeni ekranlar
-    activity_list
-    activity_split
-    activity
-    asset_list
-    asset
-    cash_movement
-    collection
-    credit_card_statement
-    invest
-    invoce_list
-    invoice
-    pay_income_tax
-    pay_vat
-    payment_list
-    payment
-final
-    gui klasörünü sil
-    pull request
-vazgeçersen
-    pywebview uninstall
-    branch sil
-"""
-
 def startup():
     """ Main startup function """
     config.read_constants()
