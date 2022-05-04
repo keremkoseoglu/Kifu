@@ -32,10 +32,9 @@ class _AbstractStatementReader(Protocol):
     """ Statement reader class """
     def read(self) -> List[StatementEntry]:
         """ Reads statements """
-        ...
 
 class _AccountStatementReader():
-    """ Account statement reader 
+    """ Account statement reader
     PROTOCOL: _AbstractStatementReader
     """
     def __init__(self):

@@ -12,7 +12,7 @@ class Company:
     @staticmethod
     def get_companies():
         """ Returns a dictionary of companies """
-        with open(Company._get_company_data_file_path()) as company_file:
+        with open(Company._get_company_data_file_path(), encoding="utf-8") as company_file:
             json_data = json.load(company_file)
         return json_data
 
@@ -150,7 +150,7 @@ class Company:
 
     @staticmethod
     def _write_json_to_disk(data: dict):
-        with open(Company._get_company_data_file_path(), "w") as json_file:
+        with open(Company._get_company_data_file_path(), "w", encoding="utf-8") as json_file:
             json.dump(data, json_file)
 
     def _get_list_from_dict(self, key: str) -> List[str]:

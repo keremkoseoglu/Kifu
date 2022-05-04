@@ -31,7 +31,7 @@ class TaxInfo:
 
     def _save_html(self):
         file_path = config.CONSTANTS["DOWNLOAD_DIR"] + "kifu_tax.html"
-        with open(file_path, "w") as company_file:
+        with open(file_path, "w", encoding="utf-8") as company_file:
             company_file.write(self._html)
         os.system("open \"" + file_path + "\"")
         self._html = ""

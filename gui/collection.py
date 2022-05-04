@@ -6,7 +6,7 @@ from gui.labeled_checkbox import LabeledCheckbox
 from gui.labeled_textbox import LabeledTextbox
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
-from model.payment import Collection as Collection_Model
+from model.payment.recurrence import Collection as Collection_Model
 import config
 
 

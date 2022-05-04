@@ -14,7 +14,7 @@ def get_file_path():
 
 def get_invoices() -> dict:
     """ Returns current invoices """
-    with open(get_file_path()) as invoice_file:
+    with open(get_file_path(), encoding="utf-8") as invoice_file:
         json_data = json.load(invoice_file)
     return json_data
 

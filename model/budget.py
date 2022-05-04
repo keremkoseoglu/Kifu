@@ -19,14 +19,12 @@ _MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct",
 
 def get_domain_dict() -> dict:
     """ Returns domain dict """
-    with open(_get_domain_file_path()) as domain_file:
+    with open(_get_domain_file_path(), encoding="utf-8") as domain_file:
         out = json.load(domain_file)
     return out
 
 def get_subject_list() -> List:
     """ Subjects """
-    global _INCOME_ICON, _EXPENSE_ICON
-
     out = []
     domain_dict = get_domain_dict()
     for domain in domain_dict["domains"]:
@@ -101,7 +99,6 @@ def get_plan_list() -> List:
 
 def get_plan_vs_actual_list() -> List:
     """ Plan vs actual """
-    global _GREEN_ICON
     conv = CurrencyConverter()
     out = get_plan_list()
     fiscal = _get_latest_fiscal_file_content()
@@ -136,8 +133,7 @@ def get_plan_vs_actual_list() -> List:
                     if out_actual["month"] == actual_months["month"]:
                         out_actual["amount"] += local_amount
                         out_actual["status_icon"] = _get_status_icon(subject["monthly_plan_amount"],
-                                                                     out_actual["amount"],
-                                                                     subject["direction"])
+                                                                     out_actual["amount"])
                         break
 
     return out
@@ -170,8 +166,6 @@ def get_plan_list_and_sums() -> dict:
 
 def get_plan_vs_actual_list_and_sums() -> dict:
     """ Plan vs actual with sums """
-    global _MONTHS
-
     out = {"plan_vs_actuals": get_plan_vs_actual_list(),
            "plan_sum": {},
            "actual_sum": {"annual_income": 0,
@@ -220,8 +214,7 @@ def get_plan_vs_actual_list_and_sums() -> dict:
 
         pva["monthly_delta"] = pva["monthly_plan_amount"] - pva["avg_monthly_actual"]
         pva["monthly_delta_icon"] = _get_status_icon(pva["monthly_plan_amount"],
-                                                     pva["avg_monthly_actual"],
-                                                     pva["direction"])
+                                                     pva["avg_monthly_actual"])
         out["actual_sum"]["avg_monthly_balance"] += pva["avg_monthly_actual"]
         if pva["direction"] == "incomes":
             out["actual_sum"]["avg_monthly_income"] += pva["avg_monthly_actual"]
@@ -245,7 +238,6 @@ def get_plan_vs_actual_list_and_sums() -> dict:
 
 def get_plan_list_and_sums_flat() -> List:
     """ Returns plan + sums, but shows sums as a plan category """
-    global _SUM_DOMAIN
     pws = get_plan_list_and_sums()
     out = pws["plans"]
 
@@ -280,13 +272,12 @@ def get_plan_list_and_sums_flat() -> List:
 
 def get_plan_vs_actual_list_and_sums_flat() -> dict:
     """ Returns with an additional sum line """
-    global _GREEN_ICON, _INCOME_ICON
     out = get_plan_vs_actual_list_and_sums()
 
     pva_sum = {}
 
     for pva in out["plan_vs_actuals"]:
-        if pva_sum == {}:
+        if pva_sum == {}: #pylint: disable=C1803
             pva_sum = deepcopy(pva)
             pva_sum["domain"] = "SUM"
             pva_sum["subject"] = ""
@@ -304,13 +295,11 @@ def get_plan_vs_actual_list_and_sums_flat() -> dict:
 
     if pva_sum != {}:
         pva_sum["monthly_delta_icon"] = _get_status_icon(pva_sum["monthly_plan_amount"],
-                                                         pva_sum["avg_monthly_actual"],
-                                                         pva_sum["direction"])
+                                                         pva_sum["avg_monthly_actual"])
 
         for act in pva_sum["actuals"]:
             act["status_icon"] = _get_status_icon(pva_sum["monthly_plan_amount"],
-                                                  act["amount"],
-                                                  pva_sum["direction"])
+                                                  act["amount"])
 
         out["plan_vs_actuals"].append(pva_sum)
 
@@ -403,7 +392,7 @@ def save_actuals_with_subject_list_combo(actuals: List):
 
     fiscal_file_name = _get_latest_fiscal_file()
     fiscal_path = path.join(config.CONSTANTS["DATA_DIR_PATH"] + fiscal_file_name)
-    with open(fiscal_path, "w") as fiscal_file:
+    with open(fiscal_path, "w", encoding="utf-8") as fiscal_file:
         fiscal_file.write(json.dumps(fiscal_file_dict, indent=4))
 
 def migrate_from_excel():
@@ -412,7 +401,7 @@ def migrate_from_excel():
     Therefore, it contains lots of hard coded values
     """
     excel = []
-    with open('/Users/kerem/Downloads/tmp_budget.csv') as budget_file:
+    with open('/Users/kerem/Downloads/tmp_budget.csv', encoding="utf-8") as budget_file:
         excel = budget_file.read().splitlines()
 
     subject_defs = get_subject_list()
@@ -448,7 +437,7 @@ def migrate_from_excel():
 
     fiscal_file_name = _get_latest_fiscal_file()
     fiscal_path = path.join(config.CONSTANTS["DATA_DIR_PATH"] + fiscal_file_name)
-    with open(fiscal_path, "w") as fiscal_file:
+    with open(fiscal_path, "w", encoding="utf-8") as fiscal_file:
         fiscal_file.write(json.dumps(fiscal_file_dict, indent=4))
 
 
@@ -456,7 +445,6 @@ def _get_domain_file_path() -> str:
     return path.join(config.CONSTANTS["DATA_DIR_PATH"] + _DOMAIN_FILE)
 
 def _get_latest_fiscal_file() -> str:
-    global _FISCAL_FILE_PREFIX
     out = ""
 
     cdir = config.CONSTANTS["DATA_DIR_PATH"]
@@ -480,12 +468,11 @@ def _get_latest_fiscal_file_content() -> dict:
     latest_file = _get_latest_fiscal_file()
     if latest_file != "":
         fiscal_path = path.join(config.CONSTANTS["DATA_DIR_PATH"] + latest_file)
-        with open(fiscal_path) as fiscal_file:
+        with open(fiscal_path, encoding="utf-8") as fiscal_file:
             out = json.load(fiscal_file)
     return out
 
-def _get_status_icon(plan: float, actual: float, direction: str) -> str:
-    global _GREEN_ICON, _YELLOW_ICON, _RED_ICON
+def _get_status_icon(plan: float, actual: float) -> str:
     result = _GREEN_ICON
     diff = plan - actual
     if diff > 0:

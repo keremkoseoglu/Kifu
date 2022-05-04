@@ -67,7 +67,10 @@ class ActivityWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-        save_button = tkinter.Button(self, text="Save", command=self._save_click, font=default_font())
+        save_button = tkinter.Button(self,
+                                     text="Save",
+                                     command=self._save_click,
+                                     font=default_font())
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 

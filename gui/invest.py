@@ -2,7 +2,7 @@
 import tkinter
 from gui.amount_textbox import AmountTextbox
 from gui.font import default_font
-import model.payment as payment
+from model.payment import payment
 from model.bank_account import get_accounts_with_currency
 import config
 

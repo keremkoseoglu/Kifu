@@ -8,7 +8,7 @@ from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
 from model.invoice import Invoice
 from model.invoice_file_reader import get_invoices
-from model import payment
+from model.payment import payment
 import config
 
 class InvoiceListWindow(tkinter.Toplevel):

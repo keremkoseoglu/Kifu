@@ -3,7 +3,7 @@ import sys
 import datetime
 from gui.prime import Prime
 from gui.prime_singleton import PrimeSingleton
-from model import payment
+from model.payment import payment
 from model.activity import Activity
 from util import backup, date_time
 import config
@@ -22,10 +22,8 @@ def startup():
         if config.CONSTANTS["UPDATE_ON_STARTUP"]:
             UpdateFacadeFactory.get_instance().execute()
 
-    add_activity = all([
-        date_time.is_working_day(datetime.datetime.now()),
-        not Activity.has_activity_for_today()
-    ])
+    add_activity = all([date_time.is_working_day(datetime.datetime.now()),
+                        not Activity.has_activity_for_today()])
 
     prime = Prime(add_activity=add_activity)
     PrimeSingleton.set(prime)

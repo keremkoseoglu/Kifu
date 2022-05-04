@@ -13,7 +13,7 @@ class Project:
     def get_projects():
         """ Returns all projects """
         file_path = os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + Project._PROJECT_FILE)
-        with open(file_path) as project_file:
+        with open(file_path, encoding="utf-8") as project_file:
             json_data = json.load(project_file)
         return json_data
 

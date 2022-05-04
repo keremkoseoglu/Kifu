@@ -13,7 +13,7 @@ from gui.labeled_textbox import LabeledTextbox
 from gui.popup_with_single_value import PopupWithSingleValue
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
-import model.payment as payment_model
+from model.payment import payment as payment_model
 from util import amount as util_amount
 from util import date_time
 import config

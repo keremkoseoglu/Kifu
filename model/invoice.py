@@ -76,7 +76,7 @@ class Invoice:
 
     @staticmethod
     def _write_invoices_to_disk(invoices: List):
-        with open(get_file_path(), "w") as invoice_file:
+        with open(get_file_path(), "w", encoding="utf-8") as invoice_file:
             json.dump(invoices, invoice_file, indent=3)
 
     def __init__(self, invoice: dict):

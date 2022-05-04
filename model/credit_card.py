@@ -29,7 +29,7 @@ class CreditCardDebtList: # pylint: disable=R0903
 
 def get_credit_cards():
     """ Returns a dict of credit cards """
-    with open(_get_file_path()) as cc_file:
+    with open(_get_file_path(), encoding="utf-8") as cc_file:
         json_data = json.load(cc_file)
     return json_data
 

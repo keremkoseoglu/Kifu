@@ -1,8 +1,8 @@
 """ Notifications in main window """
 import datetime
 from typing import List
-from model import payment
-from model.payment import Payment
+from model.payment import payment
+from model.payment.payment import Payment
 from model.activity import Activity
 from util import amount as util_amount
 from util import date_time

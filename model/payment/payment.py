@@ -9,9 +9,10 @@ from model.currency import CurrencyConverter
 from model.invoice import Invoice
 from model.investor import InvestmentAdviser
 from model.income_tax import IncomeTaxCalculatorFactory
+from model.payment.recurrence import Collection, Recurrence
+from model.payment.scheme import Scheme
 from util import backup, date_time, identifier
 import config
-
 
 DIRECTION_IN = "I"
 DIRECTION_OUT = "O"
@@ -23,6 +24,12 @@ PERIOD_MONTHLY = "M"
 PERIOD_YEARLY = "Y"
 
 _PAYMENT_FILE = "payment.json"
+
+def get_payments():
+    """ All payments """
+    with open(_get_file_path(), encoding="utf-8") as payment_file:
+        json_data = json.load(payment_file)
+    return json_data
 
 
 def delete_completed_payments():
@@ -43,7 +50,7 @@ def delete_payments(payment_guids: List):
         payment_i = all_payments["payments"][i]
         if payment_i["guid"] not in payment_guids:
             new_payments["payments"].append(payment_i)
-    _write_payments_to_disk(new_payments)
+    write_payments_to_disk(new_payments)
 
 
 def generate_high_time_recurrences():
@@ -139,13 +146,6 @@ def get_open_payments_of_company(company: str) -> List:
             output.append(payment_obj)
 
     return output
-
-
-def get_payments():
-    """ All payments """
-    with open(_get_file_path()) as payment_file:
-        json_data = json.load(payment_file)
-    return json_data
 
 
 def get_payment_balance() -> float:
@@ -422,8 +422,7 @@ def _create_investment_transaction(bank: str,
 def record_investment_payment(
         investable_amount: float,
         paid_curr: str,
-        description_prefix: str
-):
+        description_prefix: str):
     """ Records a new investment payment into the most suitable account """
     # Get investable amount
     investable_amount = CurrencyConverter().convert_to_local_currency(investable_amount, paid_curr)
@@ -466,8 +465,7 @@ def record_investment_payment(
 def record_vat_payment(
         vat_guids: List,
         paid_amount: float,
-        paid_curr: str
-):
+        paid_curr: str):
     """ Records a new VAT payment """
     paid_vats = []
     all_vats = get_open_vat_payments()
@@ -481,11 +479,12 @@ def record_vat_payment(
     for pay in paid_vats:
         pay.generate_very_long_term_recurrences()
         debt_amount, debt_curr = pay.open_amount
+
         debt_amount_conv = curr_conv.convert_to_currency(
-            from_amount=debt_amount,
-            from_currency=debt_curr,
-            to_currency=paid_curr
-        )
+                            from_amount=debt_amount,
+                            from_currency=debt_curr,
+                            to_currency=paid_curr)
+
         vat_amount += debt_amount_conv
         sch = pay.scheme
         recs = sch.recurrences
@@ -516,287 +515,9 @@ def record_vat_payment(
         pay.save()
 
 
-def _get_file_path():
-    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _PAYMENT_FILE)
-
-
-def _write_payments_to_disk(payments: dict):
-    with open(_get_file_path(), "w") as payment_file:
-        json.dump(payments, payment_file, indent=3)
-
-
-class Collection:
-    """ Money collection """
-    def __init__(self, collection: dict):
-        self._collection = collection
-
-    @property
-    def amount(self) -> tuple:
-        """ Collection amount """
-        return float(self._collection["amount"]), self._collection["currency"]
-
-    @property
-    def date(self) -> datetime:
-        """ Collection date """
-        return date_time.parse_json_date(self._collection["date"])
-
-    @property
-    def description(self) -> str:
-        """ Description """
-        return self._collection["description"]
-
-    @property
-    def json(self) -> dict:
-        """ Collection in JSON format """
-        return self._collection
-
-
-class Recurrence:
-    """ Payment recurrence """
-
-    def __init__(self, recurrence: dict):
-        self._recurrence = recurrence
-
-    @property
-    def amount(self) -> tuple:
-        """ Amount """
-        return float(self._recurrence["amount"]), self.currency
-
-    @property
-    def collections(self) -> list:
-        """ All collections in recurrence """
-        output = []
-        for col in self._recurrence["collections"]:
-            output.append(Collection(col))
-        return output
-
-    @property
-    def currency(self) -> str:
-        """ Currency """
-        return self._recurrence["currency"]
-
-    @property
-    def expected_payment_date(self) -> datetime:
-        """ Expected payment date """
-        return date_time.parse_json_date(self._recurrence["expected_payment_date"])
-
-    @expected_payment_date.setter
-    def expected_payment_date(self, date: datetime):
-        """ Expected payment date """
-        self._recurrence["expected_payment_date"] = date.isoformat()
-
-    @property
-    def open_amount(self) -> tuple:
-        """ Open amount """
-        if self.cleared:
-            return 0, self.currency
-
-        open_amount, open_currency = self.amount
-        currency_conv = CurrencyConverter()
-
-        for coll in self.collections:
-            coll_amount, coll_curr = coll.amount
-            converted_coll_amount = currency_conv.convert_to_currency(
-                coll_amount,
-                coll_curr,
-                open_currency)
-            open_amount -= converted_coll_amount
-
-        return open_amount, open_currency
-
-    @property
-    def paid_amount(self) -> tuple:
-        """ Paid amount """
-        full_amount, full_currency = self.amount
-        open_amount, open_currency = self.open_amount
-        assert full_currency == open_currency
-        return (full_amount - open_amount), full_currency
-
-    @property
-    def realistic_payment_date(self) -> datetime:
-        """ Realistic payment date """
-        epd = self.expected_payment_date
-        rcd = self.recurrence_date
-
-        if epd > rcd:
-            output = epd
-        else:
-            output = rcd
-
-        return date_time.get_nearest_workday(output, backwards=True)
-
-    @property
-    def json(self) -> dict:
-        """ Recurrence as JSON (dict) """
-        return self._recurrence
-
-    @property
-    def recurrence_date(self) -> datetime:
-        """ Recurrence date """
-        return date_time.parse_json_date(self._recurrence["recurrence_date"])
-
-    @property
-    def approaching_or_late(self) -> bool:
-        """ Is recurrence approaching or late? """
-        if self.cleared:
-            return False
-        return self.recurrence_date <= datetime.datetime.now() + datetime.timedelta(
-            days=config.CONSTANTS["PAYMENT_NOTIFICATION_BUFFER"])
-
-    @property
-    def cleared(self) -> bool:
-        """ Is recurrence cleared? """
-        return self._recurrence["cleared"]
-
-    @cleared.setter
-    def cleared(self, cleared: bool):
-        """ Is recurrence cleared? """
-        self._recurrence["cleared"] = cleared
-
-    def add_collection(self, collection: Collection):
-        """ Add new collection """
-        self._recurrence["collections"].append(collection.json)
-
-    def toggle_cleared(self):
-        """ Toggle cleared forth and back """
-        if self.cleared:
-            self.cleared = False
-        else:
-            self.cleared = True
-
-
-class Scheme:
-    """ Payment scheme """
-    def __init__(self, scheme: {}):
-        self._scheme = scheme
-
-    @property
-    def approaching_or_late_recurrences(self) -> List:
-        """ Returns all approaching or late recurrences """
-        output = []
-        for rec in self.recurrences:
-            if rec.approaching_or_late:
-                output.append(rec)
-        return output
-
-    @property
-    def frequency(self) -> tuple:
-        """ Payment frequency """
-        return self._scheme["frequency"], self._scheme["period"]
-
-    @property
-    def dict(self) -> dict:
-        """ Returns scheme as a dict """
-        return self._scheme
-
-    @property
-    def earliest_uncleared_recurrence(self) -> Recurrence:
-        """ Earliest uncleared recurrence """
-        all_recurrences = self.recurrences
-        if len(all_recurrences) == 0:
-            return None
-
-        all_recurrences.sort(key=lambda x: x.recurrence_date)
-
-        for rec in all_recurrences:
-            if not rec.cleared:
-                return rec
-
-        return None
-
-    @property
-    def next_significant_date(self) -> datetime:
-        """ Next significant date """
-        next_recurrence = self.earliest_uncleared_recurrence
-        if next_recurrence is not None:
-            return next_recurrence.realistic_payment_date
-        if self.has_cleared_recurrence:
-            return datetime.datetime(year=8888, month=12, day=31)
-        return self.start_date
-
-    @property
-    def recurrences(self) -> list:
-        """ All recurrences """
-        output = []
-        for rec in self._scheme["recurrence"]:
-            output.append(Recurrence(rec))
-        return output
-
-    @recurrences.setter
-    def recurrences(self, recurrences: List):
-        """ All recurrences """
-        self.clear_recurrences()
-        for rec in recurrences:
-            self.add_recurrence(rec)
-
-    @property
-    def repeat(self) -> int:
-        """ How many times the scheme will repeat """
-        return self._scheme["repeat"]
-
-    @repeat.setter
-    def repeat(self, repeat: int):
-        """ How many times the scheme will repeat """
-        self._scheme["repeat"] = repeat
-
-    @property
-    def start_date(self) -> datetime:
-        """ Scheme start date """
-        if "start" not in self._scheme:
-            self._scheme["start"] = datetime.datetime.now().isoformat()
-        return date_time.parse_json_date(self._scheme["start"])
-
-    @property
-    def has_cleared_recurrence(self) -> bool:
-        """ If scheme has any cleared recurrence, returns true """
-        for rec in self.recurrences:
-            if rec.cleared:
-                return True
-        return False
-
-    @property
-    def repeats_forever(self) -> bool:
-        """ If scheme repeats forever, returns true """
-        if "repeat_forever" in self._scheme:
-            return self._scheme["repeat_forever"]
-        return False
-
-    def set_start_date_from_iso(self, start_date: str):
-        """ Set start date """
-        self._scheme["start"] = start_date
-
-    def add_recurrence(self, recurrence: Recurrence):
-        """ Adds a new recurrence """
-        self._scheme["recurrence"].append(recurrence.json)
-
-    def clear_recurrences(self):
-        """ Initializes recurrences completely """
-        self._scheme["recurrence"] = []
-
-    def get_recurrence_on_date(self, year: int, month: int, day: int) -> Recurrence:
-        """ Returns recurrence on given date """
-        for rec in self.recurrences:
-            rec_date = rec.recurrence_date
-            if rec_date.year == year and rec_date.month == month and rec_date.day == day:
-                return rec
-        return None
-
-    def has_recurrence(self, on_date: datetime.datetime) -> bool:
-        """ Returns true if has recurrence on the given date """
-        for rec in self.recurrences:
-            if date_time.equals(rec.recurrence_date, on_date):
-                return True
-        return False
-
-    def set_frequency(self, frequency: int, period: str):
-        """ Sets payment frequency """
-        self._scheme["frequency"] = frequency
-        self._scheme["period"] = period
-
 
 class Payment:
     """ Payment """
-
     def __init__(self, payment: dict):
         self._payment = payment
 
@@ -1068,7 +789,7 @@ class Payment:
         if not updated:
             new_payments["payments"].append(self._payment)
 
-        _write_payments_to_disk(new_payments)
+        write_payments_to_disk(new_payments)
 
     def set_amount(self, amount: float, currency: str):
         """ Set payment amount """
@@ -1394,10 +1115,17 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     # Flush
     return output
 
-
 def get_payment_with_guid(guid: str) -> Payment:
     """ Returns a payment object having the provided GUID """
     for pay in get_payments()["payments"]:
         if pay["guid"] == guid:
             return Payment(pay)
     return None
+
+def write_payments_to_disk(payments: dict):
+    """ Write payments to disk """
+    with open(_get_file_path(), "w", encoding="utf-8") as payment_file:
+        json.dump(payments, payment_file, indent=3)
+
+def _get_file_path():
+    return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _PAYMENT_FILE)
