@@ -11,7 +11,7 @@ from gui.font import default_font
 from model.invoice import Invoice
 import model.company
 from model.company import Company
-from model import payment
+from model.payment import payment
 from util.file_system import open_file
 import config
 from web.app import startup_url

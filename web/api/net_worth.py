@@ -1,7 +1,8 @@
 """ Net worth API """
-from model import asset, bank_account, credit_card, payment
+from model import asset, bank_account, credit_card
 from model.activity import Activity
 from model.income_tax import IncomeTaxCalculatorFactory
+from model.payment import payment
 
 
 class NetWorthAPI():

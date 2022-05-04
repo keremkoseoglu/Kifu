@@ -48,23 +48,37 @@ class ActivityListWindow(tkinter.Toplevel):
         # Buttons
         cell_x = 0
 
-        edit_button = tkinter.Button(self, text="Edit", command=self._edit_click, font=default_font())
+        edit_button = tkinter.Button(self, text="Edit",
+                                     command=self._edit_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self, text="Excel", command=self._excel_click, font=default_font())
+        edit_button = tkinter.Button(self,
+                                     text="Excel",
+                                     command=self._excel_click,
+                                     font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        split_button = tkinter.Button(self, text="Split", command=self._split_click, font=default_font())
+        split_button = tkinter.Button(self,
+                                      text="Split",
+                                      command=self._split_click,
+                                      font=default_font())
         split_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self, text="Invoice", command=self._invoice_click, font=default_font())
+        invoice_button = tkinter.Button(self,
+                                        text="Invoice",
+                                        command=self._invoice_click,
+                                        font=default_font())
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self, text="Delete", command=self._delete_click, font=default_font())
+        invoice_button = tkinter.Button(self,
+                                        text="Delete",
+                                        command=self._delete_click,
+                                        font=default_font())
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 

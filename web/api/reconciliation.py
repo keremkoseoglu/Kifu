@@ -1,6 +1,6 @@
 """ Reconciliation module """
 from typing import List
-from model import payment
+from model.payment import payment
 from model.currency import CurrencyConverter
 from web.api.payment_status import PaymentStatusAPI
 

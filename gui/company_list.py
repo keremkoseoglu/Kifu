@@ -11,7 +11,7 @@ class CompanyList(tkinter.Toplevel):
     """ Company list window """
 
     _WINDOW_WIDTH = 250
-    _WINDOW_HEIGHT = 250
+    _WINDOW_HEIGHT = 350
 
     def __init__(self, close_handler, companies: List[Company] = None):
 
@@ -28,7 +28,7 @@ class CompanyList(tkinter.Toplevel):
                                       text="Select",
                                       command=self._company_selected,
                                       font=default_font())
-        print_button.place(x=0, y=200)
+        print_button.place(x=0, y=300)
 
     def _company_selected(self):
         obj_array = []

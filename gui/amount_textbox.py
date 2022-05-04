@@ -29,7 +29,9 @@ class AmountTextbox:
         currency_width = int((config.CONSTANTS["GUI_CELL_WIDTH"] / 10) - amount_width)
         self._currency_val = tkinter.StringVar()
         self._currency_val.set(currency)
-        self._currency_box = tkinter.Entry(parent, textvariable=self._currency_val, font=default_font())
+        self._currency_box = tkinter.Entry(parent,
+                                           textvariable=self._currency_val,
+                                           font=default_font())
         self._currency_box.config(width=currency_width)
         self._currency_box.place(
             x=x_pos + config.CONSTANTS["GUI_CELL_WIDTH"] + (amount_width * 20),

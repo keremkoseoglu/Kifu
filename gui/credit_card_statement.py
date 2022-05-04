@@ -6,7 +6,7 @@ from gui.company_combobox import CompanyCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
-import model.payment as payment
+from model.payment import payment
 import config
 
 class CreditCardStatement:

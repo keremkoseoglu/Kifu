@@ -1,6 +1,6 @@
 """ Payment status API """
 from util import amount, date_time
-from model.payment import get_payment_with_guid
+from model.payment.payment import get_payment_with_guid
 from web.api.chart import get_pie_dict
 
 class PaymentStatusAPI():

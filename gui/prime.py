@@ -1,7 +1,6 @@
 """ Primary window """
 import os
 import tkinter
-from tkinter import font
 import urllib
 from typing import List
 from incubus import IncubusFactory
@@ -13,9 +12,10 @@ from gui import asset_list
 from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
 from gui import payment, payment_list, pay_vat, activity_split, invest
 from gui.font import default_font, configure_treeview_style
-from model import notification, payment as payment_model
+from model import notification
 from model.activity import Activity
-from model.payment import delete_completed_payments, get_companies_without_payment
+from model.payment.payment import delete_completed_payments, get_companies_without_payment
+from model.payment import payment as payment_model
 import config
 from update import currency_update, commodity_update
 from web.app import startup_url
@@ -24,7 +24,7 @@ from web.app import startup_url
 class Prime:
     """ Primary window """
     _NOTIF_HEIGHT = 500
-    _WINDOW_WIDTH = 1000
+    _WINDOW_WIDTH = 1600
     _WINDOW_HEIGHT = 600
 
     def __init__(self, add_activity: bool = False):
@@ -40,7 +40,9 @@ class Prime:
         self._root.geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Status label
-        self._status_label = tkinter.Label(master=self._root, text="Welcome to Kifu", font=default_font())
+        self._status_label = tkinter.Label(master=self._root,
+                                           text="Welcome to Kifu",
+                                           font=default_font())
         self._status_label.place(
             x=0,
             y=cell_y,
@@ -56,7 +58,10 @@ class Prime:
         self._notif_list.bind('<Double-1>', self._notif_double_click)
         cell_y += self._NOTIF_HEIGHT
 
-        refresh_button = tkinter.Button(self._root, text="Refresh", command=self.refresh, font=default_font())
+        refresh_button = tkinter.Button(self._root,
+                                        text="Refresh",
+                                        command=self.refresh,
+                                        font=default_font())
         refresh_button.place(x=0, y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 

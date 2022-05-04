@@ -140,7 +140,7 @@ class IncomeTaxCalculator():
 
 
     def _read_tax_rates(self):
-        with open(self._income_tax_file_path) as tax_file:
+        with open(self._income_tax_file_path, encoding="utf-8") as tax_file:
             json_data = json.load(tax_file)
         self._tax_rates = json_data["rates"]
 
@@ -162,7 +162,6 @@ class IncomeTaxCalculator():
 
     @property
     def _income_tax_file_path(self) -> str:
-        global _INCOME_TAX_FILE
         return path.join(config.CONSTANTS["DATA_DIR_PATH"] + _INCOME_TAX_FILE)
 
 class IncomeTaxCalculatorFactory():

@@ -43,7 +43,7 @@ def get_account_balances_in_both_currencies() -> List:
 
 def get_bank_accounts():
     """ Returns all bank accounts """
-    with open(_get_file_path()) as acc_file:
+    with open(_get_file_path(), encoding="utf-8") as acc_file:
         json_data = json.load(acc_file)
     return json_data
 

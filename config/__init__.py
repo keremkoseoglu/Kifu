@@ -38,14 +38,13 @@ def _read_config():
     if _CONFIG != {}:
         return
     config_path = path.join(os.getcwd(), _CONFIG_FILE)
-    with open(config_path) as config_file:
+    with open(config_path, encoding="utf-8") as config_file:
         _CONFIG = json.load(config_file)
 
 def _read_kutapada():
-    global CONSTANTS
     if "KUTAPADA_PATH" not in CONSTANTS:
         return
-    with open(CONSTANTS["KUTAPADA_PATH"]) as kutapada_file:
+    with open(CONSTANTS["KUTAPADA_PATH"], encoding="utf-8") as kutapada_file:
         kutapada_json = json.load(kutapada_file)
     for system in kutapada_json["systems"]:
         if system["name"] == CONSTANTS["ECZ_DAHA_KUTAPADA"]:

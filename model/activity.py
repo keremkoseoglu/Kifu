@@ -29,7 +29,7 @@ class Activity:
     @staticmethod
     def get_activities():
         """ Returns all activities """
-        with open(Activity._get_file_path()) as act_file:
+        with open(Activity._get_file_path(), encoding="utf-8") as act_file:
             json_data = json.load(act_file)
         return json_data
 
@@ -83,7 +83,7 @@ class Activity:
 
     @staticmethod
     def _write_activities_to_disk(activities: Dict):
-        with open(Activity._get_file_path(), "w") as act_file:
+        with open(Activity._get_file_path(), "w", encoding="utf-8") as act_file:
             json.dump(activities, act_file, indent=3)
 
     def __init__(self, activity: Dict):

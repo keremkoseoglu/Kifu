@@ -3,7 +3,7 @@ import urllib
 import tkinter
 import tkinter.ttk
 from typing import List
-from model import payment
+from model.payment import payment
 from util import backup, date_time
 from util import amount as util_amount
 from gui.payment import PaymentWindow

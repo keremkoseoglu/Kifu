@@ -19,7 +19,7 @@ def is_liquid(asset_type: str) -> bool:
 
 def get_assets(deduct_income_tax: bool = False, own_percentage_only: bool = False):
     """ Returns all assets """
-    with open(_get_file_path()) as asset_file:
+    with open(_get_file_path(), encoding="utf-8") as asset_file:
         json_data = json.load(asset_file)
 
     if deduct_income_tax:
@@ -49,7 +49,7 @@ def get_assets(deduct_income_tax: bool = False, own_percentage_only: bool = Fals
 def set_assets(assets: dict):
     """ Saves assets to disk """
     assets_with_history = _generate_asset_value_history(assets)
-    with open(_get_file_path(), "w") as ass_file:
+    with open(_get_file_path(), "w", encoding="utf-8") as ass_file:
         json.dump(assets_with_history, ass_file, indent=3)
 
 def set_asset(asset: dict):

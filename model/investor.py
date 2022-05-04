@@ -15,7 +15,7 @@ class InvestmentAdviser:
     """ Investment adviser class """
     def __init__(self):
         file_path = _get_file_path()
-        with open(file_path) as inv_file:
+        with open(file_path, encoding="utf-8") as inv_file:
             self._invest = json.load(inv_file)
 
     def advise(self, amount: float) -> List:

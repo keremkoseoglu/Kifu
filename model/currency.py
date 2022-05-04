@@ -14,13 +14,13 @@ _CURR_CONV_FILE = "currency_conv.json"
 def save_currency_conv(conv_as_dict: dict):
     """ Writes currency conversions to the disk """
     file_path = _get_file_path()
-    with open(file_path, "w") as curr_file:
+    with open(file_path, "w", encoding="utf-8") as curr_file:
         json.dump(conv_as_dict, curr_file, indent=3)
 
 def save_old_currency_conv(date: datetime, conv_as_dict: dict):
     """ Writes old / historic currency conversions to the disk """
     file_path = _get_old_file_path(date)
-    with open(file_path, "w") as curr_file:
+    with open(file_path, "w", encoding="utf-8") as curr_file:
         json.dump(conv_as_dict, curr_file, indent=3)
 
 def _get_file_path() -> str:
@@ -42,7 +42,7 @@ class CurrencyConverter:
         self._conv_cache = {}
 
         file_path = _get_file_path()
-        with open(file_path) as curr_file:
+        with open(file_path, encoding="utf-8") as curr_file:
             self._conv_rates = json.load(curr_file)
 
     def convert_to_currency(self,
@@ -91,13 +91,14 @@ class CurrencyConverter:
                     float_val = float(curr_in_list["BanknoteBuying"])
                     self._conv_cache[foreign_currency] = float_val
                     return float_val
+            return None
 
 
 class OldCurrencyConverter(CurrencyConverter):
     """ Old / historic currency converter """
     def __init__(self, date: datetime): # pylint: disable=W0231
         if date_time.is_today(date):
-            super(OldCurrencyConverter, self).__init__()
+            super(OldCurrencyConverter, self).__init__() # pylint: disable=R1725
             return
 
         self._conv_cache = {}
@@ -106,7 +107,7 @@ class OldCurrencyConverter(CurrencyConverter):
         file_path = _get_old_file_path(self._date)
 
         if os.path.exists(file_path):
-            with open(file_path) as curr_file:
+            with open(file_path, encoding="utf-8") as curr_file:
                 self._conv_rates = json.load(curr_file)
         else:
             self._conv_rates = old_currency.get_old_currencies(date)

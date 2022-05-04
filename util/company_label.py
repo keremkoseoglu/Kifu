@@ -1,5 +1,6 @@
 """ Company label printing """
 import os
+from typing import List
 from model.company import Company
 import config
 
@@ -13,7 +14,7 @@ class CompanyLabel:
         self._company_count = 0
         self._company = Company(config.CONSTANTS["HOME_COMPANY"])
 
-    def generate(self, companies: []):
+    def generate(self, companies: List):
         """ Generate labels """
         self._html = ""
         self._html_count = 0
@@ -41,7 +42,7 @@ class CompanyLabel:
         if self._html == "":
             self._begin_html()
 
-        if self._company_count == 1 or self._company_count == 3:
+        if self._company_count in (1, 3):
             self._html += "<tr height=50%>"
 
         self._html += "<td width=50% align=center>"
@@ -60,7 +61,7 @@ class CompanyLabel:
         #self._html += self._config.CONSTANTS["HOME_COMPANY"].sender_address
         self._html += "</td>"
 
-        if self._company_count == 2 or self._company_count == 4:
+        if self._company_count in (2, 4):
             self._html += "</tr>"
 
     def _begin_html(self):
@@ -74,7 +75,7 @@ class CompanyLabel:
 
     def _save_html(self):
         file_path = config.CONSTANTS["DOWNLOAD_DIR"] + "labels " + str(self._html_count) + ".html"
-        with open(file_path, "w") as company_file:
+        with open(file_path, "w", encoding="utf-8") as company_file:
             company_file.write(self._html)
         os.system("open \"" + file_path + "\"")
         self._html = ""

@@ -154,7 +154,7 @@ class Report:
 
     def _save_excel_files(self):
         self.last_saved_files = []
-        for excel_key in self._excel_files:
+        for excel_key in self._excel_files: # pylint: disable=C0206
             file_name = ""
             for i in range(len(excel_key)): # pylint: disable=C0200
                 if file_name != "":
