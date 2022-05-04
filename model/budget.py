@@ -401,7 +401,8 @@ def migrate_from_excel():
     Therefore, it contains lots of hard coded values
     """
     excel = []
-    with open('/Users/kerem/Downloads/tmp_budget.csv', encoding="utf-8") as budget_file:
+    csv_path = path.join(config.CONSTANTS["DOWNLOAD_DIR"], "tmp_budget.csv")
+    with open(csv_path, encoding="utf-8") as budget_file:
         excel = budget_file.read().splitlines()
 
     subject_defs = get_subject_list()
