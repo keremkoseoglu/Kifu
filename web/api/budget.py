@@ -1,7 +1,7 @@
 """ Budget API """
 from typing import List
 from model import budget
-from model import akbank
+from model.bank import akbank
 
 class BudgetAPI():
     """ Budget API """

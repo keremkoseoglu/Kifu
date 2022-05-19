@@ -3,9 +3,10 @@ from os import path
 import json
 from datetime import date
 import config
-from model.invoice_file_reader import get_invoices_of_last_year, get_invoices_of_fiscal_year
+from model.timesheet.invoice_file_reader import get_invoices_of_last_year, \
+                                                get_invoices_of_fiscal_year
 from model.currency import CurrencyConverter
-from model.activity import Activity
+from model.timesheet.activity import Activity
 from util.date_time import parse_json_date
 
 _INCOME_TAX_FILE = "income_tax.json"

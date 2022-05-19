@@ -7,7 +7,7 @@ from typing import List
 from util.date_time import get_formatted_date
 from util import identifier
 from model.currency import CurrencyConverter
-from model.income_tax import IncomeTaxCalculatorFactory
+from model.timesheet.income_tax import IncomeTaxCalculatorFactory
 import config
 
 _ASSET_FILE = "asset.json"

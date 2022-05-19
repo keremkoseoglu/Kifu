@@ -3,7 +3,7 @@ import os
 import json
 from typing import List
 import config
-from model.bank_account import get_next_investment_account
+from model.bank.bank_account import get_next_investment_account
 
 _INVEST_FILE = "invest.json"
 

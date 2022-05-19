@@ -13,7 +13,7 @@ from gui import cash_movement, company_list, invoice_list, pay_income_tax, credi
 from gui import payment, payment_list, pay_vat, activity_split, invest
 from gui.font import default_font, configure_treeview_style
 from model import notification
-from model.activity import Activity
+from model.timesheet.activity import Activity
 from model.payment.payment import delete_completed_payments, get_companies_without_payment
 from model.payment import payment as payment_model
 import config

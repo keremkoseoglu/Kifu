@@ -6,8 +6,8 @@ from typing import List
 from util import identifier, date_time
 from model.company import Company
 from model.currency import CurrencyConverter
-from model.invoice_file_reader import get_invoices, get_file_path
-from model.income_tax import IncomeTaxCalculatorFactory
+from model.timesheet.invoice_file_reader import get_invoices, get_file_path
+from model.timesheet.income_tax import IncomeTaxCalculatorFactory
 import config
 
 class MultiValueError(Exception):

@@ -2,8 +2,9 @@
 import tkinter
 import tkinter.ttk
 from typing import List
-from model import activity, invoice
-from model.activity import Activity
+from model.timesheet import invoice
+from model.timesheet import activity
+from model.timesheet.activity import Activity
 from model.company import Company
 from gui.activity import ActivityWindow
 from gui.activity_split import ActivitySplit

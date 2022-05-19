@@ -4,7 +4,6 @@ from random import randint
 _COLORS = "1234567890ABCDEF"
 
 def _get_random_color() -> str:
-    global _COLORS
     result = "#"
     while len(result) < 7:
         pos = randint(0, len(_COLORS)-1)

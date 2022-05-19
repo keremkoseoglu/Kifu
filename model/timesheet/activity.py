@@ -5,7 +5,7 @@ import os
 import copy
 from typing import List, Dict
 from model.currency import CurrencyConverter
-from model.project import Project
+from model.timesheet.project import Project
 from model.company import Company
 from util import date_time, identifier
 import config

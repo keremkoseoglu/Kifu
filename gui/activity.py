@@ -7,11 +7,11 @@ from gui.labeled_textbox import LabeledTextbox
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
 from util import ecz_daha
-import model.activity
+import model.timesheet.activity
 import model.location
-import model.project
-from model.project import Project
-from model.activity import Activity
+import model.timesheet.project
+from model.timesheet.project import Project
+from model.timesheet.activity import Activity
 import config
 
 
@@ -82,7 +82,7 @@ class ActivityWindow(tkinter.Toplevel):
             width=self._WINDOW_WIDTH,
             height=config.CONSTANTS["GUI_CELL_HEIGHT"])
 
-    def fill_with_activity(self, act: model.activity.Activity):
+    def fill_with_activity(self, act: model.timesheet.activity.Activity):
         """ Fills window with given activity """
         proj = act.project
         clnt = proj.client
@@ -99,7 +99,7 @@ class ActivityWindow(tkinter.Toplevel):
         last_activity = Activity.get_last_activity()
         if last_activity == {}:
             return
-        act_obj = model.activity.Activity(last_activity)
+        act_obj = model.timesheet.activity.Activity(last_activity)
         act_obj.guid = ""
         act_obj.date = datetime.datetime.today()
         self.fill_with_activity(act_obj)
@@ -138,7 +138,7 @@ class ActivityWindow(tkinter.Toplevel):
             "guid": guid
         }
 
-        model.activity.Activity(act).save()
+        model.timesheet.activity.Activity(act).save()
         self._set_status("Saved!")
         PrimeSingleton.get().refresh()
         self.after(1, self.destroy())
