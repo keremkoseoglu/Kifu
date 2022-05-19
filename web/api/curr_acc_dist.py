@@ -1,5 +1,6 @@
 """ Currency account distribution API """
-from model import bank_account, asset as imp_asset
+from model import asset as imp_asset
+from model.bank import bank_account
 from model.currency import CurrencyConverter
 import config
 from web.api.chart import get_pie_dict

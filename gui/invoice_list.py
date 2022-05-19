@@ -6,8 +6,8 @@ from gui.payment_list import PaymentListWindow
 from gui.invoice import InvoiceWindow, open_invoice_as_email
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
-from model.invoice import Invoice
-from model.invoice_file_reader import get_invoices
+from model.timesheet.invoice import Invoice
+from model.timesheet.invoice_file_reader import get_invoices
 from model.payment import payment
 import config
 

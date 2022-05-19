@@ -1,5 +1,5 @@
 """ Iban list API """
-from model import bank_account
+from model.bank import bank_account
 from model.company import Company
 import config
 

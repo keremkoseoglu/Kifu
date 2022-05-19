@@ -1,6 +1,6 @@
 """ Workdays without activity API """
 from datetime import timedelta, datetime
-from model.activity import Activity
+from model.timesheet.activity import Activity
 from util.date_time import is_working_day, get_last_day_of_month
 
 

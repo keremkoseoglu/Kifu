@@ -1,7 +1,7 @@
 """ Tax info """
 import os
 from model.company import Company
-from model.bank_account import get_home_bank_acc_str
+from model.bank.bank_account import get_home_bank_acc_str
 import config
 
 class TaxInfo:

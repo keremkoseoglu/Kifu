@@ -4,10 +4,10 @@ import tkinter.ttk
 from gui.labeled_combobox import LabeledCombobox
 from gui.labeled_textbox import LabeledTextbox
 from gui.font import default_font
-import model.activity
-import model.project
-from model.project import Project
-from model.activity import Activity
+import model.timesheet.activity
+import model.timesheet.project
+from model.timesheet.project import Project
+from model.timesheet.activity import Activity
 import config
 
 
@@ -53,7 +53,7 @@ class ActivitySplit(tkinter.Toplevel):
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
-    def fill_with_activity(self, act: model.activity.Activity):
+    def fill_with_activity(self, act: model.timesheet.activity.Activity):
         """ Fills window with given activity """
         self._debut_activity = act
 

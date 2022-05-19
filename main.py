@@ -4,7 +4,7 @@ import datetime
 from gui.prime import Prime
 from gui.prime_singleton import PrimeSingleton
 from model.payment import payment
-from model.activity import Activity
+from model.timesheet.activity import Activity
 from util import backup, date_time
 import config
 from update.update_facade import UpdateFacadeFactory

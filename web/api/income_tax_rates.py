@@ -1,6 +1,6 @@
 """ Income tax rates API """
 from datetime import date
-from model.income_tax import IncomeTaxCalculatorFactory
+from model.timesheet.income_tax import IncomeTaxCalculatorFactory
 
 class IncomeTaxRatesAPI():
     """ Income tax rates API """

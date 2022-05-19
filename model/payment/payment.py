@@ -4,11 +4,11 @@ import json
 import os
 from typing import List
 from model.company import Company
-from model.credit_card import get_credit_card_debts
+from model.bank.credit_card import get_credit_card_debts
 from model.currency import CurrencyConverter
-from model.invoice import Invoice
+from model.timesheet.invoice import Invoice
+from model.timesheet.income_tax import IncomeTaxCalculatorFactory
 from model.investor import InvestmentAdviser
-from model.income_tax import IncomeTaxCalculatorFactory
 from model.payment.recurrence import Collection, Recurrence
 from model.payment.scheme import Scheme
 from util import backup, date_time, identifier

@@ -8,7 +8,7 @@ from gui.labeled_textbox import LabeledTextbox
 from gui.popup_file import popup_email, popup_open_file
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
-from model.invoice import Invoice
+from model.timesheet.invoice import Invoice
 import model.company
 from model.company import Company
 from model.payment import payment
@@ -135,7 +135,7 @@ class InvoiceWindow(tkinter.Toplevel):
             height=config.CONSTANTS["GUI_CELL_HEIGHT"])
 
     def fill_with_invoice(self,
-                          invoice: model.invoice.Invoice,
+                          invoice: model.timesheet.invoice.Invoice,
                           browser: bool = False,
                           invoice_dir: bool = False):
         """ Fills the window with the given invoice
@@ -187,12 +187,12 @@ class InvoiceWindow(tkinter.Toplevel):
 
     def _save_click(self):
         invoice_dict = self._get_invoice_dict_from_gui()
-        model.invoice.Invoice(invoice_dict).save()
+        model.timesheet.invoice.Invoice(invoice_dict).save()
         self._saved()
 
     def _save_pay_click(self):
         invoice_dict = self._get_invoice_dict_from_gui()
-        invoice_obj = model.invoice.Invoice(invoice_dict)
+        invoice_obj = model.timesheet.invoice.Invoice(invoice_dict)
         invoice_obj.save()
 
         new_payments = payment.get_payment_objects_from_invoice(invoice_obj)

@@ -1,7 +1,7 @@
 """ Eczacibasi activity comparison module """
 from datetime import datetime
 from util import date_time, ecz_daha
-from model.activity import Activity
+from model.timesheet.activity import Activity
 import config
 
 class EczActivityComparisonAPI():

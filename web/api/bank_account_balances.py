@@ -1,5 +1,6 @@
 """ Bank account balance API """
-from model import asset, bank_account
+from model import asset
+from model.bank import bank_account
 from web.api.chart import get_pie_dict
 
 class BankAccountBalanceAPI():

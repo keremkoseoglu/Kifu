@@ -1,9 +1,9 @@
 """ Excel activity output """
 import xlsxwriter
-import model.activity
-from model.activity import Activity
+import model.timesheet.activity
+from model.timesheet.activity import Activity
 from model.company import Company
-from model.project import Project
+from model.timesheet.project import Project
 import util.file_system
 import config
 from util.date_time import get_two_digit_month
@@ -22,7 +22,7 @@ class ExcelFile:
         self._activities = []
         self._company = Company(config.CONSTANTS["HOME_COMPANY"])
 
-    def add_activity(self, activity: model.activity.Activity):
+    def add_activity(self, activity: model.timesheet.activity.Activity):
         """ Add new activity to Excel file """
         self._activities.append(activity)
 
@@ -143,7 +143,7 @@ class Report:
     def _plan_excel_files(self):
 
         for activity in self._activities["activities"]:
-            act = model.activity.Activity(activity)
+            act = model.timesheet.activity.Activity(activity)
             year, month = act.period
             excel_key = _get_excel_key(year, month, act.project)
 

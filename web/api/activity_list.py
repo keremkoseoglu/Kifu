@@ -1,5 +1,5 @@
 """ Activity list API """
-from model.activity import Activity
+from model.timesheet.activity import Activity
 from util import date_time
 
 class ActivityListAPI():

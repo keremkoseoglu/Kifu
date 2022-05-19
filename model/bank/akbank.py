@@ -1,41 +1,16 @@
 """ Akbank related module """
-from datetime import datetime
-from typing import List, Protocol
-from dataclasses import dataclass
+from typing import List
 import glob
 from os import path
 import csv
 from openpyxl import load_workbook
 import config
-from model.currency import CurrencyConverter
+from model.bank.statement import StatementEntry
 from util.date_time import parse_turkish_date
-
-@dataclass
-class StatementEntry():
-    """ Bank statement entry """
-    date: datetime = None
-    text: str = ""
-    amount: float = 0
-    currency: str = ""
-
-    def __post_init__(self):
-        self._curr_conv = None
-
-    @property
-    def amount_in_home_currency(self) -> float:
-        """ Amount in home currency """
-        if self._curr_conv is None:
-            self._curr_conv = CurrencyConverter()
-        return self._curr_conv.convert_to_local_currency(self.amount, self.currency)
-
-class _AbstractStatementReader(Protocol):
-    """ Statement reader class """
-    def read(self) -> List[StatementEntry]:
-        """ Reads statements """
 
 class _AccountStatementReader():
     """ Account statement reader
-    PROTOCOL: _AbstractStatementReader
+    PROTOCOL: model.bank.AbstractStatementReader
     """
     def __init__(self):
         self._out = []
@@ -65,7 +40,7 @@ class _AccountStatementReader():
 
 class _CreditCardStatementReader():
     """ Credit card statement reader
-    PROTOCOL: _AbstractStatementReader
+    PROTOCOL: model.bank.AbstractStatementReader
     """
     def __init__(self):
         self._out = []
@@ -97,7 +72,7 @@ class _CreditCardStatementReader():
 
 class StatementReader():
     """ Statement reader
-    PROTOCOL: _AbstractStatementReader
+    PROTOCOL: model.bank.AbstractStatementReader
     """
     def __init__(self):
         self._acc_reader = _AccountStatementReader()
