@@ -22,6 +22,10 @@ class NetWorthAPI():
         bank_account_balance = bank_account.get_current_account_balance_sum()
         self._append_result("Bank account balance", bank_account_balance)
 
+        # Reserved balance
+        reserved_balance = bank_account.get_reserved_balance() * -1
+        self._append_result("Reserved balance", reserved_balance)
+
         # Credit card debt
         credit_card_debt = credit_card.get_current_credit_card_debt_sum() * -1
         self._append_result("Credit card debt", credit_card_debt)
