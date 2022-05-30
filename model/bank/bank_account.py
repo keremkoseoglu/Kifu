@@ -154,5 +154,24 @@ def get_home_bank_acc_str() -> str:
 
     return result
 
+def get_reserved_balance() -> float:
+    """ Returns the reserved bank account balance """
+    output = 0
+    home_curr = config.CONSTANTS["HOME_CURRENCY"]
+    curr_conv = CurrencyConverter()
+
+    for bank_account in get_bank_accounts()["bank_accounts"]:
+        if not "reserved" in bank_account:
+            continue
+        for balance in bank_account["reserved"]:
+            reserved_amt = balance["amount"] \
+                            if bank_account["currency"] == home_curr \
+                            else curr_conv.convert_to_local_currency( balance["amount"],
+                                                                      bank_account["currency"])
+
+            output += reserved_amt
+
+    return output
+
 def _get_file_path():
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _BANK_ACCOUNT_FILE)
