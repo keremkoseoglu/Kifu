@@ -8,7 +8,7 @@
     height="100%">
 	<m:Page
 		title="Net Worth"
-		enableScrolling="false"
+		enableScrolling="true"
 		class="sapUiContentPadding">
 		<m:content>
 			<Table
@@ -21,6 +21,12 @@
 					</m:OverflowToolbar>
 				</extension>
 				<columns>
+					<Column width="4rem">
+						<m:Label text="Icon" />
+						<template>
+							<m:Text text="{icon}" wrapping="false" />
+						</template>
+					</Column>
 					<Column width="12rem">
 						<m:Label text="Title" />
 						<template>
