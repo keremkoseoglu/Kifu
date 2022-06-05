@@ -36,13 +36,13 @@
 					<Column width="12rem" hAlign="End">
 						<m:Label text="Value" />
 						<template>
-							<u:Currency value="{content}" currency="₺"/>
+							<u:Currency value="{content}" currency="₺" maxPrecision="0" />
 						</template>
 					</Column>
 					<Column width="12rem" hAlign="End">
 						<m:Label text="Sum" />
 						<template>
-							<u:Currency value="{result}" currency="₺"/>
+							<u:Currency value="{result}" currency="₺" maxPrecision="0"/>
 						</template>
 					</Column>
 				</columns>
