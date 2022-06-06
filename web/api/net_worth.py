@@ -46,18 +46,21 @@ class NetWorthAPI():
         payment_balance = payment.get_payment_balance()
         self._append_result("Payment balance", payment_balance)
 
-        # SUM: Short term cash
-        self._append_sum("Money")
+        # SUM: Short term money
+        self._append_sum("Short term money")
+
+        # Reserved balance again
+        reserved_balance *= -1
+        self._append_result("Reserved balance", reserved_balance)
+
+        # SUM: Total money
+        self._append_sum("Total money")
 
         # Asset resale
         asset_resales = asset.get_asset_type_resale_value_sum(deduct_income_tax=True,
                                                               own_percentage_only=True)
         for asset_resale in asset_resales:
             self._append_result(asset_resale["type"] + " resale", asset_resale["sales_value"])
-
-        # Reserved balance again
-        reserved_balance *= -1
-        self._append_result("Reserved balance", reserved_balance)
 
         # SUM: Net worth
         self._append_sum("Net worth")
