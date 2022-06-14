@@ -6,6 +6,7 @@ import config
 from gui.asset import AssetWindow
 from gui.font import default_font
 from model import asset
+from update import commodity_update
 from util import backup
 
 class AssetListWindow(tkinter.Toplevel):
@@ -68,6 +69,13 @@ class AssetListWindow(tkinter.Toplevel):
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
+        self.update_button = tkinter.Button(self,
+                                            text="Update value",
+                                            command=self._update_value_click,
+                                            font=default_font())
+        self.update_button.place(x=cell_x, y=cell_y)
+        cell_x += self._BUTTON_WIDTH
+
     @property
     def _first_selected_asset(self) -> dict:
         selected_assets = self._selected_assets
@@ -98,6 +106,14 @@ class AssetListWindow(tkinter.Toplevel):
         backup.execute()
         asset.delete_assets(deletable_guids)
         self._fill_tree_with_assets()
+
+    def _update_value_click(self):
+        first_selected_asset = self._first_selected_asset
+        if first_selected_asset is None:
+            return
+        self.update_button["text"] = "Wait..."
+        commodity_update.execute_single(first_selected_asset["guid"])
+        self.update_button["text"] = "Done!"
 
     def _edit_click(self):
         first_selected_asset = self._first_selected_asset

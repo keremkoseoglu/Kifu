@@ -9,6 +9,14 @@ from model import asset as imp_asset
 from util import backup
 
 def execute():
+    """ Stock update for all assets """
+    _execute()
+
+def execute_single(asset_guid: str):
+    """ Stock update for single asset """
+    _execute(asset_guid=asset_guid)
+
+def _execute(asset_guid: str = None):
     """ Stock update """
     backup.execute()
 
@@ -22,6 +30,8 @@ def execute():
         if "url_suffix" not in asset:
             continue
         if asset["url_suffix"] == "":
+            continue
+        if asset_guid is not None and asset["guid"] != asset_guid:
             continue
 
         if first_asset:
