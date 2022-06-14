@@ -1,7 +1,8 @@
 """ Commodity update module """
 import time
 import random
-from sahibinden.search import Search
+from sahibinden.quick_median import QuickMedian
+from sahibinden.toolkit import SearchInput
 from incubus import IncubusFactory
 import config
 from model import asset as imp_asset
@@ -29,9 +30,14 @@ def execute():
             time.sleep(config.CONSTANTS["COMMODITY_SEARCH_SLEEP"])
             IncubusFactory.get_instance().user_event()
 
-        url = config.CONSTANTS["COMMODITY_URL"] + asset["url_suffix"]
-        search = Search(url, post_sleep=config.CONSTANTS["COMMODITY_PAGE_SLEEP"])
-        if search.result.price_median != 0:
-            asset["sales_value"] = search.result.price_median
+        try:
+            url = config.CONSTANTS["COMMODITY_URL"] + asset["url_suffix"]
+            search_input = SearchInput(url=url, post_sleep=config.CONSTANTS["COMMODITY_PAGE_SLEEP"])
+            quick_median = QuickMedian(search_input)
+
+            if quick_median.median != 0:
+                asset["sales_value"] = quick_median.median
+        except Exception as update_error:
+            print(f"Commodity search error: { str(update_error) } ")
 
     imp_asset.set_assets(assets)
