@@ -7,7 +7,6 @@ import config
 
 _BANK_ACCOUNT_FILE = "bank.json"
 
-
 def get_accounts_with_currency(currency: str) -> List:
     """ Returns all bank accounts having the given currency """
     output = []
@@ -26,15 +25,31 @@ def get_account_balances_in_both_currencies() -> List:
     currency_converter = CurrencyConverter()
 
     for account in accounts["bank_accounts"]:
-        amount = currency_converter.convert_to_local_currency(
-            account["balance"],
-            account["currency"])
+        amount_home = currency_converter.convert_to_local_currency(account["balance"],
+                                                                   account["currency"])
+
+        reserved = 0
+
+        if "reserved" in account:
+            for res_entry in account["reserved"]:
+                reserved += res_entry["amount"]
+
+        reserved_home = currency_converter.convert_to_local_currency(reserved,
+                                                                     account["currency"])
+
+        usable = account["balance"] - reserved
+        usable_home = amount_home - reserved_home
+
         output_dict = {
             "name": account["bank_name"] + " - " + account["account_name"],
-            "home_balance": amount,
+            "home_balance": amount_home,
             "original_balance": account["balance"],
             "original_currency": account["currency"],
-            "is_investment": account["is_investment"]
+            "is_investment": account["is_investment"],
+            "original_reserved": reserved,
+            "home_reserved": reserved_home,
+            "original_usable": usable,
+            "home_usable": usable_home
         }
         output.append(output_dict)
 
