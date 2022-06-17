@@ -71,6 +71,9 @@ class CurrencyConverter:
 
     def convert_to_local_currency(self, foreign_amount: float, foreign_currency: str) -> float:
         """ Converts an amount to FOREIGN_CURRENCY """
+        if foreign_amount == 0:
+            return 0
+
         if foreign_currency == config.CONSTANTS["HOME_CURRENCY"]:
             return foreign_amount
 

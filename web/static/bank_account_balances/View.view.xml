@@ -43,6 +43,18 @@
 								<u:Currency value="{home_balance}" currency="₺"/>
 							</template>
 						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="₺ Reserved" />
+							<template>
+								<u:Currency value="{home_reserved}" currency="₺"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="₺ Usable" />
+							<template>
+								<u:Currency value="{home_usable}" currency="₺"/>
+							</template>
+						</Column>
 					</columns>
 				</Table>
 
