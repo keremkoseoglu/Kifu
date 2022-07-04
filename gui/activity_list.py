@@ -143,7 +143,7 @@ class ActivityListWindow(tkinter.Toplevel):
         self._activities["activities"] = sorted(
             self._activities["activities"],
             key=lambda x: x["date"],
-            reverse=False)
+            reverse=True)
 
         self._tree_content = {}
 
