@@ -56,6 +56,14 @@ def get_formatted_date(date: datetime.datetime) -> str:
     return date.isoformat()[:10]
 
 
+def get_official_turkish_date(date: datetime.datetime) -> str:
+    """ 06.12.2022 format """
+    year = date.year
+    month = get_two_digit_month(date.month)
+    day = get_two_digit_month(date.day)
+    return f"{ str(day) }.{ str(month) }.{str(year)}"
+
+
 def get_last_day_of_prev_month(date: datetime.datetime) -> datetime:
     """ Last day of previous month """
     previous_month = get_previous_month(date)
@@ -281,11 +289,16 @@ def parse_sap_date(date: str) -> datetime.datetime:
 
 def parse_turkish_date(date: str) -> datetime.datetime:
     """ Parse date in Turkish format """
-    split_date = date.split(".")
-    year = int(split_date[2])
-    month = int(split_date[1])
-    day = int(split_date[0])
-    return datetime.datetime(year=year, month=month, day=day)
+    try:
+        str_date = get_official_turkish_date(date) if isinstance(date, datetime.datetime) else date
+        split_date = str_date.split(".")
+        year = int(split_date[2])
+        month = int(split_date[1])
+        day = int(split_date[0])
+        return datetime.datetime(year=year, month=month, day=day)
+    except Exception as date_error:
+        raise date_error
+
 
 def _month_has_30_days(month: int) -> bool:
     return month in (4, 6, 9, 11)
