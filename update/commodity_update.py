@@ -6,7 +6,11 @@ from sahibinden.toolkit import SearchInput
 from incubus import IncubusFactory
 import config
 from model import asset as imp_asset
+from model.currency import OldCurrencyConverter, CurrencyConverter
 from util import backup
+from util.date_time import parse_json_date
+
+_FOREIGN_CURR = "USD"
 
 def execute():
     """ Stock update for all assets """
@@ -45,9 +49,43 @@ def _execute(asset_guid: str = None):
             search_input = SearchInput(url=url, post_sleep=config.CONSTANTS["COMMODITY_PAGE_SLEEP"])
             quick_median = QuickMedian(search_input)
 
-            if quick_median.median != 0:
-                asset["sales_value"] = quick_median.median
+            asset["sales_value"] = \
+                conv_last_usd_val_to_home_curr(asset) \
+                if quick_median.median == 0 \
+                else quick_median.median
+
         except Exception as update_error:
             print(f"Commodity search error: { str(update_error) } ")
 
     imp_asset.set_assets(assets)
+
+def conv_last_usd_val_to_home_curr(asset_guid: str) -> int:
+    """ Convert last known value to USD then project as TRY """
+    result = 0
+    assets = imp_asset.get_assets()["assets"]
+
+    for asset in assets:
+        if asset["guid"] != asset_guid:
+            continue
+        if "value_history" not in asset:
+            break
+        values = asset["value_history"]
+        last_val = values[len(values)-1]
+        last_date = parse_json_date(last_val["date"])
+
+        historic_curr_conv = OldCurrencyConverter(last_date)
+        today_curr_conv = CurrencyConverter()
+
+        last_val_usd = \
+            historic_curr_conv.convert_to_foreign_currency(
+                last_val["value"],
+                foreign_currency=_FOREIGN_CURR)
+
+        result = \
+            today_curr_conv.convert_to_local_currency(
+                foreign_amount=last_val_usd,
+                foreign_currency=_FOREIGN_CURR)
+
+        break
+
+    return int(result)
