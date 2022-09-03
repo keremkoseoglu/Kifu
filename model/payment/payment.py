@@ -11,8 +11,10 @@ from model.timesheet.income_tax import IncomeTaxCalculatorFactory
 from model.investor import InvestmentAdviser
 from model.payment.recurrence import Collection, Recurrence
 from model.payment.scheme import Scheme
+from model.budget import get_domain_dict, get_monthly_pyf_amount
 from util import backup, date_time, identifier
 import config
+
 
 DIRECTION_IN = "I"
 DIRECTION_OUT = "O"
@@ -348,10 +350,14 @@ def _create_investment_transaction(bank: str,
                                    description: str,
                                    trn_account: str,
                                    inv_account: str,
-                                   amount: float):
+                                   amount: float,
+                                   trn_date: datetime.datetime = None):
+
+    post_trn_date = datetime.datetime.now() if trn_date is None else trn_date
+
     trn_pay_json = {
         "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
+        "creation_date": post_trn_date.isoformat(),
         "company": bank,
         "description": f"{description} - transfer to {trn_account}",
         "invoice_guid": "",
@@ -384,7 +390,7 @@ def _create_investment_transaction(bank: str,
 
     inv_pay_json = {
         "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
+        "creation_date": post_trn_date.isoformat(),
         "company": bank,
         "description": f"{description} - buy to {inv_account}",
         "invoice_guid": "",
@@ -514,6 +520,24 @@ def record_vat_payment(
     for pay in paid_vats:
         pay.save()
 
+
+def create_pyf():
+    """ Pay yourself first """
+    pyf_day = get_domain_dict()["pyf_day"]
+    now = datetime.datetime.now()
+    pyf_date = datetime.datetime(now.year, now.month, pyf_day)
+
+    pyf_amount = get_monthly_pyf_amount()
+    investments = InvestmentAdviser().advise(pyf_amount)
+
+    for inv in investments:
+        _create_investment_transaction(
+            inv["bank"],
+            "Pay yourself first",
+            inv["account"],
+            inv["account"],
+            inv["amount"],
+            trn_date=pyf_date)
 
 
 class Payment:

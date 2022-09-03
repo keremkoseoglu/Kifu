@@ -14,11 +14,11 @@ _CONFIG = {}
 
 def read_constants():
     """ Loads all constants """
-    global CONSTANTS, _CONFIG
+    global CONSTANTS
     if CONSTANTS != {}:
         return
     _read_config()
-    with open(_CONFIG["constants"]) as constants_file:
+    with open(_CONFIG["constants"], encoding="utf-8") as constants_file:
         CONSTANTS = json.load(constants_file)
     _read_kutapada()
 

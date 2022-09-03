@@ -441,6 +441,11 @@ def migrate_from_excel():
     with open(fiscal_path, "w", encoding="utf-8") as fiscal_file:
         fiscal_file.write(json.dumps(fiscal_file_dict, indent=4))
 
+def get_monthly_pyf_amount() -> float:
+    """ Pay yourself first """
+    pws = get_plan_list_and_sums()
+    dom = get_domain_dict()
+    return pws["sum"]["monthly_balance"] * dom["pyf_rate"] / 100
 
 def _get_domain_file_path() -> str:
     return path.join(config.CONSTANTS["DATA_DIR_PATH"] + _DOMAIN_FILE)

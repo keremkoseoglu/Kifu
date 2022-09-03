@@ -14,7 +14,7 @@ from gui import payment, payment_list, pay_vat, activity_split, invest
 from gui.font import default_font, configure_treeview_style
 from model import notification
 from model.timesheet.activity import Activity
-from model.payment.payment import delete_completed_payments, get_companies_without_payment
+from model.payment.payment import delete_completed_payments, get_companies_without_payment, create_pyf
 from model.payment import payment as payment_model
 import config
 from update import currency_update, commodity_update
@@ -124,10 +124,12 @@ class Prime:
         self._menu.add_cascade(menu=asset_menu, label="Asset")
 
         budget_menu = tkinter.Menu(self._menu, tearoff=0)
-        budget_menu.add_command(label="Akbank statement", command=Prime._akbank_statement)
         budget_menu.add_command(label="Plan", command=Prime._budget_plan)
-        budget_menu.add_command(label="Plan vs actual", command=Prime._budget_plan_vs_actual)
         budget_menu.add_command(label="Salary simulation", command=Prime._salary_simulation)
+        budget_menu.add_command(label="Pay yourself first", command=Prime._pay_yourself_first)
+        budget_menu.add_separator()
+        budget_menu.add_command(label="Akbank statement", command=Prime._akbank_statement)
+        budget_menu.add_command(label="Plan vs actual", command=Prime._budget_plan_vs_actual)
         self._menu.add_cascade(menu=budget_menu, label="Budget")
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -174,6 +176,11 @@ class Prime:
     def _salary_simulation():
         IncubusFactory.get_instance().user_event()
         startup_url("salary_simulation")
+
+    @staticmethod
+    def _pay_yourself_first():
+        IncubusFactory.get_instance().user_event()
+        create_pyf()
 
     @staticmethod
     def _workdays_wo_activity():
