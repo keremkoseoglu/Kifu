@@ -22,6 +22,9 @@ def open_invoice_as_email(inv: Invoice):
     recipients = []
     if inv.payer.email != "":
         recipients.append(inv.payer.email)
+    if inv.payer.activity_emails is not None:
+        for act_email in inv.payer.activity_emails:
+            recipients.append(act_email)
     accounting_company = Company(config.CONSTANTS["COMPANY_NAME_ACCOUNTING"])
     if accounting_company.email != "":
         recipients.append(accounting_company.email)
