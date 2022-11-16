@@ -14,7 +14,8 @@ from gui import payment, payment_list, pay_vat, activity_split, invest
 from gui.font import default_font, configure_treeview_style
 from model import notification
 from model.timesheet.activity import Activity
-from model.payment.payment import delete_completed_payments, get_companies_without_payment, create_pyf
+from model.payment.payment import delete_completed_payments, get_companies_without_payment,\
+    create_pyf
 from model.payment import payment as payment_model
 import config
 from update import currency_update, commodity_update
@@ -335,7 +336,7 @@ class Prime:
     def _notif_double_click(self, dummy): # pylint: disable=W0613
         IncubusFactory.get_instance().user_event()
         selection = self._notif_list.get(self._notif_list.curselection())
-        if selection.__contains__("Payment"):
+        if "Payment" in selection:
             payment_guid = selection[selection.find("{")+1:selection.find("}")]
             payment_obj = payment_model.get_payment_with_guid(payment_guid)
             if payment_obj is None:
