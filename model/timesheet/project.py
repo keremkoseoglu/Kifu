@@ -54,8 +54,12 @@ class Project:
         """ Hourly project rate """
         amount = float(self._project["rate"]["amount"])
         currency = self._project["rate"]["currency"]
-        per_hour = int(self._project["rate"]["per_hour"])
-        return amount, currency, per_hour
+        return amount, currency, self.rate_hours
+
+    @property
+    def rate_hours(self) -> int:
+        """ Hours defined in rate """
+        return int(self._project["rate"]["per_hour"])
 
     def get_earned_amount(self, hours: int) -> tuple:
         """ Calculates earned amount based on given hours """

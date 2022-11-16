@@ -13,8 +13,8 @@ from gui.invoice import InvoiceWindow
 from gui.popup_file import popup_email
 from gui.prime_singleton import PrimeSingleton
 from util import activity_xlsx_report, backup, date_time
+from util.amount import get_formatted_amount
 import config
-
 
 class ActivityListWindow(tkinter.Toplevel):
     """ Activity list window """
@@ -58,6 +58,13 @@ class ActivityListWindow(tkinter.Toplevel):
         edit_button = tkinter.Button(self,
                                      text="Excel",
                                      command=self._excel_click,
+                                     font=default_font())
+        edit_button.place(x=cell_x, y=cell_y)
+        cell_x += self._BUTTON_WIDTH
+
+        edit_button = tkinter.Button(self,
+                                     text="Mail sum",
+                                     command=self._mail_sum_click,
                                      font=default_font())
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
@@ -136,6 +143,40 @@ class ActivityListWindow(tkinter.Toplevel):
         popup_email(recipients=activity_company.activity_emails,
                     subject="Bu ayki aktivitelerim",
                     attachment=xlsx_report.last_saved_files[0])
+
+    def _mail_sum_click(self):
+        # Get activities
+        selected_activity_objects = self._selected_activities
+
+        # Build list of payers
+        selected_payer_names = []
+        for sel_activity in selected_activity_objects:
+            if sel_activity.project.payer.name not in selected_payer_names:
+                selected_payer_names.append(sel_activity.project.payer.name)
+
+        # Process each payer
+        act_curr = config.CONSTANTS["HOME_CURRENCY"]
+
+        for payer_name in selected_payer_names:
+            hour_sum = 0
+            day_sum = 0
+            act_amount = 0
+            body = ""
+
+            for sel_activity in selected_activity_objects:
+                if sel_activity.project.payer.name != payer_name:
+                    continue
+                act_amount += sel_activity.earned_amount_in_local_currency
+                hour_sum += sel_activity.hours
+                day_sum += sel_activity.days
+
+            body = f"Bu ayki aktivitelerim toplam {hour_sum} saat = {day_sum} gündür."
+            body += f" Onayınıza istinaden {get_formatted_amount(act_amount)} {act_curr}"
+            body += " (+KDV) fatura kesebilirim."
+
+            popup_email(recipients=sel_activity.project.payer.activity_emails,
+                        subject=f"Bu ayki {payer_name} aktivitelerim",
+                        body=body)
 
     def _fill_tree_with_activities(self):
         self._activities = Activity.get_activities()

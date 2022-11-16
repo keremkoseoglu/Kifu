@@ -138,6 +138,11 @@ class Activity:
         self._activity["duration"] = hours
 
     @property
+    def days(self) -> float:
+        """ Activity days """
+        return self.hours / self.project.rate_hours
+
+    @property
     def dict(self) -> Dict:
         """ Activity as a dict """
         return self._activity
