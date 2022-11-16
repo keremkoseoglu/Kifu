@@ -155,24 +155,28 @@ class ActivityListWindow(tkinter.Toplevel):
                 selected_payer_names.append(sel_activity.project.payer.name)
 
         # Process each payer
-        act_curr = config.CONSTANTS["HOME_CURRENCY"]
-
         for payer_name in selected_payer_names:
             hour_sum = 0
             day_sum = 0
-            act_amount = 0
             body = ""
+            payer_activities = []
 
             for sel_activity in selected_activity_objects:
                 if sel_activity.project.payer.name != payer_name:
                     continue
-                act_amount += sel_activity.earned_amount_in_local_currency
                 hour_sum += sel_activity.hours
                 day_sum += sel_activity.days
+                payer_activities.append(sel_activity)
+
+            tmp_payer_invoice = invoice.get_invoice_obj_from_activities(payer_activities)
+            amt_txt = get_formatted_amount(tmp_payer_invoice.amount)
+            vat_txt = get_formatted_amount(tmp_payer_invoice.vat_amount)
+            sum_txt = get_formatted_amount(tmp_payer_invoice.amount_plus_vat)
+            cur_txt = tmp_payer_invoice.currency
 
             body = f"Bu ayki aktivitelerim toplam {hour_sum} saat = {day_sum} gündür."
-            body += f" Onayınıza istinaden {get_formatted_amount(act_amount)} {act_curr}"
-            body += " (+KDV) fatura kesebilirim."
+            body += f" Onayınıza istinaden; {amt_txt} + {vat_txt} (KDV) = {sum_txt} {cur_txt}"
+            body += " fatura kesebilirim."
 
             popup_email(recipients=sel_activity.project.payer.activity_emails,
                         subject=f"Bu ayki {payer_name} aktivitelerim",
