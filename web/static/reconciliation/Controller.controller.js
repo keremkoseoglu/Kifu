@@ -18,6 +18,23 @@ sap.ui.define([
 			this.getView().setModel(oJSONModel);
 		},
 
+		onPrint : function(oEvent) {
+			var oTarget = this.getView();
+			oTarget = oTarget.byId("mainList");
+			
+			if (oTarget) {
+				var $domTarget = oTarget.$()[0],
+					sTargetContent = $domTarget.innerHTML,
+					sOriginalContent = document.body.innerHTML;
+					
+				document.body.innerHTML = sTargetContent;
+				window.print();
+				document.body.innerHTML = sOriginalContent;
+			} else {
+				jQuery.sap.log.error("onPrint needs a valid target container [view|data:targetId=\"SID\"]");
+			}
+		},
+
 		initDataModel : function(names) {
 			var url = "/api/reconciliation?names=" + names
 			var oModel = new JSONModel();

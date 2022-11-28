@@ -12,6 +12,7 @@
 		class="sapUiContentPadding">
 		<m:content>
 			<m:List
+				id="mainList"
 				items="{/reconciliations}"
 				mode="None"
 				growing="false"
@@ -166,5 +167,15 @@
 				</m:CustomListItem>
 			</m:List>
 		</m:content>
+		<m:footer>
+			<m:Toolbar>
+			<m:ToolbarSpacer />
+			<m:Button
+				press="onPrint"
+				text="Print"
+				icon="sap-icon://print"
+				type="Emphasized" />
+			</m:Toolbar>
+      </m:footer>
 	</m:Page>
 </mvc:View>
