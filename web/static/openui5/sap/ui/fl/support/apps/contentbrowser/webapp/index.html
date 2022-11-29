@@ -1,22 +1,33 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-		<link rel="stylesheet" type="text/css" href="style.css">
-
-		<script src="../../../../../../../resources/sap-ui-core.js"
-				id="sap-ui-bootstrap"
-				data-sap-ui-libs="sap.m,sap.ui.fl,sap.ui.layout"
-				data-sap-ui-theme="sap_bluecrystal"
-				data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-				data-sap-ui-flexibilityServices=""
-				data-sap-ui-xx-bindingSyntax="complex">
-		</script>
-
-		<title>LRep Content Browser</title>
-	</head>
-	<body class="sapUiBody">
-    <div data-sap-ui-component data-name="sap.ui.fl.support.apps.contentbrowser" data-id="container" data-settings='{"id" : "contentbrowser"}'></div>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+	<style>
+		html, body, body > div, #container, #container-uiarea {
+			height: 100%;
+		}
+	</style>
+	<script
+			id="sap-ui-bootstrap"
+			src="resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_fiori_3"
+			data-sap-ui-resourceroots='{
+            "sap.ui.fl.support.apps.contentbrowser.app": "."
+        }'
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-async="true"
+			data-sap-ui-preload="async"
+			data-sap-ui-libs="sap.m">
+	</script>
+	<script id="locate-reuse-libs" src="./utils/locate-reuse-libs.js"
+			data-sap-ui-manifest-uri="./manifest.json"
+			data-sap-ui-componentName="sap.ui.fl.support.apps.contentbrowser.app">
+	</script>
+</head>
+<body class="sapUiBody sapUiSizeCompact" id="content">
+<div data-sap-ui-component data-name="sap.ui.fl.support.apps.contentbrowser.app" data-id="container" data-settings='{"id" : "sap.ui.fl.support.apps.contentbrowser.app"}' data-handle-validation="true"></div>
+</body>
 </html>
