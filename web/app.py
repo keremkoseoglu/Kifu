@@ -12,7 +12,7 @@ from web.api.income_tax_rates import IncomeTaxRatesAPI
 from web.api.activity_list import ActivityListAPI
 from web.api.address_book import AddressBookAPI
 from web.api.asset_profit import AssetProfitAPI
-from web.api.bank_account_balances import BankAccountBalanceAPI
+from web.api.asset_value import AssetValueAPI
 from web.api.budget import BudgetAPI
 from web.api.curr_acc_dist import CurrAccDistAPI
 from web.api.ecz_activity_comparison import EczActivityComparisonAPI
@@ -99,9 +99,15 @@ def _api_address_book():
 def _api_asset_profit():
     return jsonify(AssetProfitAPI().result)
 
-@_APP.route("/api/bank_account_balances")
-def _api_bank_account_balances():
-    return jsonify(BankAccountBalanceAPI().result)
+@_APP.route("/api/asset_commodity_values_get")
+def _api_asset_commodity_values_get():
+    return jsonify(AssetValueAPI.get_commodity_values())
+
+@_APP.route("/api/asset_commodity_values_set", methods=["POST"])
+def _api_asset_commodity_values_set():
+    entries = request.get_json()
+    AssetValueAPI.set_commodity_values(entries)
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 @_APP.route("/api/curr_acc_dist")
 def _api_curr_acc_dist():

@@ -19,7 +19,7 @@ def get_old_currencies(date: datetime) -> dict:
     url += year + month + "/"
     url += day + month + year + ".xml"
 
-    resp = requests.get(url, verify=False)
+    resp = requests.get(url, verify=False, timeout=5)
     resp_as_dict = xmltodict.parse(resp.text)
 
     return resp_as_dict

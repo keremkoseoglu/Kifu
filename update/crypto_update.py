@@ -9,7 +9,7 @@ def execute(run_backup: bool = True):
     """ Crypto update """
     if run_backup:
         backup.execute()
-    btc_dict = json.loads(requests.get(config.CONSTANTS["BTC_URL"], verify=False).text)
+    btc_dict = json.loads(requests.get(config.CONSTANTS["BTC_URL"], verify=False, timeout=5).text)
 
     assets = imp_asset.get_assets()
 
