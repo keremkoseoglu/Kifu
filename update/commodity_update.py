@@ -1,4 +1,8 @@
-""" Commodity update module """
+""" Commodity update module
+This module is deprecated. sahibinden.com detects and prevents such bots.
+A manual asset value update was developed instead.
+You can access it via the menu Assets - Update Commodities.
+"""
 import time
 import random
 from sahibinden.quick_median import QuickMedian

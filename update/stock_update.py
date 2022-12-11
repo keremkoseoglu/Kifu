@@ -28,7 +28,7 @@ def execute(run_backup: bool = True):
 
         try:
             url = config.CONSTANTS["STOCK_URL"] + asset["url_suffix"]
-            resp = requests.get(url, verify=False)
+            resp = requests.get(url, verify=False, timeout=5)
             str_val = _find_between(resp.text, '<span class="value">', '</span>')
             str_val = str_val.replace(".", "").replace(",", ".")
             asset["sales_value"] = float(str_val)

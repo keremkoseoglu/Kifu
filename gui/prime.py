@@ -116,6 +116,7 @@ class Prime:
         asset_menu = tkinter.Menu(self._menu, tearoff=0)
         asset_menu.add_separator()
         asset_menu.add_command(label="Edit assets", command=Prime._edit_assets)
+        asset_menu.add_command(label="Update commodities", command=Prime._update_commodities)
         asset_menu.add_separator()
         asset_menu.add_command(label="Net worth", command=Prime._net_worth)
         asset_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
@@ -135,7 +136,6 @@ class Prime:
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
         util_menu.add_command(label="Update currencies", command=self._currency_update)
-        util_menu.add_command(label="Update commodities", command=self._commodity_update)
         util_menu.add_command(label="Print labels", command=self._print_label)
         util_menu.add_command(label="Delete idle companies", command=Prime._del_idle_companies)
 
@@ -254,12 +254,6 @@ class Prime:
         currency_update.execute()
         self._set_status("Currencies updated")
 
-    def _commodity_update(self):
-        IncubusFactory.get_instance().user_event()
-        self._set_status("Updating commodities")
-        commodity_update.execute()
-        self._set_status("Commodities updated")
-
     def _del_completed_payments(self):
         IncubusFactory.get_instance().user_event()
         self._set_status("Deleting completed payments")
@@ -327,6 +321,11 @@ class Prime:
         IncubusFactory.get_instance().user_event()
         asset_window = asset_list.AssetListWindow()
         asset_window.mainloop()
+
+    @staticmethod
+    def _update_commodities():
+        IncubusFactory.get_instance().user_event()
+        startup_url("asset_commodity_val")
 
     @staticmethod
     def _net_worth():
