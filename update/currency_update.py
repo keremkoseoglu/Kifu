@@ -27,9 +27,10 @@ def execute(run_backup: bool = True):
 
         # Gold conversion
         gold_resp = requests.get(config.CONSTANTS["CURRENY_GOLD_URL"], verify=False, timeout=5)
-        pos1 = gold_resp.text.find('<table class="table table-striped">') + 113
-        gold_price_txt = gold_resp.text[pos1:pos1+7].replace("<", "").replace(",", ".")
-        gold_price = float(gold_price_txt.replace("/", ""))
+        pos1 = gold_resp.text.find('name:"Altın",buying:gj,selling:') + 31
+        pos2 = gold_resp.text.find(",", pos1)
+        gold_price_txt = gold_resp.text[pos1:pos2]
+        gold_price = float(gold_price_txt)
         dgc_dict = {
             "@CrossOrder": "0",
             "@Kod": "DGC",
