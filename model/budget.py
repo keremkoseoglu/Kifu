@@ -6,6 +6,7 @@ from datetime import datetime
 from typing import List
 import config
 from model.currency import CurrencyConverter
+from model.timesheet.income_tax import IncomeTaxCalculatorFactory
 
 _DOMAIN_FILE = "budget_domain.json"
 _FISCAL_FILE_PREFIX = "budget_fy_"
@@ -16,11 +17,30 @@ _YELLOW_ICON = "🟡"
 _GREEN_ICON = "🟢"
 _SUM_DOMAIN = "∑"
 _MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+_AUTO_INCOME_TAX_TAG = "auto_income_tax"
+_INCOME_TAX_SUFFIX = "_auto_income_tax"
+_VAT_SUFFIX = "_auto_vat"
 
 def get_domain_dict() -> dict:
     """ Returns domain dict """
     with open(_get_domain_file_path(), encoding="utf-8") as domain_file:
         out = json.load(domain_file)
+
+    for domain in out["domains"]:
+        if not _AUTO_INCOME_TAX_TAG in domain:
+            continue
+        if not domain[_AUTO_INCOME_TAX_TAG]:
+            continue
+
+        for income in domain["incomes"]:
+            inc_sub, vat_sub = _get_auto_tax_subjects(income)
+            domain["expenses"].append(inc_sub)
+            domain["expenses"].append(vat_sub)
+
+            if income in domain["salaries"]:
+                domain["salaries"].append(inc_sub)
+                domain["salaries"].append(vat_sub)
+
     return out
 
 def get_subject_list() -> List:
@@ -30,12 +50,14 @@ def get_subject_list() -> List:
     for domain in domain_dict["domains"]:
         for income in domain["incomes"]:
             is_salary = "salaries" in domain and income in domain["salaries"]
+            auto_income_tax = _AUTO_INCOME_TAX_TAG in domain and domain[_AUTO_INCOME_TAX_TAG]
 
             inc_dict = {"domain": domain["name"],
                         "direction": "incomes",
                         "subject": income,
                         "icon": _INCOME_ICON,
-                        "is_salary": is_salary}
+                        "is_salary": is_salary,
+                        _AUTO_INCOME_TAX_TAG: auto_income_tax}
 
             out.append(inc_dict)
 
@@ -73,11 +95,15 @@ def get_plan_list() -> List:
     conv = CurrencyConverter()
     out = get_subject_list()
     fiscal = _get_latest_fiscal_file_content()
+    income_tax_calc = IncomeTaxCalculatorFactory.get_instance()
+
     for subject in out:
-        subject["monthly_plan_amount"] = 0
-        subject["annual_plan_amount"] = 0
         subject["currency"] = config.CONSTANTS["HOME_CURRENCY"]
         subject["currency_symbol"] = config.CONSTANTS["HOME_CURRENCY_SYMBOL"]
+        if "monthly_plan_amount" in subject: # Otomatik hesaplanmış olabilir
+            continue
+        subject["monthly_plan_amount"] = 0
+        subject["annual_plan_amount"] = 0
 
         if "plans" in fiscal:
             for plan in fiscal["plans"]:
@@ -94,6 +120,21 @@ def get_plan_list() -> List:
                     subject["monthly_plan_amount"] = monthly_amount
                     subject["annual_plan_amount"] = annual_amount
                     break
+
+        if subject["direction"] == "incomes" and subject[_AUTO_INCOME_TAX_TAG]:
+            inc_sub, vat_sub = _get_auto_tax_subjects(subject["subject"])
+            monthly_vat_amt = subject["monthly_plan_amount"] * config.CONSTANTS["DEFAULT_VAT_RATE"] / (100 + config.CONSTANTS["DEFAULT_VAT_RATE"]) * -1
+            annual_vat_amt = subject["annual_plan_amount"] * config.CONSTANTS["DEFAULT_VAT_RATE"] / (100 + config.CONSTANTS["DEFAULT_VAT_RATE"]) * -1
+            monthly_inc_amt = (subject["monthly_plan_amount"] + monthly_vat_amt) * income_tax_calc.default_tax_rate / 100 * -1
+            annual_inc_amt = (subject["annual_plan_amount"] + annual_vat_amt) * income_tax_calc.default_tax_rate / 100 * -1
+
+            for auto_tax in out:
+                if auto_tax["subject"] == inc_sub:
+                    auto_tax["monthly_plan_amount"] = monthly_inc_amt
+                    auto_tax["annual_plan_amount"] = annual_inc_amt
+                if auto_tax["subject"] == vat_sub:
+                    auto_tax["monthly_plan_amount"] = monthly_vat_amt
+                    auto_tax["annual_plan_amount"] = annual_vat_amt
 
     return out
 
@@ -491,3 +532,6 @@ def _get_status_icon(plan: float, actual: float) -> str:
             else:
                 result = _YELLOW_ICON
     return result
+
+def _get_auto_tax_subjects(income_subject: str) -> tuple:
+    return f"{income_subject}{_INCOME_TAX_SUFFIX}", f"{income_subject}{_VAT_SUFFIX}"
