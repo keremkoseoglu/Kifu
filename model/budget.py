@@ -16,6 +16,7 @@ _RED_ICON = "🔴"
 _YELLOW_ICON = "🟡"
 _GREEN_ICON = "🟢"
 _SUM_DOMAIN = "∑"
+_TAX_DEDUCTION_DOMAIN = "tax deduction"
 _MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
 _AUTO_INCOME_TAX_TAG = "auto_income_tax"
 _INCOME_TAX_SUFFIX = "_auto_income_tax"
@@ -45,6 +46,7 @@ def get_domain_dict() -> dict:
 
 def get_subject_list() -> List:
     """ Subjects """
+
     out = []
     domain_dict = get_domain_dict()
     for domain in domain_dict["domains"]:
@@ -64,11 +66,17 @@ def get_subject_list() -> List:
         for expense in domain["expenses"]:
             is_salary = "salaries" in domain and expense in domain["salaries"]
 
+            if "tax_deductions" in domain and expense in domain["tax_deductions"]:
+                tax_deduction_rate = domain["tax_deductions"][expense]
+            else:
+                tax_deduction_rate = 0
+
             exp_dict = {"domain": domain["name"],
                         "direction": "expenses",
                         "subject": expense,
                         "icon": _EXPENSE_ICON,
-                        "is_salary": is_salary}
+                        "is_salary": is_salary,
+                        "tax_deduction_rate": tax_deduction_rate}
             out.append(exp_dict)
     return out
 
@@ -92,6 +100,7 @@ def get_domain_and_subject_dict() -> dict:
 
 def get_plan_list() -> List:
     """ Plan values """
+
     conv = CurrencyConverter()
     out = get_subject_list()
     fiscal = _get_latest_fiscal_file_content()
@@ -104,6 +113,8 @@ def get_plan_list() -> List:
             continue
         subject["monthly_plan_amount"] = 0
         subject["annual_plan_amount"] = 0
+        subject["monthly_tax_deduction"] = 0
+        subject["annual_tax_deduction"] = 0
 
         if "plans" in fiscal:
             for plan in fiscal["plans"]:
@@ -119,6 +130,9 @@ def get_plan_list() -> List:
                         raise Exception(f"Unknown budget period: {plan['period']}")
                     subject["monthly_plan_amount"] = monthly_amount
                     subject["annual_plan_amount"] = annual_amount
+                    if "tax_deduction_rate" in subject:
+                        subject["monthly_tax_deduction"] = monthly_amount * subject["tax_deduction_rate"] * -1
+                        subject["annual_tax_deduction"] = annual_amount * subject["tax_deduction_rate"] * -1
                     break
 
         if subject["direction"] == "incomes" and subject[_AUTO_INCOME_TAX_TAG]:
@@ -349,7 +363,11 @@ def get_plan_vs_actual_list_and_sums_flat() -> dict:
 def get_salary_simulation() -> List:
     """ Simulate salary """
     out = {"plan": [],
-           "sum": {"monthly": 0,
+           "sum": {"monthly_salary": 0,
+                   "annual_salary": 0,
+                   "monthly_tax_deduction": 0,
+                   "annual_tax_deduction": 0,
+                   "monthly": 0,
                    "annual": 0,
                    "currency": config.CONSTANTS["HOME_CURRENCY"],
                    "currency_symbol": config.CONSTANTS["HOME_CURRENCY_SYMBOL"]}}
@@ -357,12 +375,16 @@ def get_salary_simulation() -> List:
     plans = get_plan_list()
 
     for plan in plans:
-        if not plan["is_salary"]:
-            continue
+        if "monthly_tax_deduction" in plan:
+            out["sum"]["monthly_tax_deduction"] += plan["monthly_tax_deduction"]
+            out["sum"]["monthly"] += plan["monthly_tax_deduction"]
+            out["sum"]["annual_tax_deduction"] += plan["annual_tax_deduction"]
+            out["sum"]["annual"] += plan["monthly_tax_deduction"]
 
-        out["plan"].append(plan)
-        out["sum"]["monthly"] += plan["monthly_plan_amount"]
-        out["sum"]["annual"] += plan["annual_plan_amount"]
+        if plan["is_salary"]:
+            out["plan"].append(plan)
+            out["sum"]["monthly"] += plan["monthly_plan_amount"]
+            out["sum"]["annual"] += plan["annual_plan_amount"]
 
     return out
 
@@ -376,6 +398,14 @@ def get_salary_simulation_and_sum_flat() -> List:
                 "icon": _INCOME_ICON,
                 "monthly_plan_amount": simulation["sum"]["monthly"],
                 "annual_plan_amount": simulation["sum"]["annual"],
+                "currency": config.CONSTANTS["HOME_CURRENCY"],
+                "currency_symbol": config.CONSTANTS["HOME_CURRENCY_SYMBOL"]})
+    out.append({"domain": _TAX_DEDUCTION_DOMAIN,
+                "direction": "incomes",
+                "subject": "income tax deduction",
+                "icon": _INCOME_ICON,
+                "monthly_plan_amount": simulation["sum"]["monthly_tax_deduction"],
+                "annual_plan_amount": simulation["sum"]["annual_tax_deduction"],
                 "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "currency_symbol": config.CONSTANTS["HOME_CURRENCY_SYMBOL"]})
     return out
