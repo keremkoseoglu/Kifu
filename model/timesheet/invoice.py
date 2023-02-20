@@ -4,6 +4,7 @@ from enum import Enum
 import json
 from typing import List
 from util import identifier, date_time
+from model.budget import get_income_salary_ratio
 from model.company import Company
 from model.currency import CurrencyConverter
 from model.timesheet.invoice_file_reader import get_invoices, get_file_path
@@ -89,7 +90,10 @@ class Invoice:
     @property
     def alms_amount(self) -> float:
         """ Amount of recommended alms """
-        return (self.amount - self.income_tax_amount) * config.CONSTANTS["DEFAULT_ALMS_RATE"] / 100
+        salary_ratio = get_income_salary_ratio()
+        invoice_salary = self.amount * salary_ratio
+        salary_alms = invoice_salary * config.CONSTANTS["DEFAULT_ALMS_RATE"] / 100
+        return salary_alms
 
     @property
     def alms_payment_date(self) -> datetime:

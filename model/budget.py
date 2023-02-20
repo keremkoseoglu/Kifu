@@ -410,6 +410,20 @@ def get_salary_simulation_and_sum_flat() -> List:
                 "currency_symbol": config.CONSTANTS["HOME_CURRENCY_SYMBOL"]})
     return out
 
+def get_income_salary_ratio() -> float:
+    """ Income to salary ratio """
+    salary_sim = get_salary_simulation()
+
+    income_sum = 0
+    for sim_entry in salary_sim["plan"]:
+        if sim_entry["direction"] == "incomes":
+            income_sum += sim_entry["monthly_plan_amount"]
+
+    if income_sum == 0:
+        return 0
+
+    return salary_sim["sum"]["monthly"] / income_sum
+
 def save_actuals_with_subject_list_combo(actuals: List):
     """ Save actuals """
     month_values = []
