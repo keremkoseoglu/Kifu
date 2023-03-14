@@ -17,7 +17,6 @@ def get_accounts_with_currency(currency: str) -> List:
 
     return output
 
-
 def get_account_balances_in_both_currencies() -> List:
     """ Account balances in original and home currencies """
     output = []
@@ -146,11 +145,10 @@ def get_next_investment_account() -> tuple:
         acc += account_part
     return acc, account_parts[len(account_parts)-1]
 
-
 def get_vat_account() -> dict:
     """ Returns the default VAT account """
     for bank_account in get_bank_accounts()["bank_accounts"]:
-        if bank_account["is_vat"]:
+        if "is_vat" in bank_account and bank_account["is_vat"]:
             return bank_account
     raise Exception("VAT account not found")
 
@@ -188,5 +186,29 @@ def get_reserved_balance() -> float:
 
     return output
 
+def add_amount_to_vat_account(delta: float, currency: str):
+    """ Updates VAT account """
+    add_amount_to_account_with_property("is_vat", True, delta, currency)
+
+def add_amount_to_income_tax_account(delta: float, currency: str):
+    """ Updates income tax account """
+    add_amount_to_account_with_property("is_income_tax", True, delta, currency)
+
+def add_amount_to_account_with_property(prop_key: str, prop_val, delta: float, currency: str):
+    """ Updates any account """
+    curr_conv = CurrencyConverter()
+    accounts = get_bank_accounts()
+
+    for account in accounts["bank_accounts"]:
+        if prop_key in account and account[prop_key] == prop_val:
+            converted_delta = curr_conv.convert_to_currency(delta, currency, account["currency"])
+            account["balance"] += converted_delta
+            _save_bank_accounts(accounts)
+            return
+
 def _get_file_path():
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _BANK_ACCOUNT_FILE)
+
+def _save_bank_accounts(accounts: dict):
+    with open(_get_file_path(), "w", encoding="utf-8") as ba_file:
+        json.dump(accounts, ba_file, indent=3)
