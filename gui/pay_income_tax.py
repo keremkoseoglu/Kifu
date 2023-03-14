@@ -4,8 +4,8 @@ from gui.amount_textbox import AmountTextbox
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
 from model.payment import payment
+from model.bank.bank_account import add_amount_to_income_tax_account
 import config
-
 
 class PayIncomeTax:
     """ Income tax payment window """
@@ -41,6 +41,8 @@ class PayIncomeTax:
             description="Geçici vergi ödemesi",
             income_tax_only=True
         )
+
+        add_amount_to_income_tax_account(self._amount.amount * -1, self._amount.currency)
 
         PrimeSingleton.get().refresh()
         self._window.destroy()

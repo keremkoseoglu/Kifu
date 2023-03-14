@@ -4,9 +4,9 @@ from gui.amount_textbox import AmountTextbox
 from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
 from model.payment import payment
+from model.bank.bank_account import add_amount_to_vat_account
 from util import amount
 import config
-
 
 class PayVat:
     """ VAT payment window """
@@ -56,6 +56,8 @@ class PayVat:
             paid_amount=self._amount.amount,
             paid_curr=self._amount.currency
         )
+
+        add_amount_to_vat_account(self._amount.amount * -1, self._amount.currency)
 
         PrimeSingleton.get().refresh()
         self._window.destroy()
