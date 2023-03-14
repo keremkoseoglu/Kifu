@@ -143,11 +143,14 @@ def get_nearest_workday(date: datetime, backwards=False):
     """ Nearest workday """
     output = date
 
-    while output.weekday() == 5 or output.weekday() == 6 or is_bank_holiday(output):
-        if backwards:
-            output = get_next_day(output, next_count=-1)
-        else:
-            output = get_next_day(output, next_count=1)
+    try:
+        while output.weekday() == 5 or output.weekday() == 6 or is_bank_holiday(output):
+            if backwards:
+                output = get_next_day(output, next_count=-1)
+            else:
+                output = get_next_day(output, next_count=1)
+    except Exception as error:
+        print(error)
 
     return output
 

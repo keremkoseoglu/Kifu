@@ -129,9 +129,6 @@ class Prime:
         budget_menu.add_command(label="Plan", command=Prime._budget_plan)
         budget_menu.add_command(label="Salary simulation", command=Prime._salary_simulation)
         budget_menu.add_command(label="Pay yourself first", command=Prime._pay_yourself_first)
-        budget_menu.add_separator()
-        budget_menu.add_command(label="Akbank statement", command=Prime._akbank_statement)
-        budget_menu.add_command(label="Plan vs actual", command=Prime._budget_plan_vs_actual)
         self._menu.add_cascade(menu=budget_menu, label="Budget")
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
@@ -159,19 +156,9 @@ class Prime:
         startup_url("activity_list")
 
     @staticmethod
-    def _akbank_statement():
-        IncubusFactory.get_instance().user_event()
-        startup_url("akbank_statement_sum")
-
-    @staticmethod
     def _budget_plan():
         IncubusFactory.get_instance().user_event()
         startup_url("budget_plan")
-
-    @staticmethod
-    def _budget_plan_vs_actual():
-        IncubusFactory.get_instance().user_event()
-        startup_url("budget_plan_vs_actual")
 
     @staticmethod
     def _salary_simulation():
