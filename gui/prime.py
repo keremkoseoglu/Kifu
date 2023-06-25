@@ -9,21 +9,31 @@ from util.company_label import CompanyLabel
 from util.tax_info import TaxInfo
 from gui import activity, activity_list
 from gui import asset_list
-from gui import cash_movement, company_list, invoice_list, pay_income_tax, credit_card_statement
+from gui import (
+    cash_movement,
+    company_list,
+    invoice_list,
+    pay_income_tax,
+    credit_card_statement,
+)
 from gui import payment, payment_list, pay_vat, activity_split, invest
 from gui.font import default_font, configure_treeview_style
 from model import notification
 from model.timesheet.activity import Activity
-from model.payment.payment import delete_completed_payments, get_companies_without_payment,\
-    create_pyf
+from model.payment.payment import (
+    delete_completed_payments,
+    get_companies_without_payment,
+    create_pyf,
+)
 from model.payment import payment as payment_model
 import config
-from update import currency_update, commodity_update
+from update import currency_update
 from web.app import startup_url
 
 
 class Prime:
-    """ Primary window """
+    """Primary window"""
+
     _NOTIF_HEIGHT = 500
     _WINDOW_WIDTH = 1600
     _WINDOW_HEIGHT = 600
@@ -41,28 +51,30 @@ class Prime:
         self._root.geometry(str(self._WINDOW_WIDTH) + "x" + str(self._WINDOW_HEIGHT))
 
         # Status label
-        self._status_label = tkinter.Label(master=self._root,
-                                           text="Welcome to Kifu",
-                                           font=default_font())
+        self._status_label = tkinter.Label(
+            master=self._root, text="Welcome to Kifu", font=default_font()
+        )
         self._status_label.place(
             x=0,
             y=cell_y,
             width=self._WINDOW_WIDTH,
-            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"],
+        )
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Notifications
         self._notif_list = tkinter.Listbox(self._root, font=default_font())
         self.refresh()
-        self._notif_list.place(x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT)
-        self._notif_list.bind('<Double-1>', self._notif_double_click)
+        self._notif_list.place(
+            x=0, y=cell_y, width=self._WINDOW_WIDTH, height=self._NOTIF_HEIGHT
+        )
+        self._notif_list.bind("<Double-1>", self._notif_double_click)
         cell_y += self._NOTIF_HEIGHT
 
-        refresh_button = tkinter.Button(self._root,
-                                        text="Refresh",
-                                        command=self.refresh,
-                                        font=default_font())
+        refresh_button = tkinter.Button(
+            self._root, text="Refresh", command=self.refresh, font=default_font()
+        )
         refresh_button.place(x=0, y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -72,8 +84,8 @@ class Prime:
         file_menu = tkinter.Menu(self._menu, tearoff=0)
         for data_file in file_system.get_data_file_list():
             file_menu.add_command(
-                label=data_file,
-                command=lambda df=data_file: Prime._edit_data_file(df))
+                label=data_file, command=lambda df=data_file: Prime._edit_data_file(df)
+            )
         file_menu.add_separator()
         file_menu.add_command(label="Show data files", command=Prime._show_data_files)
         file_menu.add_command(label="Backup data files", command=self._backup_data)
@@ -83,13 +95,19 @@ class Prime:
         timesheet_menu = tkinter.Menu(self._menu, tearoff=0)
         timesheet_menu.add_command(label="Add", command=Prime._add_activity)
         timesheet_menu.add_command(label="Edit", command=Prime._list_activity)
-        timesheet_menu.add_command(label="Split latest", command=Prime._split_latest_activity)
-        timesheet_menu.add_separator()
-        timesheet_menu.add_command(label="Activity report", command=Prime._activity_report)
         timesheet_menu.add_command(
-            label="Workdays without activity",
-            command=Prime._workdays_wo_activity)
-        timesheet_menu.add_command(label="Ecz activity comparison", command=Prime._ecz_activity)
+            label="Split latest", command=Prime._split_latest_activity
+        )
+        timesheet_menu.add_separator()
+        timesheet_menu.add_command(
+            label="Activity report", command=Prime._activity_report
+        )
+        timesheet_menu.add_command(
+            label="Workdays without activity", command=Prime._workdays_wo_activity
+        )
+        timesheet_menu.add_command(
+            label="Ecz activity comparison", command=Prime._ecz_activity
+        )
         self._menu.add_cascade(menu=timesheet_menu, label="Timesheet")
         timesheet_menu.add_command(label="Invoices", command=Prime._list_invoice)
 
@@ -97,10 +115,12 @@ class Prime:
         payment_menu.add_command(label="Add", command=Prime._add_payment)
         payment_menu.add_command(label="Edit", command=Prime._list_payment)
         payment_menu.add_command(
-            label="Delete completed payments",
-            command=self._del_completed_payments)
+            label="Delete completed payments", command=self._del_completed_payments
+        )
         payment_menu.add_separator()
-        payment_menu.add_command(label="Book CC statement", command=Prime._add_cc_statement)
+        payment_menu.add_command(
+            label="Book CC statement", command=Prime._add_cc_statement
+        )
         payment_menu.add_command(label="Book cash movement", command=Prime._add_cash)
         payment_menu.add_command(label="Invest", command=Prime._invest)
         payment_menu.add_command(label="Pay VAT", command=Prime._pay_vat)
@@ -116,25 +136,37 @@ class Prime:
         asset_menu = tkinter.Menu(self._menu, tearoff=0)
         asset_menu.add_separator()
         asset_menu.add_command(label="Edit assets", command=Prime._edit_assets)
-        asset_menu.add_command(label="Update commodities", command=Prime._update_commodities)
+        asset_menu.add_command(
+            label="Update commodities", command=Prime._update_commodities
+        )
         asset_menu.add_separator()
         asset_menu.add_command(label="Net worth", command=Prime._net_worth)
-        asset_menu.add_command(label="Account balances", command=Prime._bank_account_balance)
-        asset_menu.add_command(label="Currency balances", command=Prime._currency_account)
+        asset_menu.add_command(
+            label="Account balances", command=Prime._bank_account_balance
+        )
+        asset_menu.add_command(
+            label="Currency balances", command=Prime._currency_account
+        )
         asset_menu.add_command(label="Asset profit", command=Prime._asset_profit)
         asset_menu.add_separator()
         self._menu.add_cascade(menu=asset_menu, label="Asset")
 
         budget_menu = tkinter.Menu(self._menu, tearoff=0)
         budget_menu.add_command(label="Plan", command=Prime._budget_plan)
-        budget_menu.add_command(label="Salary simulation", command=Prime._salary_simulation)
-        budget_menu.add_command(label="Pay yourself first", command=Prime._pay_yourself_first)
+        budget_menu.add_command(
+            label="Salary simulation", command=Prime._salary_simulation
+        )
+        budget_menu.add_command(
+            label="Pay yourself first", command=Prime._pay_yourself_first
+        )
         self._menu.add_cascade(menu=budget_menu, label="Budget")
 
         util_menu = tkinter.Menu(self._menu, tearoff=0)
         util_menu.add_command(label="Update currencies", command=self._currency_update)
         util_menu.add_command(label="Print labels", command=self._print_label)
-        util_menu.add_command(label="Delete idle companies", command=Prime._del_idle_companies)
+        util_menu.add_command(
+            label="Delete idle companies", command=Prime._del_idle_companies
+        )
 
         self._menu.add_cascade(menu=util_menu, label="Util")
 
@@ -147,7 +179,7 @@ class Prime:
         IncubusFactory.get_instance().start(15)
 
     def start(self):
-        """ Starts main loop """
+        """Starts main loop"""
         self._root.mainloop()
 
     @staticmethod
@@ -255,8 +287,8 @@ class Prime:
         if len(idle_companies) <= 0:
             return
         company_list.CompanyList(
-            Prime._del_idle_companies__selected,
-            companies=idle_companies).mainloop()
+            Prime._del_idle_companies__selected, companies=idle_companies
+        ).mainloop()
 
     @staticmethod
     def _del_idle_companies__selected(companies: List):
@@ -319,11 +351,11 @@ class Prime:
         IncubusFactory.get_instance().user_event()
         startup_url("net_worth")
 
-    def _notif_double_click(self, dummy): # pylint: disable=W0613
+    def _notif_double_click(self, dummy):  # pylint: disable=W0613
         IncubusFactory.get_instance().user_event()
         selection = self._notif_list.get(self._notif_list.curselection())
         if "Payment" in selection:
-            payment_guid = selection[selection.find("{")+1:selection.find("}")]
+            payment_guid = selection[selection.find("{") + 1 : selection.find("}")]
             payment_obj = payment_model.get_payment_with_guid(payment_guid)
             if payment_obj is None:
                 return
@@ -365,10 +397,12 @@ class Prime:
                 names += ","
             names += selco.name
 
-        startup_url("reconciliation", query_string="names="+urllib.parse.quote(names, safe=''))
+        startup_url(
+            "reconciliation", query_string="names=" + urllib.parse.quote(names, safe="")
+        )
 
     def refresh(self):
-        """ Refreshes notifications """
+        """Refreshes notifications"""
         IncubusFactory.get_instance().user_event()
         self._notif_list.delete(0, tkinter.END)
         notif_count = 0

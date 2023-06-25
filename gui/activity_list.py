@@ -5,6 +5,7 @@ from typing import List
 from model.timesheet import invoice
 from model.timesheet import activity
 from model.timesheet.activity import Activity
+from model.timesheet.project import Project
 from model.company import Company
 from gui.activity import ActivityWindow
 from gui.activity_split import ActivitySplit
@@ -14,10 +15,12 @@ from gui.popup_file import popup_email
 from gui.prime_singleton import PrimeSingleton
 from util import activity_xlsx_report, backup, date_time
 from util.amount import get_formatted_amount
+from util.text import replace_turkish_chars
 import config
 
+
 class ActivityListWindow(tkinter.Toplevel):
-    """ Activity list window """
+    """Activity list window"""
 
     _BUTTON_WIDTH = 150
     _WINDOW_WIDTH = 1200
@@ -31,7 +34,9 @@ class ActivityListWindow(tkinter.Toplevel):
 
         # Build tree
         self._tree = tkinter.ttk.Treeview(self)
-        tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
+        tree_height = (
+            self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
+        )
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
         cell_y = tree_height + self._Y_SPACING
 
@@ -49,44 +54,39 @@ class ActivityListWindow(tkinter.Toplevel):
         # Buttons
         cell_x = 0
 
-        edit_button = tkinter.Button(self, text="Edit",
-                                     command=self._edit_click,
-                                     font=default_font())
+        edit_button = tkinter.Button(
+            self, text="Edit", command=self._edit_click, font=default_font()
+        )
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self,
-                                     text="Excel",
-                                     command=self._excel_click,
-                                     font=default_font())
+        edit_button = tkinter.Button(
+            self, text="Excel", command=self._excel_click, font=default_font()
+        )
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        edit_button = tkinter.Button(self,
-                                     text="Mail sum",
-                                     command=self._mail_sum_click,
-                                     font=default_font())
+        edit_button = tkinter.Button(
+            self, text="Mail sum", command=self._mail_sum_click, font=default_font()
+        )
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        split_button = tkinter.Button(self,
-                                      text="Split",
-                                      command=self._split_click,
-                                      font=default_font())
+        split_button = tkinter.Button(
+            self, text="Split", command=self._split_click, font=default_font()
+        )
         split_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self,
-                                        text="Invoice",
-                                        command=self._invoice_click,
-                                        font=default_font())
+        invoice_button = tkinter.Button(
+            self, text="Invoice", command=self._invoice_click, font=default_font()
+        )
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self,
-                                        text="Delete",
-                                        command=self._delete_click,
-                                        font=default_font())
+        invoice_button = tkinter.Button(
+            self, text="Delete", command=self._delete_click, font=default_font()
+        )
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
@@ -140,9 +140,11 @@ class ActivityListWindow(tkinter.Toplevel):
 
         activity_company = Company(config.CONSTANTS["COMPANY_NAME_1E1"])
 
-        popup_email(recipients=activity_company.activity_emails,
-                    subject="Bu ayki aktivitelerim",
-                    attachment=xlsx_report.last_saved_files[0])
+        popup_email(
+            recipients=activity_company.activity_emails,
+            subject="Bu ayki aktivitelerim",
+            attachment=xlsx_report.last_saved_files[0],
+        )
 
     def _mail_sum_click(self):
         # Get activities
@@ -160,6 +162,8 @@ class ActivityListWindow(tkinter.Toplevel):
             day_sum = 0
             body = ""
             payer_activities = []
+            payer_projects = []
+            subject = f"Bu ayki {payer_name} aktivitelerim"
 
             for sel_activity in selected_activity_objects:
                 if sel_activity.project.payer.name != payer_name:
@@ -168,7 +172,13 @@ class ActivityListWindow(tkinter.Toplevel):
                 day_sum += sel_activity.days
                 payer_activities.append(sel_activity)
 
-            tmp_payer_invoice = invoice.get_invoice_obj_from_activities(payer_activities)
+                act_proj_name = self._get_project_name(sel_activity.project)
+                if act_proj_name not in payer_projects:
+                    payer_projects.append(act_proj_name)
+
+            tmp_payer_invoice = invoice.get_invoice_obj_from_activities(
+                payer_activities
+            )
             amt_txt = get_formatted_amount(tmp_payer_invoice.amount)
             vat_txt = get_formatted_amount(tmp_payer_invoice.vat_amount)
             sum_txt = get_formatted_amount(tmp_payer_invoice.amount_plus_vat)
@@ -178,17 +188,31 @@ class ActivityListWindow(tkinter.Toplevel):
             body += f" Onayınıza istinaden; {amt_txt} + {vat_txt} (KDV) = {sum_txt} {cur_txt}"
             body += " fatura kesebilirim."
 
-            popup_email(recipients=sel_activity.project.payer.activity_emails,
-                        subject=f"Bu ayki {payer_name} aktivitelerim",
-                        body=body)
+            body += "\r\n\r\n"
+
+            if len(payer_projects) <= 0:
+                pass
+            elif len(payer_projects) == 1:
+                project_name = payer_projects[0]
+                subject += f" [{project_name}]"
+                body += f"Proje: {project_name}"
+            else:
+                body += "Projeler:"
+                for payer_project in payer_projects:
+                    body += f"\r\n- { payer_project }"
+
+            popup_email(
+                recipients=sel_activity.project.payer.activity_emails,
+                subject=subject,
+                body=body,
+            )
 
     def _fill_tree_with_activities(self):
         self._activities = Activity.get_activities()
 
         self._activities["activities"] = sorted(
-            self._activities["activities"],
-            key=lambda x: x["date"],
-            reverse=True)
+            self._activities["activities"], key=lambda x: x["date"], reverse=True
+        )
 
         self._tree_content = {}
 
@@ -201,14 +225,14 @@ class ActivityListWindow(tkinter.Toplevel):
                 project_obj.client.name,
                 project_obj.name,
                 activity_obj.location,
-                activity_obj.guid
+                activity_obj.guid,
             )
 
             id_in_tree = self._tree.insert(
-                '',
-                'end',
+                "",
+                "end",
                 text=date_time.get_formatted_date(activity_obj.date),
-                value=tree_val
+                value=tree_val,
             )
             self._tree_content[id_in_tree] = activity_obj
 
@@ -232,3 +256,10 @@ class ActivityListWindow(tkinter.Toplevel):
         activity_split.fill_with_activity(first_selected_activity)
         self.after(1, self.destroy())
         activity_split.mainloop()
+
+    def _get_project_name(self, project: Project) -> str:
+        result = replace_turkish_chars(project.client_and_name)
+        inv_int = project.invoice_interval
+        if inv_int != "":
+            result += f" ({inv_int})"
+        return result
