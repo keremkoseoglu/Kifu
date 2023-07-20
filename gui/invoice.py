@@ -18,7 +18,7 @@ from web.app import startup_url
 
 
 def open_invoice_as_email(inv: Invoice):
-    """ Opens E-Mail windows to send the invoice """
+    """Opens E-Mail windows to send the invoice"""
     recipients = []
     if inv.payer.email != "":
         recipients.append(inv.payer.email)
@@ -29,13 +29,14 @@ def open_invoice_as_email(inv: Invoice):
     if accounting_company.email != "":
         recipients.append(accounting_company.email)
 
-    popup_email(recipients=recipients,
-                subject=f"Fatura {inv.serial}",
-                attachment=inv.file_path)
+    popup_email(
+        recipients=recipients, subject=f"Fatura {inv.serial}", attachment=inv.file_path
+    )
 
 
 class InvoiceWindow(tkinter.Toplevel):
-    """ Invoice window """
+    """Invoice window"""
+
     _SMALL_SPACE = 50
     _SPACE = 100
     _WINDOW_WIDTH = 525
@@ -70,12 +71,14 @@ class InvoiceWindow(tkinter.Toplevel):
 
         # Amount
         self._amount = AmountTextbox(
-            self,
-            "Amount",
-            0,
-            config.CONSTANTS["HOME_CURRENCY"],
-            0,
-            cell_y)
+            self, "Amount", 0, config.CONSTANTS["HOME_CURRENCY"], 0, cell_y
+        )
+
+        cell_x = (config.CONSTANTS["GUI_CELL_WIDTH"] * 2) + InvoiceWindow._SPACE
+        cell_x += InvoiceWindow._SMALL_SPACE
+        refresh_button = tkinter.Button(self, text="@", command=self._refresh_click)
+        refresh_button.place(x=cell_x, y=cell_y)
+
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # VAT
@@ -105,7 +108,9 @@ class InvoiceWindow(tkinter.Toplevel):
         self._file_path = LabeledTextbox(self, "File path", "", 0, cell_y)
 
         cell_x = (config.CONSTANTS["GUI_CELL_WIDTH"] * 2) + InvoiceWindow._SPACE
-        file_path_button = tkinter.Button(self, text="...", command=self._file_path_click)
+        file_path_button = tkinter.Button(
+            self, text="...", command=self._file_path_click
+        )
         file_path_button.place(x=cell_x, y=cell_y)
 
         cell_x += InvoiceWindow._SMALL_SPACE
@@ -115,17 +120,20 @@ class InvoiceWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-        save_button = tkinter.Button(self,
-                                     text="Save",
-                                     command=self._save_click,
-                                     font=default_font())
+        save_button = tkinter.Button(
+            self, text="Save", command=self._save_click, font=default_font()
+        )
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
 
-        save2_button = tkinter.Button(self,
-                                      text="Save with payments",
-                                      command=self._save_pay_click,
-                                      font=default_font())
-        save2_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"] + InvoiceWindow._SPACE, y=cell_y)
+        save2_button = tkinter.Button(
+            self,
+            text="Save with payments",
+            command=self._save_pay_click,
+            font=default_font(),
+        )
+        save2_button.place(
+            x=config.CONSTANTS["GUI_CELL_WIDTH"] + InvoiceWindow._SPACE, y=cell_y
+        )
 
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -135,13 +143,16 @@ class InvoiceWindow(tkinter.Toplevel):
             x=0,
             y=cell_y,
             width=self._WINDOW_WIDTH,
-            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"],
+        )
 
-    def fill_with_invoice(self,
-                          invoice: model.timesheet.invoice.Invoice,
-                          browser: bool = False,
-                          invoice_dir: bool = False):
-        """ Fills the window with the given invoice
+    def fill_with_invoice(
+        self,
+        invoice: model.timesheet.invoice.Invoice,
+        browser: bool = False,
+        invoice_dir: bool = False,
+    ):
+        """Fills the window with the given invoice
         If browser == True, also opens a new browser window & address book.
         This functionality is typically used when creating a new invoice.
         """
@@ -185,7 +196,7 @@ class InvoiceWindow(tkinter.Toplevel):
             "currency": self._amount.currency,
             "vat_rate": float(self._vat.value),
             "income_tax_rate": float(self._income_tax.value),
-            "file_path": self._file_path.value
+            "file_path": self._file_path.value,
         }
 
     def _save_click(self):
@@ -212,3 +223,8 @@ class InvoiceWindow(tkinter.Toplevel):
     def _set_status(self, status: str):
         self._status_label["text"] = status
         self.update()
+
+    def _refresh_click(self):
+        invoice_dict = self._get_invoice_dict_from_gui()
+        new_invoice = model.timesheet.invoice.Invoice(invoice_dict)
+        self.fill_with_invoice(new_invoice)
