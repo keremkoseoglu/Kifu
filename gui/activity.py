@@ -16,7 +16,7 @@ import config
 
 
 class ActivityWindow(tkinter.Toplevel):
-    """ Activity window """
+    """Activity window"""
 
     _WINDOW_WIDTH = 550
     _WINDOW_HEIGHT = 300
@@ -37,7 +37,9 @@ class ActivityWindow(tkinter.Toplevel):
         self._projects = Project.get_projects()
         self._project_combo_val = []
         self._build_project_combo_values()
-        self._project_combo = LabeledCombobox(self, "Project", self._project_combo_val, 0, cell_y)
+        self._project_combo = LabeledCombobox(
+            self, "Project", self._project_combo_val, 0, cell_y
+        )
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Location
@@ -45,17 +47,18 @@ class ActivityWindow(tkinter.Toplevel):
         self._location_combo_val = []
         self._build_location_combo_values()
         self._location_combo = LabeledCombobox(
-            self,
-            "Location",
-            self._location_combo_val,
-            0,
-            cell_y)
+            self, "Location", self._location_combo_val, 0, cell_y
+        )
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Date
-        self._date = LabeledTextbox(self, "Date", datetime.datetime.now().isoformat(), 0, cell_y)
-        save_button = tkinter.Button(self, text="Ecz", command=self._ecz_click, font=default_font())
-        save_button.place(x=(config.CONSTANTS["GUI_CELL_WIDTH"]*2+150), y=cell_y)
+        self._date = LabeledTextbox(
+            self, "Date", datetime.datetime.now().isoformat(), 0, cell_y
+        )
+        save_button = tkinter.Button(
+            self, text="Ecz", command=self._ecz_click, font=default_font()
+        )
+        save_button.place(x=(config.CONSTANTS["GUI_CELL_WIDTH"] * 2 + 150), y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Duration
@@ -67,10 +70,9 @@ class ActivityWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-        save_button = tkinter.Button(self,
-                                     text="Save",
-                                     command=self._save_click,
-                                     font=default_font())
+        save_button = tkinter.Button(
+            self, text="Save", command=self._save_click, font=default_font()
+        )
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -80,10 +82,11 @@ class ActivityWindow(tkinter.Toplevel):
             x=0,
             y=cell_y,
             width=self._WINDOW_WIDTH,
-            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"],
+        )
 
     def fill_with_activity(self, act: model.timesheet.activity.Activity):
-        """ Fills window with given activity """
+        """Fills window with given activity"""
         proj = act.project
         clnt = proj.client
 
@@ -95,7 +98,7 @@ class ActivityWindow(tkinter.Toplevel):
         self._guid.value = act.guid
 
     def fill_with_last_activity(self):
-        """ Fills window with last activity """
+        """Fills window with last activity"""
         last_activity = Activity.get_last_activity()
         if last_activity == {}:
             return
@@ -107,7 +110,9 @@ class ActivityWindow(tkinter.Toplevel):
 
     def _build_project_combo_values(self):
         for prj in self._projects["projects"]:
-            self._project_combo_val.append(prj["client_name"] + " - " + prj["project_name"])
+            self._project_combo_val.append(
+                prj["client_name"] + " - " + prj["project_name"]
+            )
 
     def _build_location_combo_values(self):
         for loc in self._locations:
@@ -135,14 +140,20 @@ class ActivityWindow(tkinter.Toplevel):
             "location": location,
             "duration": duration,
             "work": work,
-            "guid": guid
+            "guid": guid,
         }
 
         model.timesheet.activity.Activity(act).save()
         self._set_status("Saved!")
-        PrimeSingleton.get().refresh()
+        self._refresh_prime_if_possible()
         self.after(1, self.destroy())
 
     def _set_status(self, status: str):
         self._status_label["text"] = status
         self.update()
+
+    def _refresh_prime_if_possible(self):
+        prime = PrimeSingleton.get()
+        if prime is None:
+            return
+        prime.refresh()
