@@ -1,4 +1,5 @@
 """ Main module """
+
 import sys
 import datetime
 from gui.prime import Prime

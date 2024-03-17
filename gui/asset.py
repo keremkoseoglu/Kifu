@@ -1,4 +1,5 @@
 """ Asset window """
+
 import datetime
 import tkinter
 import tkinter.ttk
@@ -9,8 +10,10 @@ from gui.labeled_checkbox import LabeledCheckbox
 from gui.font import default_font
 import model.asset as asset_model
 
+
 class AssetWindow(tkinter.Toplevel):
-    """ Asset window """
+    """Asset window"""
+
     _WINDOW_WIDTH = 450
     _WINDOW_HEIGHT = 500
 
@@ -34,19 +37,15 @@ class AssetWindow(tkinter.Toplevel):
         self._asset_types = asset_model.get_asset_types()
         self._asset_type_combo_val = []
         self._build_asset_type_combo_values()
-        self._asset_type_combo = LabeledCombobox(self,
-                                                 "Type",
-                                                 self._asset_type_combo_val,
-                                                 0,
-                                                 cell_y)
+        self._asset_type_combo = LabeledCombobox(
+            self, "Type", self._asset_type_combo_val, 0, cell_y
+        )
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Purcase date
-        self._purchase_date = LabeledTextbox(self,
-                                             "Pur. Date",
-                                             datetime.datetime.now().isoformat(),
-                                             0,
-                                             cell_y)
+        self._purchase_date = LabeledTextbox(
+            self, "Pur. Date", datetime.datetime.now().isoformat(), 0, cell_y
+        )
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Purchase value
@@ -65,8 +64,14 @@ class AssetWindow(tkinter.Toplevel):
         self._quantity = LabeledTextbox(self, "Quantity", "", 0, cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
-        # Percentage
-        self._percentage = LabeledTextbox(self, "Percentage", "", 0, cell_y)
+        # Own percentage
+        self._own_percentage = LabeledTextbox(self, "Own percentage", "", 0, cell_y)
+        cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
+
+        # Partner percentage
+        self._partner_percentage = LabeledTextbox(
+            self, "Partner percentage", "", 0, cell_y
+        )
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Bank
@@ -82,9 +87,9 @@ class AssetWindow(tkinter.Toplevel):
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
         # Button
-        save_button = tkinter.Button(self, text="Save",
-                                     command=self._save_click,
-                                     font=default_font())
+        save_button = tkinter.Button(
+            self, text="Save", command=self._save_click, font=default_font()
+        )
         save_button.place(x=config.CONSTANTS["GUI_CELL_WIDTH"], y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]
 
@@ -94,10 +99,11 @@ class AssetWindow(tkinter.Toplevel):
             x=0,
             y=cell_y,
             width=self._WINDOW_WIDTH,
-            height=config.CONSTANTS["GUI_CELL_HEIGHT"])
+            height=config.CONSTANTS["GUI_CELL_HEIGHT"],
+        )
 
     def fill_with_asset(self, asset: dict):
-        """ Fills window with given activity """
+        """Fills window with given activity"""
         self._guid.value = asset["guid"]
         self._name.value = asset["name"]
         self._asset_type_combo.selected_value = asset["type"]
@@ -106,7 +112,8 @@ class AssetWindow(tkinter.Toplevel):
         self._sales_value.value = asset["sales_value"]
         self._currency.value = asset["currency"]
         self._quantity.value = asset["quantity"]
-        self._percentage.value = asset["own_percentage"]
+        self._own_percentage.value = asset["own_percentage"]
+        self._partner_percentage.value = asset["partner_percentage"]
         self._url_suffix.value = asset["url_suffix"]
         self._income_tax.checked = asset["income_tax"]
 
@@ -120,19 +127,22 @@ class AssetWindow(tkinter.Toplevel):
             self._asset_type_combo_val.append(asset_type)
 
     def _save_click(self):
-        asset = {"guid": self._guid.value,
-                 "name": self._name.value,
-                 "type": self._asset_type_combo.selected_value,
-                 "purchase_date": self._purchase_date.value,
-                 "purchase_value": float(self._purchase_value.value),
-                 "sales_value": float(self._sales_value.value),
-                 "currency": self._currency.value,
-                 "quantity": float(self._quantity.value),
-                 "own_percentage": float(self._percentage.value),
-                 "bank": self._bank.value,
-                 "url_suffix": self._url_suffix.value,
-                 "income_tax": self._income_tax.checked,
-                 "value_history": []}
+        asset = {
+            "guid": self._guid.value,
+            "name": self._name.value,
+            "type": self._asset_type_combo.selected_value,
+            "purchase_date": self._purchase_date.value,
+            "purchase_value": float(self._purchase_value.value),
+            "sales_value": float(self._sales_value.value),
+            "currency": self._currency.value,
+            "quantity": float(self._quantity.value),
+            "own_percentage": float(self._own_percentage.value),
+            "partner_percentage": float(self._partner_percentage.value),
+            "bank": self._bank.value,
+            "url_suffix": self._url_suffix.value,
+            "income_tax": self._income_tax.checked,
+            "value_history": [],
+        }
 
         asset_model.set_asset(asset)
         self._set_status("Saved!")

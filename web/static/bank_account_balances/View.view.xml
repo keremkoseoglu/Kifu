@@ -32,15 +32,27 @@
 							</template>
 						</Column>
 						<Column width="12rem" hAlign="End">
-							<m:Label text="Balance" />
+							<m:Label text="Own Balance" />
 							<template>
 								<u:Currency value="{original_balance}" currency="{original_currency}"/>
 							</template>
 						</Column>
 						<Column width="12rem" hAlign="End">
+							<m:Label text="Partner Balance" />
+							<template>
+								<u:Currency value="{partner_original_balance}" currency="{original_currency}"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="Joint Balance" />
+							<template>
+								<u:Currency value="{joint_original_balance}" currency="{original_currency}"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
 							<m:Label text="₺ Balance" />
 							<template>
-								<u:Currency value="{home_balance}" currency="₺"/>
+								<u:Currency value="{joint_home_balance}" currency="₺"/>
 							</template>
 						</Column>
 						<Column width="12rem" hAlign="End">

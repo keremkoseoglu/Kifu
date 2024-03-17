@@ -34,15 +34,39 @@
 						</template>
 					</Column>
 					<Column width="12rem" hAlign="End">
-						<m:Label text="Value" />
+						<m:Label text="Own Value" />
 						<template>
-							<u:Currency value="{content}" currency="₺" maxPrecision="0" />
+							<u:Currency value="{own_content}" currency="₺" maxPrecision="0" />
+						</template>
+					</Column>
+										<Column width="12rem" hAlign="End">
+						<m:Label text="Partner Value" />
+						<template>
+							<u:Currency value="{partner_content}" currency="₺" maxPrecision="0" />
 						</template>
 					</Column>
 					<Column width="12rem" hAlign="End">
-						<m:Label text="Sum" />
+						<m:Label text="Joint Value" />
 						<template>
-							<u:Currency value="{result}" currency="₺" maxPrecision="0"/>
+							<u:Currency value="{joint_content}" currency="₺" maxPrecision="0" />
+						</template>
+					</Column>
+					<Column width="12rem" hAlign="End">
+						<m:Label text="Own Sum" />
+						<template>
+							<u:Currency value="{own_result}" currency="₺" maxPrecision="0"/>
+						</template>
+					</Column>
+					<Column width="12rem" hAlign="End">
+						<m:Label text="Partner Sum" />
+						<template>
+							<u:Currency value="{partner_result}" currency="₺" maxPrecision="0"/>
+						</template>
+					</Column>
+					<Column width="12rem" hAlign="End">
+						<m:Label text="Joint Sum" />
+						<template>
+							<u:Currency value="{joint_result}" currency="₺" maxPrecision="0"/>
 						</template>
 					</Column>
 				</columns>
