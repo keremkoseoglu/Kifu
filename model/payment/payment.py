@@ -1,4 +1,5 @@
 """ Payment module """
+
 import datetime
 import json
 import os
@@ -27,15 +28,16 @@ PERIOD_YEARLY = "Y"
 
 _PAYMENT_FILE = "payment.json"
 
+
 def get_payments():
-    """ All payments """
+    """All payments"""
     with open(_get_file_path(), encoding="utf-8") as payment_file:
         json_data = json.load(payment_file)
     return json_data
 
 
 def delete_completed_payments():
-    """ Deletes completed payments """
+    """Deletes completed payments"""
     completed_guids = []
     for completed_payment in get_completed_payments():
         completed_guids.append(completed_payment.guid)
@@ -43,7 +45,7 @@ def delete_completed_payments():
 
 
 def delete_payments(payment_guids: List):
-    """ Deletes given payments """
+    """Deletes given payments"""
     if payment_guids is None or len(payment_guids) <= 0:
         return
     all_payments = get_payments()
@@ -56,7 +58,7 @@ def delete_payments(payment_guids: List):
 
 
 def generate_high_time_recurrences():
-    """ Generates approaching / due recurrences """
+    """Generates approaching / due recurrences"""
     for payment_json in get_payments()["payments"]:
         payment_obj = Payment(payment_json)
         payment_obj.generate_high_time_recurrences()
@@ -64,7 +66,7 @@ def generate_high_time_recurrences():
 
 
 def get_approaching_or_late_recurrences() -> List:
-    """ Returns approaching or late recurrences """
+    """Returns approaching or late recurrences"""
     output = []
     for pay in get_payments()["payments"]:
         pay_obj = Payment(pay)
@@ -82,12 +84,12 @@ def get_approaching_or_late_recurrences() -> List:
 
 
 def get_completed_payments() -> List:
-    """ Returns completed payments """
+    """Returns completed payments"""
     output = []
 
     for pay in get_payments()["payments"]:
         pay_obj = Payment(pay)
-        open_amount, open_curr = pay_obj.open_amount # pylint: disable=W0612
+        open_amount, open_curr = pay_obj.open_amount  # pylint: disable=W0612
         if pay_obj.cleared or open_amount == 0:
             output.append(pay_obj)
 
@@ -95,7 +97,7 @@ def get_completed_payments() -> List:
 
 
 def get_companies_without_payment() -> List[Company]:
-    """ Companies without payment
+    """Companies without payment
     Those may be considered deletable, in case
     they won't be needed in the future
     """
@@ -116,12 +118,12 @@ def get_companies_without_payment() -> List[Company]:
 
 
 def get_direction_values() -> List:
-    """ Returns all payment directions as enum """
+    """Returns all payment directions as enum"""
     return [DIRECTION_IN, DIRECTION_OUT, DIRECTION_TRANSFER]
 
 
 def get_open_vat_payments() -> List:
-    """ Returns open VAT payments """
+    """Returns open VAT payments"""
     output = []
     all_payments = get_payments()
 
@@ -135,7 +137,7 @@ def get_open_vat_payments() -> List:
 
 
 def get_open_payments_of_company(company: str) -> List:
-    """ Returns open payments of company """
+    """Returns open payments of company"""
     output = []
     all_payments = get_payments()
 
@@ -151,7 +153,7 @@ def get_open_payments_of_company(company: str) -> List:
 
 
 def get_payment_balance() -> float:
-    """ Payment balance """
+    """Payment balance"""
     output = 0
 
     payment_dicts = get_payments()
@@ -172,18 +174,19 @@ def get_payment_balance() -> float:
 
 
 def get_period_values() -> List:
-    """ Returns all periods """
+    """Returns all periods"""
     return [PERIOD_DAILY, PERIOD_WEEKLY, PERIOD_MONTHLY, PERIOD_YEARLY]
 
 
 def record_cash_movement(
-        company: str,
-        direction: str,
-        amount: float,
-        currency: str,
-        description: str,
-        income_tax_only: bool = False):
-    """ Records a new cash movement """
+    company: str,
+    direction: str,
+    amount: float,
+    currency: str,
+    description: str,
+    income_tax_only: bool = False,
+):
+    """Records a new cash movement"""
     ##############################
     # Preparation
     ##############################
@@ -225,7 +228,7 @@ def record_cash_movement(
                 open_amount_conv = curr_conv.convert_to_currency(
                     from_amount=open_amount,
                     from_currency=currency,
-                    to_currency=rec_curr
+                    to_currency=rec_curr,
                 )
 
                 if open_amount_conv >= rec_open_amount:
@@ -233,7 +236,7 @@ def record_cash_movement(
                         "date": date_iso,
                         "description": description,
                         "amount": rec_open_amount,
-                        "currency": rec_curr
+                        "currency": rec_curr,
                     }
                     recurrence.add_collection(Collection(coll))
                     recurrence.cleared = True
@@ -245,7 +248,7 @@ def record_cash_movement(
                         "date": date_iso,
                         "description": description,
                         "amount": open_amount_conv,
-                        "currency": rec_curr
+                        "currency": rec_curr,
                     }
                     recurrence.add_collection(Collection(coll))
                     open_amount = 0
@@ -279,8 +282,8 @@ def record_cash_movement(
                 "period": "D",
                 "start": date_iso,
                 "repeat": 1,
-                "recurrence": []
-            }
+                "recurrence": [],
+            },
         }
 
         changed_payments.append(Payment(pay_back_dict))
@@ -292,13 +295,16 @@ def record_cash_movement(
     for payment in changed_payments:
         payment.save()
 
-def create_credit_card_transaction(bank: str,
-                                   description: str,
-                                   card: str,
-                                   amount: float,
-                                   currency: str = None,
-                                   pay_date: str = None):
-    """ Creates a new credit card payment with the given details """
+
+def create_credit_card_transaction(
+    bank: str,
+    description: str,
+    card: str,
+    amount: float,
+    currency: str = None,
+    pay_date: str = None,
+):
+    """Creates a new credit card payment with the given details"""
     if currency is None:
         writeable_currency = config.CONSTANTS["HOME_CURRENCY"]
     else:
@@ -320,7 +326,7 @@ def create_credit_card_transaction(bank: str,
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
         "currency": writeable_currency,
-        "cleared": False
+        "cleared": False,
     }
 
     trn_scheme_json = {
@@ -335,9 +341,9 @@ def create_credit_card_transaction(bank: str,
                 "amount": trn_pay_json["amount"],
                 "currency": trn_pay_json["currency"],
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     trn_scheme = Scheme(trn_scheme_json)
@@ -346,12 +352,14 @@ def create_credit_card_transaction(bank: str,
     trn_pay.save()
 
 
-def _create_investment_transaction(bank: str,
-                                   description: str,
-                                   trn_account: str,
-                                   inv_account: str,
-                                   amount: float,
-                                   trn_date: datetime.datetime = None):
+def _create_investment_transaction(
+    bank: str,
+    description: str,
+    trn_account: str,
+    inv_account: str,
+    amount: float,
+    trn_date: datetime.datetime = None,
+):
 
     post_trn_date = datetime.datetime.now() if trn_date is None else trn_date
 
@@ -364,7 +372,7 @@ def _create_investment_transaction(bank: str,
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
         "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False
+        "cleared": False,
     }
 
     trn_scheme_json = {
@@ -379,9 +387,9 @@ def _create_investment_transaction(bank: str,
                 "amount": trn_pay_json["amount"],
                 "currency": trn_pay_json["currency"],
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     trn_scheme = Scheme(trn_scheme_json)
@@ -397,7 +405,7 @@ def _create_investment_transaction(bank: str,
         "direction": DIRECTION_TRANSFER,
         "amount": amount,
         "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False
+        "cleared": False,
     }
 
     inv_scheme_json = {
@@ -412,9 +420,9 @@ def _create_investment_transaction(bank: str,
                 "amount": inv_pay_json["amount"],
                 "currency": inv_pay_json["currency"],
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     inv_scheme = Scheme(inv_scheme_json)
@@ -426,12 +434,13 @@ def _create_investment_transaction(bank: str,
 
 
 def record_investment_payment(
-        investable_amount: float,
-        paid_curr: str,
-        description_prefix: str):
-    """ Records a new investment payment into the most suitable account """
+    investable_amount: float, paid_curr: str, description_prefix: str
+):
+    """Records a new investment payment into the most suitable account"""
     # Get investable amount
-    investable_amount = CurrencyConverter().convert_to_local_currency(investable_amount, paid_curr)
+    investable_amount = CurrencyConverter().convert_to_local_currency(
+        investable_amount, paid_curr
+    )
 
     # Pay credit card debts
     if config.CONSTANTS["PAY_CREDIT_DEBT_BEFORE_INVESTMENT"]:
@@ -445,10 +454,8 @@ def record_investment_payment(
                 investable_amount -= payable_amount
 
             create_credit_card_transaction(
-                cc_debt.bank_name,
-                description_prefix,
-                cc_debt.card_name,
-                payable_amount)
+                cc_debt.bank_name, description_prefix, cc_debt.card_name, payable_amount
+            )
 
             if investable_amount <= 0:
                 return
@@ -465,14 +472,12 @@ def record_investment_payment(
             description_prefix,
             inv["account"],
             inv["account"],
-            inv["amount"])
+            inv["amount"],
+        )
 
 
-def record_vat_payment(
-        vat_guids: List,
-        paid_amount: float,
-        paid_curr: str):
-    """ Records a new VAT payment """
+def record_vat_payment(vat_guids: List, paid_amount: float, paid_curr: str):
+    """Records a new VAT payment"""
     paid_vats = []
     all_vats = get_open_vat_payments()
     curr_conv = CurrencyConverter()
@@ -487,9 +492,8 @@ def record_vat_payment(
         debt_amount, debt_curr = pay.open_amount
 
         debt_amount_conv = curr_conv.convert_to_currency(
-                            from_amount=debt_amount,
-                            from_currency=debt_curr,
-                            to_currency=paid_curr)
+            from_amount=debt_amount, from_currency=debt_curr, to_currency=paid_curr
+        )
 
         vat_amount += debt_amount_conv
         sch = pay.scheme
@@ -502,7 +506,7 @@ def record_vat_payment(
             "date": datetime.datetime.now().isoformat(),
             "description": "KDV ödemesi",
             "amount": paid_amount,
-            "currency": paid_curr
+            "currency": paid_curr,
         }
 
         coll = Collection(coll_dict)
@@ -522,7 +526,7 @@ def record_vat_payment(
 
 
 def create_pyf():
-    """ Pay yourself first """
+    """Pay yourself first"""
     pyf_day = get_domain_dict()["pyf_day"]
     now = datetime.datetime.now()
     pyf_date = datetime.datetime(now.year, now.month, pyf_day)
@@ -537,110 +541,112 @@ def create_pyf():
             inv["account"],
             inv["account"],
             inv["amount"],
-            trn_date=pyf_date)
+            trn_date=pyf_date,
+        )
 
 
 class Payment:
-    """ Payment """
+    """Payment"""
+
     def __init__(self, payment: dict):
         self._payment = payment
 
     @property
     def amount(self) -> tuple:
-        """ Payment amount """
+        """Payment amount"""
         if "amount" not in self._payment:
             self._payment["amount"] = 0
         return float(self._payment["amount"]), self.currency
 
     @property
     def amount_in_local_currency(self) -> float:
-        """ Payment amount in home currency """
+        """Payment amount in home currency"""
         amount, currency = self.amount
         local_amount = CurrencyConverter().convert_to_local_currency(amount, currency)
         return local_amount
 
     @property
     def company(self) -> Company:
-        """ 3rd party company """
+        """3rd party company"""
         if "company" not in self._payment:
             self._payment["company"] = config.CONSTANTS["HOME_COMPANY"]
         return Company(self._payment["company"])
 
     @company.setter
     def company(self, company: str):
-        """ 3rd party company """
+        """3rd party company"""
         self._payment["company"] = company
 
     @property
     def description(self) -> str:
-        """ Payment description """
+        """Payment description"""
         if "description" not in self._payment:
             self._payment["description"] = ""
         return self._payment["description"]
 
     @description.setter
     def description(self, description: str):
-        """ Payment description """
+        """Payment description"""
         self._payment["description"] = description
 
     @property
     def direction(self) -> str:
-        """ Payment direction """
+        """Payment direction"""
         if "direction" not in self._payment:
             self._payment["direction"] = DIRECTION_OUT
         return self._payment["direction"]
 
     @direction.setter
     def direction(self, direction: str):
-        """ Payment direction """
+        """Payment direction"""
         self._payment["direction"] = direction
 
     @property
     def creation_date(self) -> datetime:
-        """ Payment creation date """
+        """Payment creation date"""
         return date_time.parse_json_date(self._payment["creation_date"])
 
     @property
     def currency(self) -> str:
-        """ Payment currency """
+        """Payment currency"""
         if "currency" not in self._payment:
             self._payment["currency"] = config.CONSTANTS["HOME_CURRENCY"]
         return self._payment["currency"]
 
     @property
     def guid(self) -> str:
-        """ Unique payment guid """
+        """Unique payment guid"""
         if "guid" not in self._payment:
             self._payment["guid"] = identifier.get_guid()
         return self._payment["guid"]
 
     @property
     def invoice_guid(self) -> str:
-        """ Unique invoice guid """
+        """Unique invoice guid"""
         if "invoice_guid" not in self._payment:
             self._payment["invoice_guid"] = ""
         return self._payment["invoice_guid"]
 
     @invoice_guid.setter
     def invoice_guid(self, guid: str):
-        """ Unique invoice guid """
+        """Unique invoice guid"""
         self._payment["invoice_guid"] = guid
 
     @property
     def notes(self) -> str:
-        """ Payment notes """
+        """Payment notes"""
         if "notes" not in self._payment:
             self._payment["notes"] = ""
         return self._payment["notes"]
 
     @notes.setter
     def notes(self, notes: str):
-        """ Payment notes """
+        """Payment notes"""
         self._payment["notes"] = notes
 
     @property
     def open_amount(self) -> tuple:
-        """ Payment open amount """
+        """Payment open amount"""
         currency_conv = CurrencyConverter()
         scheme = self.scheme
 
@@ -654,83 +660,82 @@ class Payment:
         for rec in self.scheme.recurrences:
             paid_amount, paid_currency = rec.paid_amount
             converted_paid_amount = currency_conv.convert_to_currency(
-                paid_amount,
-                paid_currency,
-                open_currency)
+                paid_amount, paid_currency, open_currency
+            )
             open_amount -= converted_paid_amount
 
         return open_amount, open_currency
 
     @property
     def open_amount_in_local_currency(self) -> float:
-        """ Payment open amount in local currency """
+        """Payment open amount in local currency"""
         open_amount, curr = self.open_amount
-        local_amount = CurrencyConverter().convert_to_local_currency(
-            open_amount,
-            curr)
+        local_amount = CurrencyConverter().convert_to_local_currency(open_amount, curr)
         return local_amount
 
     @property
     def scheme(self) -> Scheme:
-        """ Payment scheme """
+        """Payment scheme"""
         scheme_dict = self._payment["scheme"]
         return Scheme(scheme_dict)
 
     @scheme.setter
     def scheme(self, scheme: Scheme):
-        """ Payment scheme """
+        """Payment scheme"""
         self._payment["scheme"] = scheme.dict
 
     @property
     def total_amount(self) -> tuple:
-        """ Payment total amount and currency """
+        """Payment total amount and currency"""
         amt, curr = self.amount
         amt *= self.scheme.repeat
         return amt, curr
 
     @property
     def cleared(self) -> bool:
-        """ Is payment cleared """
+        """Is payment cleared"""
         if "cleared" not in self._payment:
             self._payment["cleared"] = False
         return self._payment["cleared"]
 
     @cleared.setter
     def cleared(self, cleared: bool):
-        """ Is payment cleared """
+        """Is payment cleared"""
         self._payment["cleared"] = cleared
 
     @property
     def is_income_tax(self) -> bool:
-        """ Is payment an income tax payment """
+        """Is payment an income tax payment"""
         if "is_income_tax" not in self._payment:
             self._payment["is_income_tax"] = False
         return self._payment["is_income_tax"]
 
     @is_income_tax.setter
     def is_income_tax(self, is_tax: bool):
-        """ Is payment an income tax payment """
+        """Is payment an income tax payment"""
         self._payment["is_income_tax"] = is_tax
 
     @property
     def is_vat(self) -> bool:
-        """ Is payment a VAT payment """
+        """Is payment a VAT payment"""
         if "is_vat" not in self._payment:
             self._payment["is_vat"] = False
         return self._payment["is_vat"]
 
     @is_vat.setter
     def is_vat(self, is_tax: bool):
-        """ Is payment a VAT payment """
+        """Is payment a VAT payment"""
         self._payment["is_vat"] = is_tax
 
     def generate_high_time_recurrences(self):
-        """ Generates recurrences which are approaching or due """
-        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=config.CONSTANTS["PAYMENT_RECURRENCE_BUFFER"]) # pylint: disable=C0301
+        """Generates recurrences which are approaching or due"""
+        tick_limit_date = datetime.datetime.now() + datetime.timedelta(
+            days=config.CONSTANTS["PAYMENT_RECURRENCE_BUFFER"]
+        )  # pylint: disable=C0301
         self.generate_recurrences(tick_limit_date)
 
     def generate_recurrences(self, tick_limit_date: datetime.datetime):
-        """ Generates recurrences """
+        """Generates recurrences"""
         if self.cleared:
             return
 
@@ -756,7 +761,7 @@ class Payment:
                     "amount": amount,
                     "currency": currency,
                     "cleared": False,
-                    "collections": []
+                    "collections": [],
                 }
 
                 ticked_recurrence = Recurrence(ticked_recurrence_dict)
@@ -766,13 +771,21 @@ class Payment:
             # Tick next
 
             if period == PERIOD_YEARLY:
-                next_tick_date = date_time.get_next_year(next_tick_date, next_count=frequency)
+                next_tick_date = date_time.get_next_year(
+                    next_tick_date, next_count=frequency
+                )
             elif period == PERIOD_MONTHLY:
-                next_tick_date = date_time.get_next_month(next_tick_date, next_count=frequency)
+                next_tick_date = date_time.get_next_month(
+                    next_tick_date, next_count=frequency
+                )
             elif period == PERIOD_WEEKLY:
-                next_tick_date = date_time.get_next_week(next_tick_date, next_count=frequency)
+                next_tick_date = date_time.get_next_week(
+                    next_tick_date, next_count=frequency
+                )
             elif period == PERIOD_DAILY:
-                next_tick_date = date_time.get_next_day(next_tick_date, next_count=frequency)
+                next_tick_date = date_time.get_next_day(
+                    next_tick_date, next_count=frequency
+                )
             else:
                 raise ValueError("Invalid period")
 
@@ -786,12 +799,14 @@ class Payment:
             self.scheme = scheme
 
     def generate_very_long_term_recurrences(self):
-        """ Generates very long term recurrences """
-        tick_limit_date = datetime.datetime.now() + datetime.timedelta(days=config.CONSTANTS["PAYMENT_LONG_RECURRENCE_BUFFER"]) # pylint: disable=C0301
+        """Generates very long term recurrences"""
+        tick_limit_date = datetime.datetime.now() + datetime.timedelta(
+            days=config.CONSTANTS["PAYMENT_LONG_RECURRENCE_BUFFER"]
+        )  # pylint: disable=C0301
         self.generate_recurrences(tick_limit_date)
 
     def save(self):
-        """ Write payment to disk """
+        """Write payment to disk"""
         if "guid" not in self._payment:
             self._payment["guid"] = identifier.get_guid()
             self._payment["creation_date"] = datetime.datetime.now().isoformat()
@@ -816,13 +831,13 @@ class Payment:
         write_payments_to_disk(new_payments)
 
     def set_amount(self, amount: float, currency: str):
-        """ Set payment amount """
+        """Set payment amount"""
         self._payment["amount"] = amount
         self._payment["currency"] = currency
 
 
 def get_payment_objects_from_invoice(invoice: Invoice) -> list:
-    """ Extracts new payment objects out of an invoice """
+    """Extracts new payment objects out of an invoice"""
     # Preparation
     output = []
 
@@ -835,8 +850,14 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     invoice_serial = invoice.serial
     payment_amount = invoice.amount_plus_vat
 
-    description_prefix = invoice_payer.name + " - " + date_time.get_formatted_date(
-        invoice_date) + "(" + invoice_serial + ")"
+    description_prefix = (
+        invoice_payer.name
+        + " - "
+        + date_time.get_formatted_date(invoice_date)
+        + "("
+        + invoice_serial
+        + ")"
+    )
 
     # Incoming payment
 
@@ -849,7 +870,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         "direction": DIRECTION_IN,
         "amount": payment_amount,
         "currency": invoice_currency,
-        "cleared": False
+        "cleared": False,
     }
 
     incoming_scheme_json = {
@@ -864,9 +885,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "amount": payment_amount,
                 "currency": invoice_currency,
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     incoming_scheme_obj = Scheme(incoming_scheme_json)
@@ -890,7 +911,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
             "direction": DIRECTION_TRANSFER,
             "amount": vat_amount,
             "currency": config.CONSTANTS["HOME_CURRENCY"],
-            "cleared": False
+            "cleared": False,
         }
 
         vat_transfer_date = invoice.vat_transfer_date
@@ -907,9 +928,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                     "amount": vat_amount,
                     "currency": config.CONSTANTS["HOME_CURRENCY"],
                     "cleared": False,
-                    "collections": []
+                    "collections": [],
                 }
-            ]
+            ],
         }
 
         vat_transfer_scheme_obj = Scheme(vat_transfer_scheme_json)
@@ -934,7 +955,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
             "amount": vat_amount,
             "currency": config.CONSTANTS["HOME_CURRENCY"],
             "cleared": False,
-            "is_vat": True
+            "is_vat": True,
         }
 
         vat_payment_date = invoice.vat_payment_date
@@ -951,9 +972,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                     "amount": vat_amount,
                     "currency": config.CONSTANTS["HOME_CURRENCY"],
                     "cleared": False,
-                    "collections": []
+                    "collections": [],
                 }
-            ]
+            ],
         }
 
         vat_payment_scheme_obj = Scheme(vat_payment_scheme_json)
@@ -966,8 +987,8 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     # Income tax investment & transfer
 
     itax_amount = currency_converter.convert_to_local_currency(
-        invoice.income_tax_amount,
-        invoice_currency)
+        invoice.income_tax_amount, invoice_currency
+    )
 
     itax_investment_rate = 100
     itax_investment_rate -= inc_tax_calc.safety_tax_rate
@@ -984,7 +1005,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         "direction": DIRECTION_TRANSFER,
         "amount": itax_investment_amount,
         "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False
+        "cleared": False,
     }
 
     itax_transfer_date = invoice.income_tax_transfer_date
@@ -1001,9 +1022,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "amount": itax_amount,
                 "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
@@ -1020,7 +1041,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         "direction": DIRECTION_TRANSFER,
         "amount": itax_amount,
         "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False
+        "cleared": False,
     }
 
     itax_transfer_date = invoice.income_tax_transfer_date
@@ -1037,9 +1058,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "amount": itax_amount,
                 "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
@@ -1050,8 +1071,8 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     # Income tax payment
 
     itax_amount = currency_converter.convert_to_local_currency(
-        invoice.income_tax_amount,
-        invoice_currency)
+        invoice.income_tax_amount, invoice_currency
+    )
 
     itax_payment_json = {
         "guid": identifier.get_guid(),
@@ -1063,7 +1084,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         "amount": itax_amount,
         "currency": config.CONSTANTS["HOME_CURRENCY"],
         "cleared": False,
-        "is_income_tax": True
+        "is_income_tax": True,
     }
 
     itax_payment_date = invoice.income_tax_payment_date
@@ -1080,9 +1101,9 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
                 "amount": itax_amount,
                 "currency": config.CONSTANTS["HOME_CURRENCY"],
                 "cleared": False,
-                "collections": []
+                "collections": [],
             }
-        ]
+        ],
     }
 
     itax_payment_scheme_obj = Scheme(itax_payment_scheme_json)
@@ -1095,61 +1116,65 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
     # Alms
 
     alms_amount = currency_converter.convert_to_local_currency(
-        invoice.alms_amount,
-        invoice_currency)
+        invoice.alms_amount, invoice_currency
+    )
 
-    alms_payment_json = {
-        "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
-        "company": config.CONSTANTS["COMPANY_NAME_UNKNOWN"],
-        "description": description_prefix + " - alms",
-        "invoice_guid": "",
-        "direction": DIRECTION_OUT,
-        "amount": alms_amount,
-        "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False
-    }
+    if alms_amount > 0:
+        alms_payment_json = {
+            "guid": identifier.get_guid(),
+            "creation_date": datetime.datetime.now().isoformat(),
+            "company": config.CONSTANTS["COMPANY_NAME_UNKNOWN"],
+            "description": description_prefix + " - alms",
+            "invoice_guid": "",
+            "direction": DIRECTION_OUT,
+            "amount": alms_amount,
+            "currency": config.CONSTANTS["HOME_CURRENCY"],
+            "cleared": False,
+        }
 
-    alms_payment_date = invoice.alms_payment_date
+        alms_payment_date = invoice.alms_payment_date
 
-    alms_payment_scheme_json = {
-        "frequency": 1,
-        "period": PERIOD_DAILY,
-        "start": alms_payment_date.isoformat(),
-        "repeat": 1,
-        "recurrence": [
-            {
-                "recurrence_date": alms_payment_date.isoformat(),
-                "expected_payment_date": alms_payment_date.isoformat(),
-                "amount": alms_amount,
-                "currency": config.CONSTANTS["HOME_CURRENCY"],
-                "cleared": False,
-                "collections": []
-            }
-        ]
-    }
+        alms_payment_scheme_json = {
+            "frequency": 1,
+            "period": PERIOD_DAILY,
+            "start": alms_payment_date.isoformat(),
+            "repeat": 1,
+            "recurrence": [
+                {
+                    "recurrence_date": alms_payment_date.isoformat(),
+                    "expected_payment_date": alms_payment_date.isoformat(),
+                    "amount": alms_amount,
+                    "currency": config.CONSTANTS["HOME_CURRENCY"],
+                    "cleared": False,
+                    "collections": [],
+                }
+            ],
+        }
 
-    alms_payment_scheme_obj = Scheme(alms_payment_scheme_json)
+        alms_payment_scheme_obj = Scheme(alms_payment_scheme_json)
 
-    alms_payment_payment_obj = Payment(alms_payment_json)
-    alms_payment_payment_obj.scheme = alms_payment_scheme_obj
+        alms_payment_payment_obj = Payment(alms_payment_json)
+        alms_payment_payment_obj.scheme = alms_payment_scheme_obj
 
-    output.append(alms_payment_payment_obj)
+        output.append(alms_payment_payment_obj)
 
     # Flush
     return output
 
+
 def get_payment_with_guid(guid: str) -> Payment:
-    """ Returns a payment object having the provided GUID """
+    """Returns a payment object having the provided GUID"""
     for pay in get_payments()["payments"]:
         if pay["guid"] == guid:
             return Payment(pay)
     return None
 
+
 def write_payments_to_disk(payments: dict):
-    """ Write payments to disk """
+    """Write payments to disk"""
     with open(_get_file_path(), "w", encoding="utf-8") as payment_file:
         json.dump(payments, payment_file, indent=3)
+
 
 def _get_file_path():
     return os.path.join(config.CONSTANTS["DATA_DIR_PATH"] + _PAYMENT_FILE)
