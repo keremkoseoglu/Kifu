@@ -1,0 +1,181 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		title="Reconciliation"
+		enableScrolling="true"
+		class="sapUiContentPadding">
+		<m:content>
+			<m:List
+				id="mainList"
+				items="{/reconciliations}"
+				mode="None"
+				growing="false"
+				includeItemInSelection="true">
+				<m:CustomListItem>
+					<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+						<m:Title level="H1" text="{header/company} - Reconciliation" />
+						<m:Label text="Incoming: {header/inc_sum} ₺" />
+						<m:Label text="Outgoing: {header/out_sum} ₺" />
+						<m:Label text="Balance: {header/balance} ₺" />
+						<m:HBox>
+							<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+								<m:Title level="H2" text="Incoming" />
+
+								<m:List
+									items="{path: 'incoming'}"
+									mode="None"
+									growing="false"
+									includeItemInSelection="true">
+									<m:CustomListItem>
+										<m:Title level="H3" text="{summary/description}" />
+										<m:ProgressIndicator
+											class="sapUiSmallMarginBottom"
+											percentValue="{summary/paid_perc}"
+											displayValue="{summary/paid_amount}"
+											showValue="true"
+											state="Success" />
+										<m:HBox>
+											<m:Label text="Total" width="8rem" />
+											<m:Label text="{summary/total_amount} {summary/currency}" />
+										</m:HBox>
+										<m:HBox>
+											<m:Label text="Open" width="8rem" />
+											<m:Label text="{summary/open_amount} {summary/currency}" />
+										</m:HBox>
+										<m:HBox>
+											<m:Label text="Plan " width="8rem" />
+											<m:Label text="{summary/pay_plan}" />
+										</m:HBox>
+
+										<m:Toolbar width="100%" height="10px"/>
+										<m:Title level="H4" text="Recurrences" />
+
+										<m:List
+											items="{recurrences}"
+											selectionChange=".onSelectionChange"
+											mode="None"
+											growing="false"
+											includeItemInSelection="true">
+											<m:CustomListItem>
+												<m:HBox>
+													<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+														<m:Title level="H5" text="{icon} {date} - {amount}" />
+														<m:HBox>
+															<m:Label width="6rem" text="Paid "/>
+															<m:Label width="6rem" text="{paid}"/>
+														</m:HBox>
+														<m:HBox>
+															<m:Label width="6rem" text="Open "/>
+															<m:Label width="6rem" text="{open}"/>
+														</m:HBox>
+													</m:VBox>
+													<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+														<m:Title level="H5" text="Collections" />
+														<m:List
+															items="{path: 'collections'}"
+															mode="None"
+															growing="false"
+															includeItemInSelection="true">
+															<m:CustomListItem>
+																<m:Label text="{date} - {amount} {currency} ({description})" wrapping="false" />
+															</m:CustomListItem>
+														</m:List>
+													</m:VBox>
+												</m:HBox>
+											</m:CustomListItem>
+										</m:List>
+									</m:CustomListItem>
+								</m:List>
+							</m:VBox>
+							<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+								<m:Title level="H2" text="Outgoing" />
+
+								<m:List
+									items="{path: 'outgoing'}"
+									mode="None"
+									growing="false"
+									includeItemInSelection="true">
+									<m:CustomListItem>
+										<m:Title level="H3" text="{summary/description}" />
+										<m:ProgressIndicator
+											class="sapUiSmallMarginBottom"
+											percentValue="{summary/paid_perc}"
+											displayValue="{summary/paid_amount}"
+											showValue="true"
+											state="Success" />
+										<m:HBox>
+											<m:Label text="Total" width="8rem" />
+											<m:Label text="{summary/total_amount} {summary/currency}" />
+										</m:HBox>
+										<m:HBox>
+											<m:Label text="Open" width="8rem" />
+											<m:Label text="{summary/open_amount} {summary/currency}" />
+										</m:HBox>
+										<m:HBox>
+											<m:Label text="Plan " width="8rem" />
+											<m:Label text="{summary/pay_plan}" />
+										</m:HBox>
+
+										<m:Toolbar width="100%" height="10px"/>
+										<m:Title level="H4" text="Recurrences" />
+
+										<m:List
+											items="{recurrences}"
+											selectionChange=".onSelectionChange"
+											mode="None"
+											growing="false"
+											includeItemInSelection="true">
+											<m:CustomListItem>
+												<m:HBox>
+													<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+														<m:Title level="H5" text="{date} - {amount}" />
+														<m:HBox>
+															<m:Label width="6rem" text="Paid "/>
+															<m:Label width="6rem" text="{paid}"/>
+														</m:HBox>
+														<m:HBox>
+															<m:Label width="6rem" text="Open "/>
+															<m:Label width="6rem" text="{open}"/>
+														</m:HBox>
+													</m:VBox>
+													<m:VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+														<m:Title level="H5" text="Collections" />
+														<m:List
+															items="{path: 'collections'}"
+															mode="None"
+															growing="false"
+															includeItemInSelection="true">
+															<m:CustomListItem>
+																<m:Label text="{date} - {amount} {currency} ({description})" wrapping="false" />
+															</m:CustomListItem>
+														</m:List>
+													</m:VBox>
+												</m:HBox>
+											</m:CustomListItem>
+										</m:List>
+									</m:CustomListItem>
+								</m:List>
+							</m:VBox>
+						</m:HBox>
+					</m:VBox>
+				</m:CustomListItem>
+			</m:List>
+		</m:content>
+		<m:footer>
+			<m:Toolbar>
+			<m:ToolbarSpacer />
+			<m:Button
+				press="onPrint"
+				text="Print"
+				icon="sap-icon://print"
+				type="Emphasized" />
+			</m:Toolbar>
+      </m:footer>
+	</m:Page>
+</mvc:View>

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../../etc/config/kifu"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

@@ -1,0 +1,85 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+	xmlns:lab="it.designfuture.chartjs"
+    height="100%">
+	<m:Page
+		id="listPage"
+		title="Bank Account Balances"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<m:HBox>
+				<Table
+					rows="{/Balances}"
+					selectionMode="None"
+					width="40rem"
+					ariaLabelledBy="title">
+					<extension>
+						<m:OverflowToolbar style="Clear">
+							<m:Title id="title" text="Balances"/>
+						</m:OverflowToolbar>
+					</extension>
+					<columns>
+						<Column width="12rem">
+							<m:Label text="Account" />
+							<template>
+								<m:Text text="{name}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="Own Balance" />
+							<template>
+								<u:Currency value="{original_balance}" currency="{original_currency}"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="Partner Balance" />
+							<template>
+								<u:Currency value="{partner_original_balance}" currency="{original_currency}"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="Joint Balance" />
+							<template>
+								<u:Currency value="{joint_original_balance}" currency="{original_currency}"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="₺ Balance" />
+							<template>
+								<u:Currency value="{joint_home_balance}" currency="₺"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="₺ Reserved" />
+							<template>
+								<u:Currency value="{home_reserved}" currency="₺"/>
+							</template>
+						</Column>
+						<Column width="12rem" hAlign="End">
+							<m:Label text="₺ Usable" />
+							<template>
+								<u:Currency value="{home_usable}" currency="₺"/>
+							</template>
+						</Column>
+					</columns>
+				</Table>
+
+				<m:Panel width="40em" class="sapUiResponsiveMargin">
+					<lab:PieChartJS
+						id="pie_chart"
+						datasets="{/PieChart/datasets}"
+						labels="{/PieChart/labels}"
+						titleDisplay="true"
+						titleText="Pie Chart">
+					</lab:PieChartJS>
+				</m:Panel>
+			</m:HBox>
+		</m:content>
+	</m:Page>
+</mvc:View>

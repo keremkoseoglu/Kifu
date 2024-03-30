@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e9426dbb-3fb1-4b8a-a106-5626c2c53f6c" name="Default" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Kifu$main.coverage" NAME="main Coverage Results" MODIFIED="1578570577225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Kifu$test_currency_update.coverage" NAME="test_currency_update Coverage Results" MODIFIED="1531473658948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/Kifu$test_currency_conversion.coverage" NAME="test_currency_conversion Coverage Results" MODIFIED="1531475075097" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1X1S7KVL543K5r9Fhy2ssOUTDM1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="get_formatted_Date&#9;null&#9;null&#10;_get_formatted_date&#9;null&#9;null&#10;_get_formatted_amount&#9;null&#9;null&#10;get_formatted_Amount&#9;null&#9;null&#10;double_click&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.stylelint" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/util" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Kifu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_currency_conversion" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Kifu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_currency_conversion.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_currency_update" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Kifu" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_currency_update.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.test_currency_update" />
+      <item itemvalue="Python.test_currency_conversion" />
+      <item itemvalue="Python.main" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.test_currency_conversion" />
+        <item itemvalue="Python.test_currency_update" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e9426dbb-3fb1-4b8a-a106-5626c2c53f6c" name="Default" comment="" />
+      <created>1531148077932</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1531148077932</updated>
+      <workItem from="1545712515669" duration="988000" />
+      <workItem from="1546779081168" duration="569000" />
+      <workItem from="1550754947878" duration="736000" />
+      <workItem from="1550810116557" duration="12126000" />
+      <workItem from="1550842195093" duration="91000" />
+      <workItem from="1551013285730" duration="5001000" />
+      <workItem from="1551086600302" duration="6673000" />
+      <workItem from="1551158038041" duration="6037000" />
+      <workItem from="1551174632630" duration="309000" />
+      <workItem from="1551182283469" duration="4027000" />
+      <workItem from="1551437062840" duration="361000" />
+      <workItem from="1551677902105" duration="5545000" />
+      <workItem from="1551759717261" duration="1099000" />
+      <workItem from="1551878635060" duration="27000" />
+      <workItem from="1551944004357" duration="2608000" />
+      <workItem from="1551947942038" duration="3000" />
+      <workItem from="1552280048181" duration="513000" />
+      <workItem from="1554439626859" duration="345000" />
+      <workItem from="1554715080363" duration="1124000" />
+      <workItem from="1555418155300" duration="316000" />
+      <workItem from="1557380063420" duration="525000" />
+      <workItem from="1561651093758" duration="203000" />
+      <workItem from="1564489629950" duration="752000" />
+      <workItem from="1565023486373" duration="109000" />
+      <workItem from="1565183415941" duration="294000" />
+      <workItem from="1565282163893" duration="273000" />
+      <workItem from="1565371688194" duration="969000" />
+      <workItem from="1565372857056" duration="1159000" />
+      <workItem from="1565374071763" duration="591000" />
+      <workItem from="1565374781039" duration="832000" />
+      <workItem from="1565448665745" duration="1000000" />
+      <workItem from="1565608951789" duration="1446000" />
+      <workItem from="1565617676069" duration="2081000" />
+      <workItem from="1565623169106" duration="2129000" />
+      <workItem from="1565692186320" duration="923000" />
+      <workItem from="1567077439397" duration="2132000" />
+      <workItem from="1567079893145" duration="241000" />
+      <workItem from="1567339246217" duration="291000" />
+      <workItem from="1567340006808" duration="556000" />
+      <workItem from="1567490213537" duration="4661000" />
+      <workItem from="1567672234858" duration="66000" />
+      <workItem from="1570098198168" duration="1122000" />
+      <workItem from="1571114208000" duration="368000" />
+      <workItem from="1571890518664" duration="45000" />
+      <workItem from="1575260510142" duration="4000" />
+      <workItem from="1575606270125" duration="978000" />
+      <workItem from="1575634135766" duration="691000" />
+      <workItem from="1575884900009" duration="552000" />
+      <workItem from="1575885533031" duration="12000" />
+      <workItem from="1577948935735" duration="831000" />
+      <workItem from="1577950118640" duration="89000" />
+      <workItem from="1578026150889" duration="420000" />
+      <workItem from="1578036104067" duration="8000" />
+      <workItem from="1578553612299" duration="2323000" />
+      <workItem from="1578558598660" duration="4268000" />
+      <workItem from="1578568127995" duration="628000" />
+      <workItem from="1578570157022" duration="420000" />
+      <workItem from="1578745120679" duration="10000" />
+      <workItem from="1579063650142" duration="18000" />
+      <workItem from="1580211940055" duration="532000" />
+      <workItem from="1580444988597" duration="1348000" />
+      <workItem from="1580805113478" duration="1517000" />
+      <workItem from="1580813123303" duration="1468000" />
+      <workItem from="1581050638705" duration="452000" />
+      <workItem from="1581914832262" duration="72000" />
+      <workItem from="1582862126734" duration="185000" />
+      <workItem from="1583840390023" duration="2166000" />
+      <workItem from="1583901909815" duration="19143000" />
+      <workItem from="1583940596860" duration="518000" />
+      <workItem from="1583985469035" duration="352000" />
+      <workItem from="1583986676637" duration="4032000" />
+      <workItem from="1584024963427" duration="4000" />
+      <workItem from="1584074261866" duration="479000" />
+      <workItem from="1584345954050" duration="14000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="782" y="492" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583996461445">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state x="782" y="492" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1920.1124@0.23.1920.1124" timestamp="1583996461445" />
+    <state x="1043" y="592" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.2560.1364@0.23.2560.1364" timestamp="1583940920358" />
+    <state width="2518" height="238" key="GridCell.Tab.0.bottom" timestamp="1584074741395">
+      <screen x="0" y="23" width="2560" height="1364" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.0.bottom/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617314" />
+    <state width="2518" height="238" key="GridCell.Tab.0.bottom/0.23.2560.1364@0.23.2560.1364" timestamp="1584074741395" />
+    <state width="2518" height="238" key="GridCell.Tab.0.center" timestamp="1584074741394">
+      <screen x="0" y="23" width="2560" height="1364" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.0.center/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617314" />
+    <state width="2518" height="238" key="GridCell.Tab.0.center/0.23.2560.1364@0.23.2560.1364" timestamp="1584074741394" />
+    <state width="2518" height="238" key="GridCell.Tab.0.left" timestamp="1584074741393">
+      <screen x="0" y="23" width="2560" height="1364" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.0.left/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617313" />
+    <state width="2518" height="238" key="GridCell.Tab.0.left/0.23.2560.1364@0.23.2560.1364" timestamp="1584074741393" />
+    <state width="2518" height="238" key="GridCell.Tab.0.right" timestamp="1584074741394">
+      <screen x="0" y="23" width="2560" height="1364" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.0.right/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617314" />
+    <state width="2518" height="238" key="GridCell.Tab.0.right/0.23.2560.1364@0.23.2560.1364" timestamp="1584074741394" />
+    <state width="1878" height="233" key="GridCell.Tab.1.bottom" timestamp="1583996617316">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.1.bottom/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617316" />
+    <state width="1878" height="233" key="GridCell.Tab.1.center" timestamp="1583996617315">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.1.center/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617315" />
+    <state width="1878" height="233" key="GridCell.Tab.1.left" timestamp="1583996617315">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.1.left/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617315" />
+    <state width="1878" height="233" key="GridCell.Tab.1.right" timestamp="1583996617315">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state width="1878" height="233" key="GridCell.Tab.1.right/0.23.1920.1124@0.23.1920.1124" timestamp="1583996617315" />
+    <state x="637" y="417" key="com.intellij.ide.util.TipDialog" timestamp="1584345955187">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state x="637" y="417" key="com.intellij.ide.util.TipDialog/0.23.1920.1124@0.23.1920.1124" timestamp="1584345955187" />
+    <state x="849" y="501" key="com.intellij.ide.util.TipDialog/0.23.2560.1364@0.23.2560.1364" timestamp="1584074262221" />
+    <state x="618" y="342" width="683" height="486" key="find.popup" timestamp="1583910729899">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state x="618" y="342" width="683" height="486" key="find.popup/0.23.1920.1124@0.23.1920.1124" timestamp="1583910729899" />
+    <state x="625" y="275" width="670" height="676" key="search.everywhere.popup" timestamp="1583995545128">
+      <screen x="0" y="23" width="1920" height="1124" />
+    </state>
+    <state x="625" y="275" width="670" height="676" key="search.everywhere.popup/0.23.1920.1124@0.23.1920.1124" timestamp="1583995545128" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/util/ecz_daha.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Kifu$main.coverage" NAME="main Coverage Results" MODIFIED="1584074716557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="setValue">
+      <expression>
+        <expression-string>'  {    &quot;hours&quot;: 8 ,    &quot;comment&quot;: &quot;VOL-10824 - Debug desteği (1 saat),VOL-1432 - ABAP (1 saat),VOL-10813 - ABAP (2 saat),VOL-10655 - ABAP (2 saat),VOL-9596 - ABAP (2 saat)&quot;  }'</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+</project>
