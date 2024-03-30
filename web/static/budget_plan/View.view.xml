@@ -1,0 +1,42 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		title="Budget Plan"
+		enableScrolling="true"
+		class="sapUiContentPadding">
+		<m:content>
+			<m:List
+				id="idList"
+				width="30em"
+				items="{
+					path: '/',
+					sorter: {
+						path: 'domain',
+						descending: false,
+						group: true
+					},
+					groupHeaderFactory: '.getGroupHeader'
+				}">
+				<m:headerToolbar>
+					<m:OverflowToolbar>
+						<m:Title text="Details" />
+					</m:OverflowToolbar>
+				</m:headerToolbar>
+				<m:CustomListItem>
+					<m:HBox>
+						<m:Label width="10em" text="{icon} {subject}" />
+						<m:Label width="7em" textAlign="End" text="{monthly_plan_amount} {currency_symbol}" />
+						<m:Label width="7em" textAlign="End" text="{annual_plan_amount} {currency_symbol}" />
+					</m:HBox>
+				</m:CustomListItem>
+			</m:List>
+
+		</m:content>
+	</m:Page>
+</mvc:View>
