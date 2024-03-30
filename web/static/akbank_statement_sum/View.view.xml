@@ -1,0 +1,56 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		title="Activities"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<Table
+				rows="{/statement}"
+				selectionMode="None"
+				visibleRowCountMode="Fixed"
+				ariaLabelledBy="title">
+				<columns>
+					<Column width="24rem">
+						<m:Label text="Text" />
+						<template>
+							<m:Text text="{text}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="6rem">
+						<m:Label text="Amount" />
+						<template>
+							<m:Text text="{amount}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="6rem">
+						<m:Label text="Currency" />
+						<template>
+							<m:Text text="{currency}" wrapping="false" />
+						</template>
+					</Column>
+					<Column width="24rem">
+						<m:Label text="Subject" />
+						<template>
+							<m:ComboBox value="{value}" items="{/subjects}">
+								<c:Item text="{name}"/>
+							</m:ComboBox>
+						</template>
+					</Column>
+				</columns>
+			</Table>
+		</m:content>
+		<m:footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer/>
+				<m:Button type="Accept" text="Save" press="onSave" />
+			</m:OverflowToolbar>
+		</m:footer>
+	</m:Page>
+</mvc:View>

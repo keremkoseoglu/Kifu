@@ -1,0 +1,14 @@
+{
+    "companies": [
+        {
+            "name": "Demo",
+            "contact_person": "Demo",
+            "address": "Demo",
+            "country": "Turkey",
+            "phone": "+90 532 1111111",
+            "tax_number": "111 111 1111",
+            "tax_office": "Demo",
+            "email": "demo@demo.com"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+   "invoices": [
+      {
+         "guid": "bd4e689589944f59a238789cb1db8800",
+         "serial": "GIB1111111111111",
+         "payer": "Demo",
+         "invoice_date": "2020-05-31 00:00:00",
+         "due_date": "2020-07-01 00:00:00",
+         "amount": 100,
+         "currency": "TRY",
+         "vat_rate": 18.0,
+         "income_tax_rate": 30.0,
+         "file_path": "/Users/kerem/Documents/kifu/demo/earsiv/2020.05/8bffeea4-de8b-46e7-ae2d-1f046461387e_f/8bffeea4-de8b-46e7-ae2d-1f046461387e_f.html"
+      }
+   ]
+}

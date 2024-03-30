@@ -1,0 +1,5 @@
+{
+    "python.pythonPath": "venv2/bin/python",
+    "git.ignoreLimitWarning": true,
+    "python.linting.pylintEnabled": true
+}
