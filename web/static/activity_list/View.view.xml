@@ -1,0 +1,117 @@
+<mvc:View
+	controllerName="sap.ui.table.sample.Basic.Controller"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified"
+	xmlns:c="sap.ui.core"
+	xmlns:m="sap.m"
+    height="100%">
+	<m:Page
+		title="Activities"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<m:content>
+			<m:VBox>
+				<Table
+					rows="{/today}"
+					selectionMode="None"
+					visibleRowCountMode="Fixed"
+					visibleRowCount="1"
+					ariaLabelledBy="title">
+					<extension>
+						<m:OverflowToolbar style="Clear">
+							<m:Title id="title_today" text="Today"/>
+						</m:OverflowToolbar>
+					</extension>
+					<columns>
+						<Column width="12rem">
+							<m:Label text="Date" />
+							<template>
+								<m:Text text="{date}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Project" />
+							<template>
+								<m:Text text="{client_name} - {project_name}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Location" />
+							<template>
+								<m:Text text="{location}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Hours" />
+							<template>
+								<m:Text text="{duration}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Work" />
+							<template>
+								<m:Text text="{work}" wrapping="false" />
+							</template>
+						</Column>
+					</columns>
+				</Table>
+
+				<Table
+					rows="{/all}"
+					selectionMode="None"
+					visibleRowCountMode="Auto"
+					ariaLabelledBy="title">
+					<extension>
+						<m:OverflowToolbar style="Clear">
+							<m:Title id="title_all" text="All"/>
+						</m:OverflowToolbar>
+					</extension>
+					<columns>
+						<Column width="12rem">
+							<m:Label text="Date" />
+							<template>
+								<m:Text text="{date}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Project" />
+							<template>
+								<m:Text text="{client_name} - {project_name}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Location" />
+							<template>
+								<m:Text text="{location}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Hours" />
+							<template>
+								<m:Text text="{duration}" wrapping="false" />
+							</template>
+						</Column>
+						<Column width="12rem">
+							<m:Label text="Work" />
+							<template>
+								<m:Text text="{work}" wrapping="false" />
+							</template>
+						</Column>
+					</columns>
+				</Table>
+
+				<m:HBox>
+					<m:Label text="Hour sum: " />
+					<m:Label text="{/hour_sum}" />
+				</m:HBox>
+
+				<m:HBox>
+					<m:Label text="Day sum: " />
+					<m:Label text="{/day_sum}" />
+				</m:HBox>
+
+			</m:VBox>
+		</m:content>
+	</m:Page>
+</mvc:View>
