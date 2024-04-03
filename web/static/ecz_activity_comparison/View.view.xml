@@ -1,0 +1,104 @@
+<mvc:View
+    controllerName="sap.ui.table.sample.Basic.Controller"
+    xmlns="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns:c="sap.ui.core"
+    xmlns:m="sap.m"
+    height="100%">
+    <m:Page
+        id="listPage"
+        title="Ecz Activity Comparison"
+        enableScrolling="true"
+        class="sapUiContentPadding">
+        <m:content>
+            <m:VBox>
+                <Table
+                    rows="{/ThisMonth}"
+                    selectionMode="None"
+                    ariaLabelledBy="title">
+                    <extension>
+                        <m:OverflowToolbar style="Clear">
+                            <m:Title id="title" text="This Month"/>
+                        </m:OverflowToolbar>
+                    </extension>
+                    <columns>
+                        <Column width="12rem">
+                            <m:Label text="Different" />
+                            <template>
+                                <m:Text text="{different}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Date" />
+                            <template>
+                                <m:Text text="{date}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Ecz" />
+                            <template>
+                                <m:Text text="{ecz_hours}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Kifu" />
+                            <template>
+                                <m:Text text="{kifu_hours}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Comments" />
+                            <template>
+                                <m:Text text="{comment}" wrapping="false" />
+                            </template>
+                        </Column>
+                    </columns>
+                </Table>
+
+                <Table
+                    rows="{/PrevMonth}"
+                    selectionMode="None"
+                    ariaLabelledBy="title">
+                    <extension>
+                        <m:OverflowToolbar style="Clear">
+                            <m:Title id="title2" text="Prev Month"/>
+                        </m:OverflowToolbar>
+                    </extension>
+                    <columns>
+                        <Column width="12rem">
+                            <m:Label text="Different" />
+                            <template>
+                                <m:Text text="{different}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Date" />
+                            <template>
+                                <m:Text text="{date}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Ecz" />
+                            <template>
+                                <m:Text text="{ecz_hours}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Kifu" />
+                            <template>
+                                <m:Text text="{kifu_hours}" wrapping="false" />
+                            </template>
+                        </Column>
+                        <Column width="12rem" hAlign="End">
+                            <m:Label text="Comments" />
+                            <template>
+                                <m:Text text="{comment}" wrapping="false" />
+                            </template>
+                        </Column>
+                    </columns>
+                </Table>
+            </m:VBox>
+        </m:content>
+    </m:Page>
+</mvc:View>

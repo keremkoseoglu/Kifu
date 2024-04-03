@@ -1,0 +1,24 @@
+{
+	"name": "sap.ui.mdc",
+	"version": "0.0.1",
+	"private": true,
+	"sapux": true,
+	"keywords": [
+		"ui5",
+		"openui5",
+		"sapui5"
+	],
+	"scripts": {
+		"build": "ui5 build -a --clean-dest --include-task=generateCachebusterInfo",
+		"deploy-config": "fiori add deploy-config"
+	},
+	"devDependencies": {
+		"@ui5/cli": "^2.14.1",
+		"@sap/ux-ui5-tooling": "1"
+	},
+	"ui5": {
+		"dependencies": [
+			"@sap/ux-ui5-tooling"
+		]
+	}
+}

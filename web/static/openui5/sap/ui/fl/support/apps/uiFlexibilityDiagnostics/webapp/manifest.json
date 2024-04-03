@@ -1,0 +1,48 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "sap.ui.fl.support.apps.uiFlexibilityDiagnostics",
+        "type": "application",
+        "resources": "resources.json",
+        "i18n": "i18n/i18n.properties",
+        "title": "{{shellTitle}}",
+        "subTitle": "{{shellSubTitle}}",
+        "applicationVersion": {
+            "version": "1.58.0"
+        },
+        "ach": "CA-UI5-FL-CLN",
+        "sourceTemplate": {
+            "id": "@sap/ux-app-migrator:freestyle",
+            "version": "1.8.2",
+            "toolsId": "8d5c2a63-1943-4065-aea9-8d674ead6432"
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {},
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "rootView": "sap.ui.fl.support.apps.uiFlexibilityDiagnostics.view.Root",
+        "handleValidation": true,
+        "dependencies": {
+            "minUI5Version": "1.58.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.suite.ui.commons": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    }
+}
