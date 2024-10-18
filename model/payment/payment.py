@@ -136,6 +136,20 @@ def get_open_vat_payments() -> List:
     return output
 
 
+def get_open_income_tax_payments() -> List:
+    """Returns open VAT payments"""
+    output = []
+    all_payments = get_payments()
+
+    for payment in all_payments["payments"]:
+        payment_obj = Payment(payment)
+        if payment_obj.is_income_tax and (not payment_obj.cleared):
+            output.append(payment_obj)
+            continue
+
+    return output
+
+
 def get_open_payments_of_company(company: str) -> List:
     """Returns open payments of company"""
     output = []
@@ -897,11 +911,11 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
     output.append(incoming_payment_obj)
 
-    # VAT transfer
-
-    if invoice.is_vat_liable:
+    # VAT
+    if invoice.is_vat_liable and invoice.vat_amount_in_local_currency > 0:
         vat_amount = invoice.vat_amount_in_local_currency
 
+        # VAT transfer
         vat_transfer_json = {
             "guid": identifier.get_guid(),
             "creation_date": datetime.datetime.now().isoformat(),
@@ -940,9 +954,7 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
 
         output.append(vat_transfer_payment_obj)
 
-    # VAT payment
-
-    if invoice.is_vat_liable:
+        # VAT payment
         vat_amount = invoice.vat_amount_in_local_currency
 
         vat_payment_json = {
@@ -985,133 +997,132 @@ def get_payment_objects_from_invoice(invoice: Invoice) -> list:
         output.append(vat_payment_payment_obj)
 
     # Income tax investment & transfer
-
     itax_amount = currency_converter.convert_to_local_currency(
         invoice.income_tax_amount, invoice_currency
     )
 
-    itax_investment_rate = 100
-    itax_investment_rate -= inc_tax_calc.safety_tax_rate
-    itax_investment_rate -= inc_tax_calc.temp_tax_rate
-    itax_investment_amount = itax_amount * itax_investment_rate / 100
-    itax_amount -= itax_investment_amount
+    if itax_amount > 0:
+        itax_investment_rate = 100
+        itax_investment_rate -= inc_tax_calc.safety_tax_rate
+        itax_investment_rate -= inc_tax_calc.temp_tax_rate
+        itax_investment_amount = itax_amount * itax_investment_rate / 100
+        itax_amount -= itax_investment_amount
 
-    itax_transfer_json = {
-        "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
-        "company": config.CONSTANTS["DEFAULT_BANK"],
-        "description": description_prefix + " - income tax investment",
-        "invoice_guid": "",
-        "direction": DIRECTION_TRANSFER,
-        "amount": itax_investment_amount,
-        "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False,
-    }
+        itax_transfer_json = {
+            "guid": identifier.get_guid(),
+            "creation_date": datetime.datetime.now().isoformat(),
+            "company": config.CONSTANTS["DEFAULT_BANK"],
+            "description": description_prefix + " - income tax investment",
+            "invoice_guid": "",
+            "direction": DIRECTION_TRANSFER,
+            "amount": itax_investment_amount,
+            "currency": config.CONSTANTS["HOME_CURRENCY"],
+            "cleared": False,
+        }
 
-    itax_transfer_date = invoice.income_tax_transfer_date
+        itax_transfer_date = invoice.income_tax_transfer_date
 
-    itax_transfer_scheme_json = {
-        "frequency": 1,
-        "period": PERIOD_DAILY,
-        "start": itax_transfer_date.isoformat(),
-        "repeat": 1,
-        "recurrence": [
-            {
-                "recurrence_date": itax_transfer_date.isoformat(),
-                "expected_payment_date": itax_transfer_date.isoformat(),
-                "amount": itax_amount,
-                "currency": config.CONSTANTS["HOME_CURRENCY"],
-                "cleared": False,
-                "collections": [],
-            }
-        ],
-    }
+        itax_transfer_scheme_json = {
+            "frequency": 1,
+            "period": PERIOD_DAILY,
+            "start": itax_transfer_date.isoformat(),
+            "repeat": 1,
+            "recurrence": [
+                {
+                    "recurrence_date": itax_transfer_date.isoformat(),
+                    "expected_payment_date": itax_transfer_date.isoformat(),
+                    "amount": itax_amount,
+                    "currency": config.CONSTANTS["HOME_CURRENCY"],
+                    "cleared": False,
+                    "collections": [],
+                }
+            ],
+        }
 
-    itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
-    itax_transfer_payment_obj = Payment(itax_transfer_json)
-    itax_transfer_payment_obj.scheme = itax_transfer_scheme_obj
-    output.append(itax_transfer_payment_obj)
+        itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
+        itax_transfer_payment_obj = Payment(itax_transfer_json)
+        itax_transfer_payment_obj.scheme = itax_transfer_scheme_obj
+        output.append(itax_transfer_payment_obj)
 
-    itax_transfer_json = {
-        "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
-        "company": config.CONSTANTS["DEFAULT_BANK"],
-        "description": description_prefix + " - income tax transfer",
-        "invoice_guid": "",
-        "direction": DIRECTION_TRANSFER,
-        "amount": itax_amount,
-        "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False,
-    }
+        itax_transfer_json = {
+            "guid": identifier.get_guid(),
+            "creation_date": datetime.datetime.now().isoformat(),
+            "company": config.CONSTANTS["DEFAULT_BANK"],
+            "description": description_prefix + " - income tax transfer",
+            "invoice_guid": "",
+            "direction": DIRECTION_TRANSFER,
+            "amount": itax_amount,
+            "currency": config.CONSTANTS["HOME_CURRENCY"],
+            "cleared": False,
+        }
 
-    itax_transfer_date = invoice.income_tax_transfer_date
+        itax_transfer_date = invoice.income_tax_transfer_date
 
-    itax_transfer_scheme_json = {
-        "frequency": 1,
-        "period": PERIOD_DAILY,
-        "start": itax_transfer_date.isoformat(),
-        "repeat": 1,
-        "recurrence": [
-            {
-                "recurrence_date": itax_transfer_date.isoformat(),
-                "expected_payment_date": itax_transfer_date.isoformat(),
-                "amount": itax_amount,
-                "currency": config.CONSTANTS["HOME_CURRENCY"],
-                "cleared": False,
-                "collections": [],
-            }
-        ],
-    }
+        itax_transfer_scheme_json = {
+            "frequency": 1,
+            "period": PERIOD_DAILY,
+            "start": itax_transfer_date.isoformat(),
+            "repeat": 1,
+            "recurrence": [
+                {
+                    "recurrence_date": itax_transfer_date.isoformat(),
+                    "expected_payment_date": itax_transfer_date.isoformat(),
+                    "amount": itax_amount,
+                    "currency": config.CONSTANTS["HOME_CURRENCY"],
+                    "cleared": False,
+                    "collections": [],
+                }
+            ],
+        }
 
-    itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
-    itax_transfer_payment_obj = Payment(itax_transfer_json)
-    itax_transfer_payment_obj.scheme = itax_transfer_scheme_obj
-    output.append(itax_transfer_payment_obj)
+        itax_transfer_scheme_obj = Scheme(itax_transfer_scheme_json)
+        itax_transfer_payment_obj = Payment(itax_transfer_json)
+        itax_transfer_payment_obj.scheme = itax_transfer_scheme_obj
+        output.append(itax_transfer_payment_obj)
 
-    # Income tax payment
+        # Income tax payment
+        itax_amount = currency_converter.convert_to_local_currency(
+            invoice.income_tax_amount, invoice_currency
+        )
 
-    itax_amount = currency_converter.convert_to_local_currency(
-        invoice.income_tax_amount, invoice_currency
-    )
+        itax_payment_json = {
+            "guid": identifier.get_guid(),
+            "creation_date": datetime.datetime.now().isoformat(),
+            "company": config.CONSTANTS["HOME_GOVERNMENT"],
+            "description": description_prefix + " - income tax payment",
+            "invoice_guid": "",
+            "direction": DIRECTION_OUT,
+            "amount": itax_amount,
+            "currency": config.CONSTANTS["HOME_CURRENCY"],
+            "cleared": False,
+            "is_income_tax": True,
+        }
 
-    itax_payment_json = {
-        "guid": identifier.get_guid(),
-        "creation_date": datetime.datetime.now().isoformat(),
-        "company": config.CONSTANTS["HOME_GOVERNMENT"],
-        "description": description_prefix + " - income tax payment",
-        "invoice_guid": "",
-        "direction": DIRECTION_OUT,
-        "amount": itax_amount,
-        "currency": config.CONSTANTS["HOME_CURRENCY"],
-        "cleared": False,
-        "is_income_tax": True,
-    }
+        itax_payment_date = invoice.income_tax_payment_date
 
-    itax_payment_date = invoice.income_tax_payment_date
+        itax_payment_scheme_json = {
+            "frequency": 1,
+            "period": PERIOD_DAILY,
+            "start": itax_payment_date.isoformat(),
+            "repeat": 1,
+            "recurrence": [
+                {
+                    "recurrence_date": itax_payment_date.isoformat(),
+                    "expected_payment_date": itax_payment_date.isoformat(),
+                    "amount": itax_amount,
+                    "currency": config.CONSTANTS["HOME_CURRENCY"],
+                    "cleared": False,
+                    "collections": [],
+                }
+            ],
+        }
 
-    itax_payment_scheme_json = {
-        "frequency": 1,
-        "period": PERIOD_DAILY,
-        "start": itax_payment_date.isoformat(),
-        "repeat": 1,
-        "recurrence": [
-            {
-                "recurrence_date": itax_payment_date.isoformat(),
-                "expected_payment_date": itax_payment_date.isoformat(),
-                "amount": itax_amount,
-                "currency": config.CONSTANTS["HOME_CURRENCY"],
-                "cleared": False,
-                "collections": [],
-            }
-        ],
-    }
+        itax_payment_scheme_obj = Scheme(itax_payment_scheme_json)
 
-    itax_payment_scheme_obj = Scheme(itax_payment_scheme_json)
+        itax_payment_payment_obj = Payment(itax_payment_json)
+        itax_payment_payment_obj.scheme = itax_payment_scheme_obj
 
-    itax_payment_payment_obj = Payment(itax_payment_json)
-    itax_payment_payment_obj.scheme = itax_payment_scheme_obj
-
-    output.append(itax_payment_payment_obj)
+        output.append(itax_payment_payment_obj)
 
     # Alms
 
