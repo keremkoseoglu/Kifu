@@ -1,4 +1,5 @@
 """ Flask web server module """
+
 from threading import Thread
 import webbrowser
 import json

@@ -1,4 +1,5 @@
 """ Invoice list window """
+
 import tkinter.ttk
 from typing import List
 from util import amount, backup, date_time, invoice_label
@@ -8,11 +9,12 @@ from gui.prime_singleton import PrimeSingleton
 from gui.font import default_font
 from model.timesheet.invoice import Invoice
 from model.timesheet.invoice_file_reader import get_invoices
-from model.payment import payment
+from model.payment.invoice_payment import InvoicePaymentSet
 import config
 
+
 class InvoiceListWindow(tkinter.Toplevel):
-    """ Invoice list window """
+    """Invoice list window"""
 
     _BUTTON_WIDTH = 150
     _WINDOW_WIDTH = 1200
@@ -26,7 +28,9 @@ class InvoiceListWindow(tkinter.Toplevel):
 
         # Build tree
         self._tree = tkinter.ttk.Treeview(self)
-        tree_height = self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
+        tree_height = (
+            self._WINDOW_HEIGHT - config.CONSTANTS["GUI_CELL_HEIGHT"] - self._Y_SPACING
+        )
         self._tree.place(x=0, y=0, width=self._WINDOW_WIDTH, height=tree_height)
         cell_y = tree_height + self._Y_SPACING
 
@@ -45,38 +49,36 @@ class InvoiceListWindow(tkinter.Toplevel):
         # Buttons
         cell_x = 0
 
-        edit_button = tkinter.Button(self,
-                                     text="Edit",
-                                     command=self._edit_click,
-                                     font=default_font())
+        edit_button = tkinter.Button(
+            self, text="Edit", command=self._edit_click, font=default_font()
+        )
         edit_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self,
-                                        text="Create payments",
-                                        command=self._payment_click,
-                                        font=default_font())
+        invoice_button = tkinter.Button(
+            self,
+            text="Create payments",
+            command=self._payment_click,
+            font=default_font(),
+        )
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH * 2
 
-        email_button = tkinter.Button(self,
-                                      text="E-Mail",
-                                      command=self._email_click,
-                                      font=default_font())
+        email_button = tkinter.Button(
+            self, text="E-Mail", command=self._email_click, font=default_font()
+        )
         email_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        label_button = tkinter.Button(self,
-                                      text="Labels",
-                                      command=self._label_click,
-                                      font=default_font())
+        label_button = tkinter.Button(
+            self, text="Labels", command=self._label_click, font=default_font()
+        )
         label_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
-        invoice_button = tkinter.Button(self,
-                                        text="Delete",
-                                        command=self._delete_click,
-                                        font=default_font())
+        invoice_button = tkinter.Button(
+            self, text="Delete", command=self._delete_click, font=default_font()
+        )
         invoice_button.place(x=cell_x, y=cell_y)
         cell_x += self._BUTTON_WIDTH
 
@@ -134,16 +136,18 @@ class InvoiceListWindow(tkinter.Toplevel):
             invoice_obj = Invoice(invoice_line)
             tree_val = (
                 invoice_obj.payer.name,
-                amount.get_formatted_amount(invoice_obj.amount) + " " + invoice_obj.currency,
+                amount.get_formatted_amount(invoice_obj.amount)
+                + " "
+                + invoice_obj.currency,
                 invoice_obj.serial,
-                invoice_obj.guid
+                invoice_obj.guid,
             )
 
             id_in_tree = self._tree.insert(
-                '',
-                'end',
+                "",
+                "end",
                 text=date_time.get_formatted_date(invoice_obj.invoice_date),
-                value=tree_val
+                value=tree_val,
             )
             self._tree_content[id_in_tree] = invoice_obj
 
@@ -156,9 +160,7 @@ class InvoiceListWindow(tkinter.Toplevel):
         selected_invoices = self._selected_invoices
 
         for selected_invoice in selected_invoices:
-            new_payments = payment.get_payment_objects_from_invoice(selected_invoice)
-            for new_payment in new_payments:
-                new_payment.save()
+            InvoicePaymentSet(selected_invoice).save_payments()
 
         payment_list_window = PaymentListWindow()
         payment_list_window.mainloop()

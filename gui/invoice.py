@@ -1,4 +1,5 @@
 """ Invoice window """
+
 import tkinter
 import webbrowser
 import subprocess
@@ -11,7 +12,7 @@ from gui.font import default_font
 from model.timesheet.invoice import Invoice
 import model.company
 from model.company import Company
-from model.payment import payment
+from model.payment.invoice_payment import InvoicePaymentSet
 from util.file_system import open_file
 import config
 from web.app import startup_url
@@ -209,9 +210,7 @@ class InvoiceWindow(tkinter.Toplevel):
         invoice_obj = model.timesheet.invoice.Invoice(invoice_dict)
         invoice_obj.save()
 
-        new_payments = payment.get_payment_objects_from_invoice(invoice_obj)
-        for new_payment in new_payments:
-            new_payment.save()
+        InvoicePaymentSet(invoice_obj).save_payments()
 
         self._saved()
 
