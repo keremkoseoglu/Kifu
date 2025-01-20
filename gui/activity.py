@@ -1,4 +1,5 @@
 """ Activity window """
+
 import datetime
 import tkinter
 import tkinter.ttk
@@ -56,7 +57,7 @@ class ActivityWindow(tkinter.Toplevel):
             self, "Date", datetime.datetime.now().isoformat(), 0, cell_y
         )
         save_button = tkinter.Button(
-            self, text="Ecz", command=self._ecz_click, font=default_font()
+            self, text="Sanipak", command=self._ecz_click, font=default_font()
         )
         save_button.place(x=(config.CONSTANTS["GUI_CELL_WIDTH"] * 2 + 150), y=cell_y)
         cell_y += config.CONSTANTS["GUI_CELL_HEIGHT"]

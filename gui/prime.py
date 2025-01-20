@@ -1,4 +1,5 @@
 """ Primary window """
+
 import os
 import tkinter
 import urllib
@@ -106,7 +107,7 @@ class Prime:
             label="Workdays without activity", command=Prime._workdays_wo_activity
         )
         timesheet_menu.add_command(
-            label="Ecz activity comparison", command=Prime._ecz_activity
+            label="Sanipak activity comparison", command=Prime._ecz_activity
         )
         self._menu.add_cascade(menu=timesheet_menu, label="Timesheet")
         timesheet_menu.add_command(label="Invoices", command=Prime._list_invoice)
